@@ -1,2 +1,3 @@
-# Projekt
- Simple Content Management System built as part of a college course credit
+# Description
+
+Simple Content Management System built as part of a college course credit
