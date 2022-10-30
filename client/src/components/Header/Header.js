@@ -28,19 +28,28 @@ const Header = (props) => {
             justifyContent: 'space-between',
             overflowX: 'auto',
           }}>
-          <img
-            src='https://seeklogo.com/images/M/material-ui-logo-5BDCB9BA8F-seeklogo.com.png'
-            alt='Logo'
-            style={{ height: '40px', padding: '8px' }}
-          />
-          <Typography
-            component='h2'
-            variant='h5'
+          <Link
             color='inherit'
-            align='left'
-            sx={{ flex: 1, py: 2 }}>
-            {title}
-          </Typography>
+            underline='none'
+            href='/'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+            <img
+              src='https://seeklogo.com/images/M/material-ui-logo-5BDCB9BA8F-seeklogo.com.png'
+              alt='Logo'
+              style={{ height: '40px', padding: '8px' }}
+            />
+            <Typography
+              component='h2'
+              variant='h5'
+              color='inherit'
+              align='left'
+              sx={{ flex: 1, py: 2 }}>
+              {title}
+            </Typography>
+          </Link>
           <List
             sx={{
               display: {
