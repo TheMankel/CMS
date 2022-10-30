@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Box, Typography } from '@mui/material';
-import { purple } from '@mui/material/colors';
-import LinkButton from '../components/Buttons/LinkButton';
+import { grey } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 
 const NotFound = () => {
-  const primary = purple[500];
-  const secondary = purple[900];
+  const primary = grey[500];
+  const secondary = grey[800];
+  const hover = grey[900];
   return (
     <>
       <Box
@@ -17,20 +18,25 @@ const NotFound = () => {
           alignItems: 'center',
           minHeight: '100vh',
           backgroundColor: primary,
+          color: 'white',
         }}>
-        <Typography variant='h1' style={{ color: 'white' }}>
-          404
-        </Typography>
-        <Typography variant='h6' style={{ color: 'white' }}>
+        <Typography variant='h1'>404</Typography>
+        <Typography variant='h6'>
           The page you're looking for doesn't exist.
         </Typography>
-        <LinkButton
-          label='Home'
+        <Button
+          variant='contained'
+          href='/home'
+          color='inherit'
           sx={{
-            backgroundColor: secondary,
             mt: 2,
-          }}
-        />
+            backgroundColor: secondary,
+            ':hover': {
+              backgroundColor: hover,
+            },
+          }}>
+          Home
+        </Button>
       </Box>
     </>
   );
