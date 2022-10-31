@@ -23,7 +23,7 @@ const Subscribe = () => {
               py: 3,
               textAlign: 'center',
             }}>
-            <Typography component='h5' variant='h5'>
+            <Typography component='h5' variant='h5' fontWeight={700}>
               Subscribe Blog for latest updates
             </Typography>
             <Typography component='p' variant='p' color='gray'>
