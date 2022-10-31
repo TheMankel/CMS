@@ -5,14 +5,14 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-function Sidebar(props) {
+const Sidebar = (props) => {
   const { archives, social } = props;
 
   const socialProvided = social.some((network) => network.url !== '');
 
   return (
     <Grid item xs={12} md={4}>
-      <Typography variant='h6' gutterBottom>
+      <Typography component='h4' variant='h6' gutterBottom>
         Archives
       </Typography>
       {archives.map((archive) => (
@@ -25,7 +25,7 @@ function Sidebar(props) {
         </Link>
       ))}
       {socialProvided && (
-        <Typography variant='h6' gutterBottom sx={{ mt: 3 }}>
+        <Typography component='h4' variant='h6' gutterBottom sx={{ mt: 3 }}>
           Social
         </Typography>
       )}
@@ -47,7 +47,7 @@ function Sidebar(props) {
       )}
     </Grid>
   );
-}
+};
 
 Sidebar.propTypes = {
   archives: PropTypes.arrayOf(
