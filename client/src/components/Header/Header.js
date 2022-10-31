@@ -4,7 +4,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
-
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +14,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 const Header = (props) => {
-  const { sections, title } = props;
+  const { sections, title, logo } = props;
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,11 +35,16 @@ const Header = (props) => {
               display: 'flex',
               alignItems: 'center',
             }}>
-            <img
-              src='https://seeklogo.com/images/M/material-ui-logo-5BDCB9BA8F-seeklogo.com.png'
-              alt='Logo'
-              style={{ height: '40px', padding: '8px' }}
-            />
+            {logo && (
+              <img
+                src={logo}
+                alt='Logo'
+                style={{
+                  height: '40px',
+                  padding: '8px',
+                }}
+              />
+            )}
             <Typography
               component='h2'
               variant='h5'
