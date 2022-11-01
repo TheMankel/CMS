@@ -9,7 +9,6 @@ function App() {
     <Routes>
       <Route path='/' element={<Navigate replace to='/home' />} />
       <Route path='/home' element={<HomePage />} />
-      //
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
