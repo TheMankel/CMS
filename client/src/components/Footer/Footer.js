@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Copyright from './Copyright';
+import Copyright from '../Copyright.js/Copyright';
 
 const Footer = (props) => {
   const { description, title, url } = props;
