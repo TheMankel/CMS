@@ -4,7 +4,11 @@ import Link from '@mui/material/Link';
 
 const Copyright = (props) => {
   return (
-    <Typography variant='body2' color='text.secondary' align='center'>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}>
       {'Copyright © '}
       <Link color='inherit' href={props.url}>
         {props.title}
