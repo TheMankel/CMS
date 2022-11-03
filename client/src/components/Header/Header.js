@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import List from '@mui/material/List';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -27,33 +28,72 @@ const Header = (props) => {
             justifyContent: 'space-between',
             overflowX: 'auto',
           }}>
-          <Link
-            color='inherit'
-            underline='none'
-            href='/'
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}>
-            {logo && (
-              <img
-                src={logo}
-                alt='Logo'
-                style={{
-                  height: '40px',
-                  padding: '8px',
-                }}
-              />
-            )}
-            <Typography
-              component='h2'
-              variant='h5'
+          <Drawer anchor='left' open={open} onClose={() => setOpen(false)}>
+            <Box p={2} height={1} textAlign='left'>
+              <IconButton
+                color='inherit'
+                aria-label='close drawer'
+                onClick={() => setOpen(false)}
+                sx={{ mb: 2 }}>
+                <CloseIcon />
+              </IconButton>
+              <Divider sx={{ mb: 1 }} />
+              <List>
+                {sections.map((section) => (
+                  <ListItemButton key={section.title}>
+                    <Link
+                      color='inherit'
+                      variant='button'
+                      underline='none'
+                      href={section.url}
+                      sx={{ px: 1, flexShrink: 0 }}>
+                      {section.title}
+                    </Link>
+                  </ListItemButton>
+                ))}
+              </List>
+            </Box>
+          </Drawer>
+          <div style={{ display: 'flex' }}>
+            <IconButton
               color='inherit'
-              align='left'
-              sx={{ flex: 1, py: 2 }}>
-              {title}
-            </Typography>
-          </Link>
+              aria-label='open drawer'
+              onClick={() => setOpen(true)}
+              sx={{
+                display: {
+                  md: 'none',
+                },
+              }}>
+              <MenuIcon />
+            </IconButton>
+            <Link
+              color='inherit'
+              underline='none'
+              href='/'
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+              {logo && (
+                <img
+                  src={logo}
+                  alt='Logo'
+                  style={{
+                    height: '40px',
+                    padding: '8px',
+                  }}
+                />
+              )}
+              <Typography
+                component='h2'
+                variant='h5'
+                color='inherit'
+                align='left'
+                sx={{ flex: 1, py: 2 }}>
+                {title}
+              </Typography>
+            </Link>
+          </div>
           <List
             sx={{
               display: {
@@ -74,47 +114,27 @@ const Header = (props) => {
               </Link>
             ))}
           </List>
-          <IconButton
+          <Link
             color='inherit'
-            aria-label='open drawer'
-            onClick={() => setOpen(true)}
+            underline='none'
+            href='/login'
             sx={{
-              display: {
-                md: 'none',
-              },
+              display: 'flex',
+              alignItems: 'center',
             }}>
-            <MenuIcon />
-          </IconButton>
-          <Drawer anchor='right' open={open} onClose={() => setOpen(false)}>
-            <Box sx={{ p: 2, height: 1 }}>
-              <IconButton
-                color='inherit'
-                aria-label='close drawer'
-                onClick={() => setOpen(false)}
-                sx={{ mb: 2 }}>
-                <CloseIcon />
-              </IconButton>
-              <Divider sx={{ mb: 1 }} />
-              <List>
-                {sections.map((section) => (
-                  <ListItemButton key={section.title}>
-                    <Link
-                      color='inherit'
-                      variant='button'
-                      underline='none'
-                      noWrap
-                      href={section.url}
-                      sx={{ px: 1, flexShrink: 0 }}>
-                      {section.title}
-                    </Link>
-                  </ListItemButton>
-                ))}
-              </List>
-            </Box>
-          </Drawer>
+            <PermIdentityIcon />
+            <Typography
+              sx={{
+                display: {
+                  sx: 'none',
+                  md: 'block',
+                },
+              }}>
+              Sign In
+            </Typography>
+          </Link>
         </Toolbar>
       </Container>
-
       <Divider sx={{ mb: '24px', boxShadow: 1 }} />
     </>
   );
