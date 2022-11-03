@@ -216,7 +216,11 @@ const Footer = (props) => {
             <Typography component='h5' variant='h5' fontWeight={700}>
               Subscribe Blog for latest updates
             </Typography>
-            <Typography component='p' variant='p' color='gray'>
+            <Typography
+              component='p'
+              variant='p'
+              color='gray'
+              sx={{ mt: '16px' }}>
               Just leave your email address so we can stay in touch
             </Typography>
             <Box
@@ -227,11 +231,13 @@ const Footer = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
                 gap: '24px',
+                mt: '16px',
               }}>
               <TextField
                 id='outlined-basic'
                 label='Enter email address'
                 variant='outlined'
+                size='small'
               />
               <Button
                 variant='contained'
