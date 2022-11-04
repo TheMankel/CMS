@@ -12,7 +12,7 @@ import Footer from '../components/Footer/Footer';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
-import Subscribe from '../components/Subscribe/Subscribe';
+// import Subscribe from '../components/Subscribe/Subscribe';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -137,7 +137,7 @@ const Homepage = () => {
               social={sidebar.social}
             />
           </Grid>
-          <Subscribe />
+          {/* <Subscribe /> */}
         </main>
       </Container>
       <Footer title='Blog' categories={categories} />
