@@ -8,6 +8,7 @@ const Copyright = (props) => {
       variant='body2'
       color='text.secondary'
       align='center'
+      padding={2}
       {...props}>
       {'Copyright © '}
       <Link color='inherit' href={props.url}>
