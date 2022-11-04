@@ -100,6 +100,21 @@ const carouselItems = [
 
 const logo = 'https://source.unsplash.com/random';
 
+const categories = [
+  {
+    title: 'category1',
+    links: ['link1', 'link2', 'link3', 'link4'],
+  },
+  {
+    title: 'category2',
+    links: ['link1', 'link2', 'link3', 'link4'],
+  },
+  {
+    title: 'category3',
+    links: ['link1', 'link2', 'link3', 'link4'],
+  },
+];
+
 const Homepage = () => {
   return (
     <>
@@ -125,10 +140,7 @@ const Homepage = () => {
           <Subscribe />
         </main>
       </Container>
-      <Footer
-        title='Footer'
-        description='Something here to give the footer a purpose!'
-      />
+      <Footer title='Blog' categories={categories} />
     </>
   );
 };
