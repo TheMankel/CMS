@@ -14,9 +14,9 @@ const Footer = (props) => {
   const { title, categories } = props;
 
   return (
-    <Box component='footer' sx={{ bgcolor: 'background.paper', py: 3 }}>
+    <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
+      <Divider sx={{ margin: '16px 0' }} />
       <Container maxWidth='lg'>
-        <Divider sx={{ margin: '16px 0' }} />
         <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
           {categories.map((category, index) => (
             <List
@@ -83,9 +83,9 @@ const Footer = (props) => {
             </Box>
           </List>
         </Box>
-        <Divider sx={{ margin: '16px 0' }} />
-        <Copyright title={title} />
       </Container>
+      <Divider sx={{ mt: '16px' }} />
+      <Copyright title={title} />
     </Box>
   );
 };
