@@ -11,215 +11,49 @@ import Link from '@mui/material/Link';
 import { Divider } from '@mui/material';
 
 const Footer = (props) => {
-  const { description, title, url } = props;
+  const { title, categories } = props;
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper', py: 3 }}>
       <Container maxWidth='lg'>
-        <Typography component='h6' variant='h6' align='center' gutterBottom>
-          {title}
-        </Typography>
-        <Typography
-          variant='subtitle1'
-          align='center'
-          color='text.secondary'
-          component='p'>
-          {description}
-        </Typography>
         <Divider sx={{ margin: '16px 0' }} />
-        <Box display='flex' justifyContent='space-around'>
-          <Box>
-            <Typography>CATEGORIES</Typography>
+        <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
+          {categories.map((category, index) => (
             <List
+              key={index}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 flexWrap: 'wrap',
               }}>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title1
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title2
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title3
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title4
-              </Link>
+              <Typography
+                component='h5'
+                variant='h5'
+                textTransform='capitalize'
+                fontWeight={700}>
+                {category.title.toLowerCase()}
+              </Typography>
+              {category.links.map((link, index) => (
+                <Link
+                  color='#424245'
+                  variant='p'
+                  underline='none'
+                  key={index}
+                  href={link.toLowerCase()}
+                  textTransform='capitalize'>
+                  {link.toLowerCase()}
+                </Link>
+              ))}
             </List>
-          </Box>
-          <Box>
-            <Typography>CATEGORIES</Typography>
-            <List
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'wrap',
-              }}>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title1
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title2
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title3
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title4
-              </Link>
-            </List>
-          </Box>
-          <Box>
-            <Typography>CATEGORIES</Typography>
-            <List
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'wrap',
-              }}>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title1
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title2
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title3
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title4
-              </Link>
-            </List>
-          </Box>
-          <Box>
-            <Typography>CATEGORIES</Typography>
-            <List
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'wrap',
-              }}>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title1
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title2
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title3
-              </Link>
-              <Link
-                color='inherit'
-                variant='button'
-                underline='none'
-                key={1}
-                href='dupa'
-                sx={{ px: 1 }}>
-                title4
-              </Link>
-            </List>
-          </Box>
-          <Box>
+          ))}
+          <List>
             <Typography component='h5' variant='h5' fontWeight={700}>
               Subscribe Blog for latest updates
             </Typography>
             <Typography
               component='p'
               variant='p'
-              color='gray'
+              color='#424245'
               sx={{ mt: '16px' }}>
               Just leave your email address so we can stay in touch
             </Typography>
@@ -229,7 +63,7 @@ const Footer = (props) => {
               autoComplete='off'
               sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 gap: '24px',
                 mt: '16px',
               }}>
@@ -247,16 +81,16 @@ const Footer = (props) => {
                 Subscribe Now
               </Button>
             </Box>
-          </Box>
+          </List>
         </Box>
-        <Copyright title={url} />
+        <Divider sx={{ margin: '16px 0' }} />
+        <Copyright title={title} />
       </Container>
     </Box>
   );
 };
 
 Footer.propTypes = {
-  description: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
