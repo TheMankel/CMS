@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json');
 
 require('dotenv').config();
 
@@ -12,7 +11,7 @@ const port = process.env.PORT || 8000;
 
 // db
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(process.env.SERVICE_ACCOUNT_KEY),
   databaseURL: process.env.DATABASE,
 });
 const db = admin.firestore();
