@@ -11,14 +11,52 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from '../components/Copyright.js/Copyright';
 
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/authContext';
+import axios from 'axios';
+
 const SignUp = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const navigate = useNavigate();
+  const { signup } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    const userCredential = await signup(
+      data.get('email'),
+      data.get('password'),
+    );
+    const { user } = userCredential;
+    console.log(user);
+
+    // await fetch('http://localhost:8000/api/signup', {
+    //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //   mode: 'cors', // no-cors, *cors, same-origin
+    //   credentials: 'same-origin', // include, *same-origin, omit
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   redirect: 'follow',
+    //   body: JSON.stringify(dataToPost),
+    // });
+
+    const dataToPost = {
+      uid: user.uid,
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      email: data.get('email'),
+      password: data.get('password'),
+    };
+
+    navigate('/home');
+    await axios.post('http://localhost:8000/api/signup', dataToPost);
   };
 
   return (
