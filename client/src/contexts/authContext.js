@@ -19,15 +19,15 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signup(email, password) {
+  function signUpHandler(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  function login(email, password) {
+  function signInHandler(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  function logout() {
+  function signOutHandler() {
     return signOut(auth);
   }
 
@@ -42,9 +42,9 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    login,
-    signup,
-    logout,
+    signUpHandler,
+    signInHandler,
+    signOutHandler,
   };
 
   return (
