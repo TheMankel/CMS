@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signUpHandler } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -35,7 +35,7 @@ const SignUp = () => {
     try {
       setLoading(true);
 
-      const userCredential = await signup(
+      const userCredential = await signUpHandler(
         formRef.get('email'),
         formRef.get('password'),
       );
