@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,14 +13,42 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Copyright from '../components/Copyright.js/Copyright';
 
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/authContext';
+
 const SignIn = () => {
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const { signInHandler } = useAuth();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+
+    const formRef = new FormData(e.currentTarget);
+
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: formRef.get('email'),
+      password: formRef.get('password'),
     });
+
+    try {
+      setLoading(true);
+
+      const userCredential = await signInHandler(
+        formRef.get('email'),
+        formRef.get('password'),
+      );
+
+      navigate('/home');
+
+      const { user } = userCredential;
+
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -90,6 +118,7 @@ const SignIn = () => {
               type='submit'
               fullWidth
               variant='contained'
+              disabled={loading}
               sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
