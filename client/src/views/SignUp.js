@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,24 +18,48 @@ import axios from 'axios';
 const SignUp = () => {
   const navigate = useNavigate();
   const { signup } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+
+    const formRef = new FormData(e.currentTarget);
+
     console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
+      firstName: formRef.get('firstName'),
+      lastName: formRef.get('lastName'),
+      email: formRef.get('email'),
+      password: formRef.get('password'),
     });
 
-    const userCredential = await signup(
-      data.get('email'),
-      data.get('password'),
-    );
-    const { user } = userCredential;
-    console.log(user);
+    try {
+      setLoading(true);
 
+      const userCredential = await signup(
+        formRef.get('email'),
+        formRef.get('password'),
+      );
+
+      navigate('/home');
+
+      const { user } = userCredential;
+
+      console.log(user);
+
+      const data = {
+        uid: user.uid,
+        firstName: formRef.get('firstName'),
+        lastName: formRef.get('lastName'),
+        email: formRef.get('email'),
+        password: formRef.get('password'),
+      };
+
+      await axios.post('http://localhost:8000/api/signup', data);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setLoading(false);
     // await fetch('http://localhost:8000/api/signup', {
     //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
     //   mode: 'cors', // no-cors, *cors, same-origin
@@ -46,17 +70,6 @@ const SignUp = () => {
     //   redirect: 'follow',
     //   body: JSON.stringify(dataToPost),
     // });
-
-    const dataToPost = {
-      uid: user.uid,
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    };
-
-    navigate('/home');
-    await axios.post('http://localhost:8000/api/signup', dataToPost);
   };
 
   return (
@@ -124,6 +137,7 @@ const SignUp = () => {
             type='submit'
             fullWidth
             variant='contained'
+            disabled={loading}
             sx={{ mt: 3, mb: 2 }}>
             Sign Up
           </Button>
