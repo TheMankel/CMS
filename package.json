@@ -1,0 +1,33 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "Simple Content Management System built as part of a college course credit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheMankel/CMS.git"
+  },
+  "keywords": [
+    "CMS",
+    "Frontend",
+    "ReactJS",
+    "Backend",
+    "NodeJS",
+    "ExpressJS"
+  ],
+  "author": "Jakub Jankowski, Wojciech Bielawa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheMankel/CMS/issues"
+  },
+  "homepage": "https://github.com/TheMankel/CMS#readme",
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  }
+}
