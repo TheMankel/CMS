@@ -14,6 +14,8 @@ import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 // import Subscribe from '../components/Subscribe/Subscribe';
 
+import { useAuth } from '../contexts/authContext';
+
 const sections = [
   { title: 'Technology', url: '#' },
   { title: 'Design', url: '#' },
@@ -116,10 +118,12 @@ const categories = [
 ];
 
 const Homepage = () => {
+  const { currentUser } = useAuth();
+
   return (
     <>
       <CssBaseline />
-      <Header title='Blog' logo={logo} sections={sections} />
+      <Header user={currentUser} title='Blog' logo={logo} sections={sections} />
       <Container maxWidth='lg'>
         <Slider items={carouselItems} />
         <main>
