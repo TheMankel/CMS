@@ -4,10 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import List from '@mui/material/List';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -16,6 +13,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 import { useAuth } from '../../contexts/authContext';
 

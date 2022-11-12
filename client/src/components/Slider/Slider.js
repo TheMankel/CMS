@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 const Slider = (props) => {
   const { items } = props;
   return (
-    <Carousel animation='slide'>
+    <Carousel animation='slide' sx={{ marginTop: '24px' }}>
       {items.map((item, i) => (
         <Grid item xs={4} key={i}>
           <CardMedia

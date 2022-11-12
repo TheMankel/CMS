@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Copyright from '../Copyright.js/Copyright';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Link from '@mui/material/Link';
-import { Divider } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Copyright from '../Copyright.js/Copyright';
 
 const Footer = (props) => {
   const { title, categories } = props;
