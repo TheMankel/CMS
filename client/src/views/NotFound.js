@@ -1,65 +1,81 @@
 import React from 'react';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { grey } from '@mui/material/colors';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import Container from '@mui/material/Container';
+import { useTheme } from '@mui/material';
+import NotFoundSVG from '../svg/NotFound';
+import MainPublic from '../layouts/MainPublic';
 
 const NotFound = () => {
-  const primary = grey[500];
-  const secondary = grey[800];
-  const hover = grey[900];
+  const theme = useTheme();
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        backgroundColor: primary,
-      }}>
-      <Card
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: '16px',
-        }}>
-        <CardContent
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            gap: 2,
-            textAlign: 'center',
-          }}>
-          <Typography variant='h1'>404</Typography>
-          <Typography variant='h6'>
-            The page you're looking for doesn't exist.
-          </Typography>
-        </CardContent>
-        <CardActions sx={{ padding: '16px' }}>
-          <Button
-            variant='contained'
-            href='/home'
-            color='inherit'
-            sx={{
-              color: 'white',
-              backgroundColor: secondary,
-              ':hover': {
-                backgroundColor: hover,
-              },
-            }}>
-            Home
-          </Button>
-        </CardActions>
-      </Card>
-    </Box>
+    <MainPublic>
+      <Box
+        minHeight={'calc(100vh - 64px - 183px)'}
+        height={'100%'}
+        display={'flex'}
+        alignItems={'center'}
+        bgcolor={theme.palette.grey[400]}>
+        <Container>
+          <Grid container spacing={6}>
+            <Grid item container justifyContent={'center'} xs={12} md={6}>
+              <Box
+                height={'100%'}
+                width={'100%'}
+                maxWidth={{ xs: 500, md: '100%' }}>
+                <NotFoundSVG width={'100%'} height={'100%'} />
+              </Box>
+            </Grid>
+            <Grid
+              item
+              container
+              alignItems={'center'}
+              justifyContent={'center'}
+              xs={12}
+              md={6}>
+              <Box>
+                <Typography
+                  variant='h1'
+                  component={'h1'}
+                  align={'center'}
+                  sx={{ fontWeight: 700 }}>
+                  404
+                </Typography>
+                <Typography
+                  variant='h6'
+                  component='p'
+                  color='textSecondary'
+                  align={'center'}>
+                  Oops! Looks like you followed a bad link.
+                  <br />
+                  If you think this is a problem with us, please{' '}
+                  <Link href={'/contact'} underline='none'>
+                    tell us
+                  </Link>
+                </Typography>
+                <Box
+                  marginTop={4}
+                  display={'flex'}
+                  justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                  <Button
+                    component={Link}
+                    variant='contained'
+                    color='primary'
+                    size='large'
+                    href={'/'}>
+                    Back home
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </MainPublic>
   );
 };
 
