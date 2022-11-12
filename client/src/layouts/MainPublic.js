@@ -43,7 +43,7 @@ const MainPublic = (props) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header user={currentUser} title='Blog' logo={logo} sections={sections} />
-      <div>{props.children}</div>;
+      {props.children}
       <Footer title='Blog' categories={categories} />
     </ThemeProvider>
   );
