@@ -15,7 +15,7 @@ const Footer = (props) => {
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
-      <Divider sx={{ margin: '16px 0' }} />
+      <Divider sx={{ marginBottom: '16px' }} />
       <Container maxWidth='lg'>
         <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
           {categories.map((category, index) => (
