@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -13,10 +13,28 @@ import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+import { useAuth } from '../../contexts/authContext';
 
 const Header = (props) => {
-  const { sections, title, logo } = props;
-  const [open, setOpen] = useState(false);
+  const { user, sections, title, logo } = props;
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const anchorRef = useRef(null);
+  const btnLabel = user ? 'Account' : 'Sign In';
+
+  const { signOutHandler } = useAuth();
+
+  const openMenuHandler = () => {
+    setOpenMenu(true);
+  };
+
+  const closeMenuHandler = () => {
+    setOpenMenu(false);
+  };
 
   return (
     <>
@@ -28,12 +46,15 @@ const Header = (props) => {
             justifyContent: 'space-between',
             overflowX: 'auto',
           }}>
-          <Drawer anchor='left' open={open} onClose={() => setOpen(false)}>
+          <Drawer
+            anchor='left'
+            open={openDrawer}
+            onClose={() => setOpenDrawer(false)}>
             <Box p={2} height={1} textAlign='left'>
               <IconButton
                 color='inherit'
                 aria-label='close drawer'
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenDrawer(false)}
                 sx={{ mb: 2 }}>
                 <CloseIcon />
               </IconButton>
@@ -58,7 +79,7 @@ const Header = (props) => {
             <IconButton
               color='inherit'
               aria-label='open drawer'
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenDrawer(true)}
               sx={{
                 display: {
                   md: 'none',
@@ -114,15 +135,24 @@ const Header = (props) => {
               </Link>
             ))}
           </List>
-          <Link
+          <Button
+            ref={anchorRef}
+            id='menu-button'
+            aria-controls={openMenu ? 'menu' : undefined}
+            aria-expanded={openMenu ? 'true' : undefined}
+            aria-haspopup='true'
             color='inherit'
             underline='none'
             href='/login'
+            startIcon={<PermIdentityIcon />}
+            onMouseOver={openMenuHandler}
+            onMouseLeave={closeMenuHandler}
             sx={{
               display: 'flex',
               alignItems: 'center',
+              zIndex: 1301,
+              textTransform: 'none',
             }}>
-            <PermIdentityIcon />
             <Typography
               sx={{
                 display: {
@@ -130,12 +160,39 @@ const Header = (props) => {
                   md: 'block',
                 },
               }}>
-              Sign In
+              {btnLabel}
             </Typography>
-          </Link>
+          </Button>
+          <Menu
+            autoFocus={false}
+            id='menu'
+            anchorEl={anchorRef.current}
+            open={openMenu}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+            MenuListProps={{
+              'aria-labelledby': 'menu-button',
+            }}>
+            <MenuItem
+              onClick={closeMenuHandler}
+              onMouseOver={openMenuHandler}
+              onMouseLeave={closeMenuHandler}>
+              <Link color='inherit' underline='none' href='/account'>
+                My account
+              </Link>
+            </MenuItem>
+            <MenuItem
+              onClick={closeMenuHandler}
+              onMouseOver={openMenuHandler}
+              onMouseLeave={closeMenuHandler}>
+              <Link color='inherit' underline='none' onClick={signOutHandler}>
+                Logout
+              </Link>
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </Container>
-      <Divider sx={{ mb: '24px', boxShadow: 1 }} />
+      <Divider sx={{ boxShadow: 1 }} />
     </>
   );
 };
