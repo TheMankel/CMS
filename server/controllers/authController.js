@@ -3,7 +3,7 @@ const db = require('../config/firebase');
 const signUp = async (req, res, next) => {
   try {
     // console.log(req.body);
-    const { uid, firstName, lastName, email, password } = req.body;
+    const { uid, firstName, lastName, email } = req.body;
 
     if (!firstName)
       return res.json({
@@ -18,11 +18,6 @@ const signUp = async (req, res, next) => {
     if (!email)
       return res.json({
         error: 'Email is required',
-      });
-
-    if (!password || password.length < 6)
-      return res.json({
-        error: 'Password is required and should be 6 characters long',
       });
 
     const usersRef = await db
