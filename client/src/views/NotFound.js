@@ -15,11 +15,11 @@ const NotFound = () => {
   return (
     <MainPublic>
       <Box
-        minHeight={'calc(100vh - 64px - 183px)'}
         height={'100%'}
         display={'flex'}
         alignItems={'center'}
-        bgcolor={theme.palette.grey[400]}>
+        bgcolor={theme.palette.grey[400]}
+        padding={'16px 0 '}>
         <Container>
           <Grid container spacing={6}>
             <Grid item container justifyContent={'center'} xs={12} md={6}>
