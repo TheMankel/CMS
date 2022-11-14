@@ -1,8 +1,9 @@
-const db = require('../config/firebase');
+const { db, firebase } = require('../config/firebase');
+
+const auth = firebase.auth();
 
 const signUp = async (req, res, next) => {
   try {
-    // console.log(req.body);
     const { uid, firstName, lastName, email } = req.body;
 
     if (!firstName)
