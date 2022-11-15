@@ -1,4 +1,4 @@
-const { db, firebase } = require('../config/firebase');
+const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
 
