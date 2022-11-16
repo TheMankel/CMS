@@ -7,6 +7,7 @@ import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import ProfilePage from "./views/ProfilePage";
 import About from "./views/About";
+import Contact from "./views/Contact";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/test" element={<ProfilePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
