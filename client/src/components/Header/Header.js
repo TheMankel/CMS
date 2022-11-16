@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -25,8 +26,13 @@ const Header = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const anchorRef = useRef(null);
   const btnLabel = user ? 'Account' : 'Sign In';
-
+  const navigate = useNavigate();
   const { signOutHandler } = useAuth();
+
+  const signOut = () => {
+    signOutHandler();
+    navigate('/');
+  };
 
   const openMenuHandler = () => {
     setOpenMenu(true);
@@ -185,7 +191,7 @@ const Header = (props) => {
               onClick={closeMenuHandler}
               onMouseOver={openMenuHandler}
               onMouseLeave={closeMenuHandler}>
-              <Link color='inherit' underline='none' onClick={signOutHandler}>
+              <Link color='inherit' underline='none' onClick={signOut}>
                 Logout
               </Link>
             </MenuItem>
