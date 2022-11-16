@@ -1,32 +1,32 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import Container from "../components/Container/Container";
 import Headline from "../components/Headline/Headline";
 import Numbers from "../components/Numbers/Numbers";
 import Story from "../components/Story/Story";
 import Team from "../components/Team/Team";
+import MainPublic from "../layouts/MainPublic";
 
 const About = () => {
   return (
-    <Box>
-      <Container>
+    <MainPublic>
+      <Box my={3}>
         <Headline />
-      </Container>
+      </Box>
       <Divider />
-      <Container paddingY={"0 !important"} marginTop={5}>
+      <Box my={3}>
         <Story />
-        <Container>
+        <Box my={3}>
           <Numbers />
-          <Container>
+          <Box my={3}>
             <Divider />
-          </Container>
-        </Container>
-      </Container>
-      <Container paddingTop={"0 !important"}>
+          </Box>
+        </Box>
+      </Box>
+      <Box my={3}>
         <Team />
-      </Container>
-    </Box>
+      </Box>
+    </MainPublic>
   );
 };
 
