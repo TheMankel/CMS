@@ -46,7 +46,7 @@ const signUp = async (req, res, next) => {
     // .cookie('access_token', token, {
     //   httpOnly: true,
     // })
-
+    auth.setCustomUserClaims(uid, { admin: false });
     await db.collection('users').doc(uid).set(data);
     // await usersCollectionRef.doc(uid).set(data);
     // console.log('Added document with ID: ', res.id);
