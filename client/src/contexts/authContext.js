@@ -17,6 +17,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [role, setRole] = useState();
   const [loading, setLoading] = useState(true);
 
   function signUpHandler(email, password) {
@@ -45,11 +46,14 @@ export function AuthProvider({ children }) {
     signUpHandler,
     signInHandler,
     signOutHandler,
+    role,
+    setRole,
   };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
+      {/* {children} */}
     </AuthContext.Provider>
   );
 }
