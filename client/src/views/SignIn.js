@@ -15,10 +15,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../components/Copyright.js/Copyright';
 import { useAuth } from '../contexts/authContext';
+import axios from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { signInHandler } = useAuth();
+  const { signInHandler, setRole } = useAuth();
   const [loading, setLoading] = useState(false);
   const theme = createTheme();
 
@@ -45,6 +46,18 @@ const SignIn = () => {
       const { user } = userCredential;
 
       console.log(user);
+
+      const data = {
+        uid: user.uid,
+        email: formRef.get('email'),
+      };
+
+      const res = await axios.post('http://localhost:8000/api/signin', data, {
+        withCredentials: true,
+      });
+
+      console.log(res.data);
+      setRole(res.data.role);
     } catch (err) {
       console.error(err);
     }

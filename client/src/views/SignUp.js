@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { signUpHandler } = useAuth();
+  const { signUpHandler, setRole } = useAuth();
   const [loading, setLoading] = useState(false);
   const theme = createTheme();
 
@@ -46,6 +46,7 @@ const SignUp = () => {
       const { user } = userCredential;
 
       console.log(user);
+      // const token = await user.getIdToken();
 
       const data = {
         uid: user.uid,
@@ -53,9 +54,17 @@ const SignUp = () => {
         lastName: formRef.get('lastName'),
         email: formRef.get('email'),
         password: formRef.get('password'),
+        // token,
       };
 
-      await axios.post('http://localhost:8000/api/signup', data);
+      const res = await axios.post('http://localhost:8000/api/signup', data, {
+        withCredentials: true,
+      });
+
+      console.log(res.data);
+      setRole(res.data.role);
+
+      // setCurrentUser(res.data);
     } catch (err) {
       console.error(err);
     }

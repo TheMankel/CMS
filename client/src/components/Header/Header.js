@@ -27,10 +27,11 @@ const Header = (props) => {
   const anchorRef = useRef(null);
   const btnLabel = user ? 'Account' : 'Sign In';
   const navigate = useNavigate();
-  const { signOutHandler } = useAuth();
+  const { signOutHandler, setRole } = useAuth();
 
   const signOut = () => {
     signOutHandler();
+    setRole();
     navigate('/');
   };
 
