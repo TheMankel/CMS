@@ -1,6 +1,7 @@
 const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
+const usersCollectionRef = firebase.firestore().collection('users');
 
 const signUp = async (req, res, next) => {
   try {
@@ -26,6 +27,9 @@ const signUp = async (req, res, next) => {
       .where('email', '==', email)
       .get();
 
+    // const test = await usersCollectionRef.where('email', '==', email).get();
+    // console.log(test);
+
     console.log(usersRef.empty);
 
     if (!usersRef.empty)
@@ -39,8 +43,57 @@ const signUp = async (req, res, next) => {
       email,
       role: 'user',
     };
-    const res = await db.collection('users').doc(uid).set(data);
+    // .cookie('access_token', token, {
+    //   httpOnly: true,
+    // })
+
+    await db.collection('users').doc(uid).set(data);
+    // await usersCollectionRef.doc(uid).set(data);
     // console.log('Added document with ID: ', res.id);
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const signIn = async (req, res, next) => {
+  try {
+    const { uid, email } = req.body;
+
+    if (!email)
+      return res.json({
+        error: 'Email is required',
+      });
+
+    const usersRef = await db
+      .collection('users')
+      .where('email', '==', email)
+      .get();
+
+    // const test = await usersCollectionRef.where('email', '==', email).get();
+    // console.log(test);
+
+    console.log(usersRef.empty);
+
+    if (usersRef.empty)
+      return res.json({
+        error: 'No such user',
+      });
+
+    // .cookie('access_token', token, {
+    //   httpOnly: true,
+    // })
+
+    const ref = await db.collection('users').doc(uid).get();
+    const data = ref.data();
+    // await usersCollectionRef.doc(uid).set(data);
+    // console.log('Added document with ID: ', res.id);
+
+    // const data = await usersRef.get();
+
+    return res.status(200).json(data);
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -49,4 +102,5 @@ const signUp = async (req, res, next) => {
 
 module.exports = {
   signUp,
+  signIn,
 };
