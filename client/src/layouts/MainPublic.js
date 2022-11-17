@@ -6,7 +6,7 @@ import Footer from '../components/Footer/Footer';
 import { useAuth } from '../contexts/authContext';
 
 const MainPublic = (props) => {
-  const { currentUser } = useAuth();
+  const { user } = useAuth();
   const theme = createTheme();
 
   const sections = [
@@ -42,7 +42,7 @@ const MainPublic = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header user={currentUser} title='Blog' logo={logo} sections={sections} />
+      <Header user={user} title='Blog' logo={logo} sections={sections} />
       {props.children}
       <Footer title='Blog' categories={categories} />
     </ThemeProvider>

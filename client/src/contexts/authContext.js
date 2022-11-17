@@ -16,7 +16,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [user, setUser] = useState();
   const [role, setRole] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -33,8 +33,12 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const token = await user?.getIdTokenResult(true);
+      // console.log(token?.claims);
+      setRole(token?.claims.admin);
+      // console.log(user);
+      setUser(user);
       setLoading(false);
     });
 
@@ -42,7 +46,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = {
-    currentUser,
+    user,
     signUpHandler,
     signInHandler,
     signOutHandler,

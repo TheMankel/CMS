@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { signUpHandler, setRole } = useAuth();
+  const { signUpHandler } = useAuth();
   const [loading, setLoading] = useState(false);
   const theme = createTheme();
 
@@ -62,7 +62,7 @@ const SignUp = () => {
       });
 
       console.log(res.data);
-      setRole(res.data.role);
+      // setRole(res.data.role);
 
       // setCurrentUser(res.data);
     } catch (err) {
