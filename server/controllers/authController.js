@@ -22,12 +22,12 @@ const signUp = async (req, res, next) => {
         error: 'Email is required',
       });
 
-    const usersRef = await db
-      .collection('users')
-      .where('email', '==', email)
-      .get();
+    // const usersRef = await db
+    //   .collection('users')
+    //   .where('email', '==', email)
+    //   .get();
 
-    // const test = await usersCollectionRef.where('email', '==', email).get();
+    const usersRef = await usersCollectionRef.where('email', '==', email).get();
     // console.log(test);
 
     console.log(usersRef.empty);
@@ -41,14 +41,24 @@ const signUp = async (req, res, next) => {
       firstName,
       lastName,
       email,
-      role: 'user',
     };
+
+    const listUsersResult = await auth.listUsers(2);
+
+    if (listUsersResult.users.length === 1) {
+      await auth.setCustomUserClaims(uid, { admin: true });
+      data.role = 'admin';
+    } else {
+      await auth.setCustomUserClaims(uid, { admin: false });
+      data.role = 'user';
+    }
+
     // .cookie('access_token', token, {
     //   httpOnly: true,
     // })
-    auth.setCustomUserClaims(uid, { admin: false });
-    await db.collection('users').doc(uid).set(data);
-    // await usersCollectionRef.doc(uid).set(data);
+    // auth.setCustomUserClaims(uid, { admin: false });
+    // await db.collection('users').doc(uid).set(data);
+    await usersCollectionRef.doc(uid).set(data);
     // console.log('Added document with ID: ', res.id);
 
     return res.status(200).json(data);
