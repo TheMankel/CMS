@@ -58,7 +58,7 @@ const SignUp = () => {
 
       console.log(res.data);
 
-      if (res.data.role === 'admin') navigate('/dashboard');
+      if (res?.data?.role === 'admin') navigate('/dashboard');
       else navigate('/');
     } catch (err) {
       console.error(err);
