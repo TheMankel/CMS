@@ -1,7 +1,7 @@
 const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
-const usersCollectionRef = firebase.firestore().collection('users');
+const usersCollectionRef = db.collection('users');
 
 const signUp = async (req, res, next) => {
   try {
@@ -22,13 +22,7 @@ const signUp = async (req, res, next) => {
         error: 'Email is required',
       });
 
-    // const usersRef = await db
-    //   .collection('users')
-    //   .where('email', '==', email)
-    //   .get();
-
     const usersRef = await usersCollectionRef.where('email', '==', email).get();
-    // console.log(test);
 
     console.log(usersRef.empty);
 
@@ -53,13 +47,7 @@ const signUp = async (req, res, next) => {
       data.role = 'user';
     }
 
-    // .cookie('access_token', token, {
-    //   httpOnly: true,
-    // })
-    // auth.setCustomUserClaims(uid, { admin: false });
-    // await db.collection('users').doc(uid).set(data);
     await usersCollectionRef.doc(uid).set(data);
-    // console.log('Added document with ID: ', res.id);
 
     return res.status(200).json(data);
   } catch (err) {
@@ -77,13 +65,7 @@ const signIn = async (req, res, next) => {
         error: 'Email is required',
       });
 
-    const usersRef = await db
-      .collection('users')
-      .where('email', '==', email)
-      .get();
-
-    // const test = await usersCollectionRef.where('email', '==', email).get();
-    // console.log(test);
+    const usersRef = await usersCollectionRef.where('email', '==', email).get();
 
     console.log(usersRef.empty);
 
@@ -92,16 +74,8 @@ const signIn = async (req, res, next) => {
         error: 'No such user',
       });
 
-    // .cookie('access_token', token, {
-    //   httpOnly: true,
-    // })
-
-    const ref = await db.collection('users').doc(uid).get();
+    const ref = await usersCollectionRef.doc(uid).get();
     const data = ref.data();
-    // await usersCollectionRef.doc(uid).set(data);
-    // console.log('Added document with ID: ', res.id);
-
-    // const data = await usersRef.get();
 
     return res.status(200).json(data);
   } catch (err) {

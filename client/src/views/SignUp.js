@@ -44,15 +44,12 @@ const SignUp = () => {
       const { user } = userCredential;
 
       console.log(user);
-      // const token = await user.getIdToken();
 
       const data = {
         uid: user.uid,
         firstName: formRef.get('firstName'),
         lastName: formRef.get('lastName'),
         email: formRef.get('email'),
-        // password: formRef.get('password'),
-        // token,
       };
 
       const res = await axios.post('http://localhost:8000/api/signup', data, {
@@ -68,16 +65,6 @@ const SignUp = () => {
     }
 
     setLoading(false);
-    // await fetch('http://localhost:8000/api/signup', {
-    //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    //   mode: 'cors', // no-cors, *cors, same-origin
-    //   credentials: 'same-origin', // include, *same-origin, omit
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   redirect: 'follow',
-    //   body: JSON.stringify(dataToPost),
-    // });
   };
 
   return (
