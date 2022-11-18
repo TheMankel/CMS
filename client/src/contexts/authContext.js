@@ -35,9 +35,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       const token = await user?.getIdTokenResult(true);
-      // console.log(token?.claims);
       setRole(token?.claims.admin);
-      // console.log(user);
       setUser(user);
       setLoading(false);
     });
