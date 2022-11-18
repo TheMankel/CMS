@@ -41,8 +41,6 @@ const SignUp = () => {
         formRef.get('password'),
       );
 
-      navigate('/home');
-
       const { user } = userCredential;
 
       console.log(user);
@@ -53,7 +51,7 @@ const SignUp = () => {
         firstName: formRef.get('firstName'),
         lastName: formRef.get('lastName'),
         email: formRef.get('email'),
-        password: formRef.get('password'),
+        // password: formRef.get('password'),
         // token,
       };
 
@@ -62,9 +60,9 @@ const SignUp = () => {
       });
 
       console.log(res.data);
-      // setRole(res.data.role);
 
-      // setCurrentUser(res.data);
+      if (res.data.role === 'admin') navigate('/dashboard');
+      else navigate('/');
     } catch (err) {
       console.error(err);
     }

@@ -41,8 +41,6 @@ const SignIn = () => {
         formRef.get('password'),
       );
 
-      navigate('/home');
-
       const { user } = userCredential;
 
       console.log(user);
@@ -57,7 +55,9 @@ const SignIn = () => {
       });
 
       console.log(res.data);
-      // setRole(res.data.role);
+
+      if (res.data.role === 'admin') navigate('/dashboard');
+      else navigate('/');
     } catch (err) {
       console.error(err);
     }
