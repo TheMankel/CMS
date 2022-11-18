@@ -21,12 +21,7 @@ function App() {
       <Route
         path='dashboard'
         element={
-          <PrivateRoute redirectPath='/home' isAllowed={!!user && role}>
-            {/* {console.log(!!user && role === 'admin')} */}
-            {console.log(role)}
-            {console.log(!!user)}
-            {/* {console.log(role === 'admin')} */}
-            {/* {console.log(!!user)} */}
+          <PrivateRoute redirectPath='/home' permissions={!!user && role}>
             <Dashboard />
           </PrivateRoute>
         }
