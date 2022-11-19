@@ -1,23 +1,23 @@
 import React from 'react';
-// import { useTheme } from "@mui/material/styles";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TeamWorkingIllustration from '../../svg/TeamWorking';
 
 const Story = () => {
-  // const theme = useTheme();
-
   return (
     <Box>
       <Box marginBottom={4}>
         <Typography
+          component={'h2'}
+          gutterBottom
+          color={'textSecondary'}
+          align={'center'}
           sx={{
             textTransform: 'uppercase',
             fontWeight: 'medium',
-          }}
-          gutterBottom
-          color={'textSecondary'}
-          align={'center'}>
+          }}>
           Our story
         </Typography>
         <Box
@@ -38,7 +38,18 @@ const Story = () => {
           We were in every continent on the world and made a movie about it! We
           are also blogging every bit of our life here for five years already.
         </Typography>
-        <Box marginTop={3} display={'flex'} justifyContent={'center'}></Box>
+        <Box marginTop={3} display={'flex'} justifyContent={'center'}>
+          <Button
+            variant='contained'
+            size='large'
+            endIcon={<ArrowForwardIcon />}
+            href='/contact'
+            sx={{
+              textTransform: 'none',
+            }}>
+            Contact us
+          </Button>
+        </Box>
       </Box>
       <Box
         display={'flex'}
