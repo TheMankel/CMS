@@ -32,74 +32,38 @@ const UserProfile = () => {
   return (
     <Container maxWidth='lg'>
       <Box my={3}>
-        <Grid container>
-          <Grid item xs={12} sm={4} p={2}>
-            <Card>
-              <CardContent>
-                <Box align={'center'}>
-                  <Avatar
-                    alt='User Avatar'
-                    src={user?.avatar}
-                    sx={{
-                      height: {
-                        xs: 120,
-                        md: 160,
-                      },
-                      width: {
-                        xs: 120,
-                        md: 160,
-                      },
-                    }}
-                  />
-                </Box>
-                <Box mt={2} px={2} align={'center'}>
-                  <Typography variant='h6' component='div'>
-                    {user.name}
-                  </Typography>
-                  <Typography
-                    variant={'subtitle2'}
-                    component='div'
-                    color={'textSecondary'}>
-                    {user?.about}
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={8} p={2}>
-            <Card>
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  User Info
+        <Card>
+          <Grid container>
+            <Grid item xs={12} sm={4} p={2}>
+              <Box align={'center'}>
+                <Avatar
+                  alt='User Avatar'
+                  src={user?.avatar}
+                  sx={{
+                    height: {
+                      xs: 120,
+                      md: 160,
+                    },
+                    width: {
+                      xs: 120,
+                      md: 160,
+                    },
+                  }}
+                />
+              </Box>
+              <Box my={2} px={2} align={'center'}>
+                <Typography variant='h6' component='div'>
+                  {user.name}
                 </Typography>
-                <Divider />
-                <Typography gutterBottom variant='h6' component='div'>
-                  First Name
+                <Typography
+                  variant={'subtitle2'}
+                  component='div'
+                  color={'textSecondary'}>
+                  {user?.about}
                 </Typography>
-                <Divider />
-                <Typography gutterBottom variant='h6' component='div'>
-                  Last Name
-                </Typography>
-                <Divider />
-                <Typography gutterBottom variant='h6' component='div'>
-                  E-Mail
-                </Typography>
-                <Divider />
-                <Typography gutterBottom variant='h6' component='div'>
-                  E-Mail
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4} p={2}>
-            <Card>
-              <CardContent
-                sx={{
-                  padding: 0,
-                  '&:last-child': {
-                    paddingBottom: 0,
-                  },
-                }}>
+              </Box>
+              <Divider />
+              <Box mt={2}>
                 <List disablePadding>
                   <ListItem disablePadding>
                     <ListItemButton>
@@ -134,10 +98,82 @@ const UserProfile = () => {
                     </ListItemButton>
                   </ListItem>
                 </List>
-              </CardContent>
-            </Card>
-          </Grid>
-          {/* <Grid item xs={4}>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={8} p={2}>
+              <Box
+                borderLeft={1}
+                px={4}
+                borderColor={'#0000001f'}
+                sx={{ borderWidth: 'thin', height: '100%' }}>
+                <Typography gutterBottom variant='h5' component='div'>
+                  User Info
+                </Typography>
+                <Divider />
+                <Typography gutterBottom variant='h6' component='div'>
+                  First Name
+                </Typography>
+                <Divider />
+                <Typography gutterBottom variant='h6' component='div'>
+                  Last Name
+                </Typography>
+                <Divider />
+                <Typography gutterBottom variant='h6' component='div'>
+                  E-Mail
+                </Typography>
+                <Divider />
+                <Typography gutterBottom variant='h6' component='div'>
+                  Password
+                </Typography>
+              </Box>
+            </Grid>
+            {/* <Grid item xs={12} sm={4} p={2}>
+              <Card>
+                <CardContent
+                  sx={{
+                    padding: 0,
+                    '&:last-child': {
+                      paddingBottom: 0,
+                    },
+                  }}>
+                  <List disablePadding>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='About' />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <PhotoCameraIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Change Avatar' />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <DeleteIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Delete account' />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Logout' />
+                      </ListItemButton>
+                    </ListItem>
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid> */}
+            {/* <Grid item xs={4}>
             <Card>
               <CardContent>
                 <Typography gutterBottom variant='h3' component='div'>
@@ -161,7 +197,7 @@ const UserProfile = () => {
               </CardActions>
             </Card>
           </Grid> */}
-          {/* <Grid item xs={4}>
+            {/* <Grid item xs={4}>
             <Card>
               <CardMedia
                 component='img'
@@ -184,7 +220,8 @@ const UserProfile = () => {
               </CardActions>
             </Card>
           </Grid> */}
-        </Grid>
+          </Grid>
+        </Card>
       </Box>
     </Container>
   );
