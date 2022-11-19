@@ -14,6 +14,25 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Team = () => {
   const theme = useTheme();
+  const authors = [
+    {
+      name: 'Jankos',
+      title: 'Senior',
+      avatar:
+        'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
+      about:
+        'I am an ambitious workaholic, but apart from that, pretty simple person.',
+    },
+    {
+      name: 'Wojtas',
+      title: 'Kozak',
+      avatar:
+        'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
+      about:
+        'I am non ambitious workaholic, but apart from that, pretty complicated person.',
+    },
+  ];
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -36,24 +55,7 @@ const Team = () => {
         </Box>
       </Box>
       <Grid container spacing={2} alignItems='center' justifyContent='center'>
-        {[
-          {
-            name: 'Jankos',
-            title: 'Senior',
-            avatar:
-              'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
-            about:
-              'I am an ambitious workaholic, but apart from that, pretty simple person.',
-          },
-          {
-            name: 'Wojtas',
-            title: 'Kozak',
-            avatar:
-              'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
-            about:
-              'I am non ambitious workaholic, but apart from that, pretty complicated person.',
-          },
-        ].map((item, i) => (
+        {authors.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
             <Box
               component={Card}
@@ -67,13 +69,14 @@ const Team = () => {
                 },
               }}>
               <CardContent>
-                <Box
-                  component={Avatar}
-                  src={item.avatar}
-                  height={80}
-                  width={80}
-                />
-                <Box marginTop={4}>
+                <Box align={'center'}>
+                  <Avatar
+                    alt='User Avatar'
+                    src={item.avatar}
+                    sx={{ height: 80, width: 80 }}
+                  />
+                </Box>
+                <Box marginTop={4} align={'center'}>
                   <ListItemText primary={item.name} secondary={item.title} />
                   <Typography variant={'subtitle2'} color={'textSecondary'}>
                     {item.about}
