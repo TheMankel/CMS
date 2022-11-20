@@ -18,7 +18,7 @@ function App() {
       <Route path='/' element={<HomePage />} />
       <Route path='/login' element={<SignIn />} />
       <Route path='/register' element={<SignUp />} />
-      <Route path='/forgotPassword' element={<ForgotPassword />} />
+      <Route path='/forgotpassword' element={<ForgotPassword />} />
       <Route
         path='dashboard'
         element={
