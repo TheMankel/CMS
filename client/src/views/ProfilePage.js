@@ -3,10 +3,12 @@ import * as React from 'react';
 import UserProfile from '../components/UserProfile/UserProfile';
 import MainPublic from '../layouts/MainPublic';
 
-export default function ProfilePage() {
+const ProfilePage = () => {
   return (
     <MainPublic>
       <UserProfile />
     </MainPublic>
   );
-}
+};
+
+export default ProfilePage;
