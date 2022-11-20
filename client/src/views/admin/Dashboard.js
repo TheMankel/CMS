@@ -20,6 +20,7 @@ import { mainListItems, secondaryListItems } from './ListItems.js';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import Copyright from '../../components/Copyright.js/Copyright.js';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -124,6 +125,7 @@ function DashboardContent() {
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}
+          <Button href='/'>Go back home</Button>
         </List>
       </Drawer>
       <Box
