@@ -79,7 +79,7 @@ const Header = (props) => {
               </IconButton>
               <Divider sx={{ mb: 1 }} />
               <List>
-                {sections.map((section) => (
+                {sections?.map((section) => (
                   <ListItemButton key={section.title}>
                     <Link
                       color='inherit'
@@ -142,7 +142,7 @@ const Header = (props) => {
               },
               flexWrap: 'wrap',
             }}>
-            {sections.map((section) => (
+            {sections?.map((section) => (
               <Link
                 color='inherit'
                 variant='button'
