@@ -28,15 +28,15 @@ function App() {
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/about' element={<About />} />
       <Route path='/contact' element={<Contact />} />
-      {/* <Route
+      <Route
         path='account'
         element={
           <PrivateRoute redirectPath='/login' permissions={!!user}>
             <ProfilePage />
           </PrivateRoute>
         }
-      /> */}
-      <Route path='/account' element={<ProfilePage />} />
+      />
+      {/* <Route path='/account' element={<ProfilePage />} /> */}
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
