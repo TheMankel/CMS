@@ -9,6 +9,7 @@ import About from './views/About';
 import Contact from './views/Contact';
 import PrivateRoute from './utils/PrivateRoute';
 import { useAuth } from './contexts/authContext';
+import ForgotPassword from './views/ForgotPassword';
 
 function App() {
   const { user, role } = useAuth();
@@ -17,6 +18,7 @@ function App() {
       <Route path='/' element={<HomePage />} />
       <Route path='/login' element={<SignIn />} />
       <Route path='/register' element={<SignUp />} />
+      <Route path='/forgotPassword' element={<ForgotPassword />} />
       <Route
         path='dashboard'
         element={
