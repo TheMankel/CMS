@@ -73,7 +73,6 @@ const Form = () => {
                 mx='auto'
                 variant='contained'
                 color='primary'
-                alignItems='center'
                 size='medium'
                 fullWidth
                 sx={{ height: 54, textTransform: 'none' }}>
