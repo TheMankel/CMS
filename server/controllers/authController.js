@@ -47,6 +47,10 @@ const signUp = async (req, res, next) => {
       data.role = 'user';
     }
 
+    auth.updateUser(uid, {
+      displayName: firstName + ' ' + lastName,
+    });
+
     await usersCollectionRef.doc(uid).set(data);
 
     return res.status(200).json(data);
