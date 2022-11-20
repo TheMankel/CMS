@@ -30,14 +30,6 @@ const FormForgotPass = () => {
               variant='outlined'
               name={'email'}
               fullWidth
-              value={this.state.email}
-              //   onChange={(e: any) => this.handleInputChanges(e)}
-              error={this.state.blurErrors.includes('email') ? true : false}
-              helperText={
-                this.state.blurErrors.includes('email')
-                  ? 'Email is required'
-                  : ''
-              }
             />
           </Grid>
           <Grid item container xs={12}>
@@ -61,13 +53,7 @@ const FormForgotPass = () => {
               <Button
                 sx={{ width: 250 }}
                 size={'large'}
-                variant={'contained'}
-                // onClick={(e: any) => this.handleClick(e)}
-                disabled={this.state.action === 'processing' ? true : false}>
-                {this.state.action === 'processing'
-                  ? 'Processing, please wait...'
-                  : 'Click to send message'}
-              </Button>
+                variant={'contained'}></Button>
             </Box>
           </Grid>
         </Grid>

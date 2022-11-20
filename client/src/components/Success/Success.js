@@ -14,13 +14,7 @@ const Success = () => {
         justifyContent={'center'}
         alignItems={'center'}
         marginBottom={2}>
-        <Box
-          component={Avatar}
-          width={'100%'}
-          height={'100%'}
-          marginBottom={2}
-          bgcolor={alpha(this.props.theme.palette.primary.main, 0.0)}
-          color={this.props.theme.palette.primary.main}>
+        <Box component={Avatar} width={'100%'} height={'100%'} marginBottom={2}>
           <svg
             height={200}
             width={200}
