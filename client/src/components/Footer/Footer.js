@@ -18,7 +18,7 @@ const Footer = (props) => {
       <Divider sx={{ marginBottom: '16px' }} />
       <Container maxWidth='lg'>
         <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
-          {categories.map((category, index) => (
+          {categories?.map((category, index) => (
             <List
               key={index}
               sx={{
