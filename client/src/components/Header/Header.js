@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+// import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,17 +7,19 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
 import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useAuth } from '../../contexts/authContext';
 
@@ -24,8 +27,18 @@ const Header = (props) => {
   const { user, sections, title, logo } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const anchorRef = useRef(null);
-  const btnLabel = user ? 'Account' : 'Sign In';
+  // const anchorRef = useRef(null);
+  // const btnLabel = user ? 'Account' : 'Sign In';
+  // const btnHref = user ? '/account' : '/login';
+  const btn = user
+    ? {
+        label: 'Account',
+        href: '/account',
+      }
+    : {
+        label: 'Sign In',
+        href: '/login',
+      };
   const navigate = useNavigate();
   const { signOutHandler } = useAuth();
 
@@ -141,7 +154,7 @@ const Header = (props) => {
               </Link>
             ))}
           </List>
-          <Button
+          {/* <Button
             ref={anchorRef}
             id='menu-button'
             aria-controls={openMenu ? 'menu' : undefined}
@@ -195,7 +208,73 @@ const Header = (props) => {
                 Logout
               </Link>
             </MenuItem>
-          </Menu>
+          </Menu> */}
+          <List>
+            <Button
+              // ref={anchorRef}
+              color='inherit'
+              underline='none'
+              href={btn.href}
+              startIcon={<PermIdentityIcon />}
+              onMouseOver={openMenuHandler}
+              onMouseLeave={closeMenuHandler}
+              sx={{
+                zIndex: 1301,
+                textTransform: 'none',
+                minWidth: 100,
+              }}>
+              <Typography
+                sx={{
+                  display: {
+                    sx: 'none',
+                    md: 'block',
+                  },
+                }}>
+                {btn.label}
+              </Typography>
+            </Button>
+            {openMenu && user && (
+              <List
+                disablePadding
+                sx={{
+                  position: 'fixed',
+                  zIndex: 1300,
+                  boxShadow:
+                    '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 10%)',
+                  overflow: 'hidden',
+                }}
+                onMouseOver={openMenuHandler}
+                onMouseLeave={closeMenuHandler}>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    background: 'white',
+                    borderRadius: 1,
+                  }}>
+                  <Button
+                    color='inherit'
+                    underline='none'
+                    startIcon={<LogoutIcon />}
+                    onClick={signOut}
+                    sx={{
+                      textTransform: 'none',
+                      minWidth: 100,
+                      minHeight: 36,
+                    }}>
+                    <Typography
+                      sx={{
+                        display: {
+                          sx: 'none',
+                          md: 'block',
+                        },
+                      }}>
+                      Logout
+                    </Typography>
+                  </Button>
+                </ListItem>
+              </List>
+            )}
+          </List>
         </Toolbar>
       </Container>
       <Divider sx={{ boxShadow: 1 }} />
