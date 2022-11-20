@@ -139,7 +139,7 @@ const SignIn = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href='#' variant='body2'>
+                  <Link href='/forgotpassword' variant='body2'>
                     Forgot password?
                   </Link>
                 </Grid>
