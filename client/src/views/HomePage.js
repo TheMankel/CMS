@@ -9,7 +9,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
-import MainPublic from '../layouts/MainPublic';
+// import MainPublic from '../layouts/MainPublic';
 
 const Homepage = () => {
   const recentPost = {
@@ -84,7 +84,7 @@ const Homepage = () => {
   ];
 
   return (
-    <MainPublic>
+    <>
       <Container maxWidth='lg'>
         <Slider items={carouselItems} />
         <main>
@@ -104,7 +104,7 @@ const Homepage = () => {
           </Grid>
         </main>
       </Container>
-    </MainPublic>
+    </>
   );
 };
 

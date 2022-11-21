@@ -2,14 +2,14 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Form from '../components/Form/Form';
-import MainPublic from '../layouts/MainPublic';
+// import MainPublic from '../layouts/MainPublic';
 import MailWriterIllustration from '../svg/MailWriter';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 const Contact = () => {
   return (
-    <MainPublic>
+    <>
       <Container>
         <Grid container spacing={6} my={3}>
           <Grid item container justifyContent={'center'} xs={12} md={6}>
@@ -57,7 +57,7 @@ const Contact = () => {
           </Grid>
         </Grid>
       </Container>
-    </MainPublic>
+    </>
   );
 };
 
