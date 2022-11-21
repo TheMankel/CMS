@@ -18,7 +18,7 @@ const MainPublic = (props) => {
 
   const getData = async () => {
     try {
-      const data = await axios.get('http://localhost:8000/api/homepage');
+      const data = await axios.get('http://localhost:8000/api/navigation');
       setCategories(data?.data?.categories);
       setSections(data?.data?.sections);
     } catch (err) {
