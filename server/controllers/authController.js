@@ -2,6 +2,7 @@ const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
+const blogCollectionRef = db.collection('cms');
 
 const signUp = async (req, res, next) => {
   try {
@@ -88,7 +89,40 @@ const signIn = async (req, res, next) => {
   }
 };
 
+const navigation = async (req, res, next) => {
+  try {
+    const categoriesRef = await blogCollectionRef
+      .doc('public-navigation')
+      .collection('categories')
+      .get();
+
+    const sectionsRef = await blogCollectionRef
+      .doc('public-navigation')
+      .collection('sections')
+      .get();
+
+    const data = {
+      categories: [],
+      sections: [],
+    };
+
+    categoriesRef.forEach((cat) => {
+      data.categories.push(cat.data());
+    });
+
+    sectionsRef.forEach((sec) => {
+      data.sections.push(sec.data());
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
+  navigation,
 };
