@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Title from './Title.js';
@@ -18,7 +19,11 @@ export default function Deposits() {
         on 15 March, 2019
       </Typography>
       <div>
-        <Link color='primary' href='#' onClick={preventDefault}>
+        <Link
+          component={NavLink}
+          color='primary'
+          to='#'
+          onClick={preventDefault}>
           View balance
         </Link>
       </div>

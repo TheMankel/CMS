@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -40,10 +41,11 @@ const Story = () => {
         </Typography>
         <Box marginTop={3} display={'flex'} justifyContent={'center'}>
           <Button
+            component={NavLink}
             variant='contained'
             size='large'
             endIcon={<ArrowForwardIcon />}
-            href='/contact'
+            to='/contact'
             sx={{
               textTransform: 'none',
             }}>

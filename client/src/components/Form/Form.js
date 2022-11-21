@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -87,24 +88,24 @@ const Form = () => {
                 <Typography component='p' variant='body2' align='left'>
                   By clicking on "submit" you agree to our{' '}
                   <Box
-                    component='a'
-                    href='#0'
+                    component={NavLink}
+                    to='#0'
                     color={theme.palette.text.primary}
                     fontWeight={'700'}>
                     Privacy Policy
                   </Box>
                   ,{' '}
                   <Box
-                    component='a'
-                    href='#0'
+                    component={NavLink}
+                    to='#0'
                     color={theme.palette.text.primary}
                     fontWeight={'700'}>
                     Data Policy
                   </Box>{' '}
                   and{' '}
                   <Box
-                    component='a'
-                    href='#0'
+                    component={NavLink}
+                    to='#0'
                     color={theme.palette.text.primary}
                     fontWeight={'700'}>
                     Cookie Policy

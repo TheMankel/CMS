@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -17,9 +18,10 @@ const Sidebar = (props) => {
       </Typography>
       {archives.map((archive) => (
         <Link
+          component={NavLink}
           display='block'
           variant='body1'
-          href={archive.url}
+          to={archive.url}
           key={archive.title}>
           {archive.title}
         </Link>
@@ -33,9 +35,10 @@ const Sidebar = (props) => {
         (network) =>
           network.url && (
             <Link
+              component={NavLink}
               display='block'
               variant='body1'
-              href={network.url}
+              to={network.url}
               key={network.name}
               sx={{ mb: 0.5 }}>
               <Stack direction='row' spacing={1} alignItems='center'>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -125,7 +126,9 @@ function DashboardContent() {
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}
-          <Button href='/'>Go back home</Button>
+          <Button component={NavLink} to='/'>
+            Go back home
+          </Button>
         </List>
       </Drawer>
       <Box

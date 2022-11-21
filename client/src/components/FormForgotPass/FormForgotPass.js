@@ -1,10 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 
 const FormForgotPass = () => {
   return (
@@ -45,8 +46,8 @@ const FormForgotPass = () => {
                 <Button
                   size={'large'}
                   variant={'outlined'}
-                  component={Link}
-                  href={'/'}>
+                  component={NavLink}
+                  to={'/'}>
                   Back to home
                 </Button>
               </Box>

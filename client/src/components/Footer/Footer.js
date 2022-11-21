@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -35,11 +36,12 @@ const Footer = (props) => {
               </Typography>
               {category.links.map((link, index) => (
                 <Link
+                  component={NavLink}
                   color='#424245'
                   variant='p'
                   underline='none'
                   key={index}
-                  href={link.toLowerCase()}
+                  to={link.toLowerCase()}
                   textTransform='capitalize'>
                   {link.toLowerCase()}
                 </Link>

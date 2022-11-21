@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -139,13 +139,16 @@ const SignIn = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href='/forgotpassword' variant='body2'>
+                  <Link
+                    component={NavLink}
+                    to='/forgot-password'
+                    variant='body2'>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href='/register' variant='body2'>
-                    {"Don't have an account? Sign Up"}
+                  <Link component={NavLink} to='/register' variant='body2'>
+                    Don't have an account? Sign Up
                   </Link>
                 </Grid>
               </Grid>

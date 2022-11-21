@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
@@ -11,7 +12,7 @@ const Copyright = (props) => {
       padding={2}
       {...props}>
       {'Copyright © '}
-      <Link color='inherit' href={props.url}>
+      <Link component={NavLink} color='inherit' to={props.url}>
         {props.title}
       </Link>{' '}
       {new Date().getFullYear()}

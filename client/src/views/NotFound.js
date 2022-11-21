@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -7,13 +8,13 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material';
 import NotFoundSVG from '../svg/NotFound';
-import MainPublic from '../layouts/MainPublic';
+// import MainPublic from '../layouts/MainPublic';
 
 const NotFound = () => {
   const theme = useTheme();
 
   return (
-    <MainPublic>
+    <>
       <Box
         height={'100%'}
         display={'flex'}
@@ -53,7 +54,7 @@ const NotFound = () => {
                   Oops! Looks like you followed a bad link.
                   <br />
                   If you think this is a problem with us, please{' '}
-                  <Link href={'/contact'} underline='none'>
+                  <Link component={NavLink} to={'/contact'} underline='none'>
                     tell us
                   </Link>
                 </Typography>
@@ -62,11 +63,11 @@ const NotFound = () => {
                   display={'flex'}
                   justifyContent={{ xs: 'center', md: 'flex-start' }}>
                   <Button
-                    component={Link}
+                    component={NavLink}
                     variant='contained'
                     color='primary'
                     size='large'
-                    href={'/'}>
+                    to={'/'}>
                     Back home
                   </Button>
                 </Box>
@@ -75,7 +76,7 @@ const NotFound = () => {
           </Grid>
         </Container>
       </Box>
-    </MainPublic>
+    </>
   );
 };
 

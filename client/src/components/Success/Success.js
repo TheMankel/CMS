@@ -1,10 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
-import { alpha } from '@mui/material/styles';
+// import { alpha } from '@mui/material/styles';
 
 const Success = () => {
   return (
@@ -48,7 +49,11 @@ const Success = () => {
         We sent you a new message with a link to reset your password.
       </Typography>
       <Box marginTop={3} display={'flex'} justifyContent={'center'}>
-        <Button size={'large'} variant={'outlined'} component={Link} href={'/'}>
+        <Button
+          size={'large'}
+          variant={'outlined'}
+          component={NavLink}
+          to={'/'}>
           Back to Home
         </Button>
       </Box>
@@ -56,9 +61,9 @@ const Success = () => {
         <Typography variant={'subtitle2'}>
           Didn't revieve an email from us?{' '}
           <Link
-            component={'a'}
+            component={NavLink}
             color={'primary'}
-            href={'/send-code'}
+            to={'/send-code'}
             underline={'none'}>
             Try again and we will resend you a new code
           </Link>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -85,7 +86,12 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color='primary' href='#' onClick={preventDefault} sx={{ mt: 3 }}>
+      <Link
+        component={NavLink}
+        color='primary'
+        to='#'
+        onClick={preventDefault}
+        sx={{ mt: 3 }}>
         See more orders
       </Link>
     </>

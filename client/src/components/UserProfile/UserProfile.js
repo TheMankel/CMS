@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -21,7 +22,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const { user, role, signOutHandler } = useAuth();
@@ -141,7 +141,7 @@ const UserProfile = () => {
                   )}
                   {role && (
                     <ListItem disablePadding>
-                      <ListItemButton href='dashboard'>
+                      <ListItemButton component={NavLink} to='dashboard'>
                         <ListItemIcon>
                           <DashboardIcon />
                         </ListItemIcon>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -20,27 +20,27 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import { useAuth } from '../../contexts/authContext';
 
 const Header = (props) => {
-  const { user, sections, title, logo } = props;
+  const { sections, title, logo } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   // const anchorRef = useRef(null);
   // const btnLabel = user ? 'Account' : 'Sign In';
   // const btnHref = user ? '/account' : '/login';
+  const navigate = useNavigate();
+  const { signOutHandler, user } = useAuth();
+
   const btn = user
     ? {
         label: 'Account',
-        href: '/account',
+        url: '/account',
       }
     : {
         label: 'Sign In',
-        href: '/login',
+        url: '/login',
       };
-  const navigate = useNavigate();
-  const { signOutHandler } = useAuth();
 
   const signOut = () => {
     signOutHandler();
@@ -82,10 +82,11 @@ const Header = (props) => {
                 {sections?.map((section) => (
                   <ListItemButton key={section.title}>
                     <Link
+                      component={NavLink}
                       color='inherit'
                       variant='button'
                       underline='none'
-                      href={section.url}
+                      to={section.url}
                       sx={{ px: 1, flexShrink: 0 }}>
                       {section.title}
                     </Link>
@@ -107,9 +108,10 @@ const Header = (props) => {
               <MenuIcon />
             </IconButton>
             <Link
+              component={NavLink}
               color='inherit'
               underline='none'
-              href='/'
+              to='/'
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -144,11 +146,12 @@ const Header = (props) => {
             }}>
             {sections?.map((section) => (
               <Link
+                component={NavLink}
                 color='inherit'
                 variant='button'
                 underline='none'
                 key={section.title}
-                href={section.url}
+                to={section.url}
                 sx={{ px: 1 }}>
                 {section.title}
               </Link>
@@ -212,9 +215,10 @@ const Header = (props) => {
           <List>
             <Button
               // ref={anchorRef}
+              component={NavLink}
               color='inherit'
               underline='none'
-              href={btn.href}
+              to={btn.url}
               startIcon={<PermIdentityIcon />}
               onMouseOver={openMenuHandler}
               onMouseLeave={closeMenuHandler}
