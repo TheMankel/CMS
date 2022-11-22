@@ -6,7 +6,8 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 
-const MainPublic = (props) => {
+const MainPublic = () => {
+  const [webTitle, setWebTitle] = useState();
   const [sections, setSections] = useState([{ title: '', url: '' }]);
   const [categories, setCategories] = useState([{ title: '', links: [''] }]);
   // const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ const MainPublic = (props) => {
       const data = await axios.get('http://localhost:8000/api/navigation');
       setCategories(data?.data?.categories);
       setSections(data?.data?.sections);
+      setWebTitle('Blog');
     } catch (err) {
       console.log(err);
     }
@@ -60,9 +62,9 @@ const MainPublic = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header title='Blog' logo={logo} sections={sections} />
+      <Header title={webTitle} logo={logo} sections={sections} />
       <Outlet />
-      <Footer title='Blog' categories={categories} />
+      <Footer title={webTitle} categories={categories} />
     </ThemeProvider>
   );
 };
