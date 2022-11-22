@@ -3,10 +3,6 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { Container } from '@mui/system';
@@ -91,12 +87,6 @@ const UserProfile = () => {
                 <Typography variant='h6' component='div'>
                   {user?.displayName}
                 </Typography>
-                {/* <Typography
-                  variant={'subtitle2'}
-                  component='div'
-                  color={'textSecondary'}>
-                  {user?.about}
-                </Typography> */}
                 <Typography
                   variant={'subtitle2'}
                   component='div'
@@ -171,99 +161,6 @@ const UserProfile = () => {
                 {selectedIndex === 2 && DeleteAccount}
               </Box>
             </Grid>
-            {/* <Grid item xs={12} sm={4} p={2}>
-              <Card>
-                <CardContent
-                  sx={{
-                    padding: 0,
-                    '&:last-child': {
-                      paddingBottom: 0,
-                    },
-                  }}>
-                  <List disablePadding>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <PersonIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='About' />
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <PhotoCameraIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Change Avatar' />
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <DeleteIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Delete account' />
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary='Logout' />
-                      </ListItemButton>
-                    </ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid> */}
-            {/* <Grid item xs={4}>
-            <Card>
-              <CardContent>
-                <Typography gutterBottom variant='h3' component='div'>
-                  Lizard
-                </Typography>
-                <Divider />
-                <Typography gutterBottom variant='h5' component='div'>
-                  Lizard
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-                <Typography gutterBottom variant='h5' component='div'>
-                  Lizard
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size='medium'>BUTTON</Button>
-                <Button size='medium'>BUTTON2</Button>
-              </CardActions>
-            </Card>
-          </Grid> */}
-            {/* <Grid item xs={4}>
-            <Card>
-              <CardMedia
-                component='img'
-                alt='green iguana'
-                height='140'
-                image='https://mui.com/static/images/cards/contemplative-reptile.jpg'
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  Lizard
-                </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size='small'>Share</Button>
-                <Button size='small'>Learn More</Button>
-              </CardActions>
-            </Card>
-          </Grid> */}
           </Grid>
         </Card>
       </Box>

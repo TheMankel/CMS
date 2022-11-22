@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,8 +13,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -26,21 +23,18 @@ const Header = (props) => {
   const { sections, title, logo } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  // const anchorRef = useRef(null);
-  // const btnLabel = user ? 'Account' : 'Sign In';
-  // const btnHref = user ? '/account' : '/login';
   const navigate = useNavigate();
   const { signOutHandler, user } = useAuth();
 
-  const btn = user
-    ? {
-        label: 'Account',
-        url: '/account',
-      }
-    : {
-        label: 'Sign In',
-        url: '/login',
-      };
+  // const btn = user
+  //   ? {
+  //       label: 'Account',
+  //       url: '/account',
+  //     }
+  //   : {
+  //       label: 'Sign In',
+  //       url: '/login',
+  //     };
 
   const signOut = () => {
     signOutHandler();
@@ -157,68 +151,12 @@ const Header = (props) => {
               </Link>
             ))}
           </List>
-          {/* <Button
-            ref={anchorRef}
-            id='menu-button'
-            aria-controls={openMenu ? 'menu' : undefined}
-            aria-expanded={openMenu ? 'true' : undefined}
-            aria-haspopup='true'
-            color='inherit'
-            underline='none'
-            href='/login'
-            startIcon={<PermIdentityIcon />}
-            onMouseOver={openMenuHandler}
-            onMouseLeave={closeMenuHandler}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              zIndex: 1301,
-              textTransform: 'none',
-            }}>
-            <Typography
-              sx={{
-                display: {
-                  sx: 'none',
-                  md: 'block',
-                },
-              }}>
-              {btnLabel}
-            </Typography>
-          </Button>
-          <Menu
-            autoFocus={false}
-            id='menu'
-            anchorEl={anchorRef.current}
-            open={openMenu}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            MenuListProps={{
-              'aria-labelledby': 'menu-button',
-            }}>
-            <MenuItem
-              onClick={closeMenuHandler}
-              onMouseOver={openMenuHandler}
-              onMouseLeave={closeMenuHandler}>
-              <Link color='inherit' underline='none' href='/account'>
-                My account
-              </Link>
-            </MenuItem>
-            <MenuItem
-              onClick={closeMenuHandler}
-              onMouseOver={openMenuHandler}
-              onMouseLeave={closeMenuHandler}>
-              <Link color='inherit' underline='none' onClick={signOut}>
-                Logout
-              </Link>
-            </MenuItem>
-          </Menu> */}
           <List>
             <Button
-              // ref={anchorRef}
               component={NavLink}
               color='inherit'
               underline='none'
-              to={btn.url}
+              to={user ? '/account' : '/login'}
               startIcon={<PermIdentityIcon />}
               onMouseOver={openMenuHandler}
               onMouseLeave={closeMenuHandler}
@@ -234,7 +172,7 @@ const Header = (props) => {
                     md: 'block',
                   },
                 }}>
-                {btn.label}
+                {user ? 'Account' : 'Sign In'}
               </Typography>
             </Button>
             {openMenu && user && (

@@ -1,11 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Form from '../components/Form/Form';
-// import MainPublic from '../layouts/MainPublic';
-import MailWriterIllustration from '../svg/MailWriter';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import MailWriterIllustration from '../svg/MailWriter';
+import Form from '../components/Form/Form';
 
 const Contact = () => {
   return (

@@ -1,7 +1,5 @@
-import * as React from 'react';
-// import Box from "@mui/material/Box";
+import React from 'react';
 import UserProfile from '../components/UserProfile/UserProfile';
-// import MainPublic from '../layouts/MainPublic';
 
 const ProfilePage = () => {
   return (

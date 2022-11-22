@@ -8,7 +8,6 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material';
 import NotFoundSVG from '../svg/NotFound';
-// import MainPublic from '../layouts/MainPublic';
 
 const NotFound = () => {
   const theme = useTheme();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
@@ -54,7 +54,6 @@ const MainPublic = (props) => {
   //   },
   // ];
 
-  // const logo = 'https://source.unsplash.com/random';
   const logo =
     'https://seeklogo.com/images/B/blogger_B-logo-47610B2F87-seeklogo.com.png';
 
@@ -62,7 +61,6 @@ const MainPublic = (props) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header title='Blog' logo={logo} sections={sections} />
-      {/* {props.children} */}
       <Outlet />
       <Footer title='Blog' categories={categories} />
     </ThemeProvider>
