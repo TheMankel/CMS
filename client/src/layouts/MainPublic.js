@@ -7,7 +7,7 @@ import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 
 const MainPublic = () => {
-  const [webTitle, setWebTitle] = useState();
+  const [webTitle, setWebTitle] = useState('');
   const [sections, setSections] = useState([{ title: '', url: '' }]);
   const [categories, setCategories] = useState([{ title: '', links: [''] }]);
   // const [loading, setLoading] = useState(true);
