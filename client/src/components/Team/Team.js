@@ -16,6 +16,25 @@ const Team = (props) => {
   const theme = useTheme();
   const { authors } = props;
 
+  // const authors = [
+  //   {
+  //     name: 'Jankos',
+  //     title: 'Senior',
+  //     avatar:
+  //       'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
+  //     about:
+  //       'I am an ambitious workaholic, but apart from that, pretty simple person.',
+  //   },
+  //   {
+  //     name: 'Wojtas',
+  //     title: 'Kozak',
+  //     avatar:
+  //       'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
+  //     about:
+  //       'I am non ambitious workaholic, but apart from that, pretty complicated person.',
+  //   },
+  // ]
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -51,7 +70,13 @@ const Team = (props) => {
                   transform: `translateY(-${theme.spacing(1 / 2)})`,
                 },
               }}>
-              <CardContent>
+              <CardContent
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-around',
+                  height: '320px',
+                }}>
                 <Box align={'center'}>
                   <Avatar
                     alt='User Avatar'
@@ -59,12 +84,15 @@ const Team = (props) => {
                     sx={{ height: 80, width: 80 }}
                   />
                 </Box>
-                <Box marginTop={4} align={'center'}>
+                <Box align={'center'}>
                   <ListItemText primary={item.name} secondary={item.title} />
-                  <Typography variant={'subtitle2'} color={'textSecondary'}>
+                  <Typography
+                    variant={'subtitle2'}
+                    color={'textSecondary'}
+                    gutterBottom>
                     {item.about}
                   </Typography>
-                  <Box marginTop={4}>
+                  <Box>
                     <IconButton
                       size={'small'}
                       sx={{
