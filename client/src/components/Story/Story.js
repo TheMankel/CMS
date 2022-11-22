@@ -6,7 +6,12 @@ import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TeamWorkingIllustration from '../../svg/TeamWorking';
 
-const Story = () => {
+const Story = (props) => {
+  const { primaryText, secondaryText } = props;
+  // const primaryText = 'We travel around the world and blog about it!';
+  // const secondaryText =
+  //   'We were in every continent on the world and made a movie about it! We are also blogging every bit of our life here for five years already.';
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -28,7 +33,7 @@ const Story = () => {
             gutterBottom
             align={'center'}
             maxWidth='700px'>
-            We travel around the world and blog about it!
+            {primaryText}
           </Typography>
         </Box>
         <Box px={2} align={'center'}>
@@ -38,9 +43,7 @@ const Story = () => {
             color={'textSecondary'}
             align={'center'}
             maxWidth='1000px'>
-            We were in every continent on the world and made a movie about it!
-            We are also blogging every bit of our life here for five years
-            already.
+            {secondaryText}
           </Typography>
         </Box>
         <Box marginTop={3} display={'flex'} justifyContent={'center'}>
