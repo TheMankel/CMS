@@ -21,24 +21,28 @@ const Story = () => {
           }}>
           Our story
         </Typography>
-        <Box
-          component={Typography}
-          fontWeight={700}
-          variant={'h3'}
-          gutterBottom
-          align={'center'}>
-          We travel around the world
-          <br />
-          and blog about it!
+        <Box px={2} align={'center'}>
+          <Typography
+            variant={'h3'}
+            fontWeight={700}
+            gutterBottom
+            align={'center'}
+            maxWidth='700px'>
+            We travel around the world and blog about it!
+          </Typography>
         </Box>
-        <Typography
-          variant={'h6'}
-          component={'p'}
-          color={'textSecondary'}
-          align={'center'}>
-          We were in every continent on the world and made a movie about it! We
-          are also blogging every bit of our life here for five years already.
-        </Typography>
+        <Box px={2} align={'center'}>
+          <Typography
+            variant={'h6'}
+            component={'p'}
+            color={'textSecondary'}
+            align={'center'}
+            maxWidth='1000px'>
+            We were in every continent on the world and made a movie about it!
+            We are also blogging every bit of our life here for five years
+            already.
+          </Typography>
+        </Box>
         <Box marginTop={3} display={'flex'} justifyContent={'center'}>
           <Button
             component={NavLink}
