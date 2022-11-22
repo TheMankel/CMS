@@ -26,16 +26,6 @@ const Header = (props) => {
   const navigate = useNavigate();
   const { signOutHandler, user } = useAuth();
 
-  // const btn = user
-  //   ? {
-  //       label: 'Account',
-  //       url: '/account',
-  //     }
-  //   : {
-  //       label: 'Sign In',
-  //       url: '/login',
-  //     };
-
   const signOut = () => {
     signOutHandler();
     navigate('/');
