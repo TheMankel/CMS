@@ -121,8 +121,43 @@ const navigation = async (req, res, next) => {
   }
 };
 
+const about = async (req, res, next) => {
+  try {
+    const storyRef = await blogCollectionRef
+      .doc('about')
+      .collection('story')
+      .doc('text')
+      .get();
+
+    const teamRef = await blogCollectionRef
+      .doc('about')
+      .collection('team')
+      .get();
+
+    const data = {
+      storyText: {
+        primary: '',
+        secondary: '',
+      },
+      team: [],
+    };
+
+    data.storyText = storyRef.data();
+
+    teamRef.forEach((member) => {
+      data.team.push(member.data());
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   navigation,
+  about,
 };
