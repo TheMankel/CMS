@@ -16,6 +16,7 @@ const About = () => {
       about: '',
     },
   ]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -36,6 +37,8 @@ const About = () => {
       authorsData.forEach((author, i) => (author.avatar = avatars[i]));
 
       setAuthors(authorsData);
+
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -44,11 +47,15 @@ const About = () => {
   return (
     <>
       <Box my={3}>
-        <Story primaryText={primaryText} secondaryText={secondaryText} />
+        <Story
+          primaryText={primaryText}
+          secondaryText={secondaryText}
+          loading={loading}
+        />
       </Box>
       <Divider />
       <Box my={3}>
-        <Team authors={authors} />
+        <Team authors={authors} loading={loading} />
       </Box>
     </>
   );
