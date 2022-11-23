@@ -3,11 +3,12 @@ import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TeamWorkingIllustration from '../../svg/TeamWorking';
 
 const Story = (props) => {
-  const { primaryText, secondaryText } = props;
+  const { primaryText, secondaryText, loading } = props;
   // const primaryText = 'We travel around the world and blog about it!';
   // const secondaryText =
   //   'We were in every continent on the world and made a movie about it! We are also blogging every bit of our life here for five years already.';
@@ -33,7 +34,8 @@ const Story = (props) => {
             gutterBottom
             align={'center'}
             maxWidth='700px'>
-            {primaryText}
+            {loading ? <Skeleton /> : primaryText}
+            {/* {primaryText} */}
           </Typography>
         </Box>
         <Box px={2} align={'center'}>
@@ -43,7 +45,8 @@ const Story = (props) => {
             color={'textSecondary'}
             align={'center'}
             maxWidth='1000px'>
-            {secondaryText}
+            {loading ? <Skeleton /> : secondaryText}
+            {/* {secondaryText} */}
           </Typography>
         </Box>
         <Box marginTop={3} display={'flex'} justifyContent={'center'}>
