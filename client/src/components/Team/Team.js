@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { colors } from '@mui/material';
+import { colors, Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -14,7 +14,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Team = (props) => {
   const theme = useTheme();
-  const { authors } = props;
+  const { authors, loading } = props;
 
   // const authors = [
   //   {
@@ -78,37 +78,68 @@ const Team = (props) => {
                   height: '320px',
                 }}>
                 <Box align={'center'}>
-                  <Avatar
-                    alt='User Avatar'
-                    src={item.avatar}
-                    sx={{ height: 80, width: 80 }}
-                  />
+                  {loading ? (
+                    <Skeleton variant='circular'>
+                      <Avatar sx={{ height: 80, width: 80 }} />
+                    </Skeleton>
+                  ) : (
+                    <Avatar
+                      alt='User Avatar'
+                      src={item.avatar}
+                      sx={{ height: 80, width: 80 }}
+                    />
+                  )}
                 </Box>
                 <Box align={'center'}>
-                  <ListItemText primary={item.name} secondary={item.title} />
-                  <Typography
-                    variant={'subtitle2'}
-                    color={'textSecondary'}
-                    gutterBottom>
-                    {item.about}
-                  </Typography>
-                  <Box>
-                    <IconButton
-                      size={'small'}
+                  {loading ? (
+                    <Box>
+                      <Skeleton />
+                      <Skeleton />
+                      <Skeleton />
+                    </Box>
+                  ) : (
+                    <>
+                      <ListItemText
+                        primary={item.name}
+                        secondary={item.title}
+                      />
+                      <Typography
+                        variant={'subtitle2'}
+                        color={'textSecondary'}
+                        gutterBottom>
+                        {item.about}
+                      </Typography>
+                    </>
+                  )}
+                  {loading ? (
+                    <Box
+                      mt={2}
                       sx={{
-                        marginRight: 1,
-                        color: colors.blueGrey[200],
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: 1,
                       }}>
-                      <GitHubIcon />
-                    </IconButton>
-                    <IconButton
-                      size={'small'}
-                      sx={{
-                        color: colors.blueGrey[200],
-                      }}>
-                      <TwitterIcon />
-                    </IconButton>
-                  </Box>
+                      <Skeleton variant='circular' width={24} height={24} />
+                      <Skeleton variant='circular' width={24} height={24} />
+                    </Box>
+                  ) : (
+                    <Box>
+                      <IconButton
+                        size={'small'}
+                        sx={{
+                          color: colors.blueGrey[200],
+                        }}>
+                        <GitHubIcon />
+                      </IconButton>
+                      <IconButton
+                        size={'small'}
+                        sx={{
+                          color: colors.blueGrey[200],
+                        }}>
+                        <TwitterIcon />
+                      </IconButton>
+                    </Box>
+                  )}
                 </Box>
               </CardContent>
             </Box>
