@@ -14,9 +14,9 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Team = (props) => {
   const theme = useTheme();
-  const { authors, loading } = props;
+  const { team, loading } = props;
 
-  // const authors = [
+  // const team = [
   //   {
   //     name: 'Jankos',
   //     title: 'Senior',
@@ -57,7 +57,7 @@ const Team = (props) => {
         </Box>
       </Box>
       <Grid container spacing={2} alignItems='center' justifyContent='center'>
-        {authors.map((item, i) => (
+        {team.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
             <Box
               component={Card}

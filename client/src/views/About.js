@@ -8,7 +8,7 @@ import axios from 'axios';
 const About = () => {
   const [primaryText, setPrimaryText] = useState('');
   const [secondaryText, setSecondaryText] = useState('');
-  const [authors, setAuthors] = useState([
+  const [team, setTeam] = useState([
     {
       name: '',
       title: '',
@@ -33,10 +33,10 @@ const About = () => {
       setPrimaryText(data?.data.storyText.primary);
       setSecondaryText(data?.data.storyText.secondary);
 
-      const authorsData = [...data?.data.team];
-      authorsData.forEach((author, i) => (author.avatar = avatars[i]));
+      const teamData = [...data?.data.team];
+      teamData.forEach((author, i) => (author.avatar = avatars[i]));
 
-      setAuthors(authorsData);
+      setTeam(teamData);
 
       setLoading(false);
     } catch (err) {
@@ -55,7 +55,7 @@ const About = () => {
       </Box>
       <Divider />
       <Box my={3}>
-        <Team authors={authors} loading={loading} />
+        <Team team={team} loading={loading} />
       </Box>
     </>
   );
