@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,11 +18,52 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
+import { useStorage } from '../../contexts/storageContext';
+// import axios from 'axios';
+// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// import app from '../../config/firebase-config';
 
 const UserProfile = () => {
-  const { user, role, signOutHandler } = useAuth();
-  const navigate = useNavigate();
+  const { user, role, signOutHandler, updateUserPhoto } = useAuth();
+  const { createRef, uploadImage, downloadImage } = useStorage();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const userImagesRef = createRef(`userImages/${user?.uid}`);
+
+  // useEffect(() => {
+  //   if (!image) setImage(user?.photoURL);
+  // }, [user, image]);
+
+  useEffect(() => {
+    setImage(user?.photoURL);
+  }, [user]);
+
+  const handleUpload = (e) => {
+    try {
+      const imageFile = e.target.files[0];
+      if (!imageFile) return;
+
+      // uploadData(imageFile);
+      uploadImage(userImagesRef, imageFile);
+      downloadImage(userImagesRef, handleImageChange);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleImageChange = (imageUrl) => {
+    console.log(imageUrl);
+    setImage(imageUrl);
+    updateUserPhoto(imageUrl);
+  };
+
+  // const uploadData = async (imageFile) => {
+  //   await uploadBytes(userImagesRef, imageFile);
+  //   const imageUrl = await getDownloadURL(userImagesRef);
+  //   setImage(imageUrl);
+  //   updateUserPhoto(imageUrl);
+  // };
 
   const handleListItemClick = (e, i) => {
     setSelectedIndex(i);
@@ -70,7 +111,8 @@ const UserProfile = () => {
               <Box align={'center'}>
                 <Avatar
                   alt='User Avatar'
-                  src={user?.photoURL}
+                  // src={user?.photoURL}
+                  src={image}
                   sx={{
                     height: {
                       xs: 120,
@@ -108,13 +150,22 @@ const UserProfile = () => {
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton
+                    {/* <ListItemButton
                       selected={selectedIndex === 1}
                       onClick={(e) => handleListItemClick(e, 1)}>
+                      <input hidden accept='image/*' type='file' />
+
                       <ListItemIcon>
                         <PhotoCameraIcon />
                       </ListItemIcon>
                       <ListItemText primary='Change Avatar' />
+                    </ListItemButton> */}
+                    <ListItemButton component='label' onChange={handleUpload}>
+                      <ListItemIcon>
+                        <PhotoCameraIcon />
+                      </ListItemIcon>
+                      <ListItemText primary='Change Avatar' />
+                      <input hidden accept='image/*' type='file' />
                     </ListItemButton>
                   </ListItem>
                   {!role && (
@@ -131,7 +182,7 @@ const UserProfile = () => {
                   )}
                   {role && (
                     <ListItem disablePadding>
-                      <ListItemButton component={NavLink} to='dashboard'>
+                      <ListItemButton component={NavLink} to='/dashboard'>
                         <ListItemIcon>
                           <DashboardIcon />
                         </ListItemIcon>
