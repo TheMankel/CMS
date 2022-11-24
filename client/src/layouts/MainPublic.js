@@ -5,17 +5,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
+import { useStorage } from '../contexts/storageContext';
 
 const MainPublic = () => {
+  const { createRef, downloadImage } = useStorage();
   const [webTitle, setWebTitle] = useState('');
   const [sections, setSections] = useState([{ title: '', url: '' }]);
   const [categories, setCategories] = useState([{ title: '', links: [''] }]);
+  const [logo, setLogo] = useState('');
   // const [loading, setLoading] = useState(true);
   const theme = createTheme();
 
   useEffect(() => {
+    const logoRef = createRef(`logo/logo.svg`);
+
+    downloadImage(logoRef, setLogo);
     getData();
-  }, []);
+  }, [createRef, downloadImage]);
 
   const getData = async () => {
     try {
@@ -56,8 +62,8 @@ const MainPublic = () => {
   //   },
   // ];
 
-  const logo =
-    'https://seeklogo.com/images/B/blogger_B-logo-47610B2F87-seeklogo.com.png';
+  // const logo =
+  //   'https://seeklogo.com/images/B/blogger_B-logo-47610B2F87-seeklogo.com.png';
 
   return (
     <ThemeProvider theme={theme}>
