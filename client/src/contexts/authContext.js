@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import app from '../config/firebase-config';
 
@@ -32,6 +33,12 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
+  function updateUserPhoto(imageUrl) {
+    return updateProfile(auth.currentUser, {
+      photoURL: imageUrl,
+    });
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       const token = await user?.getIdTokenResult(true);
@@ -50,6 +57,7 @@ export function AuthProvider({ children }) {
     signOutHandler,
     role,
     setRole,
+    updateUserPhoto,
   };
 
   return (
