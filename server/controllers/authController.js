@@ -101,9 +101,13 @@ const navigation = async (req, res, next) => {
       .collection('sections')
       .get();
 
+    const fieldsRef = await blogCollectionRef.doc('public-navigation').get();
+
     const data = {
       categories: [],
       sections: [],
+      title: fieldsRef.data().title,
+      logo: fieldsRef.data().logo,
     };
 
     categoriesRef.forEach((cat) => {
