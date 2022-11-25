@@ -25,18 +25,17 @@ const About = () => {
   const getData = async () => {
     try {
       const data = await axios.get('http://localhost:8000/api/about');
-      const avatars = [
-        'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
-        'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
-      ];
+      // const avatars = [
+      //   'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
+      //   'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
+      // ];
       // console.log(data);
       setPrimaryText(data?.data.storyText.primary);
       setSecondaryText(data?.data.storyText.secondary);
+      setTeam(data?.data.team);
 
-      const teamData = [...data?.data.team];
-      teamData.forEach((author, i) => (author.avatar = avatars[i]));
-
-      setTeam(teamData);
+      // const teamData = [...data?.data.team];
+      // teamData.forEach((author, i) => (author.avatar = avatars[i]));
 
       setLoading(false);
     } catch (err) {
