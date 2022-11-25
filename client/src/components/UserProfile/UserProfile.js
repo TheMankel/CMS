@@ -18,14 +18,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
-import { useStorage } from '../../contexts/storageContext';
-// import axios from 'axios';
-// import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import app from '../../config/firebase-config';
+import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 
 const UserProfile = () => {
   const { user, role, signOutHandler, updateUserPhoto } = useAuth();
-  const { createRef, uploadImage, downloadImage } = useStorage();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
@@ -44,7 +40,6 @@ const UserProfile = () => {
       const imageFile = e.target.files[0];
       if (!imageFile) return;
 
-      // uploadData(imageFile);
       uploadImage(userImagesRef, imageFile);
       downloadImage(userImagesRef, handleImageChange);
     } catch (err) {
@@ -52,18 +47,12 @@ const UserProfile = () => {
     }
   };
 
-  const handleImageChange = (imageUrl) => {
+  const handleImageChange = async (imageUrl) => {
     console.log(imageUrl);
+    await updateUserPhoto(imageUrl);
     setImage(imageUrl);
-    updateUserPhoto(imageUrl);
+    console.log(user?.photoURL);
   };
-
-  // const uploadData = async (imageFile) => {
-  //   await uploadBytes(userImagesRef, imageFile);
-  //   const imageUrl = await getDownloadURL(userImagesRef);
-  //   setImage(imageUrl);
-  //   updateUserPhoto(imageUrl);
-  // };
 
   const handleListItemClick = (e, i) => {
     setSelectedIndex(i);
