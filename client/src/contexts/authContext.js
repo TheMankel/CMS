@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import app from '../config/firebase-config';
 
@@ -39,6 +40,12 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function forgotPassword(email) {
+    return sendPasswordResetEmail(auth, email, {
+      url: 'http://localhost:3000/login',
+    });
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       const token = await user?.getIdTokenResult(true);
@@ -58,6 +65,7 @@ export function AuthProvider({ children }) {
     role,
     setRole,
     updateUserPhoto,
+    forgotPassword,
   };
 
   return (
