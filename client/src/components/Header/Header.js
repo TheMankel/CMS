@@ -53,16 +53,27 @@ const Header = (props) => {
             anchor='left'
             open={openDrawer}
             onClose={() => setOpenDrawer(false)}>
-            <Box p={2} height={1} textAlign='left'>
-              <IconButton
-                color='inherit'
-                aria-label='close drawer'
-                onClick={() => setOpenDrawer(false)}
-                sx={{ mb: 2 }}>
-                <CloseIcon />
-              </IconButton>
-              <Divider sx={{ mb: 1 }} />
-              <List>
+            <Box height={1} textAlign='left'>
+              <Box
+                padding={1}
+                sx={{
+                  bgcolor: '#f5f5f5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}>
+                <IconButton
+                  color='inherit'
+                  aria-label='close drawer'
+                  onClick={() => setOpenDrawer(false)}>
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant='h6' component='h2'>
+                  Menu
+                </Typography>
+              </Box>
+              <Divider />
+              <List sx={{ padding: 1 }}>
                 {sections?.map((section) => (
                   <ListItemButton key={section.title}>
                     <Link
@@ -79,24 +90,30 @@ const Header = (props) => {
               </List>
             </Box>
           </Drawer>
-          <div style={{ display: 'flex' }}>
-            <IconButton
-              color='inherit'
-              aria-label='open drawer'
-              onClick={() => setOpenDrawer(true)}
+          <Box sx={{ display: 'flex' }}>
+            <Box
               sx={{
-                display: {
-                  md: 'none',
-                },
+                display: 'flex',
+                alignItems: 'center',
               }}>
-              <MenuIcon />
-            </IconButton>
+              <IconButton
+                color='inherit'
+                aria-label='open drawer'
+                onClick={() => setOpenDrawer(true)}
+                sx={{
+                  display: {
+                    md: 'none',
+                  },
+                }}>
+                <MenuIcon />
+              </IconButton>
+            </Box>
             <Link
               component={NavLink}
               color='inherit'
               underline='none'
               to='/'
-              style={{
+              sx={{
                 display: 'flex',
                 alignItems: 'center',
               }}>
@@ -119,7 +136,7 @@ const Header = (props) => {
                 {title}
               </Typography>
             </Link>
-          </div>
+          </Box>
           <List
             sx={{
               display: {
