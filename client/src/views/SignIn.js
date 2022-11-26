@@ -34,6 +34,8 @@ const SignIn = () => {
     });
 
     try {
+      if (!formRef.get('email') || !formRef.get('password')) return;
+
       setLoading(true);
 
       const userCredential = await signInHandler(

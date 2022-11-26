@@ -34,6 +34,14 @@ const SignUp = () => {
     });
 
     try {
+      if (
+        !formRef.get('firstName') ||
+        !formRef.get('lastName') ||
+        !formRef.get('email') ||
+        !formRef.get('password')
+      )
+        return;
+
       setLoading(true);
 
       const userCredential = await signUpHandler(
