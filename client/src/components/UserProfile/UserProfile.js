@@ -19,6 +19,13 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Backdrop from '@mui/material/Backdrop';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
 
 const UserProfile = () => {
   const { user, role, signOutHandler, updateUserPhoto } = useAuth();
@@ -26,13 +33,16 @@ const UserProfile = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const userImagesRef = createRef(`userImages/${user?.uid}`);
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   // useEffect(() => {
   //   if (!image) setImage(user?.photoURL);
   // }, [user, image]);
 
   useEffect(() => {
     setImage(user?.photoURL);
+    console.log(user);
   }, [user]);
 
   const handleUpload = (e) => {
@@ -65,25 +75,176 @@ const UserProfile = () => {
 
   const About = (
     <Box>
-      <Typography gutterBottom variant='h5' component='div'>
+      <Typography gutterBottom variant='h4' component='div' fontSize={24}>
         User Info
       </Typography>
-      <Divider />
-      <Typography gutterBottom variant='h6' component='div'>
-        First Name
-      </Typography>
-      <Divider />
-      <Typography gutterBottom variant='h6' component='div'>
-        Last Name
-      </Typography>
-      <Divider />
-      <Typography gutterBottom variant='h6' component='div'>
-        E-Mail
-      </Typography>
-      <Divider />
-      <Typography gutterBottom variant='h6' component='div'>
-        Password
-      </Typography>
+      <Box my={1}>
+        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+          Your details
+        </Typography>
+        <Box
+          border={1}
+          borderRadius={2}
+          borderColor='#dddddd'
+          padding={2}
+          minHeight={50}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Typography variant='h6' component='div' fontSize={14}>
+            {user.displayName}
+          </Typography>
+          <Button
+            onClick={handleOpen}
+            sx={{ textTransform: 'capitalize', padding: 0 }}>
+            Change
+          </Button>
+        </Box>
+      </Box>
+      <Box my={1}>
+        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+          E-Mail
+        </Typography>
+        <Box
+          border={1}
+          borderRadius={2}
+          borderColor='#dddddd'
+          padding={2}
+          minHeight={50}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Typography variant='h6' component='div' fontSize={14}>
+            {user.email}
+          </Typography>
+          <Button
+            onClick={handleOpen}
+            sx={{ textTransform: 'capitalize', padding: 0 }}>
+            Change
+          </Button>
+        </Box>
+      </Box>
+      <Box my={1}>
+        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+          Password
+        </Typography>
+        <Box
+          border={1}
+          borderRadius={2}
+          borderColor='#dddddd'
+          padding={2}
+          minHeight={50}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Typography variant='h6' component='div'>
+            ••••••••
+          </Typography>
+          <Button
+            onClick={handleOpen}
+            sx={{ textTransform: 'capitalize', padding: 0 }}>
+            Change
+          </Button>
+        </Box>
+      </Box>
+      <Modal
+        aria-labelledby='transition-modal-title'
+        aria-describedby='transition-modal-description'
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}>
+        <Fade in={open}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 420,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              boxShadow: 24,
+            }}>
+            <Box
+              px={2}
+              py={1}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                bgcolor: '#f5f5f5',
+                borderRadius: 2,
+              }}>
+              <Typography
+                id='transition-modal-title'
+                variant='h6'
+                component='h2'>
+                Change e-mail address
+              </Typography>
+              <IconButton
+                color='inherit'
+                aria-label='close-modal'
+                onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <Box
+              padding={3}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 3,
+              }}>
+              <TextField
+                disabled
+                id='outlined-disabled'
+                label='Current e-mail'
+                defaultValue={user.email}
+                fullWidth
+                size='small'
+                sx={{ bgcolor: '#f5f5f5' }}
+              />
+              <TextField
+                required
+                id='email'
+                label='New e-mail'
+                type='email'
+                fullWidth
+                size='small'
+              />
+              <TextField
+                required
+                id='password'
+                label='Confirm with password'
+                type='password'
+                autoComplete='current-password'
+                fullWidth
+                size='small'
+              />
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                // disabled={loading}
+                sx={{ textTransform: 'capitalize' }}>
+                Save
+              </Button>
+            </Box>
+          </Box>
+        </Fade>
+      </Modal>
     </Box>
   );
 
