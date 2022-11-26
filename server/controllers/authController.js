@@ -159,9 +159,32 @@ const about = async (req, res, next) => {
   }
 };
 
+const slider = async (req, res, next) => {
+  try {
+    const sliderRef = await blogCollectionRef
+      .doc('slider')
+      .collection('carouselItems')
+      .get();
+
+    const data = {
+      carouselItems: [],
+    };
+
+    sliderRef.forEach((item) => {
+      data.carouselItems.push(item.data());
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   navigation,
   about,
+  slider,
 };
