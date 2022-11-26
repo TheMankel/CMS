@@ -12,81 +12,84 @@ import Divider from '@mui/material/Divider';
 import Copyright from '../Copyright.js/Copyright';
 
 const Footer = (props) => {
-  const { title, categories } = props;
+  const { title, categories, showDetailed } = props;
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
-      <Divider sx={{ marginBottom: '16px' }} />
-      <Container maxWidth='lg'>
-        <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
-          {categories?.map((category, index) => (
-            <List
-              key={index}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'wrap',
-              }}>
-              <Typography
-                component='h5'
-                variant='h5'
-                textTransform='capitalize'
-                fontWeight={700}>
-                {category.title.toLowerCase()}
-              </Typography>
-              {category.links.map((link, index) => (
-                <Link
-                  component={NavLink}
-                  color='#424245'
-                  variant='p'
-                  underline='none'
-                  key={index}
-                  to={link.toLowerCase()}
-                  textTransform='capitalize'>
-                  {link.toLowerCase()}
-                </Link>
-              ))}
-            </List>
-          ))}
-          <List>
-            <Typography component='h5' variant='h5' fontWeight={700}>
-              Subscribe Blog for latest updates
-            </Typography>
-            <Typography
-              component='p'
-              variant='p'
-              color='#424245'
-              sx={{ mt: '16px' }}>
-              Just leave your email address so we can stay in touch
-            </Typography>
-            <Box
-              component='form'
-              noValidate
-              autoComplete='off'
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                gap: '24px',
-                mt: '16px',
-              }}>
-              <TextField
-                id='outlined-basic'
-                label='Enter email address'
-                variant='outlined'
-                size='small'
-              />
-              <Button
-                variant='contained'
+      {showDetailed && <Divider sx={{ marginBottom: '16px' }} />}
+      {showDetailed && (
+        <Container maxWidth='lg'>
+          <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
+            {categories?.map((category, index) => (
+              <List
+                key={index}
                 sx={{
-                  textTransform: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexWrap: 'wrap',
                 }}>
-                Subscribe Now
-              </Button>
-            </Box>
-          </List>
-        </Box>
-      </Container>
-      <Divider sx={{ mt: '16px' }} />
+                <Typography
+                  component='h5'
+                  variant='h5'
+                  textTransform='capitalize'
+                  fontWeight={700}>
+                  {category.title.toLowerCase()}
+                </Typography>
+                {category.links.map((link, index) => (
+                  <Link
+                    component={NavLink}
+                    color='#424245'
+                    variant='p'
+                    underline='none'
+                    key={index}
+                    to={link.toLowerCase()}
+                    textTransform='capitalize'>
+                    {link.toLowerCase()}
+                  </Link>
+                ))}
+              </List>
+            ))}
+            <List>
+              <Typography component='h5' variant='h5' fontWeight={700}>
+                Subscribe Blog for latest updates
+              </Typography>
+              <Typography
+                component='p'
+                variant='p'
+                color='#424245'
+                sx={{ mt: '16px' }}>
+                Just leave your email address so we can stay in touch
+              </Typography>
+              <Box
+                component='form'
+                noValidate
+                autoComplete='off'
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  gap: '24px',
+                  mt: '16px',
+                }}>
+                <TextField
+                  id='outlined-basic'
+                  label='Enter email address'
+                  variant='outlined'
+                  size='small'
+                />
+                <Button
+                  variant='contained'
+                  sx={{
+                    textTransform: 'none',
+                  }}>
+                  Subscribe Now
+                </Button>
+              </Box>
+            </List>
+          </Box>
+        </Container>
+      )}
+      {/* <Divider sx={{ mt: '16px' }} /> */}
+      <Divider />
       <Copyright title={title} />
     </Box>
   );

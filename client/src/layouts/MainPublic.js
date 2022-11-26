@@ -6,7 +6,8 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import axios from 'axios';
 
-const MainPublic = () => {
+const MainPublic = (props) => {
+  const { showDetailed } = props;
   const [webTitle, setWebTitle] = useState('');
   const [sections, setSections] = useState([{ title: '', url: '' }]);
   const [categories, setCategories] = useState([{ title: '', links: [''] }]);
@@ -64,9 +65,18 @@ const MainPublic = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header title={webTitle} logo={logo} sections={sections} />
+      <Header
+        title={webTitle}
+        logo={logo}
+        sections={sections}
+        showDetailed={showDetailed}
+      />
       <Outlet />
-      <Footer title={webTitle} categories={categories} />
+      <Footer
+        title={webTitle}
+        categories={categories}
+        showDetailed={showDetailed}
+      />
     </ThemeProvider>
   );
 };

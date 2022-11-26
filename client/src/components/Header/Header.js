@@ -20,7 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
 
 const Header = (props) => {
-  const { sections, title, logo } = props;
+  const { sections, title, logo, showDetailed } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
@@ -49,65 +49,69 @@ const Header = (props) => {
             justifyContent: 'space-between',
             overflowX: 'auto',
           }}>
-          <Drawer
-            anchor='left'
-            open={openDrawer}
-            onClose={() => setOpenDrawer(false)}>
-            <Box height={1} textAlign='left'>
+          {showDetailed && (
+            <Drawer
+              anchor='left'
+              open={openDrawer}
+              onClose={() => setOpenDrawer(false)}>
+              <Box height={1} textAlign='left'>
+                <Box
+                  padding={1}
+                  sx={{
+                    bgcolor: '#f5f5f5',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}>
+                  <IconButton
+                    color='inherit'
+                    aria-label='close drawer'
+                    onClick={() => setOpenDrawer(false)}>
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography variant='h6' component='h2'>
+                    Menu
+                  </Typography>
+                </Box>
+                <Divider />
+                <List sx={{ padding: 1 }}>
+                  {sections?.map((section) => (
+                    <ListItemButton key={section.title}>
+                      <Link
+                        component={NavLink}
+                        color='inherit'
+                        variant='button'
+                        underline='none'
+                        to={section.url}
+                        sx={{ px: 1, flexShrink: 0 }}>
+                        {section.title}
+                      </Link>
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Box>
+            </Drawer>
+          )}
+          <Box sx={{ display: 'flex' }}>
+            {showDetailed && (
               <Box
-                padding={1}
                 sx={{
-                  bgcolor: '#f5f5f5',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1,
                 }}>
                 <IconButton
                   color='inherit'
-                  aria-label='close drawer'
-                  onClick={() => setOpenDrawer(false)}>
-                  <CloseIcon />
+                  aria-label='open drawer'
+                  onClick={() => setOpenDrawer(true)}
+                  sx={{
+                    display: {
+                      md: 'none',
+                    },
+                  }}>
+                  <MenuIcon />
                 </IconButton>
-                <Typography variant='h6' component='h2'>
-                  Menu
-                </Typography>
               </Box>
-              <Divider />
-              <List sx={{ padding: 1 }}>
-                {sections?.map((section) => (
-                  <ListItemButton key={section.title}>
-                    <Link
-                      component={NavLink}
-                      color='inherit'
-                      variant='button'
-                      underline='none'
-                      to={section.url}
-                      sx={{ px: 1, flexShrink: 0 }}>
-                      {section.title}
-                    </Link>
-                  </ListItemButton>
-                ))}
-              </List>
-            </Box>
-          </Drawer>
-          <Box sx={{ display: 'flex' }}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}>
-              <IconButton
-                color='inherit'
-                aria-label='open drawer'
-                onClick={() => setOpenDrawer(true)}
-                sx={{
-                  display: {
-                    md: 'none',
-                  },
-                }}>
-                <MenuIcon />
-              </IconButton>
-            </Box>
+            )}
             <Link
               component={NavLink}
               color='inherit'
@@ -137,93 +141,97 @@ const Header = (props) => {
               </Typography>
             </Link>
           </Box>
-          <List
-            sx={{
-              display: {
-                xs: 'none',
-                md: 'flex',
-              },
-              flexWrap: 'wrap',
-            }}>
-            {sections?.map((section) => (
-              <Link
+          {showDetailed && (
+            <List
+              sx={{
+                display: {
+                  xs: 'none',
+                  md: 'flex',
+                },
+                flexWrap: 'wrap',
+              }}>
+              {sections?.map((section) => (
+                <Link
+                  component={NavLink}
+                  color='inherit'
+                  variant='button'
+                  underline='none'
+                  key={section.title}
+                  to={section.url}
+                  sx={{ px: 1 }}>
+                  {section.title}
+                </Link>
+              ))}
+            </List>
+          )}
+          {showDetailed && (
+            <List>
+              <Button
                 component={NavLink}
                 color='inherit'
-                variant='button'
                 underline='none'
-                key={section.title}
-                to={section.url}
-                sx={{ px: 1 }}>
-                {section.title}
-              </Link>
-            ))}
-          </List>
-          <List>
-            <Button
-              component={NavLink}
-              color='inherit'
-              underline='none'
-              to={user ? '/account' : '/login'}
-              startIcon={<PermIdentityIcon />}
-              onMouseOver={openMenuHandler}
-              onMouseLeave={closeMenuHandler}
-              sx={{
-                zIndex: 1301,
-                textTransform: 'none',
-                minWidth: 100,
-              }}>
-              <Typography
-                sx={{
-                  display: {
-                    sx: 'none',
-                    md: 'block',
-                  },
-                }}>
-                {user ? 'Account' : 'Sign In'}
-              </Typography>
-            </Button>
-            {openMenu && user && (
-              <List
-                disablePadding
-                sx={{
-                  position: 'fixed',
-                  zIndex: 1300,
-                  boxShadow:
-                    '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 10%)',
-                  overflow: 'hidden',
-                }}
+                to={user ? '/account' : '/login'}
+                startIcon={<PermIdentityIcon />}
                 onMouseOver={openMenuHandler}
-                onMouseLeave={closeMenuHandler}>
-                <ListItem
+                onMouseLeave={closeMenuHandler}
+                sx={{
+                  zIndex: 1301,
+                  textTransform: 'none',
+                  minWidth: 100,
+                }}>
+                <Typography
+                  sx={{
+                    display: {
+                      sx: 'none',
+                      md: 'block',
+                    },
+                  }}>
+                  {user ? 'Account' : 'Sign In'}
+                </Typography>
+              </Button>
+              {openMenu && user && (
+                <List
                   disablePadding
                   sx={{
-                    background: 'white',
-                    borderRadius: 1,
-                  }}>
-                  <Button
-                    color='inherit'
-                    underline='none'
-                    startIcon={<LogoutIcon />}
-                    onClick={signOut}
+                    position: 'fixed',
+                    zIndex: 1300,
+                    boxShadow:
+                      '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 10%)',
+                    overflow: 'hidden',
+                  }}
+                  onMouseOver={openMenuHandler}
+                  onMouseLeave={closeMenuHandler}>
+                  <ListItem
+                    disablePadding
                     sx={{
-                      textTransform: 'none',
-                      minWidth: 100,
-                      minHeight: 36,
+                      background: 'white',
+                      borderRadius: 1,
                     }}>
-                    <Typography
+                    <Button
+                      color='inherit'
+                      underline='none'
+                      startIcon={<LogoutIcon />}
+                      onClick={signOut}
                       sx={{
-                        display: {
-                          sx: 'none',
-                          md: 'block',
-                        },
+                        textTransform: 'none',
+                        minWidth: 100,
+                        minHeight: 36,
                       }}>
-                      Logout
-                    </Typography>
-                  </Button>
-                </ListItem>
-              </List>
-            )}
-          </List>
+                      <Typography
+                        sx={{
+                          display: {
+                            sx: 'none',
+                            md: 'block',
+                          },
+                        }}>
+                        Logout
+                      </Typography>
+                    </Button>
+                  </ListItem>
+                </List>
+              )}
+            </List>
+          )}
         </Toolbar>
       </Container>
       <Divider sx={{ boxShadow: 1 }} />
