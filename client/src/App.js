@@ -16,7 +16,7 @@ function App() {
   const { user, role } = useAuth();
   return (
     <Routes>
-      <Route element={<MainPublic />}>
+      <Route element={<MainPublic showDetailed={true} />}>
         <Route path='/' element={<HomePage />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
@@ -30,10 +30,15 @@ function App() {
         />
         <Route path='*' element={<NotFound />} />
       </Route>
-      <Route>
+      <Route element={<MainPublic showDetailed={false} />}>
         <Route path='/login' element={<SignIn />} />
         <Route path='/register' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+      </Route>
+      <Route>
+        {/* <Route path='/login' element={<SignIn />} />
+        <Route path='/register' element={<SignUp />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} /> */}
         <Route
           path='dashboard'
           element={
