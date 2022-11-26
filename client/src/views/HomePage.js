@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -9,8 +9,10 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
+import axios from 'axios';
 
 const Homepage = () => {
+  const [carouselItems, setCarouselItems] = useState([]);
   const recentPost = {
     title: 'Title of a recent blog post',
     date: 'Nov 12',
@@ -64,23 +66,39 @@ const Homepage = () => {
     ],
   };
 
-  const carouselItems = [
-    {
-      name: '1',
-      description: 'Probably the most random thing you have ever seen!',
-      image: 'https://source.unsplash.com/random',
-    },
-    {
-      name: '2',
-      description: 'Hello World!',
-      image: 'https://source.unsplash.com/random',
-    },
-    {
-      name: '3',
-      description: 'Ok bye!',
-      image: 'https://source.unsplash.com/random',
-    },
-  ];
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const data = await axios.get('http://localhost:8000/api/slider');
+
+      setCarouselItems(data?.data.carouselItems);
+
+      // setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // const carouselItems = [
+  //   {
+  //     name: '1',
+  //     description: 'Probably the most random thing you have ever seen!',
+  //     image: 'https://source.unsplash.com/random',
+  //   },
+  //   {
+  //     name: '2',
+  //     description: 'Hello World!',
+  //     image: 'https://source.unsplash.com/random',
+  //   },
+  //   {
+  //     name: '3',
+  //     description: 'Ok bye!',
+  //     image: 'https://source.unsplash.com/random',
+  //   },
+  // ];
 
   return (
     <>
