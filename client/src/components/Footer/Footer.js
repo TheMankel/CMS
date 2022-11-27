@@ -16,9 +16,10 @@ const Footer = (props) => {
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
-      {showDetailed && <Divider sx={{ marginBottom: '16px' }} />}
+      {/* {showDetailed && <Divider sx={{ marginBottom: '16px' }} />} */}
+      {showDetailed && <Divider sx={{ marginTop: '16px' }} />}
       {showDetailed && (
-        <Container maxWidth='lg'>
+        <Container maxWidth='lg' sx={{ my: 2 }}>
           <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
             {categories?.map((category, index) => (
               <List
