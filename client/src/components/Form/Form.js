@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -10,7 +11,29 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
-const Form = () => {
+const Form = (props) => {
+  const [sent, setSent] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [msg, setMsg] = useState('');
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+
+    setSent(true);
+    try {
+      await axios.post('http://localhost:8000/api/contact', {
+        firstName,
+        lastName,
+        email,
+        msg,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -25,7 +48,11 @@ const Form = () => {
         borderRadius={2}
         boxShadow={4}
         marginBottom={4}>
-        <Box component='form' noValidate autoComplete='off'>
+        <Box
+          component='form'
+          noValidate
+          autoComplete='off'
+          onSubmit={handleSend}>
           <Grid container spacing={isMd ? 4 : 2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -34,6 +61,8 @@ const Form = () => {
                 variant='outlined'
                 color='primary'
                 size='medium'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 fullWidth
               />
             </Grid>
@@ -44,6 +73,8 @@ const Form = () => {
                 variant='outlined'
                 color='primary'
                 size='medium'
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 fullWidth
               />
             </Grid>
@@ -55,6 +86,8 @@ const Form = () => {
                 variant='outlined'
                 color='primary'
                 size='medium'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 fullWidth
               />
             </Grid>
@@ -66,6 +99,8 @@ const Form = () => {
                 variant='outlined'
                 color='primary'
                 size='medium'
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
                 fullWidth
               />
             </Grid>
@@ -76,6 +111,7 @@ const Form = () => {
                 color='primary'
                 size='medium'
                 fullWidth
+                type='submit'
                 sx={{ height: 54, textTransform: 'none' }}>
                 Submit
               </Button>
