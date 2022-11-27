@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/authRoute');
+const contactRoutes = require('./routes/contactRoute');
 
 require('dotenv').config();
 
@@ -22,6 +23,7 @@ app.use(
   }),
 );
 app.use('/api', authRoutes);
+app.use('/api', contactRoutes);
 
 app.listen(port, () =>
   console.log(`Server is running on: http://localhost:${port}`),

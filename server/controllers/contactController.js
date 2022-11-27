@@ -26,7 +26,7 @@ const contact = (req, res, next) => {
 
   const mail = {
     from: {
-      name: firstName,
+      name: firstName + ' ' + lastName,
       address: email,
     },
     to: process.env.EMAIL,
