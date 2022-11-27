@@ -110,7 +110,7 @@ const Homepage = () => {
               <FeaturedPost key={post.title} post={post} />
             ))}
           </Grid>
-          <Grid container spacing={5} sx={{ mt: 3 }}>
+          <Grid container spacing={5} sx={{ my: 3 }}>
             <RecentPost post={recentPost} />
             <Sidebar
               title={sidebar.title}
