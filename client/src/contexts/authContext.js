@@ -7,6 +7,8 @@ import {
   signOut,
   updateProfile,
   sendPasswordResetEmail,
+  setPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth';
 import app from '../config/firebase-config';
 
@@ -46,6 +48,10 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function rememberSessionUser() {
+    return setPersistence(auth, browserSessionPersistence);
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       const token = await user?.getIdTokenResult(true);
@@ -66,6 +72,7 @@ export function AuthProvider({ children }) {
     setRole,
     updateUserPhoto,
     forgotPassword,
+    rememberSessionUser,
   };
 
   return (

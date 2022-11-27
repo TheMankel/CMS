@@ -19,8 +19,9 @@ import axios from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { signInHandler } = useAuth();
+  const { signInHandler, rememberSessionUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(true);
   const theme = createTheme();
 
   const handleSubmit = async (e) => {
@@ -37,6 +38,8 @@ const SignIn = () => {
       if (!formRef.get('email') || !formRef.get('password')) return;
 
       setLoading(true);
+
+      if (!checked) rememberSessionUser();
 
       const userCredential = await signInHandler(
         formRef.get('email'),
@@ -65,6 +68,10 @@ const SignIn = () => {
     }
 
     setLoading(false);
+  };
+
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
   };
 
   return (
@@ -135,7 +142,14 @@ const SignIn = () => {
                   autoComplete='current-password'
                 />
                 <FormControlLabel
-                  control={<Checkbox value='remember' color='primary' />}
+                  control={
+                    <Checkbox
+                      // value='remember'
+                      color='primary'
+                      checked={checked}
+                      onChange={handleChange}
+                    />
+                  }
                   label='Remember me'
                 />
                 <Button
