@@ -181,10 +181,26 @@ const slider = async (req, res, next) => {
   }
 };
 
+const deleteUser = async (req, res, next) => {
+  try {
+    const { uid } = req.body;
+
+    const usersRef = await usersCollectionRef.doc(uid);
+
+    usersRef.delete();
+
+    return res.status(200).json('User data deleted!');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   signUp,
   signIn,
   navigation,
   about,
   slider,
+  deleteUser,
 };
