@@ -26,9 +26,11 @@ import Backdrop from '@mui/material/Backdrop';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 
 const UserProfile = () => {
-  const { user, role, signOutHandler, updateUserPhoto } = useAuth();
+  const { user, role, signOutHandler, updateUserPhoto, deleteUserHandler } =
+    useAuth();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
@@ -68,17 +70,33 @@ const UserProfile = () => {
     setSelectedIndex(i);
   };
 
-  const signOut = () => {
+  const handleSignOut = () => {
     signOutHandler();
     navigate('/');
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      const { uid } = user;
+
+      const res = await axios.post('http://localhost:8000/api/delete-user', {
+        uid,
+      });
+
+      if (res.status !== 200) return;
+
+      deleteUserHandler();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const About = (
     <Box>
       <Typography gutterBottom variant='h4' component='div' fontSize={24}>
-        User Info
+        User info
       </Typography>
-      <Box my={1}>
+      <Box my={2}>
         <Typography gutterBottom variant='h5' component='div' fontSize={16}>
           Your details
         </Typography>
@@ -103,9 +121,9 @@ const UserProfile = () => {
           </Button>
         </Box>
       </Box>
-      <Box my={1}>
+      <Box my={2}>
         <Typography gutterBottom variant='h5' component='div' fontSize={16}>
-          E-Mail
+          Email address
         </Typography>
         <Box
           border={1}
@@ -128,7 +146,7 @@ const UserProfile = () => {
           </Button>
         </Box>
       </Box>
-      <Box my={1}>
+      <Box my={2}>
         <Typography gutterBottom variant='h5' component='div' fontSize={16}>
           Password
         </Typography>
@@ -248,9 +266,33 @@ const UserProfile = () => {
     </Box>
   );
 
-  const ChangeAvatar = <Box>ChangeAvatar</Box>;
-
-  const DeleteAccount = <Box>DeleteAccount</Box>;
+  const DeleteAccount = (
+    <Box>
+      <Typography gutterBottom variant='h4' component='div' fontSize={24}>
+        Delete account
+      </Typography>
+      <Box my={2}>
+        <Typography my={1} variant='h5' component='div' fontSize={16}>
+          Are you sure you want to delete your account?
+        </Typography>
+        <Typography my={1} variant='h5' component='div' fontSize={16}>
+          If you click on this button, you will delete your account in our blog.
+          You will be automatically log out and not able to access your account
+          anymore.
+        </Typography>
+        <Typography my={1} variant='h5' component='div' fontSize={16}>
+          Make sure you definitely want to do this - your account cannot be
+          restored.
+        </Typography>
+      </Box>
+      <Button
+        variant='contained'
+        onClick={handleDeleteUser}
+        sx={{ textTransform: 'capitalize' }}>
+        Delete account
+      </Button>
+    </Box>
+  );
 
   return (
     <Container maxWidth='lg'>
@@ -341,7 +383,7 @@ const UserProfile = () => {
                     </ListItem>
                   )}
                   <ListItem disablePadding>
-                    <ListItemButton onClick={signOut}>
+                    <ListItemButton onClick={handleSignOut}>
                       <ListItemIcon>
                         <LogoutIcon />
                       </ListItemIcon>
@@ -358,7 +400,6 @@ const UserProfile = () => {
                 borderColor={'#0000001f'}
                 sx={{ borderWidth: 'thin', height: '100%' }}>
                 {selectedIndex === 0 && About}
-                {selectedIndex === 1 && ChangeAvatar}
                 {selectedIndex === 2 && DeleteAccount}
               </Box>
             </Grid>
