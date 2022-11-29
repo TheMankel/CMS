@@ -4,6 +4,7 @@ import {
   uploadBytes,
   getDownloadURL,
   listAll,
+  deleteObject,
 } from 'firebase/storage';
 import app from '../config/firebase-config';
 
@@ -34,4 +35,8 @@ export const downloadImages = async (ref, callback) => {
     const imageUrl = await getDownloadURL(image);
     callback((prev) => [...prev, imageUrl]);
   });
+};
+
+export const deleteImage = async (ref) => {
+  deleteObject(ref);
 };
