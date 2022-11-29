@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
@@ -25,6 +25,15 @@ const Header = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
   const { signOutHandler, user } = useAuth();
+
+  useEffect(() => {
+    setOpenMenu(false);
+    const onScroll = () => setOpenMenu(false);
+    // clean up code
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [showDetailed]);
 
   const signOut = () => {
     signOutHandler();
