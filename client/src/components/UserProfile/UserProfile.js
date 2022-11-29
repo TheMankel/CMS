@@ -18,7 +18,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
-import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import {
+  createRef,
+  uploadImage,
+  downloadImage,
+  deleteImage,
+} from '../../lib/storage';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
@@ -85,6 +90,8 @@ const UserProfile = () => {
 
       if (res.status !== 200) return;
 
+      if (image) deleteImage(userImagesRef);
+
       deleteUserHandler();
     } catch (err) {
       console.log(err);
@@ -112,7 +119,7 @@ const UserProfile = () => {
             alignItems: 'center',
           }}>
           <Typography variant='h6' component='div' fontSize={14}>
-            {user.displayName}
+            {user?.displayName}
           </Typography>
           <Button
             onClick={handleOpen}
@@ -137,7 +144,7 @@ const UserProfile = () => {
             alignItems: 'center',
           }}>
           <Typography variant='h6' component='div' fontSize={14}>
-            {user.email}
+            {user?.email}
           </Typography>
           <Button
             onClick={handleOpen}
