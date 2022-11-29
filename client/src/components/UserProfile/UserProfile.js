@@ -47,13 +47,13 @@ const UserProfile = () => {
     console.log(user);
   }, [user]);
 
-  const handleUpload = (e) => {
+  const handleUpload = async (e) => {
     try {
       const imageFile = e.target.files[0];
       if (!imageFile) return;
 
-      uploadImage(userImagesRef, imageFile);
-      downloadImage(userImagesRef, handleImageChange);
+      await uploadImage(userImagesRef, imageFile);
+      await downloadImage(userImagesRef, handleImageChange);
     } catch (err) {
       console.log(err);
     }
