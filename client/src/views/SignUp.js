@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { signUpHandler } = useAuth();
+  const { signUpHandler, updateUserFullName } = useAuth();
   const [loading, setLoading] = useState(false);
   const theme = createTheme();
 
@@ -65,6 +65,12 @@ const SignUp = () => {
       });
 
       console.log(res.data);
+
+      const cos = await updateUserFullName(
+        formRef.get('firstName'),
+        formRef.get('lastName'),
+      );
+      console.log(cos);
 
       if (res?.data?.role === 'admin') navigate('/dashboard');
       else navigate('/');

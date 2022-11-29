@@ -48,9 +48,9 @@ const signUp = async (req, res, next) => {
       data.role = 'user';
     }
 
-    auth.updateUser(uid, {
-      displayName: firstName + ' ' + lastName,
-    });
+    // auth.updateUser(uid, {
+    //   displayName: firstName + ' ' + lastName,
+    // });
 
     await usersCollectionRef.doc(uid).set(data);
 
