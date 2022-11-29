@@ -43,6 +43,12 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function updateUserFullName(firstName, lastName) {
+    return updateProfile(auth.currentUser, {
+      displayName: firstName + ' ' + lastName,
+    });
+  }
+
   function forgotPassword(email) {
     return sendPasswordResetEmail(auth, email, {
       url: 'http://localhost:3000/login',
@@ -76,6 +82,7 @@ export function AuthProvider({ children }) {
     role,
     setRole,
     updateUserPhoto,
+    updateUserFullName,
     forgotPassword,
     rememberSessionUser,
     deleteUserHandler,
