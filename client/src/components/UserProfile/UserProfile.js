@@ -22,7 +22,7 @@ import {
   createRef,
   uploadImage,
   downloadImage,
-  deleteImage,
+  // deleteImage,
 } from '../../lib/storage';
 // import Modal from '@mui/material/Modal';
 // import Fade from '@mui/material/Fade';
@@ -30,24 +30,25 @@ import {
 // import CloseIcon from '@mui/icons-material/Close';
 // import IconButton from '@mui/material/IconButton';
 // import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import axios from 'axios';
-import AboutModal from './AboutModal';
+// import Button from '@mui/material/Button';
+// import axios from 'axios';
+// import AboutModal from '../AboutModal/AboutModal';
+import AboutSection from '../ProfileSections/AboutSection';
+import DeleteAccountSection from '../ProfileSections/DeleteAccountSection';
 
 const UserProfile = () => {
-  const { user, role, signOutHandler, updateUserPhoto, deleteUserHandler } =
-    useAuth();
+  const { user, role, signOutHandler, updateUserPhoto } = useAuth();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
+  // const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [image, setImage] = useState(null);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const userImagesRef = createRef(`userImages/${user?.uid}`);
   const navigate = useNavigate();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedInfoIndex(-1);
-  };
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   setSelectedInfoIndex(-1);
+  // };
 
   // useEffect(() => {
   //   if (!image) setImage(user?.photoURL);
@@ -77,347 +78,257 @@ const UserProfile = () => {
     console.log(user?.photoURL);
   };
 
-  const handleListItemClick = (e, i) => {
+  const handleListItemClick = (i) => {
     setSelectedIndex(i);
   };
 
-  const handleSelectModal = (i) => {
-    setSelectedInfoIndex(i);
-  };
+  // const handleSelectModal = (i) => {
+  //   setSelectedInfoIndex(i);
+  // };
 
   const handleSignOut = () => {
     signOutHandler();
     navigate('/');
   };
 
-  const handleDeleteUser = async () => {
-    try {
-      const { uid } = user;
+  // const handleDeleteUser = async () => {
+  //   try {
+  //     const { uid } = user;
 
-      const res = await axios.post('http://localhost:8000/api/delete-user', {
-        uid,
-      });
+  //     const res = await axios.post('http://localhost:8000/api/delete-user', {
+  //       uid,
+  //     });
 
-      if (res.status !== 200) return;
+  //     if (res.status !== 200) return;
 
-      if (image) deleteImage(userImagesRef);
+  //     if (image) deleteImage(userImagesRef);
 
-      deleteUserHandler();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     deleteUserHandler();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const userData = [
-    {
-      id: 'firstname',
-      label: 'First name',
-      defaultValue: user?.displayName.split(' ')[0],
-      disabled: false,
-      required: false,
-      type: 'text',
-    },
-    {
-      id: 'lastname',
-      label: 'Last name',
-      defaultValue: user?.displayName.split(' ')[1],
-      disabled: false,
-      required: false,
-      type: 'text',
-    },
-    {
-      id: 'phone-number',
-      label: 'Phone number',
-      defaultValue: user?.phoneNumber,
-      disabled: false,
-      required: false,
-      type: 'text',
-    },
-  ];
+  // const userData = [
+  //   {
+  //     id: 'firstname',
+  //     label: 'First name',
+  //     defaultValue: user?.displayName.split(' ')[0],
+  //     disabled: false,
+  //     required: false,
+  //     type: 'text',
+  //   },
+  //   {
+  //     id: 'lastname',
+  //     label: 'Last name',
+  //     defaultValue: user?.displayName.split(' ')[1],
+  //     disabled: false,
+  //     required: false,
+  //     type: 'text',
+  //   },
+  //   {
+  //     id: 'phone-number',
+  //     label: 'Phone number',
+  //     defaultValue: user?.phoneNumber,
+  //     disabled: false,
+  //     required: false,
+  //     type: 'text',
+  //   },
+  // ];
 
-  const emailAddressData = [
-    {
-      id: 'current-email',
-      label: 'Current email',
-      defaultValue: user?.email,
-      disabled: true,
-      required: false,
-      type: 'email',
-    },
-    {
-      id: 'new-email',
-      label: 'New email',
-      defaultValue: '',
-      disabled: false,
-      required: true,
-      type: 'email',
-    },
-    {
-      id: 'password',
-      label: 'Confirm with password',
-      defaultValue: '',
-      disabled: false,
-      required: true,
-      type: 'password',
-    },
-  ];
+  // const emailAddressData = [
+  //   {
+  //     id: 'current-email',
+  //     label: 'Current email',
+  //     defaultValue: user?.email,
+  //     disabled: true,
+  //     required: false,
+  //     type: 'email',
+  //   },
+  //   {
+  //     id: 'new-email',
+  //     label: 'New email',
+  //     defaultValue: '',
+  //     disabled: false,
+  //     required: true,
+  //     type: 'email',
+  //   },
+  //   {
+  //     id: 'password',
+  //     label: 'Confirm with password',
+  //     defaultValue: '',
+  //     disabled: false,
+  //     required: true,
+  //     type: 'password',
+  //   },
+  // ];
 
-  const passwordData = [
-    {
-      id: 'current-password',
-      label: 'Current password',
-      defaultValue: '',
-      disabled: false,
-      required: true,
-      type: 'password',
-    },
-    {
-      id: 'new-password',
-      label: 'New password',
-      defaultValue: '',
-      disabled: false,
-      required: true,
-      type: 'password',
-    },
-    {
-      id: 'repeat-new-password',
-      label: 'Repeat new password',
-      defaultValue: '',
-      disabled: false,
-      required: true,
-      type: 'password',
-    },
-  ];
+  // const passwordData = [
+  //   {
+  //     id: 'current-password',
+  //     label: 'Current password',
+  //     defaultValue: '',
+  //     disabled: false,
+  //     required: true,
+  //     type: 'password',
+  //   },
+  //   {
+  //     id: 'new-password',
+  //     label: 'New password',
+  //     defaultValue: '',
+  //     disabled: false,
+  //     required: true,
+  //     type: 'password',
+  //   },
+  //   {
+  //     id: 'repeat-new-password',
+  //     label: 'Repeat new password',
+  //     defaultValue: '',
+  //     disabled: false,
+  //     required: true,
+  //     type: 'password',
+  //   },
+  // ];
 
-  const About = (
-    <Box>
-      <Typography gutterBottom variant='h4' component='div' fontSize={24}>
-        User info
-      </Typography>
-      <Box my={2}>
-        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
-          Your details
-        </Typography>
-        <Box
-          border={1}
-          borderRadius={2}
-          borderColor='#dddddd'
-          padding={2}
-          minHeight={50}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Typography variant='h6' component='div' fontSize={14}>
-            {user?.displayName}
-          </Typography>
-          <Button
-            onClick={() => {
-              handleOpen();
-              handleSelectModal(0);
-            }}
-            sx={{ textTransform: 'capitalize', padding: 0 }}>
-            Change
-          </Button>
-        </Box>
-      </Box>
-      <Box my={2}>
-        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
-          Email address
-        </Typography>
-        <Box
-          border={1}
-          borderRadius={2}
-          borderColor='#dddddd'
-          padding={2}
-          minHeight={50}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Typography variant='h6' component='div' fontSize={14}>
-            {user?.email}
-          </Typography>
-          <Button
-            onClick={() => {
-              handleOpen();
-              handleSelectModal(1);
-            }}
-            sx={{ textTransform: 'capitalize', padding: 0 }}>
-            Change
-          </Button>
-        </Box>
-      </Box>
-      <Box my={2}>
-        <Typography gutterBottom variant='h5' component='div' fontSize={16}>
-          Password
-        </Typography>
-        <Box
-          border={1}
-          borderRadius={2}
-          borderColor='#dddddd'
-          padding={2}
-          minHeight={50}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Typography variant='h6' component='div'>
-            ••••••••
-          </Typography>
-          <Button
-            onClick={() => {
-              handleOpen();
-              handleSelectModal(2);
-            }}
-            sx={{ textTransform: 'capitalize', padding: 0 }}>
-            Change
-          </Button>
-        </Box>
-      </Box>
-      <AboutModal
-        open={open && selectedInfoIndex === 0}
-        handleClose={handleClose}
-        title='Your data'
-        data={userData}
-      />
-      <AboutModal
-        open={open && selectedInfoIndex === 1}
-        handleClose={handleClose}
-        title='Change e-mail address'
-        data={emailAddressData}
-      />
-      <AboutModal
-        open={open && selectedInfoIndex === 2}
-        handleClose={handleClose}
-        title='Change password'
-        data={passwordData}
-      />
-      {/* <Modal
-        aria-labelledby='transition-modal-title'
-        aria-describedby='transition-modal-description'
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}>
-        <Fade in={open}>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 420,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-              boxShadow: 24,
-            }}>
-            <Box
-              px={2}
-              py={1}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                bgcolor: '#f5f5f5',
-                borderRadius: 2,
-              }}>
-              <Typography
-                id='transition-modal-title'
-                variant='h6'
-                component='h2'>
-                Change e-mail address
-              </Typography>
-              <IconButton
-                color='inherit'
-                aria-label='close-modal'
-                onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
-            </Box>
-            <Box
-              padding={3}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: 3,
-              }}>
-              <TextField
-                disabled
-                id='outlined-disabled'
-                label='Current e-mail'
-                defaultValue={user.email}
-                fullWidth
-                size='small'
-                sx={{ bgcolor: '#f5f5f5' }}
-              />
-              <TextField
-                required
-                id='email'
-                label='New e-mail'
-                type='email'
-                fullWidth
-                size='small'
-              />
-              <TextField
-                required
-                id='password'
-                label='Confirm with password'
-                type='password'
-                autoComplete='current-password'
-                fullWidth
-                size='small'
-              />
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                // disabled={loading}
-                sx={{ textTransform: 'capitalize' }}>
-                Save
-              </Button>
-            </Box>
-          </Box>
-        </Fade>
-      </Modal> */}
-    </Box>
-  );
+  // const About = (
+  //   <Box>
+  //     <Typography gutterBottom variant='h4' component='div' fontSize={24}>
+  //       User info
+  //     </Typography>
+  //     <Box my={2}>
+  //       <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+  //         Your details
+  //       </Typography>
+  //       <Box
+  //         border={1}
+  //         borderRadius={2}
+  //         borderColor='#dddddd'
+  //         padding={2}
+  //         minHeight={50}
+  //         sx={{
+  //           display: 'flex',
+  //           justifyContent: 'space-between',
+  //           alignItems: 'center',
+  //         }}>
+  //         <Typography variant='h6' component='div' fontSize={14}>
+  //           {user?.displayName}
+  //         </Typography>
+  //         <Button
+  //           onClick={() => {
+  //             handleOpen();
+  //             handleSelectModal(0);
+  //           }}
+  //           sx={{ textTransform: 'capitalize', padding: 0 }}>
+  //           Change
+  //         </Button>
+  //       </Box>
+  //     </Box>
+  //     <Box my={2}>
+  //       <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+  //         Email address
+  //       </Typography>
+  //       <Box
+  //         border={1}
+  //         borderRadius={2}
+  //         borderColor='#dddddd'
+  //         padding={2}
+  //         minHeight={50}
+  //         sx={{
+  //           display: 'flex',
+  //           justifyContent: 'space-between',
+  //           alignItems: 'center',
+  //         }}>
+  //         <Typography variant='h6' component='div' fontSize={14}>
+  //           {user?.email}
+  //         </Typography>
+  //         <Button
+  //           onClick={() => {
+  //             handleOpen();
+  //             handleSelectModal(1);
+  //           }}
+  //           sx={{ textTransform: 'capitalize', padding: 0 }}>
+  //           Change
+  //         </Button>
+  //       </Box>
+  //     </Box>
+  //     <Box my={2}>
+  //       <Typography gutterBottom variant='h5' component='div' fontSize={16}>
+  //         Password
+  //       </Typography>
+  //       <Box
+  //         border={1}
+  //         borderRadius={2}
+  //         borderColor='#dddddd'
+  //         padding={2}
+  //         minHeight={50}
+  //         sx={{
+  //           display: 'flex',
+  //           justifyContent: 'space-between',
+  //           alignItems: 'center',
+  //         }}>
+  //         <Typography variant='h6' component='div'>
+  //           ••••••••
+  //         </Typography>
+  //         <Button
+  //           onClick={() => {
+  //             handleOpen();
+  //             handleSelectModal(2);
+  //           }}
+  //           sx={{ textTransform: 'capitalize', padding: 0 }}>
+  //           Change
+  //         </Button>
+  //       </Box>
+  //     </Box>
+  //     <AboutModal
+  //       open={open && selectedInfoIndex === 0}
+  //       handleClose={handleClose}
+  //       title='Your data'
+  //       data={userData}
+  //     />
+  //     <AboutModal
+  //       open={open && selectedInfoIndex === 1}
+  //       handleClose={handleClose}
+  //       title='Change e-mail address'
+  //       data={emailAddressData}
+  //     />
+  //     <AboutModal
+  //       open={open && selectedInfoIndex === 2}
+  //       handleClose={handleClose}
+  //       title='Change password'
+  //       data={passwordData}
+  //     />
+  //   </Box>
+  // );
 
-  const DeleteAccount = (
-    <Box>
-      <Typography gutterBottom variant='h4' component='div' fontSize={24}>
-        Delete account
-      </Typography>
-      <Box my={2}>
-        <Typography my={1} variant='h5' component='div' fontSize={16}>
-          Are you sure you want to delete your account?
-        </Typography>
-        <Typography my={1} variant='h5' component='div' fontSize={16}>
-          If you click on this button, you will delete your account in our blog.
-          You will be automatically log out and not able to access your account
-          anymore.
-        </Typography>
-        <Typography my={1} variant='h5' component='div' fontSize={16}>
-          Make sure you definitely want to do this - your account cannot be
-          restored.
-        </Typography>
-      </Box>
-      <Button
-        variant='contained'
-        onClick={handleDeleteUser}
-        sx={{ textTransform: 'capitalize' }}>
-        Delete account
-      </Button>
-    </Box>
-  );
+  // const About = <AboutSection user={user} />;
+
+  // const DeleteAccount = (
+  //   <Box>
+  //     <Typography gutterBottom variant='h4' component='div' fontSize={24}>
+  //       Delete account
+  //     </Typography>
+  //     <Box my={2}>
+  //       <Typography my={1} variant='h5' component='div' fontSize={16}>
+  //         Are you sure you want to delete your account?
+  //       </Typography>
+  //       <Typography my={1} variant='h5' component='div' fontSize={16}>
+  //         If you click on this button, you will delete your account in our blog.
+  //         You will be automatically log out and not able to access your account
+  //         anymore.
+  //       </Typography>
+  //       <Typography my={1} variant='h5' component='div' fontSize={16}>
+  //         Make sure you definitely want to do this - your account cannot be
+  //         restored.
+  //       </Typography>
+  //     </Box>
+  //     <Button
+  //       variant='contained'
+  //       onClick={handleDeleteUser}
+  //       sx={{ textTransform: 'capitalize' }}>
+  //       Delete account
+  //     </Button>
+  //   </Box>
+  // );
 
   return (
     <Container maxWidth='lg'>
@@ -428,7 +339,6 @@ const UserProfile = () => {
               <Box align={'center'}>
                 <Avatar
                   alt='User Avatar'
-                  // src={user?.photoURL}
                   src={image}
                   sx={{
                     height: {
@@ -459,7 +369,7 @@ const UserProfile = () => {
                   <ListItem disablePadding>
                     <ListItemButton
                       selected={selectedIndex === 0}
-                      onClick={(e) => handleListItemClick(e, 0)}>
+                      onClick={() => handleListItemClick(0)}>
                       <ListItemIcon>
                         <PersonIcon />
                       </ListItemIcon>
@@ -467,16 +377,6 @@ const UserProfile = () => {
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
-                    {/* <ListItemButton
-                      selected={selectedIndex === 1}
-                      onClick={(e) => handleListItemClick(e, 1)}>
-                      <input hidden accept='image/*' type='file' />
-
-                      <ListItemIcon>
-                        <PhotoCameraIcon />
-                      </ListItemIcon>
-                      <ListItemText primary='Change Avatar' />
-                    </ListItemButton> */}
                     <ListItemButton component='label' onChange={handleUpload}>
                       <ListItemIcon>
                         <PhotoCameraIcon />
@@ -488,8 +388,8 @@ const UserProfile = () => {
                   {!role && (
                     <ListItem disablePadding>
                       <ListItemButton
-                        selected={selectedIndex === 2}
-                        onClick={(e) => handleListItemClick(e, 2)}>
+                        selected={selectedIndex === 1}
+                        onClick={() => handleListItemClick(1)}>
                         <ListItemIcon>
                           <DeleteIcon />
                         </ListItemIcon>
@@ -524,8 +424,10 @@ const UserProfile = () => {
                 px={4}
                 borderColor={'#0000001f'}
                 sx={{ borderWidth: 'thin', height: '100%' }}>
-                {selectedIndex === 0 && About}
-                {selectedIndex === 2 && DeleteAccount}
+                {selectedIndex === 0 && <AboutSection user={user} />}
+                {selectedIndex === 1 && (
+                  <DeleteAccountSection userImagesRef={userImagesRef} />
+                )}
               </Box>
             </Grid>
           </Grid>
