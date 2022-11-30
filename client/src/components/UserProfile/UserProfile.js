@@ -24,25 +24,31 @@ import {
   downloadImage,
   deleteImage,
 } from '../../lib/storage';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+// import Modal from '@mui/material/Modal';
+// import Fade from '@mui/material/Fade';
+// import Backdrop from '@mui/material/Backdrop';
+// import CloseIcon from '@mui/icons-material/Close';
+// import IconButton from '@mui/material/IconButton';
+// import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Backdrop from '@mui/material/Backdrop';
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import AboutModal from './AboutModal';
 
 const UserProfile = () => {
   const { user, role, signOutHandler, updateUserPhoto, deleteUserHandler } =
     useAuth();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [image, setImage] = useState(null);
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const userImagesRef = createRef(`userImages/${user?.uid}`);
-  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedInfoIndex(-1);
+  };
+
   // useEffect(() => {
   //   if (!image) setImage(user?.photoURL);
   // }, [user, image]);
@@ -75,6 +81,10 @@ const UserProfile = () => {
     setSelectedIndex(i);
   };
 
+  const handleSelectModal = (i) => {
+    setSelectedInfoIndex(i);
+  };
+
   const handleSignOut = () => {
     signOutHandler();
     navigate('/');
@@ -97,6 +107,87 @@ const UserProfile = () => {
       console.log(err);
     }
   };
+
+  const userData = [
+    {
+      id: 'firstname',
+      label: 'First name',
+      defaultValue: user?.displayName.split(' ')[0],
+      disabled: false,
+      required: false,
+      type: 'text',
+    },
+    {
+      id: 'lastname',
+      label: 'Last name',
+      defaultValue: user?.displayName.split(' ')[1],
+      disabled: false,
+      required: false,
+      type: 'text',
+    },
+    {
+      id: 'phone-number',
+      label: 'Phone number',
+      defaultValue: user?.phoneNumber,
+      disabled: false,
+      required: false,
+      type: 'text',
+    },
+  ];
+
+  const emailAddressData = [
+    {
+      id: 'current-email',
+      label: 'Current email',
+      defaultValue: user?.email,
+      disabled: true,
+      required: false,
+      type: 'email',
+    },
+    {
+      id: 'new-email',
+      label: 'New email',
+      defaultValue: '',
+      disabled: false,
+      required: true,
+      type: 'email',
+    },
+    {
+      id: 'password',
+      label: 'Confirm with password',
+      defaultValue: '',
+      disabled: false,
+      required: true,
+      type: 'password',
+    },
+  ];
+
+  const passwordData = [
+    {
+      id: 'current-password',
+      label: 'Current password',
+      defaultValue: '',
+      disabled: false,
+      required: true,
+      type: 'password',
+    },
+    {
+      id: 'new-password',
+      label: 'New password',
+      defaultValue: '',
+      disabled: false,
+      required: true,
+      type: 'password',
+    },
+    {
+      id: 'repeat-new-password',
+      label: 'Repeat new password',
+      defaultValue: '',
+      disabled: false,
+      required: true,
+      type: 'password',
+    },
+  ];
 
   const About = (
     <Box>
@@ -122,7 +213,10 @@ const UserProfile = () => {
             {user?.displayName}
           </Typography>
           <Button
-            onClick={handleOpen}
+            onClick={() => {
+              handleOpen();
+              handleSelectModal(0);
+            }}
             sx={{ textTransform: 'capitalize', padding: 0 }}>
             Change
           </Button>
@@ -147,7 +241,10 @@ const UserProfile = () => {
             {user?.email}
           </Typography>
           <Button
-            onClick={handleOpen}
+            onClick={() => {
+              handleOpen();
+              handleSelectModal(1);
+            }}
             sx={{ textTransform: 'capitalize', padding: 0 }}>
             Change
           </Button>
@@ -172,13 +269,34 @@ const UserProfile = () => {
             ••••••••
           </Typography>
           <Button
-            onClick={handleOpen}
+            onClick={() => {
+              handleOpen();
+              handleSelectModal(2);
+            }}
             sx={{ textTransform: 'capitalize', padding: 0 }}>
             Change
           </Button>
         </Box>
       </Box>
-      <Modal
+      <AboutModal
+        open={open && selectedInfoIndex === 0}
+        handleClose={handleClose}
+        title='Your data'
+        data={userData}
+      />
+      <AboutModal
+        open={open && selectedInfoIndex === 1}
+        handleClose={handleClose}
+        title='Change e-mail address'
+        data={emailAddressData}
+      />
+      <AboutModal
+        open={open && selectedInfoIndex === 2}
+        handleClose={handleClose}
+        title='Change password'
+        data={passwordData}
+      />
+      {/* <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
         open={open}
@@ -269,7 +387,7 @@ const UserProfile = () => {
             </Box>
           </Box>
         </Fade>
-      </Modal>
+      </Modal> */}
     </Box>
   );
 
