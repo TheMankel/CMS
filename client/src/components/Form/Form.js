@@ -11,6 +11,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
+// const success = () => {
+//   toast.success('Email send successfully!');
+// };
+
 const Form = (props) => {
   const [sent, setSent] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -20,7 +24,6 @@ const Form = (props) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
-
     setSent(true);
     try {
       await axios.post('http://localhost:8000/api/contact', {
@@ -32,6 +35,12 @@ const Form = (props) => {
     } catch (error) {
       console.log(error);
     }
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setMsg('');
+
+    console.log(sent);
   };
 
   const theme = useTheme();
