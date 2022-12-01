@@ -3,9 +3,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import AboutModal from '../AboutModal/AboutModal';
+import { useAuth } from '../../contexts/authContext';
 
-const AboutSection = (props) => {
-  const { user } = props;
+const AboutSection = () => {
+  const { user, updateUserEmail, updateUserPassword, updateUserPhoneNumber } =
+    useAuth();
   const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [open, setOpen] = useState(false);
 
@@ -19,9 +21,49 @@ const AboutSection = (props) => {
     setSelectedInfoIndex(-1);
   };
 
+  const handleSubmit = (e, type) => {
+    e.preventDefault();
+
+    const formRef = new FormData(e.currentTarget);
+
+    // for (const [key, value] of formRef.entries()) {
+    //   console.log(key, value);
+    // }
+
+    if (type === 'user') {
+      const data = {
+        firstName: formRef.get('firstName'),
+        lastName: formRef.get('lastName'),
+        phoneNumber: formRef.get('phoneNumber'),
+      };
+
+      console.log(data);
+    }
+
+    if (type === 'email') {
+      const data = {
+        newEmail: formRef.get('newEmail'),
+        password: formRef.get('password'),
+      };
+
+      console.log(data);
+    }
+
+    if (type === 'password') {
+      const data = {
+        currentPassword: formRef.get('currentPassword'),
+        newPassword: formRef.get('newPassword'),
+        repeatNewPassword: formRef.get('repeatNewPassword'),
+      };
+
+      console.log(data);
+    }
+  };
+
   const userData = [
     {
-      id: 'firstname',
+      id: 'firstName',
+      name: 'firstName',
       label: 'First name',
       defaultValue: user?.displayName.split(' ')[0],
       disabled: false,
@@ -29,7 +71,8 @@ const AboutSection = (props) => {
       type: 'text',
     },
     {
-      id: 'lastname',
+      id: 'lastName',
+      name: 'lastName',
       label: 'Last name',
       defaultValue: user?.displayName.split(' ')[1],
       disabled: false,
@@ -37,7 +80,8 @@ const AboutSection = (props) => {
       type: 'text',
     },
     {
-      id: 'phone-number',
+      id: 'phoneNumber',
+      name: 'phoneNumber',
       label: 'Phone number',
       defaultValue: user?.phoneNumber,
       disabled: false,
@@ -48,7 +92,8 @@ const AboutSection = (props) => {
 
   const emailAddressData = [
     {
-      id: 'current-email',
+      id: 'currentEmail',
+      name: 'currentEmail',
       label: 'Current email',
       defaultValue: user?.email,
       disabled: true,
@@ -56,7 +101,8 @@ const AboutSection = (props) => {
       type: 'email',
     },
     {
-      id: 'new-email',
+      id: 'newEmail',
+      name: 'newEmail',
       label: 'New email',
       defaultValue: '',
       disabled: false,
@@ -65,6 +111,7 @@ const AboutSection = (props) => {
     },
     {
       id: 'password',
+      name: 'password',
       label: 'Confirm with password',
       defaultValue: '',
       disabled: false,
@@ -75,7 +122,8 @@ const AboutSection = (props) => {
 
   const passwordData = [
     {
-      id: 'current-password',
+      id: 'currentPassword',
+      name: 'currentPassword',
       label: 'Current password',
       defaultValue: '',
       disabled: false,
@@ -83,7 +131,8 @@ const AboutSection = (props) => {
       type: 'password',
     },
     {
-      id: 'new-password',
+      id: 'newPassword',
+      name: 'newPassword',
       label: 'New password',
       defaultValue: '',
       disabled: false,
@@ -91,7 +140,8 @@ const AboutSection = (props) => {
       type: 'password',
     },
     {
-      id: 'repeat-new-password',
+      id: 'repeatNewPassword',
+      name: 'repeatNewPassword',
       label: 'Repeat new password',
       defaultValue: '',
       disabled: false,
@@ -194,18 +244,21 @@ const AboutSection = (props) => {
         handleClose={handleClose}
         title='Your data'
         data={userData}
+        handleSubmit={(e) => handleSubmit(e, 'user')}
       />
       <AboutModal
         open={open && selectedInfoIndex === 1}
         handleClose={handleClose}
         title='Change e-mail address'
         data={emailAddressData}
+        handleSubmit={(e) => handleSubmit(e, 'email')}
       />
       <AboutModal
         open={open && selectedInfoIndex === 2}
         handleClose={handleClose}
         title='Change password'
         data={passwordData}
+        handleSubmit={(e) => handleSubmit(e, 'password')}
       />
     </Box>
   );
