@@ -41,6 +41,7 @@ const UserProfile = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   // const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [image, setImage] = useState(null);
+  const [userName, setUserName] = useState('');
   // const [open, setOpen] = useState(false);
   const userImagesRef = createRef(`userImages/${user?.uid}`);
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     setImage(user?.photoURL);
+    setUserName(user?.displayName);
     console.log(user);
   }, [user]);
 
@@ -352,7 +354,7 @@ const UserProfile = () => {
           </Box>
           <Box my={2} px={2} align={'center'}>
             <Typography variant='h6' component='div'>
-              {user?.displayName}
+              {userName}
             </Typography>
             <Typography
               variant={'subtitle2'}
@@ -422,7 +424,9 @@ const UserProfile = () => {
             px={4}
             borderColor={'#0000001f'}
             sx={{ borderWidth: 'thin', height: '100%' }}>
-            {selectedIndex === 0 && <AboutSection />}
+            {selectedIndex === 0 && (
+              <AboutSection handleUserName={setUserName} />
+            )}
             {selectedIndex === 1 && (
               <DeleteAccountSection userImagesRef={userImagesRef} />
             )}
