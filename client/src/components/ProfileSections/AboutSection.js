@@ -32,10 +32,6 @@ const AboutSection = (props) => {
 
     const formRef = new FormData(e.currentTarget);
 
-    // for (const [key, value] of formRef.entries()) {
-    //   console.log(key, value);
-    // }
-
     if (type === 'user') {
       const data = {
         firstName: formRef.get('firstName'),

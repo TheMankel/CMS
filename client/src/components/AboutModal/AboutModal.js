@@ -67,32 +67,6 @@ const AboutModal = (props) => {
               alignItems: 'center',
               gap: 3,
             }}>
-            {/* <TextField
-              disabled
-              id='outlined-disabled'
-              label='Current e-mail'
-              defaultValue={user.email}
-              fullWidth
-              size='small'
-              sx={{ bgcolor: '#f5f5f5' }}
-            />
-            <TextField
-              required
-              id='email'
-              label='New e-mail'
-              type='email'
-              fullWidth
-              size='small'
-            />
-            <TextField
-              required
-              id='password'
-              label='Confirm with password'
-              type='password'
-              autoComplete='current-password'
-              fullWidth
-              size='small'
-            /> */}
             {data?.map((field) => (
               <TextField
                 key={field.id}
