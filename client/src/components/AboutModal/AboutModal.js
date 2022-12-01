@@ -56,6 +56,9 @@ const AboutModal = (props) => {
             </IconButton>
           </Box>
           <Box
+            component='form'
+            noValidate
+            onSubmit={handleSubmit}
             padding={3}
             sx={{
               display: 'flex',
@@ -96,6 +99,7 @@ const AboutModal = (props) => {
                 disabled={field.disabled}
                 required={field.required}
                 id={field.id}
+                name={field.name}
                 label={field.label}
                 type={field.type}
                 defaultValue={field.defaultValue}
@@ -108,7 +112,6 @@ const AboutModal = (props) => {
               type='submit'
               fullWidth
               variant='contained'
-              onSubmit={handleSubmit}
               sx={{ textTransform: 'capitalize' }}>
               Save
             </Button>

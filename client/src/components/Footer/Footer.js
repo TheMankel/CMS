@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
-import Copyright from '../Copyright.js/Copyright';
+import Copyright from '../Copyright/Copyright';
 
 const Footer = (props) => {
   const { title, categories, showDetailed } = props;

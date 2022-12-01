@@ -20,7 +20,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems.js';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import Copyright from '../../components/Copyright.js/Copyright.js';
+import Copyright from '../../components/Copyright/Copyright.js';
 import { Button } from '@mui/material';
 
 const drawerWidth = 240;
