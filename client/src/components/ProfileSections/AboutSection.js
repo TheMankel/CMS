@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -16,6 +16,14 @@ const AboutSection = (props) => {
   } = useAuth();
   const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [open, setOpen] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setUserName(user?.displayName);
+    setEmail(user?.email);
+    console.log(user);
+  }, [user]);
 
   const handleSelectModal = (i) => {
     setSelectedInfoIndex(i);
@@ -44,6 +52,7 @@ const AboutSection = (props) => {
 
         updateUserFullName(data.firstName, data.lastName);
         handleUserName(data.firstName + ' ' + data.lastName);
+        setUserName(data.firstName + ' ' + data.lastName);
         setOpen(false);
       } catch (err) {
         console.log(err);
@@ -65,6 +74,7 @@ const AboutSection = (props) => {
         console.log(reAuth);
 
         if (reAuth) updateUserEmail(data.newEmail);
+        setEmail(data.newEmail);
         setOpen(false);
       } catch (err) {
         console.log(err);
@@ -106,7 +116,7 @@ const AboutSection = (props) => {
       id: 'firstName',
       name: 'firstName',
       label: 'First name',
-      defaultValue: user?.displayName.split(' ')[0],
+      defaultValue: userName.split(' ')[0],
       disabled: false,
       required: false,
       type: 'text',
@@ -115,7 +125,7 @@ const AboutSection = (props) => {
       id: 'lastName',
       name: 'lastName',
       label: 'Last name',
-      defaultValue: user?.displayName.split(' ')[1],
+      defaultValue: userName.split(' ')[1],
       disabled: false,
       required: false,
       type: 'text',
@@ -127,7 +137,7 @@ const AboutSection = (props) => {
       id: 'currentEmail',
       name: 'currentEmail',
       label: 'Current email',
-      defaultValue: user?.email,
+      defaultValue: email,
       disabled: true,
       required: false,
       type: 'email',
@@ -203,7 +213,7 @@ const AboutSection = (props) => {
             alignItems: 'center',
           }}>
           <Typography variant='h6' component='div' fontSize={14}>
-            {user?.displayName}
+            {userName}
           </Typography>
           <Button
             onClick={() => {
@@ -231,7 +241,7 @@ const AboutSection = (props) => {
             alignItems: 'center',
           }}>
           <Typography variant='h6' component='div' fontSize={14}>
-            {user?.email}
+            {email}
           </Typography>
           <Button
             onClick={() => {
