@@ -6,6 +6,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  updateEmail,
+  updatePassword,
+  updatePhoneNumber,
   sendPasswordResetEmail,
   setPersistence,
   browserSessionPersistence,
@@ -49,6 +52,18 @@ export function AuthProvider({ children }) {
     });
   }
 
+  function updateUserEmail(email) {
+    return updateEmail(auth.currentUser, email);
+  }
+
+  function updateUserPassword(password) {
+    return updatePassword(auth.currentUser, password);
+  }
+
+  function updateUserPhoneNumber(phoneNumber) {
+    return updatePhoneNumber(auth.currentUser, phoneNumber);
+  }
+
   function forgotPassword(email) {
     return sendPasswordResetEmail(auth, email, {
       url: 'http://localhost:3000/login',
@@ -83,6 +98,9 @@ export function AuthProvider({ children }) {
     setRole,
     updateUserPhoto,
     updateUserFullName,
+    updateUserEmail,
+    updateUserPassword,
+    updateUserPhoneNumber,
     forgotPassword,
     rememberSessionUser,
     deleteUserHandler,
