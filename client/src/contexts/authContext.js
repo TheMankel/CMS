@@ -8,11 +8,12 @@ import {
   updateProfile,
   updateEmail,
   updatePassword,
-  updatePhoneNumber,
   sendPasswordResetEmail,
   setPersistence,
   browserSessionPersistence,
   deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 import app from '../config/firebase-config';
 
@@ -60,10 +61,6 @@ export function AuthProvider({ children }) {
     return updatePassword(auth.currentUser, password);
   }
 
-  function updateUserPhoneNumber(phoneNumber) {
-    return updatePhoneNumber(auth.currentUser, phoneNumber);
-  }
-
   function forgotPassword(email) {
     return sendPasswordResetEmail(auth, email, {
       url: 'http://localhost:3000/login',
@@ -76,6 +73,15 @@ export function AuthProvider({ children }) {
 
   function deleteUserHandler() {
     return deleteUser(auth.currentUser);
+  }
+
+  function reauthenticateUser(password) {
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email,
+      password,
+    );
+
+    return reauthenticateWithCredential(auth.currentUser, credential);
   }
 
   useEffect(() => {
@@ -100,10 +106,10 @@ export function AuthProvider({ children }) {
     updateUserFullName,
     updateUserEmail,
     updateUserPassword,
-    updateUserPhoneNumber,
     forgotPassword,
     rememberSessionUser,
     deleteUserHandler,
+    reauthenticateUser,
   };
 
   return (
