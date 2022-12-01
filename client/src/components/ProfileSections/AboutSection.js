@@ -5,9 +5,15 @@ import Button from '@mui/material/Button';
 import AboutModal from '../AboutModal/AboutModal';
 import { useAuth } from '../../contexts/authContext';
 
-const AboutSection = () => {
-  const { user, updateUserEmail, updateUserPassword, updateUserPhoneNumber } =
-    useAuth();
+const AboutSection = (props) => {
+  const { handleUserName } = props;
+  const {
+    user,
+    updateUserFullName,
+    updateUserEmail,
+    updateUserPassword,
+    reauthenticateUser,
+  } = useAuth();
   const [selectedInfoIndex, setSelectedInfoIndex] = useState(-1);
   const [open, setOpen] = useState(false);
 
@@ -21,7 +27,7 @@ const AboutSection = () => {
     setSelectedInfoIndex(-1);
   };
 
-  const handleSubmit = (e, type) => {
+  const handleSubmit = async (e, type) => {
     e.preventDefault();
 
     const formRef = new FormData(e.currentTarget);
@@ -34,10 +40,18 @@ const AboutSection = () => {
       const data = {
         firstName: formRef.get('firstName'),
         lastName: formRef.get('lastName'),
-        phoneNumber: formRef.get('phoneNumber'),
       };
 
       console.log(data);
+      try {
+        if (!data.firstName || !data.lastName) return;
+
+        updateUserFullName(data.firstName, data.lastName);
+        handleUserName(data.firstName + ' ' + data.lastName);
+        setOpen(false);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     if (type === 'email') {
@@ -47,6 +61,18 @@ const AboutSection = () => {
       };
 
       console.log(data);
+
+      try {
+        if (!data.newEmail || !data.password) return;
+
+        const reAuth = await reauthenticateUser(data.password);
+        console.log(reAuth);
+
+        if (reAuth) updateUserEmail(data.newEmail);
+        setOpen(false);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     if (type === 'password') {
@@ -57,6 +83,25 @@ const AboutSection = () => {
       };
 
       console.log(data);
+
+      try {
+        if (
+          !data.currentPassword ||
+          !data.newPassword ||
+          !data.repeatNewPassword
+        )
+          return;
+
+        if (data.newPassword !== data.repeatNewPassword) return;
+
+        const reAuth = await reauthenticateUser(data.currentPassword);
+        console.log(reAuth);
+
+        if (reAuth) updateUserPassword(data.newPassword);
+        setOpen(false);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -75,15 +120,6 @@ const AboutSection = () => {
       name: 'lastName',
       label: 'Last name',
       defaultValue: user?.displayName.split(' ')[1],
-      disabled: false,
-      required: false,
-      type: 'text',
-    },
-    {
-      id: 'phoneNumber',
-      name: 'phoneNumber',
-      label: 'Phone number',
-      defaultValue: user?.phoneNumber,
       disabled: false,
       required: false,
       type: 'text',
