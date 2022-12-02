@@ -12,6 +12,7 @@ import ForgotPassword from './views/ForgotPassword';
 import PrivateRoute from './utils/PrivateRoute';
 import MainPublic from './layouts/MainPublic';
 import Posts from './views/Posts';
+import PostDetails from './views/PostDetails';
 
 function App() {
   const { user, role } = useAuth();
@@ -22,6 +23,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/posts' element={<Posts />} />
+        <Route path='/posts/:postId' element={<PostDetails />} />
         <Route
           path='/account'
           element={
