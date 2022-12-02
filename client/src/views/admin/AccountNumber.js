@@ -8,25 +8,18 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+const AccountNumber = () => {
   return (
     <>
-      <Title>Recent Deposits</Title>
+      <Title>Number of created accounts</Title>
       <Typography component='p' variant='h4'>
-        $3,024.00
+        69
       </Typography>
       <Typography color='text.secondary' sx={{ flex: 1 }}>
         on 15 March, 2019
       </Typography>
-      <div>
-        <Link
-          component={NavLink}
-          color='primary'
-          to='#'
-          onClick={preventDefault}>
-          View balance
-        </Link>
-      </div>
     </>
   );
-}
+};
+
+export default AccountNumber;
