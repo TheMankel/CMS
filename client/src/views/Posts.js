@@ -100,7 +100,7 @@ const Posts = () => {
 
   return (
     <Container maxWidth='lg'>
-      <Grid container spacing={6} minHeight={540} sx={{ mt: 1 }}>
+      <Grid container spacing={6} minHeight={580} sx={{ mt: 1 }}>
         {posts.map((post) => (
           <FeaturedPost key={post.title} post={post} />
         ))}
