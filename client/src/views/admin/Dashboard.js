@@ -18,10 +18,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems.js';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import AccountNumber from './AccountNumber';
+import RecentUsers from './RecentUsers';
 import Copyright from '../../components/Copyright/Copyright.js';
 import { Button } from '@mui/material';
+import PostNumber from './PostNumber';
 
 const drawerWidth = 240;
 
@@ -145,18 +146,8 @@ function DashboardContent() {
         <Toolbar />
         <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 240,
-                }}></Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
+            {/* PostNumber */}
+            <Grid item xs={12} md={6} lg={7}>
               <Paper
                 sx={{
                   p: 2,
@@ -164,13 +155,25 @@ function DashboardContent() {
                   flexDirection: 'column',
                   height: 240,
                 }}>
-                <Deposits />
+                <PostNumber />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Recent AccountNumber */}
+            <Grid item xs={12} md={6} lg={5}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 240,
+                }}>
+                <AccountNumber />
+              </Paper>
+            </Grid>
+            {/* Recent Users */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders />
+                <RecentUsers />
               </Paper>
             </Grid>
           </Grid>
@@ -181,6 +184,7 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
+const Dashboard = () => {
   return <DashboardContent />;
-}
+};
+export default Dashboard;
