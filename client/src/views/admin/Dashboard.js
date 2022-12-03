@@ -24,6 +24,8 @@ import Copyright from '../../components/Copyright/Copyright.js';
 import { Button } from '@mui/material';
 import PostNumber from './PostNumber';
 import Logo from './Logo.js';
+import WidgetSummary from './WidgetSummary.js';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 240;
 
@@ -161,7 +163,7 @@ function DashboardContent() {
             </Grid>
             {/* Recent AccountNumber */}
             <Grid item xs={12} md={4} lg={4}>
-              <Paper
+              {/* <Paper
                 sx={{
                   p: 2,
                   display: 'flex',
@@ -169,7 +171,12 @@ function DashboardContent() {
                   height: 240,
                 }}>
                 <AccountNumber />
-              </Paper>
+              </Paper> */}
+              <WidgetSummary
+                icon={<CategoryIcon />}
+                title='Categories'
+                value='69'
+              />
             </Grid>
             {/* LOGO */}
             <Grid item xs={12} md={4} lg={4}>
