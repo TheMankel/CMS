@@ -23,6 +23,7 @@ import RecentUsers from './RecentUsers';
 import Copyright from '../../components/Copyright/Copyright.js';
 import { Button } from '@mui/material';
 import PostNumber from './PostNumber';
+import Logo from './Logo.js';
 
 const drawerWidth = 240;
 
@@ -147,7 +148,7 @@ function DashboardContent() {
         <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             {/* PostNumber */}
-            <Grid item xs={12} md={6} lg={7}>
+            <Grid item xs={12} md={4} lg={4}>
               <Paper
                 sx={{
                   p: 2,
@@ -159,7 +160,7 @@ function DashboardContent() {
               </Paper>
             </Grid>
             {/* Recent AccountNumber */}
-            <Grid item xs={12} md={6} lg={5}>
+            <Grid item xs={12} md={4} lg={4}>
               <Paper
                 sx={{
                   p: 2,
@@ -168,6 +169,18 @@ function DashboardContent() {
                   height: 240,
                 }}>
                 <AccountNumber />
+              </Paper>
+            </Grid>
+            {/* LOGO */}
+            <Grid item xs={12} md={4} lg={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 240,
+                }}>
+                <Logo />
               </Paper>
             </Grid>
             {/* Recent Users */}
