@@ -4,11 +4,11 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Title from './Title.js';
 
-function preventDefault(event) {
-  event.preventDefault();
+function preventDefault(e) {
+  e.preventDefault();
 }
 
-const Deposits = () => {
+const PostNumber = () => {
   return (
     <>
       <Title>Number of posts</Title>
@@ -22,4 +22,4 @@ const Deposits = () => {
   );
 };
 
-export default Deposits;
+export default PostNumber;
