@@ -17,7 +17,11 @@ import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './ListItems.js';
+import {
+  mainListItems,
+  secondaryListItems,
+  otherListItems,
+} from './ListItems.js';
 import AccountNumber from './AccountNumber';
 import RecentUsers from './RecentUsers';
 import Copyright from '../../components/Copyright/Copyright.js';
@@ -27,7 +31,7 @@ import Logo from './Logo.js';
 import WidgetSummary from './WidgetSummary.js';
 import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
-import PersonIcon from '@mui/icons-material/Person';
+import PeopleIcon from '@mui/icons-material/People';
 
 const drawerWidth = 240;
 
@@ -128,13 +132,18 @@ function DashboardContent() {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List component='nav'>
+        <List
+          component='nav'
+          sx={{
+            position: 'relative',
+            overflow: 'auto',
+            maxHeight: 'calc(100vh - 4em)',
+          }}>
           {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}
-          <Button component={NavLink} to='/'>
-            Go back home
-          </Button>
+          <Divider sx={{ my: 1 }} />
+          {otherListItems}
         </List>
       </Drawer>
       <Box
@@ -199,7 +208,7 @@ function DashboardContent() {
                 <Logo />
               </Paper> */}
               <WidgetSummary
-                icon={<PersonIcon sx={{ color: '#ffffff' }} />}
+                icon={<PeopleIcon sx={{ color: '#ffffff' }} />}
                 title='Users'
                 value='69'
                 color='#ffbf00'
