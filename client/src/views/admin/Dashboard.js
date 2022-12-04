@@ -25,7 +25,9 @@ import { Button } from '@mui/material';
 import PostNumber from './PostNumber';
 import Logo from './Logo.js';
 import WidgetSummary from './WidgetSummary.js';
+import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
+import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;
 
@@ -151,7 +153,7 @@ function DashboardContent() {
           <Grid container spacing={3}>
             {/* PostNumber */}
             <Grid item xs={12} md={4} lg={4}>
-              <Paper
+              {/* <Paper
                 sx={{
                   p: 2,
                   display: 'flex',
@@ -159,7 +161,13 @@ function DashboardContent() {
                   height: 240,
                 }}>
                 <PostNumber />
-              </Paper>
+              </Paper> */}
+              <WidgetSummary
+                icon={<ArticleIcon sx={{ color: '#ffffff' }} />}
+                title='Posts'
+                value='21'
+                color='#c70046'
+              />
             </Grid>
             {/* Recent AccountNumber */}
             <Grid item xs={12} md={4} lg={4}>
@@ -173,14 +181,15 @@ function DashboardContent() {
                 <AccountNumber />
               </Paper> */}
               <WidgetSummary
-                icon={<CategoryIcon />}
+                icon={<CategoryIcon sx={{ color: '#ffffff' }} />}
                 title='Categories'
-                value='69'
+                value='37'
+                color='#00c788'
               />
             </Grid>
             {/* LOGO */}
             <Grid item xs={12} md={4} lg={4}>
-              <Paper
+              {/* <Paper
                 sx={{
                   p: 2,
                   display: 'flex',
@@ -188,7 +197,13 @@ function DashboardContent() {
                   height: 240,
                 }}>
                 <Logo />
-              </Paper>
+              </Paper> */}
+              <WidgetSummary
+                icon={<PersonIcon sx={{ color: '#ffffff' }} />}
+                title='Users'
+                value='69'
+                color='#ffbf00'
+              />
             </Grid>
             {/* Recent Users */}
             <Grid item xs={12}>
