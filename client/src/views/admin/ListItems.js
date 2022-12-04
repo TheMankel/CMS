@@ -1,15 +1,21 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArticleIcon from '@mui/icons-material/Article';
+import CategoryIcon from '@mui/icons-material/Category';
 import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import GroupWorkIcon from '@mui/icons-material/GroupWork';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import PolicyIcon from '@mui/icons-material/Policy';
 import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const mainListItems = (
   <>
@@ -21,27 +27,21 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <ArticleIcon />
       </ListItemIcon>
-      <ListItemText primary='Orders' />
+      <ListItemText primary='Posts' />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <CategoryIcon />
+      </ListItemIcon>
+      <ListItemText primary='Categories' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary='Customers' />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary='Reports' />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary='Integrations' />
+      <ListItemText primary='Users' />
     </ListItemButton>
   </>
 );
@@ -49,31 +49,63 @@ export const mainListItems = (
 export const secondaryListItems = (
   <>
     <ListSubheader component='div' inset>
-      Saved reports
+      Public Settings
     </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <DesignServicesIcon />
       </ListItemIcon>
-      <ListItemText primary='Current month' />
+      <ListItemText primary='Logo' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <ViewCarouselIcon />
       </ListItemIcon>
-      <ListItemText primary='Last quarter' />
+      <ListItemText primary='Slider' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <PushPinIcon />
       </ListItemIcon>
-      <ListItemText primary='Year-end sale' />
+      <ListItemText primary='Pinned posts' />
     </ListItemButton>
     <ListItemButton>
+      <ListItemIcon>
+        <GroupWorkIcon />
+      </ListItemIcon>
+      <ListItemText primary='About' />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <ContactPageIcon />
+      </ListItemIcon>
+      <ListItemText primary='Contact' />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <PolicyIcon />
+      </ListItemIcon>
+      <ListItemText primary='Privacy Policy' />
+    </ListItemButton>
+  </>
+);
+
+export const otherListItems = (
+  <>
+    <ListSubheader component='div' inset>
+      Other
+    </ListSubheader>
+    <ListItemButton component={NavLink} to='/'>
       <ListItemIcon>
         <HomeIcon />
       </ListItemIcon>
-      <ListItemText primary='Year-end sale' />
+      <ListItemText primary='Homepage' />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <LogoutIcon />
+      </ListItemIcon>
+      <ListItemText primary='Logout' />
     </ListItemButton>
   </>
 );
