@@ -4,38 +4,39 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 const WidgetSummary = (props) => {
-  const { icon, title, value } = props;
+  const { icon, title, value, color } = props;
   return (
-    <Card sx={{ borderRadius: '12px' }}>
+    <Card>
+      {/* <Card sx={{ borderRadius: '12px' }}> */}
       <Box
         p={2}
         display='flex'
         alignItems='center'
-        justifyContent='center'
-        flexDirection='column'>
-        {/* <Box
+        justifyContent='space-between'>
+        <Box>
+          <Typography component='h2' variant='h6' color='primary'>
+            {/* <Typography component='h2' variant='h6' color='text.secondary'> */}
+            {title}
+          </Typography>
+          <Typography component='h1' variant='h4'>
+            {value}
+          </Typography>
+          {/* <Typography component='h3' color='text.secondary'>
+          on 15 March, 2019
+        </Typography> */}
+        </Box>
+        <Box
           width={48}
           height={48}
-          mb={2}
           borderRadius='50%'
           display='flex'
           alignItems='center'
           justifyContent='center'
           sx={{
-            background:
-              'radial-gradient(circle, rgba(63,94,255,1) 0%, rgba(217,234,255,1) 100%)',
+            background: color,
           }}>
           {icon}
-        </Box> */}
-        <Typography component='h1' variant='h4'>
-          {value}
-        </Typography>
-        <Typography component='h2' variant='h6'>
-          {title}
-        </Typography>
-        {/* <Typography component='h3' color='text.secondary'>
-          on 15 March, 2019
-        </Typography> */}
+        </Box>
       </Box>
     </Card>
   );
