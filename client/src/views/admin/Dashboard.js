@@ -32,6 +32,8 @@ import WidgetSummary from './WidgetSummary.js';
 import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
 import PeopleIcon from '@mui/icons-material/People';
+import ListItems from './ListItems.js';
+import useSummary from '../../hooks/useSummary.js';
 
 const drawerWidth = 240;
 
@@ -80,6 +82,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function DashboardContent() {
+  const { summary } = useSummary();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -137,13 +140,15 @@ function DashboardContent() {
           sx={{
             position: 'relative',
             overflow: 'auto',
+            overflowX: 'hidden',
             maxHeight: 'calc(100vh - 4em)',
           }}>
-          {mainListItems}
+          {/* {mainListItems}
           <Divider sx={{ my: 1 }} />
           {secondaryListItems}
           <Divider sx={{ my: 1 }} />
-          {otherListItems}
+          {otherListItems} */}
+          <ListItems open={open} />
         </List>
       </Drawer>
       <Box
@@ -174,7 +179,7 @@ function DashboardContent() {
               <WidgetSummary
                 icon={<ArticleIcon sx={{ color: '#ffffff' }} />}
                 title='Posts'
-                value='21'
+                value={summary.posts}
                 color='#c70046'
               />
             </Grid>
@@ -192,7 +197,7 @@ function DashboardContent() {
               <WidgetSummary
                 icon={<CategoryIcon sx={{ color: '#ffffff' }} />}
                 title='Categories'
-                value='37'
+                value={summary.categories}
                 color='#00c788'
               />
             </Grid>
@@ -210,7 +215,7 @@ function DashboardContent() {
               <WidgetSummary
                 icon={<PeopleIcon sx={{ color: '#ffffff' }} />}
                 title='Users'
-                value='69'
+                value={summary.users}
                 color='#ffbf00'
               />
             </Grid>

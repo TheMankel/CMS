@@ -4,6 +4,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import Divider from '@mui/material/Divider';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -109,3 +110,196 @@ export const otherListItems = (
     </ListItemButton>
   </>
 );
+
+const ListItems = (props) => {
+  const { open } = props;
+
+  return (
+    <>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <DashboardIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Dashboard' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <ArticleIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Posts' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <CategoryIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Categories' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <PeopleIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Users' />}
+      </ListItemButton>
+      <Divider sx={{ my: 1 }} />
+      {open && (
+        <ListSubheader component='div' inset>
+          Public Settings
+        </ListSubheader>
+      )}
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <DesignServicesIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Logo' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <ViewCarouselIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Slider' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <PushPinIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Pinned posts' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <GroupWorkIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='About' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <ContactPageIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Contact' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <PolicyIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Privacy Policy' />}
+      </ListItemButton>
+      <Divider sx={{ my: 1 }} />
+      {open && (
+        <ListSubheader component='div' inset>
+          Other
+        </ListSubheader>
+      )}
+      <ListItemButton
+        component={NavLink}
+        to='/'
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <HomeIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Homepage' />}
+      </ListItemButton>
+      <ListItemButton
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+            justifyContent: `${open ? 'left' : 'center'}`,
+          }}>
+          <LogoutIcon />
+        </ListItemIcon>
+        {open && <ListItemText primary='Logout' />}
+      </ListItemButton>
+    </>
+  );
+};
+
+export default ListItems;
