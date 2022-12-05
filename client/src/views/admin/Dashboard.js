@@ -1,5 +1,4 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -17,17 +16,8 @@ import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {
-  mainListItems,
-  secondaryListItems,
-  otherListItems,
-} from './ListItems.js';
-import AccountNumber from './AccountNumber';
 import RecentUsers from './RecentUsers';
 import Copyright from '../../components/Copyright/Copyright.js';
-import { Button } from '@mui/material';
-import PostNumber from './PostNumber';
-import Logo from './Logo.js';
 import WidgetSummary from './WidgetSummary.js';
 import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -81,9 +71,9 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-function DashboardContent() {
+const Dashboard = () => {
   const { summary } = useSummary();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -219,7 +209,6 @@ function DashboardContent() {
                 color='#ffbf00'
               />
             </Grid>
-            {/* Recent Users */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                 <RecentUsers />
@@ -231,9 +220,6 @@ function DashboardContent() {
       </Box>
     </Box>
   );
-}
-
-const Dashboard = () => {
-  return <DashboardContent />;
 };
+
 export default Dashboard;
