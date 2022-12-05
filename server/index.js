@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/authRoute');
 const contactRoutes = require('./routes/contactRoute');
+const adminRoutes = require('./routes/adminRoute');
 
 require('dotenv').config();
 
@@ -24,6 +25,7 @@ app.use(
 );
 app.use('/api', authRoutes);
 app.use('/api', contactRoutes);
+app.use('/api', adminRoutes);
 
 app.listen(port, () =>
   console.log(`Server is running on: http://localhost:${port}`),
