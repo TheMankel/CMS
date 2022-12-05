@@ -1,16 +1,18 @@
 const { db } = require('../config/firebase-config');
 const usersCollectionRef = db.collection('users');
+const postsCollectionRef = db.collection('posts');
+const categoriesCollectionRef = db.collection('categories');
 
 const summary = async (req, res, next) => {
   try {
+    const postsRef = await postsCollectionRef.get();
+    const categoriesRef = await categoriesCollectionRef.get();
     const usersRef = await usersCollectionRef.get();
-    const count = usersRef.size;
-    console.log(count);
 
     const data = {
-      posts: '21',
-      categories: '37',
-      users: count,
+      posts: postsRef.size,
+      categories: categoriesRef.size,
+      users: usersRef.size,
     };
 
     return res.status(200).json(data);
