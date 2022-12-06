@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/authContext';
 import HomePage from './views/HomePage';
 import Dashboard from './views/admin/Dashboard';
@@ -9,10 +9,11 @@ import ProfilePage from './views/ProfilePage';
 import About from './views/About';
 import Contact from './views/Contact';
 import ForgotPassword from './views/ForgotPassword';
-import PrivateRoute from './utils/PrivateRoute';
-import MainPublic from './layouts/MainPublic';
 import Posts from './views/Posts';
 import PostDetails from './views/PostDetails';
+import PrivateRoute from './utils/PrivateRoute';
+import MainPublic from './layouts/MainPublic';
+import MainAdmin from './layouts/MainAdmin';
 
 function App() {
   const { user, role } = useAuth();
@@ -39,18 +40,14 @@ function App() {
         <Route path='/register' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
       </Route>
-      <Route>
-        {/* <Route path='/login' element={<SignIn />} />
-        <Route path='/register' element={<SignUp />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} /> */}
-        <Route
-          path='dashboard'
-          element={
-            <PrivateRoute redirectPath='/' permissions={!!user && role}>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
+      <Route
+        element={
+          <PrivateRoute redirectPath='/' permissions={!!user && role}>
+            <MainAdmin />
+          </PrivateRoute>
+        }>
+        <Route path='admin' element={<Navigate replace to='dashboard' />} />
+        <Route path='admin/dashboard' element={<Dashboard />} />
       </Route>
     </Routes>
   );
