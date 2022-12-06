@@ -22,7 +22,7 @@ const AboutSection = (props) => {
   useEffect(() => {
     setUserName(user?.displayName);
     setEmail(user?.email);
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const handleSelectModal = (i) => {

@@ -7,7 +7,6 @@ const useSummary = () => {
   const getSummary = useCallback(async () => {
     try {
       const { data } = await axios.get('http://localhost:8000/api/summary');
-      console.log(data);
 
       setSummary(data);
     } catch (err) {
