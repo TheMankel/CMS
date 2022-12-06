@@ -32,7 +32,7 @@ const UserProfile = () => {
   useEffect(() => {
     setImage(user?.photoURL);
     setUserName(user?.displayName);
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const handleUpload = async (e) => {
@@ -130,7 +130,7 @@ const UserProfile = () => {
               )}
               {role && (
                 <ListItem disablePadding>
-                  <ListItemButton component={NavLink} to='/dashboard'>
+                  <ListItemButton component={NavLink} to='/admin'>
                     <ListItemIcon>
                       <DashboardIcon />
                     </ListItemIcon>
