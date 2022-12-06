@@ -58,6 +58,7 @@ const SignUp = () => {
         firstName: formRef.get('firstName'),
         lastName: formRef.get('lastName'),
         email: formRef.get('email'),
+        created: +user.metadata.createdAt,
       };
 
       const res = await axios.post('http://localhost:8000/api/signup', data, {

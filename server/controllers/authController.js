@@ -6,7 +6,7 @@ const blogCollectionRef = db.collection('cms');
 
 const signUp = async (req, res, next) => {
   try {
-    const { uid, firstName, lastName, email } = req.body;
+    const { uid, firstName, lastName, email, created } = req.body;
 
     if (!firstName)
       return res.json({
@@ -36,6 +36,7 @@ const signUp = async (req, res, next) => {
       firstName,
       lastName,
       email,
+      created,
     };
 
     const listUsersResult = await auth.listUsers(2);
