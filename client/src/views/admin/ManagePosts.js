@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Copyright from '../../components/Copyright/Copyright.js';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 
 const ManagePosts = () => {
   const [value, setValue] = useState('');
@@ -39,7 +39,12 @@ const ManagePosts = () => {
           </Grid>
           <Grid item xs={12}>
             <Paper>
-              <ReactQuill theme='snow' value={value} onChange={setValue} />
+              <ReactQuill
+                theme='snow'
+                value={value}
+                onChange={setValue}
+                placeholder='Write something'
+              />
             </Paper>
           </Grid>
           <Grid item xs={12}>
