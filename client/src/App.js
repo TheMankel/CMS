@@ -14,6 +14,8 @@ import PostDetails from './views/PostDetails';
 import PrivateRoute from './utils/PrivateRoute';
 import MainPublic from './layouts/MainPublic';
 import MainAdmin from './layouts/MainAdmin';
+import ManagePosts from './views/admin/ManagePosts';
+import ManageUsers from './views/admin/ManageUsers';
 
 function App() {
   const { user, role } = useAuth();
@@ -48,6 +50,8 @@ function App() {
         }>
         <Route path='admin' element={<Navigate replace to='dashboard' />} />
         <Route path='admin/dashboard' element={<Dashboard />} />
+        <Route path='admin/posts' element={<ManagePosts />} />
+        <Route path='admin/users' element={<ManageUsers />} />
       </Route>
     </Routes>
   );
