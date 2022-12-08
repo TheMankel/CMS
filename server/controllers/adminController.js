@@ -7,7 +7,7 @@ const summary = async (req, res, next) => {
   try {
     const postsRef = await postsCollectionRef.get();
     const categoriesRef = await categoriesCollectionRef.get();
-    const usersRef = await usersCollectionRef.get();
+    const usersRef = await usersCollectionRef.where('role', '==', 'user').get();
 
     const data = {
       posts: postsRef.size,
