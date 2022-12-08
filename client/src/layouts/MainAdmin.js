@@ -122,7 +122,7 @@ const MainAdmin = () => {
             position: 'relative',
             overflow: 'auto',
             overflowX: 'hidden',
-            maxHeight: 'calc(100vh - 4em)',
+            maxHeight: 'calc(100vh - 4.1em)',
           }}>
           <ListItems open={open} handleTitle={setTitle} />
         </List>
