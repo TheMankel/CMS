@@ -14,6 +14,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Title from './Title';
@@ -36,15 +38,19 @@ const ManagePosts = () => {
     ],
   };
 
+  const handleCancel = () => {
+    console.log(value);
+  };
+
   const handleNewPost = () => {
     console.log(value);
   };
 
-  const handleDeletePost = () => {
+  const handleEditPost = () => {
     console.log(value);
   };
 
-  const handleEditPost = () => {
+  const handleDeletePost = () => {
     console.log(value);
   };
 
@@ -77,13 +83,41 @@ const ManagePosts = () => {
       <Container maxWidth='lg' sx={{ my: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            Title
-          </Grid>
-          <Grid item xs={12}>
-            Background photo
-          </Grid>
-          <Grid item xs={12}>
-            <Paper>
+            <Paper
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}>
+              <Box>
+                <Title>Post title</Title>
+                <TextField
+                  id='set-title'
+                  label='Write post title'
+                  variant='outlined'
+                  fullWidth
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+              <Box display='flex' flexDirection='column'>
+                <Title>Background photo</Title>
+                <Button
+                  id='upload-background'
+                  variant='contained'
+                  component='label'
+                  sx={{
+                    alignSelf: 'center',
+                    textTransform: 'none',
+                  }}>
+                  Upload
+                  <input hidden accept='image/*' type='file' />
+                </Button>
+                <Box display='flex' gap={1}>
+                  <Typography>Currently uploaded photo:</Typography>
+                  <Typography color='GrayText'>none</Typography>
+                </Box>
+              </Box>
               <ReactQuill
                 theme='snow'
                 value={value}
@@ -91,49 +125,65 @@ const ManagePosts = () => {
                 placeholder='Write something'
                 modules={modules}
               />
+              <Box alignSelf='center'>
+                <Button
+                  variant='outlined'
+                  onClick={handleCancel}
+                  sx={{
+                    mx: '4px',
+                    textTransform: 'none',
+                  }}>
+                  Cancel
+                </Button>
+                <Button
+                  variant='contained'
+                  onClick={handleNewPost}
+                  sx={{
+                    mx: '4px',
+                    textTransform: 'none',
+                  }}>
+                  Add new post
+                </Button>
+              </Box>
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={handleNewPost}>Add new post</Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Post title</TableCell>
-                      <TableCell>Created</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>Created posts</Title>
+              <Table size='small'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>id</TableCell>
+                    <TableCell>Post title</TableCell>
+                    <TableCell>Created</TableCell>
+                    <TableCell align='center'>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((user, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{i}</TableCell>
+                      <TableCell>{user?.postTitle}</TableCell>
+                      <TableCell>{user?.created}</TableCell>
+                      <TableCell align='center'>
+                        <IconButton
+                          onClick={handleEditPost}
+                          aria-label='edit post'
+                          component='label'>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          onClick={handleDeletePost}
+                          aria-label='delete post'
+                          component='label'>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((user, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{user?.postTitle}</TableCell>
-                        <TableCell>{user?.created}</TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            onClick={handleEditPost}
-                            aria-label='edit post'
-                            component='label'>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            onClick={handleDeletePost}
-                            aria-label='delete post'
-                            component='label'>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Paper>
-            </Grid>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
           </Grid>
         </Grid>
         <Copyright sx={{ pt: 4 }} />
