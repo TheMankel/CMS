@@ -21,6 +21,21 @@ import Title from './Title';
 const ManagePosts = () => {
   const [value, setValue] = useState('');
 
+  const modules = {
+    toolbar: [
+      // [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ color: [] }, { background: [] }],
+      [{ script: 'sub' }, { script: 'super' }],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+  };
+
   const handleNewPost = () => {
     console.log(value);
   };
@@ -74,6 +89,7 @@ const ManagePosts = () => {
                 value={value}
                 onChange={setValue}
                 placeholder='Write something'
+                modules={modules}
               />
             </Paper>
           </Grid>
