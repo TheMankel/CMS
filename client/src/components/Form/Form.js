@@ -10,10 +10,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-// const success = () => {
-//   toast.success('Email send successfully!');
-// };
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
 
 const Form = (props) => {
   const [sent, setSent] = useState(false);
@@ -21,10 +23,20 @@ const Form = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleSend = async (e) => {
     e.preventDefault();
     setSent(true);
+
     try {
       await axios.post('http://localhost:8000/api/contact', {
         firstName,
@@ -39,7 +51,7 @@ const Form = (props) => {
     setLastName('');
     setEmail('');
     setMsg('');
-
+    setOpen(true);
     console.log(sent);
   };
 
@@ -122,6 +134,18 @@ const Form = (props) => {
                 fullWidth
                 type='submit'
                 sx={{ height: 54, textTransform: 'none' }}>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={handleClose}>
+                  <Alert
+                    onClose={handleClose}
+                    severity='success'
+                    sx={{ width: '100%' }}>
+                    Sending email success!
+                  </Alert>
+                </Snackbar>
                 Submit
               </Button>
             </Grid>
