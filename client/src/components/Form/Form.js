@@ -41,6 +41,11 @@ const Form = (props) => {
       return;
     }
 
+    if (!/@/.test(email)) {
+      setFormError('Please enter a valid email address.');
+      return;
+    }
+
     e.preventDefault();
     setSent(true);
 
