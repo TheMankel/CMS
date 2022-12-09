@@ -64,7 +64,6 @@ const Form = (props) => {
     setEmail('');
     setMsg('');
     setOpen(true);
-    console.log(sent);
   };
 
   const theme = useTheme();
@@ -146,20 +145,20 @@ const Form = (props) => {
                 fullWidth
                 type='submit'
                 sx={{ height: 54, textTransform: 'none' }}>
-                <Snackbar
-                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                  open={open}
-                  autoHideDuration={4000}
-                  onClose={handleClose}>
-                  <Alert
-                    onClose={handleClose}
-                    severity='success'
-                    sx={{ width: '100%' }}>
-                    Sending email success!
-                  </Alert>
-                </Snackbar>
                 Submit
               </Button>
+              <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={open}
+                autoHideDuration={4000}
+                onClose={handleClose}>
+                <Alert
+                  onClose={handleClose}
+                  severity='success'
+                  sx={{ width: '100%' }}>
+                  Sending email success!
+                </Alert>
+              </Snackbar>
               {formError && (
                 <Snackbar
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
