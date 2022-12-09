@@ -19,6 +19,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Form = (props) => {
   const [sent, setSent] = useState(false);
+  const [formError, setFormError] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,6 +35,12 @@ const Form = (props) => {
   };
 
   const handleSend = async (e) => {
+    e.preventDefault();
+    if (!firstName || !lastName || !email || !msg) {
+      setFormError('All fields are required.');
+      return;
+    }
+
     e.preventDefault();
     setSent(true);
 
@@ -137,7 +144,7 @@ const Form = (props) => {
                 <Snackbar
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                   open={open}
-                  autoHideDuration={3000}
+                  autoHideDuration={4000}
                   onClose={handleClose}>
                   <Alert
                     onClose={handleClose}
@@ -148,6 +155,17 @@ const Form = (props) => {
                 </Snackbar>
                 Submit
               </Button>
+              {formError && (
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  open={true}
+                  autoHideDuration={4000}
+                  onClose={() => setFormError('')}>
+                  <Alert onClose={() => setFormError('')} severity='error'>
+                    {formError}
+                  </Alert>
+                </Snackbar>
+              )}
             </Grid>
             <Grid item xs={12}>
               <Divider />
