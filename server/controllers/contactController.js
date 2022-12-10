@@ -30,7 +30,7 @@ const contact = (req, res, next) => {
       address: email,
     },
     to: process.env.EMAIL,
-    subject: 'Contact form.',
+    subject: 'Contact form',
     text: msg,
   };
 
