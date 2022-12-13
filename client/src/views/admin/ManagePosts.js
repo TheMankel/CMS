@@ -160,11 +160,11 @@ const ManagePosts = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((user, i) => (
+                  {rows.map((row, i) => (
                     <TableRow key={i}>
                       <TableCell>{i}</TableCell>
-                      <TableCell>{user?.postTitle}</TableCell>
-                      <TableCell>{user?.created}</TableCell>
+                      <TableCell>{row?.postTitle}</TableCell>
+                      <TableCell>{row?.created}</TableCell>
                       <TableCell align='center'>
                         <IconButton
                           onClick={handleEditPost}
