@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Copyright from '../../components/Copyright/Copyright.js';
+// import Copyright from '../../components/Copyright/Copyright.js';
 import Title from './Title';
 
 // Generate Order Data
@@ -74,7 +74,7 @@ const ManageUsers = (props) => {
             </Paper>
           </Grid>
         </Grid>
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
     </Box>
   );

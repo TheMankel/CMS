@@ -17,7 +17,7 @@ import Paper from '@mui/material/Paper';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import RecentUsers from './RecentUsers';
-import Copyright from '../../components/Copyright/Copyright.js';
+// import Copyright from '../../components/Copyright/Copyright.js';
 import WidgetSummary from './WidgetSummary.js';
 import ArticleIcon from '@mui/icons-material/Article';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -262,7 +262,7 @@ const Dashboard = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Copyright sx={{ pt: 4 }} />
+        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
     </Box>
   );
