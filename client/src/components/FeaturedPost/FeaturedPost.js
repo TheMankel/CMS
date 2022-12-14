@@ -38,7 +38,7 @@ const FeaturedPost = (props) => {
             component='img'
             sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
             image={post.image}
-            alt={post.imageLabel}
+            alt={post.title}
           />
         </Card>
       </CardActionArea>
@@ -51,7 +51,6 @@ FeaturedPost.propTypes = {
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    imageLabel: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
