@@ -5,13 +5,26 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
+import axios from 'axios';
 
 const Posts = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const [postsData, setPostsData] = useState([]);
 
   const handleChange = (e, value) => {
     setPage(value);
+  };
+
+  const getData = async () => {
+    try {
+      const data = await axios.get('http://localhost:8000/api/posts');
+
+      setPostsData(data?.data?.posts);
+      console.log(postsData);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const featuredPosts = useMemo(
@@ -96,13 +109,17 @@ const Posts = () => {
 
   useEffect(() => {
     setPosts(featuredPosts.slice((page - 1) * (count + 1), page * (count + 1)));
+    getData();
   }, [page, featuredPosts, count]);
 
   return (
     <Container maxWidth='lg'>
       <Grid container spacing={6} minHeight={580} sx={{ mt: 1 }}>
         {posts.map((post) => (
-          <FeaturedPost key={post.title} post={post} />
+          <FeaturedPost
+            key={post.title.toLowerCase().replace(' ', '-')}
+            post={post}
+          />
         ))}
       </Grid>
       <Box margin={3} display={'flex'} justifyContent={'center'}>
