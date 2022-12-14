@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+// import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
-import axios from 'axios';
+// import axios from 'axios';
 import useFirestoreData from '../hooks/useFirestoreData';
 
 const Posts = () => {
@@ -19,17 +20,17 @@ const Posts = () => {
 
   const count = Math.ceil(posts.length / 4);
 
-  const getData = async () => {
-    try {
-      const data = await axios.get('http://localhost:8000/api/posts');
+  // const getData = async () => {
+  //   try {
+  //     const data = await axios.get('http://localhost:8000/api/posts');
 
-      const postsData = data.data.posts;
-      console.log(postsData);
-      setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     const postsData = data.data.posts;
+  //     console.log(postsData);
+  //     setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     // getData();
