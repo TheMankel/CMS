@@ -6,14 +6,18 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 import axios from 'axios';
+import useFirestoreData from '../hooks/useFirestoreData';
 
 const Posts = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const { firestoreData } = useFirestoreData('posts');
 
   const handleChange = (e, value) => {
     setPage(value);
   };
+
+  const count = Math.ceil(posts.length / 4);
 
   const getData = async () => {
     try {
@@ -26,6 +30,15 @@ const Posts = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    // getData();
+    const postsData = firestoreData.posts;
+    console.log(firestoreData.posts);
+
+    if (!firestoreData.posts) return;
+    setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
+  }, [firestoreData, count, page]);
 
   // const featuredPosts = useMemo(
   //   () => [
@@ -106,16 +119,11 @@ const Posts = () => {
   // );
 
   // const count = Math.ceil(featuredPosts.length / 4);
-  const count = Math.ceil(posts.length / 4);
 
   // useEffect(() => {
   //   // setPosts(featuredPosts.slice((page - 1) * (count + 1), page * (count + 1)));
   //   getData();
   // }, [page, featuredPosts, count]);
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <Container maxWidth='lg'>
