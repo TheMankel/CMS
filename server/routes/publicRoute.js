@@ -5,10 +5,13 @@ const {
   navigation,
   about,
   slider,
+  allPosts,
+  postDetails,
 } = require('../controllers/publicController');
 
 router.get('/navigation', navigation);
 router.get('/about', about);
 router.get('/slider', slider);
+router.get('/posts', allPosts);
 
 module.exports = router;
