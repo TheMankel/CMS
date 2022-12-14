@@ -13,7 +13,9 @@ const FeaturedPost = (props) => {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component={NavLink} to={post.title}>
+      <CardActionArea
+        component={NavLink}
+        to={post.title.toLowerCase().replace(' ', '-')}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component='h2' variant='h5'>
