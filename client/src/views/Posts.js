@@ -10,7 +10,6 @@ import axios from 'axios';
 const Posts = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
-  const [postsData, setPostsData] = useState([]);
 
   const handleChange = (e, value) => {
     setPage(value);
@@ -20,97 +19,103 @@ const Posts = () => {
     try {
       const data = await axios.get('http://localhost:8000/api/posts');
 
-      setPostsData(data?.data?.posts);
+      const postsData = data.data.posts;
       console.log(postsData);
+      setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
     } catch (err) {
       console.log(err);
     }
   };
 
-  const featuredPosts = useMemo(
-    () => [
-      {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Featurede poste',
-        date: 'Nov 12',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titlee',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titleee',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titleee1',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titleee2',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titleee3',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-      {
-        title: 'Poste titleee4',
-        date: 'Nov 11',
-        description:
-          'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random',
-        imageLabel: 'Image Text',
-      },
-    ],
-    [],
-  );
+  // const featuredPosts = useMemo(
+  //   () => [
+  //     {
+  //       title: 'Featured post',
+  //       date: 'Nov 12',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Post title',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Featurede poste',
+  //       date: 'Nov 12',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titlee',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titleee',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titleee1',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titleee2',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titleee3',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //     {
+  //       title: 'Poste titleee4',
+  //       date: 'Nov 11',
+  //       description:
+  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //       image: 'https://source.unsplash.com/random',
+  //       imageLabel: 'Image Text',
+  //     },
+  //   ],
+  //   [],
+  // );
 
-  const count = Math.ceil(featuredPosts.length / 4);
+  // const count = Math.ceil(featuredPosts.length / 4);
+  const count = Math.ceil(posts.length / 4);
+
+  // useEffect(() => {
+  //   // setPosts(featuredPosts.slice((page - 1) * (count + 1), page * (count + 1)));
+  //   getData();
+  // }, [page, featuredPosts, count]);
 
   useEffect(() => {
-    setPosts(featuredPosts.slice((page - 1) * (count + 1), page * (count + 1)));
     getData();
-  }, [page, featuredPosts, count]);
+  }, []);
 
   return (
     <Container maxWidth='lg'>
