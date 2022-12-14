@@ -6,7 +6,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-// import Copyright from '../../components/Copyright/Copyright.js';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -186,7 +185,6 @@ const ManagePosts = () => {
             </Paper>
           </Grid>
         </Grid>
-        {/* <Copyright sx={{ pt: 4 }} /> */}
       </Container>
     </Box>
   );
