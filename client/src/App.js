@@ -16,6 +16,13 @@ import MainPublic from './layouts/MainPublic';
 import MainAdmin from './layouts/MainAdmin';
 import ManagePosts from './views/admin/ManagePosts';
 import ManageUsers from './views/admin/ManageUsers';
+import AboutAdmin from './views/admin/AboutAdmin';
+import Logo from './views/admin/Logo';
+import SliderAdmin from './views/admin/SliderAdmin';
+import PrivacyPolicy from './views/admin/PrivacyPolicy';
+import ContactAdmin from './views/admin/ContactAdmin';
+import PinnedPosts from './views/admin/PinnedPosts';
+import Categories from './views/admin/Categories';
 
 function App() {
   const { user, role } = useAuth();
@@ -51,7 +58,14 @@ function App() {
         <Route path='admin' element={<Navigate replace to='dashboard' />} />
         <Route path='admin/dashboard' element={<Dashboard />} />
         <Route path='admin/posts' element={<ManagePosts />} />
+        <Route path='admin/categories' element={<Categories />} />
         <Route path='admin/users' element={<ManageUsers />} />
+        <Route path='admin/logo' element={<Logo />} />
+        <Route path='admin/slider' element={<SliderAdmin />} />
+        <Route path='admin/pinned-posts' element={<PinnedPosts />} />
+        <Route path='admin/about' element={<AboutAdmin />} />
+        <Route path='admin/contact' element={<ContactAdmin />} />
+        <Route path='admin/privacy-policy' element={<PrivacyPolicy />} />
       </Route>
     </Routes>
   );
