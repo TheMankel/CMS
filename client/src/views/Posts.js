@@ -1,4 +1,3 @@
-// import React, { useState, useEffect, useMemo } from 'react';
 import React, { useState, useEffect, useCallback } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -7,12 +6,10 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 import axios from 'axios';
-// import useFirestoreData from '../hooks/useFirestoreData';
 
 const Posts = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
-  // const { firestoreData } = useFirestoreData('posts');
 
   const handleChange = (e, value) => {
     setPage(value);
@@ -38,13 +35,6 @@ const Posts = () => {
 
   useEffect(() => {
     getData();
-    console.count();
-    // const postsData = firestoreData.posts;
-    // console.log(firestoreData.posts);
-
-    // if (!firestoreData.posts) return;
-    // setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
-    // }, [firestoreData, count, page]);
   }, [getData]);
 
   // const featuredPosts = useMemo(
@@ -124,13 +114,6 @@ const Posts = () => {
   //   ],
   //   [],
   // );
-
-  // const count = Math.ceil(featuredPosts.length / 4);
-
-  // useEffect(() => {
-  //   // setPosts(featuredPosts.slice((page - 1) * (count + 1), page * (count + 1)));
-  //   getData();
-  // }, [page, featuredPosts, count]);
 
   return (
     <Container maxWidth='lg'>

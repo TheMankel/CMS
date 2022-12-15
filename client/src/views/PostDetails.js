@@ -6,7 +6,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import { Avatar, Button, TextField } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Comments from '../components/Comments/Comments';
 import axios from 'axios';
 
@@ -55,14 +57,10 @@ const PostDetails = () => {
 
   return (
     <>
-      {/* <div>PostDetails</div>
-      <div>ID: {postId}</div> */}
       <Container maxWidth='lg'>
         <Grid item xs={4}>
           <CardMedia
-            // image='https://www.theblondeabroad.com/wp-content/uploads/2018/10/VENICE-ITALY.jpg'
             image={post?.image}
-            // title='Cos tytuł'
             title={post?.title}
             sx={{
               height: '340px',
@@ -97,72 +95,6 @@ const PostDetails = () => {
               </CardContent>
             </div>
           </CardMedia>
-          {/* <Box>
-            <p>
-              In the wake of the November, 2019 flooding in Venice, we thought
-              it would be helpful to draw your attention to our&nbsp;acqua
-              alta&nbsp;resources here and at our main travel-planning site,
-              <strong>&nbsp;</strong>
-              <a
-                href='Veniceforvisitors.com'
-                rel='noopener noreferrer'
-                target='_blank'>
-                <strong>Veniceforvisitors.com</strong>
-              </a>
-              :
-            </p>
-            <h4>
-              <strong>Acqua Alta</strong>
-            </h4>
-            <p>
-              This illustrated article at Venice for Visitors tells what&nbsp;
-              <em>acqua </em>alta&nbsp;or "high water" is and how to prepare for
-              it if you're going to Venice from mid-autumn through early spring.
-            </p>
-            <h4>
-              <strong>Venice Travel Blog: Flooding</strong>
-            </h4>
-            <p>
-              Our&nbsp;<em>acqua alta&nbsp;</em>index page links to a number of
-              posts about Venice tidal flooding (including this one), featuring
-              such topics as&nbsp;tidal warning sirens&nbsp;and forecasting apps
-              for your iPhone or Android smartphone.
-            </p>
-            <h4>
-              <strong>Important things to know:</strong>
-            </h4>
-            <ul>
-              <li>
-                <em>Acqua alta</em>&nbsp;is an abnormally high tide that occurs
-                under certain weather conditions--e.g., when atmospheric
-                pressures are low and winds from the south push water northward
-                in the Adriatic Sea.
-              </li>
-              <li>
-                <em>Acqua alta</em>&nbsp;tends to occur seasonally (mostly from
-                October until March or April), and it typically lasts only a few
-                hours at a time. Just as important, it normally affects only
-                lower-lying areas of the city (such as the Piazza San Marco,
-                where water can seep up through the drains even in midsummer).
-                You should not let fear of&nbsp;<em>acqua alta&nbsp;</em>
-                discourage you from visiting Venice.
-              </li>
-              <li>
-                If you're visiting Venice from fall through spring, don't book
-                ground-floor accommodation. (This isn't likely to be an issue in
-                hotels, where rooms are usually on upper floors, but short-term
-                apartment rentals at street level can be risky.)
-              </li>
-              <li>
-                When<em>&nbsp;acqua alta</em>&nbsp;does occur,&nbsp;avoid
-                frolicking in the water. Flood tides are a costly nuisance to
-                the locals, and splashing around, kicking up water in the
-                streets, or stripping down and swimming in front of the Basilica
-                di San Marco isn't likely to win you any Venetian friends.
-              </li>
-            </ul>
-            <br />
-          </Box> */}
           <Box>
             <div
               dangerouslySetInnerHTML={{
