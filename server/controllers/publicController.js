@@ -118,8 +118,6 @@ const postDetails = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    console.log(id);
-
     const postsRef = await postsCollectionRef?.doc(id).get();
 
     const data = postsRef.data();
