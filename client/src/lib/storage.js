@@ -20,7 +20,8 @@ export const uploadImage = async (ref, imageFile) => {
 
 export const downloadImage = async (ref, callback) => {
   const imageUrl = await getDownloadURL(ref);
-  callback(imageUrl);
+  // callback(imageUrl);
+  return imageUrl;
 };
 
 export const getListImages = async (ref, callback) => {

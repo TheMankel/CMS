@@ -41,7 +41,8 @@ const UserProfile = () => {
       if (!imageFile) return;
 
       await uploadImage(userImagesRef, imageFile);
-      await downloadImage(userImagesRef, handleImageChange);
+      const img = await downloadImage(userImagesRef);
+      handleImageChange(img);
     } catch (err) {
       console.log(err);
     }
