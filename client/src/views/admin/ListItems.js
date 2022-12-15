@@ -22,6 +22,7 @@ import { useAuth } from '../../contexts/authContext';
 const ListItems = (props) => {
   const { open, handleTitle } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [publicSelectedIndex, setPublicSelectedIndex] = useState(0);
   const navigate = useNavigate();
   const { signOutHandler } = useAuth();
 
@@ -29,6 +30,13 @@ const ListItems = (props) => {
     const { id } = e.currentTarget;
 
     setSelectedIndex(i);
+    handleTitle(id);
+  };
+
+  const handlePublicListItemClick = (e, i) => {
+    const { id } = e.currentTarget;
+
+    setPublicSelectedIndex(i);
     handleTitle(id);
   };
 
@@ -141,8 +149,10 @@ const ListItems = (props) => {
         <ListItemButton
           id={item.id}
           key={item.id}
-          selected={selectedIndex === index + mainListItems.length}
-          onClick={(e) => handleListItemClick(e, index + mainListItems.length)}
+          component={NavLink}
+          to={item.path}
+          selected={publicSelectedIndex === index}
+          onClick={(e) => handlePublicListItemClick(e, index)}
           sx={{
             display: 'flex',
             justifyContent: 'center',
