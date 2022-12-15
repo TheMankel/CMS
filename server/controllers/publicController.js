@@ -116,7 +116,9 @@ const allPosts = async (req, res, next) => {
 
 const postDetails = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
+
+    console.log(id);
 
     const postsRef = await postsCollectionRef?.doc(id).get();
 
