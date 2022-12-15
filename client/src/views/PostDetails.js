@@ -158,7 +158,7 @@ const PostDetails = () => {
           <Box>
             <div
               dangerouslySetInnerHTML={{
-                __html: post.text.replace('<br>', '<br/>'),
+                __html: post?.text?.replace('<br>', '<br/>'),
               }}
             />
           </Box>
