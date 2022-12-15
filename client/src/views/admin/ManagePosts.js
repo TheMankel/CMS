@@ -18,9 +18,14 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Title from './Title';
+import axios from 'axios';
+import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 
 const ManagePosts = () => {
-  const [value, setValue] = useState('');
+  const [postTitle, setPostTitle] = useState('');
+  const [postDescription, setPostDescription] = useState('');
+  const [postImage, setPostImage] = useState(null);
+  const [postText, setPostText] = useState('');
 
   const modules = {
     toolbar: [
@@ -37,20 +42,64 @@ const ManagePosts = () => {
     ],
   };
 
-  const handleCancel = () => {
-    console.log(value);
+  const handleUpload = async (e) => {
+    try {
+      const imageFile = e.target.files[0];
+      if (!imageFile) return;
+      console.log(imageFile);
+      // const image = URL.createObjectURL(imageFile);
+      // console.log(image);
+      setPostImage(imageFile);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleNewPost = () => {
-    console.log(value);
+  const handleCancel = () => {
+    setPostTitle('');
+    setPostDescription('');
+    setPostImage('none');
+    setPostText('');
+  };
+
+  const handleNewPost = async (e) => {
+    e.preventDefault();
+    console.log(postText);
+
+    if (!postTitle || !postDescription || !postImage || !postText) return;
+
+    try {
+      const title = postTitle?.toLowerCase().replace(' ', '-');
+      const userImagesRef = createRef(`postImages/${title}`);
+
+      await uploadImage(userImagesRef, postImage);
+      const imageUrl = await downloadImage(userImagesRef);
+
+      const data = {
+        description: postDescription,
+        image: imageUrl,
+        text: postText,
+        title: postTitle,
+      };
+
+      await axios.post('http://localhost:8000/api/new-post', data, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setPostTitle('');
+    setPostDescription('');
+    setPostImage(null);
+    setPostText('');
   };
 
   const handleEditPost = () => {
-    console.log(value);
+    console.log(postText);
   };
 
   const handleDeletePost = () => {
-    console.log(value);
+    console.log(postText);
   };
 
   // Generate Order Data
@@ -83,6 +132,10 @@ const ManagePosts = () => {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper
+              component='form'
+              noValidate
+              autoComplete='off'
+              onSubmit={handleNewPost}
               sx={{
                 p: 2,
                 display: 'flex',
@@ -95,6 +148,20 @@ const ManagePosts = () => {
                   id='set-title'
                   label='Write post title'
                   variant='outlined'
+                  value={postTitle}
+                  onChange={(e) => setPostTitle(e.target.value)}
+                  fullWidth
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+              <Box>
+                <Title>Post description</Title>
+                <TextField
+                  id='set-description'
+                  label='Write post description'
+                  variant='outlined'
+                  value={postDescription}
+                  onChange={(e) => setPostDescription(e.target.value)}
                   fullWidth
                   sx={{ mt: 1 }}
                 />
@@ -105,6 +172,7 @@ const ManagePosts = () => {
                   id='upload-background'
                   variant='contained'
                   component='label'
+                  onChange={handleUpload}
                   sx={{
                     alignSelf: 'center',
                     textTransform: 'none',
@@ -114,13 +182,15 @@ const ManagePosts = () => {
                 </Button>
                 <Box display='flex' gap={1}>
                   <Typography>Currently uploaded photo:</Typography>
-                  <Typography color='GrayText'>none</Typography>
+                  <Typography color='GrayText'>
+                    {postImage?.name ? postImage?.name : 'none'}
+                  </Typography>
                 </Box>
               </Box>
               <ReactQuill
                 theme='snow'
-                value={value}
-                onChange={setValue}
+                value={postText}
+                onChange={setPostText}
                 placeholder='Write something'
                 modules={modules}
               />
@@ -136,6 +206,7 @@ const ManagePosts = () => {
                 </Button>
                 <Button
                   variant='contained'
+                  type='submit'
                   onClick={handleNewPost}
                   sx={{
                     mx: '4px',
