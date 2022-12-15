@@ -13,5 +13,6 @@ router.get('/navigation', navigation);
 router.get('/about', about);
 router.get('/slider', slider);
 router.get('/posts', allPosts);
+router.get('/posts/:id', postDetails);
 
 module.exports = router;
