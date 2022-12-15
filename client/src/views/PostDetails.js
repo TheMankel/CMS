@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -8,21 +8,29 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { Avatar, Button, TextField } from '@mui/material';
 import Comments from '../components/Comments/Comments';
-import useFirestoreData from '../hooks/useFirestoreData';
+import axios from 'axios';
 
 const PostDetails = () => {
   const params = useParams();
   const { postId } = params;
-  console.log(postId);
-  const { firestoreData } = useFirestoreData('posts/venice-flooding');
   const [post, setPost] = useState({});
 
-  useEffect(() => {
-    console.log(firestoreData);
+  const getData = useCallback(async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/posts/${postId}`,
+      );
 
-    if (!firestoreData) return;
-    setPost(firestoreData);
-  }, [firestoreData]);
+      console.log(data);
+      setPost(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [postId]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   const comments = [
     {
@@ -53,9 +61,9 @@ const PostDetails = () => {
         <Grid item xs={4}>
           <CardMedia
             // image='https://www.theblondeabroad.com/wp-content/uploads/2018/10/VENICE-ITALY.jpg'
-            image={post.image}
+            image={post?.image}
             // title='Cos tytuł'
-            title={post.title}
+            title={post?.title}
             sx={{
               height: '340px',
               overflow: 'hidden',
@@ -84,7 +92,7 @@ const PostDetails = () => {
                   variant='h4'
                   maxWidth='800px'
                   sx={{ wordBreak: 'break-word' }}>
-                  {post.title}
+                  {post?.title}
                 </Typography>
               </CardContent>
             </div>
