@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -8,12 +8,21 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { Avatar, Button, TextField } from '@mui/material';
 import Comments from '../components/Comments/Comments';
+import useFirestoreData from '../hooks/useFirestoreData';
 
 const PostDetails = () => {
   const params = useParams();
   const { postId } = params;
-
   console.log(postId);
+  const { firestoreData } = useFirestoreData('posts/venice-flooding');
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    console.log(firestoreData);
+
+    if (!firestoreData) return;
+    setPost(firestoreData);
+  }, [firestoreData]);
 
   const comments = [
     {
@@ -43,8 +52,10 @@ const PostDetails = () => {
       <Container maxWidth='lg'>
         <Grid item xs={4}>
           <CardMedia
-            image='https://www.theblondeabroad.com/wp-content/uploads/2018/10/VENICE-ITALY.jpg'
-            title='siur'
+            // image='https://www.theblondeabroad.com/wp-content/uploads/2018/10/VENICE-ITALY.jpg'
+            image={post.image}
+            // title='Cos tytuł'
+            title={post.title}
             sx={{
               height: '340px',
               overflow: 'hidden',
@@ -73,12 +84,12 @@ const PostDetails = () => {
                   variant='h4'
                   maxWidth='800px'
                   sx={{ wordBreak: 'break-word' }}>
-                  Siur
+                  {post.title}
                 </Typography>
               </CardContent>
             </div>
           </CardMedia>
-          <Box>
+          {/* <Box>
             <p>
               In the wake of the November, 2019 flooding in Venice, we thought
               it would be helpful to draw your attention to our&nbsp;acqua
@@ -143,6 +154,13 @@ const PostDetails = () => {
               </li>
             </ul>
             <br />
+          </Box> */}
+          <Box>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: post.text.replace('<br>', '<br/>'),
+              }}
+            />
           </Box>
           <Box>
             <Typography variant='h5' gutterBottom>
