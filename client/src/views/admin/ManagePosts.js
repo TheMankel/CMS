@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
@@ -19,9 +19,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Title from './Title';
 import axios from 'axios';
-import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import {
+  createRef,
+  uploadImage,
+  downloadImage,
+  deleteImage,
+} from '../../lib/storage';
 
 const ManagePosts = () => {
+  const [posts, setPosts] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postDescription, setPostDescription] = useState('');
   const [postImage, setPostImage] = useState(null);
@@ -70,10 +76,10 @@ const ManagePosts = () => {
 
     try {
       const title = postTitle?.toLowerCase().replace(' ', '-');
-      const userImagesRef = createRef(`postImages/${title}`);
+      const postImagesRef = createRef(`postImages/${title}`);
 
-      await uploadImage(userImagesRef, postImage);
-      const imageUrl = await downloadImage(userImagesRef);
+      await uploadImage(postImagesRef, postImage);
+      const imageUrl = await downloadImage(postImagesRef);
 
       const data = {
         description: postDescription,
@@ -92,28 +98,71 @@ const ManagePosts = () => {
     setPostDescription('');
     setPostImage(null);
     setPostText('');
+    getData();
   };
 
-  const handleEditPost = () => {
-    console.log(postText);
+  const handleEditPost = (e) => {
+    console.log(e.currentTarget.id);
   };
 
-  const handleDeletePost = () => {
-    console.log(postText);
+  const handleDeletePost = async (e) => {
+    console.log(e.currentTarget?.id);
+
+    try {
+      const id = e.currentTarget?.id;
+
+      if (!id) return;
+      const postID = id.toLowerCase().replace(' ', '-');
+
+      const data = { id: postID };
+
+      const res = await axios.post(
+        'http://localhost:8000/api/delete-post',
+        data,
+      );
+
+      if (res.status !== 200) return;
+
+      const postImagesRef = createRef(`postImages/${postID}`);
+      deleteImage(postImagesRef);
+    } catch (err) {
+      console.log(err);
+    }
+    getData();
   };
 
   // Generate Order Data
-  function createData(id, created, postTitle) {
-    return { id, created, postTitle };
-  }
+  // function createData(id, created, postTitle) {
+  //   return { id, created, postTitle };
+  // }
 
-  const rows = [
-    createData(0, '16 Mar, 2019', 'Post test'),
-    createData(1, '16 Mar, 2019', 'Post 1'),
-    createData(2, '16 Mar, 2019', 'Post 2'),
-    createData(3, '16 Mar, 2019', 'Post 3'),
-    createData(4, '15 Mar, 2019', 'Post 4'),
-  ];
+  // const rows = [
+  //   createData(0, '16 Mar, 2019', 'Post test'),
+  //   createData(1, '16 Mar, 2019', 'Post 1'),
+  //   createData(2, '16 Mar, 2019', 'Post 2'),
+  //   createData(3, '16 Mar, 2019', 'Post 3'),
+  //   createData(4, '15 Mar, 2019', 'Post 4'),
+  // ];
+
+  const getData = useCallback(async () => {
+    try {
+      const data = await axios.get('http://localhost:8000/api/posts');
+
+      const postsData = data?.data?.posts;
+
+      console.log(postsData);
+
+      if (!postsData) return;
+
+      setPosts(postsData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <Box
@@ -230,19 +279,21 @@ const ManagePosts = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row, i) => (
+                  {posts?.map((post, i) => (
                     <TableRow key={i}>
                       <TableCell>{i}</TableCell>
-                      <TableCell>{row?.postTitle}</TableCell>
-                      <TableCell>{row?.created}</TableCell>
+                      <TableCell>{post?.title}</TableCell>
+                      <TableCell>{post?.date}</TableCell>
                       <TableCell align='center'>
                         <IconButton
+                          id={post?.title}
                           onClick={handleEditPost}
                           aria-label='edit post'
                           component='label'>
                           <EditIcon />
                         </IconButton>
                         <IconButton
+                          id={post?.title}
                           onClick={handleDeletePost}
                           aria-label='delete post'
                           component='label'>
