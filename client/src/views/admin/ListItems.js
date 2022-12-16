@@ -57,9 +57,9 @@ const ListItems = (props) => {
 
   const publicListItems = [
     {
-      id: 'Logo',
+      id: 'Blog',
       icon: <DesignServicesIcon />,
-      path: 'admin/logo',
+      path: 'admin/blog',
     },
     {
       id: 'Slider',

@@ -17,10 +17,6 @@ const summary = async (req, res, next) => {
       users: usersRef.size,
     };
 
-    categoriesRef.forEach((cat) => {
-      data.categories.push(cat.data());
-    });
-
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
@@ -137,6 +133,7 @@ const updateNameLogo = async (req, res, next) => {
       title: title,
       logo: logo,
     };
+
     fieldsRef.update(data);
     return res.status(200).json(data);
   } catch (err) {

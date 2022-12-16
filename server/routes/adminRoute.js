@@ -15,6 +15,6 @@ router.get('/recent-users', recentUsers);
 router.post('/new-post', newPost);
 router.post('/edit-post', editPost);
 router.post('/delete-post', deletePost);
-router.post('/new-name-logo', updateNameLogo);
+router.post('/update-name-logo', updateNameLogo);
 
 module.exports = router;

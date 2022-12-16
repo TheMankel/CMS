@@ -11,7 +11,7 @@ import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 
-const Logo = () => {
+const ManageBlog = () => {
   const [blogName, setBlogName] = useState('');
   const [logo, setLogo] = useState(null);
 
@@ -37,8 +37,9 @@ const Logo = () => {
     if (!logo && !blogName) return;
 
     try {
-      const title = blogName?.toLowerCase().replace(' ', '-');
-      const blogLogoRef = createRef(`logoImages/${title}`);
+      // const title = blogName?.toLowerCase().replace(' ', '-');
+      // const blogLogoRef = createRef(`logoImages/${title}`);
+      const blogLogoRef = createRef('logoImages/logo');
 
       await uploadImage(blogLogoRef, logo);
       const logoUrl = await downloadImage(blogLogoRef);
@@ -48,7 +49,7 @@ const Logo = () => {
         logo: logoUrl,
       };
 
-      await axios.post('http://localhost:8000/api/new-name-logo', data, {
+      await axios.post('http://localhost:8000/api/update-name-logo', data, {
         withCredentials: true,
       });
     } catch (err) {
@@ -137,4 +138,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default ManageBlog;
