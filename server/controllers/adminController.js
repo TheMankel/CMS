@@ -3,6 +3,7 @@ const { db } = require('../config/firebase-config');
 const usersCollectionRef = db.collection('users');
 const postsCollectionRef = db.collection('posts');
 const categoriesCollectionRef = db.collection('categories');
+const blogCollectionRef = db.collection('cms');
 
 const summary = async (req, res, next) => {
   try {
@@ -15,6 +16,10 @@ const summary = async (req, res, next) => {
       categories: categoriesRef.size,
       users: usersRef.size,
     };
+
+    categoriesRef.forEach((cat) => {
+      data.categories.push(cat.data());
+    });
 
     return res.status(200).json(data);
   } catch (err) {
@@ -123,10 +128,28 @@ const deletePost = async (req, res, next) => {
   }
 };
 
+const updateNameLogo = async (req, res, next) => {
+  try {
+    const { title, logo } = req.body;
+    const fieldsRef = await blogCollectionRef.doc('public-navigation');
+
+    const data = {
+      title: title,
+      logo: logo,
+    };
+    fieldsRef.update(data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
   newPost,
   editPost,
   deletePost,
+  updateNameLogo,
 };
