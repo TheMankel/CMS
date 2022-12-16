@@ -8,22 +8,22 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 const Comments = (props) => {
-  const { comments, fullName, commentText, avatar } = props;
+  const { comments } = props;
 
   return (
     <List>
-      {comments.map((comment, i) => (
+      {comments?.map((comment, i) => (
         <Box key={i}>
           <ListItem>
             <ListItemAvatar>
-              <Avatar alt={comment.fullName} src={comment.avatar} />
+              <Avatar alt={comment?.fullName} src={comment?.avatar} />
             </ListItemAvatar>
             <ListItemText
-              primary={comment.fullName}
-              secondary={comment.commentText}
+              primary={comment?.fullName}
+              secondary={comment?.commentText}
             />
           </ListItem>
-          {comments.length !== i + 1 && <Divider />}
+          {comments?.length !== i + 1 && <Divider />}
         </Box>
       ))}
     </List>

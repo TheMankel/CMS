@@ -135,7 +135,8 @@ const PostDetails = () => {
                 </Button>
               </Box>
             </Box>
-            <Comments comments={comments} />
+            {/* <Comments comments={comments} /> */}
+            <Comments comments={post?.comments} />
           </Box>
         </Grid>
       </Container>
