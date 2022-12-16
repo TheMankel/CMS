@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation, NavLink, useNavigate } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -20,6 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
 
 const ListItems = (props) => {
+  const location = useLocation();
   const { open, handleTitle } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const navigate = useNavigate();
@@ -32,61 +33,67 @@ const ListItems = (props) => {
     handleTitle(id);
   };
 
-  const mainListItems = [
-    {
-      id: 'Dashboard',
-      icon: <DashboardIcon />,
-      path: 'admin/dashboard',
-    },
-    {
-      id: 'Posts',
-      icon: <ArticleIcon />,
-      path: 'admin/posts',
-    },
-    {
-      id: 'Categories',
-      icon: <CategoryIcon />,
-      path: 'admin/categories',
-    },
-    {
-      id: 'Users',
-      icon: <PeopleIcon />,
-      path: 'admin/users',
-    },
-  ];
+  const mainListItems = useMemo(
+    () => [
+      {
+        id: 'Dashboard',
+        icon: <DashboardIcon />,
+        path: 'admin/dashboard',
+      },
+      {
+        id: 'Posts',
+        icon: <ArticleIcon />,
+        path: 'admin/posts',
+      },
+      {
+        id: 'Categories',
+        icon: <CategoryIcon />,
+        path: 'admin/categories',
+      },
+      {
+        id: 'Users',
+        icon: <PeopleIcon />,
+        path: 'admin/users',
+      },
+    ],
+    [],
+  );
 
-  const publicListItems = [
-    {
-      id: 'Blog',
-      icon: <DesignServicesIcon />,
-      path: 'admin/blog',
-    },
-    {
-      id: 'Slider',
-      icon: <ViewCarouselIcon />,
-      path: 'admin/slider',
-    },
-    {
-      id: 'Pinned posts',
-      icon: <PushPinIcon />,
-      path: 'admin/pinned-posts',
-    },
-    {
-      id: 'About',
-      icon: <GroupWorkIcon />,
-      path: 'admin/about',
-    },
-    {
-      id: 'Contact',
-      icon: <ContactPageIcon />,
-      path: 'admin/contact',
-    },
-    {
-      id: 'Privacy Policy',
-      icon: <PolicyIcon />,
-      path: 'admin/privacy-policy',
-    },
-  ];
+  const publicListItems = useMemo(
+    () => [
+      {
+        id: 'Blog',
+        icon: <DesignServicesIcon />,
+        path: 'admin/blog',
+      },
+      {
+        id: 'Slider',
+        icon: <ViewCarouselIcon />,
+        path: 'admin/slider',
+      },
+      {
+        id: 'Pinned posts',
+        icon: <PushPinIcon />,
+        path: 'admin/pinned-posts',
+      },
+      {
+        id: 'About',
+        icon: <GroupWorkIcon />,
+        path: 'admin/about',
+      },
+      {
+        id: 'Contact',
+        icon: <ContactPageIcon />,
+        path: 'admin/contact',
+      },
+      {
+        id: 'Privacy Policy',
+        icon: <PolicyIcon />,
+        path: 'admin/privacy-policy',
+      },
+    ],
+    [],
+  );
 
   const otherListItems = [
     {
@@ -105,6 +112,27 @@ const ListItems = (props) => {
       },
     },
   ];
+
+  useEffect(() => {
+    const path = location.pathname.replace('/admin/', '');
+    let item, index;
+    item = mainListItems.filter((item) => item.id.toLowerCase() === path);
+    index = mainListItems.findIndex((item) => item.id.toLowerCase() === path);
+
+    if (!item.length)
+      item = publicListItems.filter(
+        (item) => item.id.toLowerCase().replace(' ', '-') === path,
+      );
+
+    if (index < 0)
+      index =
+        publicListItems.findIndex(
+          (item) => item.id.toLowerCase().replace(' ', '-') === path,
+        ) + mainListItems.length;
+
+    handleTitle(item[0].id);
+    setSelectedIndex(index);
+  }, [location, handleTitle, mainListItems, publicListItems]);
 
   return (
     <>

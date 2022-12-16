@@ -10,10 +10,10 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItems from '../views/admin/ListItems';
 
 const drawerWidth = 240;
@@ -64,7 +64,7 @@ const Drawer = styled(MuiDrawer, {
 
 const MainAdmin = () => {
   const [open, setOpen] = useState(true);
-  const [title, setTitle] = useState('Dashboard');
+  const [title, setTitle] = useState('');
   const toggleDrawer = () => {
     setOpen(!open);
   };

@@ -234,8 +234,22 @@ const ManagePosts = () => {
                   sx={{ mt: 1 }}
                 />
               </Box>
-              <Box display='flex' flexDirection='column'>
+              <Box display='flex' flexDirection='column' gap={1}>
                 <Title>Background photo</Title>
+                {postImage?.name && (
+                  <Box
+                    component='img'
+                    src={URL.createObjectURL(postImage)}
+                    alt={postImage?.name}
+                    sx={{
+                      objectFit: 'cover',
+                      width: '50%',
+                      alignSelf: 'center',
+                      borderRadius: 2,
+                      mb: 1,
+                    }}
+                  />
+                )}
                 <Button
                   id='upload-background'
                   variant='contained'
