@@ -15,7 +15,8 @@ const Posts = () => {
     setPage(value);
   };
 
-  const count = Math.ceil(posts.length / 4);
+  const resPerPage = 4;
+  const count = Math.ceil(posts.length / resPerPage);
 
   const getData = useCallback(async () => {
     try {
@@ -27,13 +28,15 @@ const Posts = () => {
 
       if (!postsData) return;
 
-      setPosts(postsData.slice((page - 1) * (count + 1), page * (count + 1)));
+      // setPosts(postsData.slice((page - 1) * 4, page * 4));
+      setPosts(postsData);
     } catch (err) {
       console.log(err);
     }
-  }, [count, page]);
+  }, []);
 
   useEffect(() => {
+    console.count();
     getData();
   }, [getData]);
 
@@ -118,12 +121,14 @@ const Posts = () => {
   return (
     <Container maxWidth='lg'>
       <Grid container spacing={6} minHeight={580} sx={{ mt: 1 }}>
-        {posts.map((post) => (
-          <FeaturedPost
-            key={post.title.toLowerCase().replace(' ', '-')}
-            post={post}
-          />
-        ))}
+        {posts
+          ?.slice((page - 1) * resPerPage, page * resPerPage)
+          ?.map((post) => (
+            <FeaturedPost
+              key={post.title.toLowerCase().replace(' ', '-')}
+              post={post}
+            />
+          ))}
       </Grid>
       <Box margin={3} display={'flex'} justifyContent={'center'}>
         <Stack spacing={2}>
