@@ -91,17 +91,7 @@ const editPost = async (req, res, next) => {
   try {
     const { description, image, text, title } = req.body;
 
-    const date = new Date();
-
-    const shortDate = date.toLocaleString('en-US', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    });
-
     const data = {
-      created: firestore.Timestamp.fromDate(date),
-      date: shortDate,
       description: description,
       image: image,
       text: text,
@@ -110,7 +100,7 @@ const editPost = async (req, res, next) => {
 
     const postTitle = title?.toLowerCase().replace(' ', '-');
 
-    postsCollectionRef.doc(postTitle).set(data);
+    postsCollectionRef.doc(postTitle).update(data);
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
