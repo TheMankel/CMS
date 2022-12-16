@@ -12,6 +12,7 @@ const {
 router.get('/summary', summary);
 router.get('/recent-users', recentUsers);
 router.post('/new-post', newPost);
+router.post('/edit-post', editPost);
 router.post('/delete-post', deletePost);
 
 module.exports = router;
