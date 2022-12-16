@@ -36,7 +36,6 @@ const Posts = () => {
   }, []);
 
   useEffect(() => {
-    console.count();
     getData();
   }, [getData]);
 

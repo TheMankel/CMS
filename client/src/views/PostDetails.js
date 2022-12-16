@@ -34,19 +34,19 @@ const PostDetails = () => {
     getData();
   }, [getData]);
 
-  const comments = [
-    {
-      fullName: 'Panama Lama',
-      commentText: 'Bardzo fajnie. Nie pisz więcej.',
-      avatar: 'https://pliki.meczyki.pl/user/232/5c6015d2ef516.jpg',
-    },
-    {
-      fullName: 'Ewa Mewa',
-      commentText: 'Super.',
-      avatar:
-        'https://images.unsplash.com/photo-1545238377-dee9b7db2414?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
-    },
-  ];
+  // const comments = [
+  //   {
+  //     fullName: 'Panama Lama',
+  //     commentText: 'Bardzo fajnie. Nie pisz więcej.',
+  //     avatar: 'https://pliki.meczyki.pl/user/232/5c6015d2ef516.jpg',
+  //   },
+  //   {
+  //     fullName: 'Ewa Mewa',
+  //     commentText: 'Super.',
+  //     avatar:
+  //       'https://images.unsplash.com/photo-1545238377-dee9b7db2414?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
+  //   },
+  // ];
 
   const handleAddComment = (e) => {
     e.preventDefault();
