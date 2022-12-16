@@ -49,7 +49,7 @@ const ManageBlog = () => {
         logo: logoUrl,
       };
 
-      await axios.post('http://localhost:8000/api/update-name-logo', data, {
+      await axios.post('http://localhost:8000/api/update-blog', data, {
         withCredentials: true,
       });
     } catch (err) {

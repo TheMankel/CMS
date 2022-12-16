@@ -124,7 +124,7 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-const updateNameLogo = async (req, res, next) => {
+const updateBlog = async (req, res, next) => {
   try {
     const { title, logo } = req.body;
     const fieldsRef = await blogCollectionRef.doc('public-navigation');
@@ -148,5 +148,5 @@ module.exports = {
   newPost,
   editPost,
   deletePost,
-  updateNameLogo,
+  updateBlog,
 };
