@@ -32,6 +32,7 @@ const ManagePosts = () => {
   const [postDescription, setPostDescription] = useState('');
   const [postImage, setPostImage] = useState(null);
   const [postText, setPostText] = useState('');
+  const [newPost, setNewPost] = useState(true);
 
   const modules = {
     toolbar: [
@@ -52,9 +53,7 @@ const ManagePosts = () => {
     try {
       const imageFile = e.target.files[0];
       if (!imageFile) return;
-      console.log(imageFile);
-      // const image = URL.createObjectURL(imageFile);
-      // console.log(image);
+
       setPostImage(imageFile);
     } catch (err) {
       console.log(err);
@@ -64,13 +63,13 @@ const ManagePosts = () => {
   const handleCancel = () => {
     setPostTitle('');
     setPostDescription('');
-    setPostImage('none');
+    setPostImage(null);
     setPostText('');
+    setNewPost(true);
   };
 
   const handleNewPost = async (e) => {
     e.preventDefault();
-    console.log(postText);
 
     if (!postTitle || !postDescription || !postImage || !postText) return;
 
@@ -88,9 +87,14 @@ const ManagePosts = () => {
         title: postTitle,
       };
 
-      await axios.post('http://localhost:8000/api/new-post', data, {
-        withCredentials: true,
-      });
+      if (newPost)
+        await axios.post('http://localhost:8000/api/new-post', data, {
+          withCredentials: true,
+        });
+      else
+        await axios.post('http://localhost:8000/api/edit-post', data, {
+          withCredentials: true,
+        });
     } catch (err) {
       console.log(err);
     }
@@ -98,11 +102,25 @@ const ManagePosts = () => {
     setPostDescription('');
     setPostImage(null);
     setPostText('');
+    setNewPost(true);
     getData();
   };
 
-  const handleEditPost = (e) => {
-    console.log(e.currentTarget.id);
+  const handleEditPost = async (e) => {
+    console.log(e.currentTarget?.id);
+
+    setNewPost(false);
+
+    const id = e.currentTarget?.id;
+    const postToEdit = posts?.filter((post) => post.title === id);
+    const image = {
+      name: postToEdit[0].title.toLowerCase().replace(' ', '-'),
+    };
+
+    setPostTitle(postToEdit[0].title);
+    setPostDescription(postToEdit[0].description);
+    setPostImage(image);
+    setPostText(postToEdit[0].text);
   };
 
   const handleDeletePost = async (e) => {
@@ -197,6 +215,7 @@ const ManagePosts = () => {
                   id='set-title'
                   label='Write post title'
                   variant='outlined'
+                  disabled={!newPost}
                   value={postTitle}
                   onChange={(e) => setPostTitle(e.target.value)}
                   fullWidth
@@ -256,12 +275,11 @@ const ManagePosts = () => {
                 <Button
                   variant='contained'
                   type='submit'
-                  onClick={handleNewPost}
                   sx={{
                     mx: '4px',
                     textTransform: 'none',
                   }}>
-                  Add new post
+                  {newPost ? 'Add new post' : 'Save edited post'}
                 </Button>
               </Box>
             </Paper>
