@@ -14,10 +14,6 @@ const MainPublic = (props) => {
   const [logo, setLogo] = useState('');
   const theme = createTheme();
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const getData = async () => {
     try {
       const data = await axios.get('http://localhost:8000/api/navigation');
@@ -30,6 +26,10 @@ const MainPublic = (props) => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // const sections = [
   //   { title: 'Technology', url: '#' },
