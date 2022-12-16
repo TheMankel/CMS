@@ -5,10 +5,13 @@ const {
   summary,
   recentUsers,
   newPost,
+  editPost,
+  deletePost,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
 router.get('/recent-users', recentUsers);
 router.post('/new-post', newPost);
+router.post('/delete-post', deletePost);
 
 module.exports = router;
