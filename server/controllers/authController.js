@@ -2,7 +2,6 @@ const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
-// const blogCollectionRef = db.collection('cms');
 
 const signUp = async (req, res, next) => {
   try {
@@ -49,10 +48,6 @@ const signUp = async (req, res, next) => {
       data.role = 'user';
     }
 
-    // auth.updateUser(uid, {
-    //   displayName: firstName + ' ' + lastName,
-    // });
-
     await usersCollectionRef.doc(uid).set(data);
 
     return res.status(200).json(data);
@@ -90,98 +85,6 @@ const signIn = async (req, res, next) => {
   }
 };
 
-// const navigation = async (req, res, next) => {
-//   try {
-//     const categoriesRef = await blogCollectionRef
-//       .doc('public-navigation')
-//       .collection('categories')
-//       .get();
-
-//     const sectionsRef = await blogCollectionRef
-//       .doc('public-navigation')
-//       .collection('sections')
-//       .get();
-
-//     const fieldsRef = await blogCollectionRef.doc('public-navigation').get();
-
-//     const data = {
-//       categories: [],
-//       sections: [],
-//       title: fieldsRef.data().title,
-//       logo: fieldsRef.data().logo,
-//     };
-
-//     categoriesRef.forEach((cat) => {
-//       data.categories.push(cat.data());
-//     });
-
-//     sectionsRef.forEach((sec) => {
-//       data.sections.push(sec.data());
-//     });
-
-//     return res.status(200).json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(400);
-//   }
-// };
-
-// const about = async (req, res, next) => {
-//   try {
-//     const storyRef = await blogCollectionRef
-//       .doc('about')
-//       .collection('story')
-//       .doc('text')
-//       .get();
-
-//     const teamRef = await blogCollectionRef
-//       .doc('about')
-//       .collection('team')
-//       .get();
-
-//     const data = {
-//       storyText: {
-//         primary: '',
-//         secondary: '',
-//       },
-//       team: [],
-//     };
-
-//     data.storyText = storyRef.data();
-
-//     teamRef.forEach((member) => {
-//       data.team.push(member.data());
-//     });
-
-//     return res.status(200).json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(400);
-//   }
-// };
-
-// const slider = async (req, res, next) => {
-//   try {
-//     const sliderRef = await blogCollectionRef
-//       .doc('slider')
-//       .collection('carouselItems')
-//       .get();
-
-//     const data = {
-//       carouselItems: [],
-//     };
-
-//     sliderRef.forEach((item) => {
-//       data.carouselItems.push(item.data());
-//     });
-
-//     return res.status(200).json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(400);
-//   }
-// };
-
 const deleteUser = async (req, res, next) => {
   try {
     const { uid } = req.body;
@@ -216,9 +119,6 @@ const updateUserPhoto = async (req, res, next) => {
 module.exports = {
   signUp,
   signIn,
-  // navigation,
-  // about,
-  // slider,
   deleteUser,
   updateUserPhoto,
 };

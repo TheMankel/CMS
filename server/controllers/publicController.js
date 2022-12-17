@@ -165,11 +165,11 @@ const comment = async (req, res, next) => {
 
     comments.push(data);
 
-    postRef.update({
+    await postRef.update({
       comments: comments,
     });
 
-    return res.status(200).json('Comment added!');
+    return res.status(200).json(comments);
   } catch (err) {
     console.log(err);
     res.sendStatus(400);

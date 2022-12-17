@@ -71,6 +71,7 @@ const newPost = async (req, res, next) => {
 
     const data = {
       created: firestore.Timestamp.fromDate(date),
+      comments: [],
       date: shortDate,
       description: description,
       image: image,
@@ -114,7 +115,7 @@ const deletePost = async (req, res, next) => {
     const { id } = req.body;
     console.log(id);
 
-    const postRef = await postsCollectionRef.doc(id);
+    const postRef = postsCollectionRef.doc(id);
     postRef.delete();
 
     return res.status(200).json('Post deleted!');
@@ -127,7 +128,7 @@ const deletePost = async (req, res, next) => {
 const updateBlog = async (req, res, next) => {
   try {
     const { title, logo } = req.body;
-    const fieldsRef = await blogCollectionRef.doc('public-navigation');
+    const fieldsRef = blogCollectionRef.doc('public-navigation');
 
     const data = {
       title: title,

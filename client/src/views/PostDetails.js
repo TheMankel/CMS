@@ -55,21 +55,19 @@ const PostDetails = () => {
     e.preventDefault();
 
     try {
-      if (!comment) return;
+      if (!comment.trim()) return;
 
       const data = {
         uid: user.uid,
-        // fullName: user.displayName,
         commentText: comment,
-        // avatar: user.photoURL,
       };
 
-      const cos = await axios.post(
+      const res = await axios.post(
         `http://localhost:8000/api/comment/${postId}`,
         data,
       );
-      console.log(cos);
-      console.log(data);
+      console.log(res);
+      // if (res.status === 200) getData();
     } catch (err) {
       console.log(err);
     }
@@ -161,7 +159,6 @@ const PostDetails = () => {
                 </Box>
               </Box>
             )}
-            {/* <Comments comments={comments} /> */}
             <Comments comments={post?.comments} />
           </Box>
         </Grid>
