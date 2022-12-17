@@ -26,7 +26,6 @@ const PostDetails = () => {
         `http://localhost:8000/api/posts/${postId}`,
       );
 
-      console.log(data);
       setPost(data);
     } catch (err) {
       console.log(err);

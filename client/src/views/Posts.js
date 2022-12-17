@@ -24,7 +24,7 @@ const Posts = () => {
 
       const postsData = data?.data?.posts;
 
-      console.log(postsData);
+      // console.log(postsData);
 
       if (!postsData) return;
 

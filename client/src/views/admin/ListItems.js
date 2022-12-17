@@ -128,29 +128,12 @@ const ListItems = (props) => {
     const items = mainListItems.concat(publicListItems);
 
     const selectedItem = items.find((item) => item.id.toLowerCase() === path);
-    console.log(selectedItem);
+    // console.log(selectedItem);
 
     if (!selectedItem) return;
 
     handleTitle(selectedItem?.id);
     setSelectedIndex(selectedItem?.index);
-    // let item, index;
-    // item = mainListItems.filter((item) => item.id.toLowerCase() === path);
-    // index = mainListItems.findIndex((item) => item.id.toLowerCase() === path);
-
-    // if (!item.length)
-    //   item = publicListItems.filter(
-    //     (item) => item.id.toLowerCase().replace(' ', '-') === path,
-    //   );
-
-    // if (index < 0)
-    //   index =
-    //     publicListItems.findIndex(
-    //       (item) => item.id.toLowerCase().replace(' ', '-') === path,
-    //     ) + mainListItems.length;
-
-    // handleTitle(item[0].id);
-    // setSelectedIndex(index);
   }, [location, handleTitle, mainListItems, publicListItems]);
 
   return (
