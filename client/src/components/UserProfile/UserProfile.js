@@ -20,6 +20,7 @@ import AboutSection from '../ProfileSections/AboutSection';
 import DeleteAccountSection from '../ProfileSections/DeleteAccountSection';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 import { useAuth } from '../../contexts/authContext';
+import axios from 'axios';
 
 const UserProfile = () => {
   const { user, role, signOutHandler, updateUserPhoto } = useAuth();
@@ -52,6 +53,10 @@ const UserProfile = () => {
     console.log(imageUrl);
     await updateUserPhoto(imageUrl);
     setImage(imageUrl);
+    await axios.post('http://localhost:8000/api/update-user-photo', {
+      uid: user.uid,
+      photoURL: imageUrl,
+    });
     console.log(user?.photoURL);
   };
 
