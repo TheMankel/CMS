@@ -50,6 +50,7 @@ const ManagePosts = () => {
   };
 
   const handleUpload = async (e) => {
+    console.log(e.target.files[0]);
     try {
       const imageFile = e.target.files[0];
       if (!imageFile) return;
@@ -77,7 +78,8 @@ const ManagePosts = () => {
       const title = postTitle?.toLowerCase().replace(' ', '-');
       const postImagesRef = createRef(`postImages/${title}`);
 
-      await uploadImage(postImagesRef, postImage);
+      if (postImage instanceof File)
+        await uploadImage(postImagesRef, postImage);
       const imageUrl = await downloadImage(postImagesRef);
 
       const data = {
@@ -107,8 +109,6 @@ const ManagePosts = () => {
   };
 
   const handleEditPost = async (e) => {
-    console.log(e.currentTarget?.id);
-
     setNewPost(false);
 
     const id = e.currentTarget?.id;
@@ -126,8 +126,6 @@ const ManagePosts = () => {
   };
 
   const handleDeletePost = async (e) => {
-    console.log(e.currentTarget?.id);
-
     try {
       const id = e.currentTarget?.id;
 
@@ -169,8 +167,6 @@ const ManagePosts = () => {
       const data = await axios.get('http://localhost:8000/api/posts');
 
       const postsData = data?.data?.posts;
-
-      console.log(postsData);
 
       if (!postsData) return;
 
@@ -256,7 +252,6 @@ const ManagePosts = () => {
                     }}
                   />
                 )}
-                {console.log(postImage)}
                 <Button
                   id='upload-background'
                   variant='contained'
