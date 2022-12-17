@@ -112,15 +112,17 @@ const ManagePosts = () => {
     setNewPost(false);
 
     const id = e.currentTarget?.id;
-    const postToEdit = posts?.filter((post) => post.title === id);
+    const postToEdit = posts?.find((post) => post.title === id);
+    console.log(postToEdit);
     const image = {
-      name: postToEdit[0].title.toLowerCase().replace(' ', '-'),
+      name: postToEdit.title.toLowerCase().replace(' ', '-'),
+      photo: postToEdit.image,
     };
 
-    setPostTitle(postToEdit[0].title);
-    setPostDescription(postToEdit[0].description);
+    setPostTitle(postToEdit.title);
+    setPostDescription(postToEdit.description);
     setPostImage(image);
-    setPostText(postToEdit[0].text);
+    setPostText(postToEdit.text);
   };
 
   const handleDeletePost = async (e) => {
@@ -239,7 +241,11 @@ const ManagePosts = () => {
                 {postImage?.name && (
                   <Box
                     component='img'
-                    src={URL.createObjectURL(postImage)}
+                    src={
+                      postImage?.photo
+                        ? postImage?.photo
+                        : URL?.createObjectURL(postImage)
+                    }
                     alt={postImage?.name}
                     sx={{
                       objectFit: 'cover',
@@ -250,6 +256,7 @@ const ManagePosts = () => {
                     }}
                   />
                 )}
+                {console.log(postImage)}
                 <Button
                   id='upload-background'
                   variant='contained'

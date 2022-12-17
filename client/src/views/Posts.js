@@ -124,7 +124,7 @@ const Posts = () => {
           ?.slice((page - 1) * resPerPage, page * resPerPage)
           ?.map((post) => (
             <FeaturedPost
-              key={post.title.toLowerCase().replace(' ', '-')}
+              key={post?.title?.toLowerCase()?.replace(' ', '-')}
               post={post}
             />
           ))}
