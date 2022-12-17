@@ -2,7 +2,7 @@ const { db, firebase } = require('../config/firebase-config');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
-const blogCollectionRef = db.collection('cms');
+// const blogCollectionRef = db.collection('cms');
 
 const signUp = async (req, res, next) => {
   try {
@@ -186,11 +186,27 @@ const deleteUser = async (req, res, next) => {
   try {
     const { uid } = req.body;
 
-    const usersRef = await usersCollectionRef.doc(uid);
+    const usersRef = usersCollectionRef.doc(uid);
 
     usersRef.delete();
 
     return res.status(200).json('User data deleted!');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const updateUserPhoto = async (req, res, next) => {
+  try {
+    const { uid, photoURL } = req.body;
+
+    const usersRef = usersCollectionRef.doc(uid);
+    usersRef.update({
+      photoURL: photoURL,
+    });
+
+    return res.status(200).json('User picture updated!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -204,4 +220,5 @@ module.exports = {
   // about,
   // slider,
   deleteUser,
+  updateUserPhoto,
 };
