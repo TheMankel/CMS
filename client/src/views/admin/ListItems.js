@@ -22,7 +22,7 @@ import { useAuth } from '../../contexts/authContext';
 const ListItems = (props) => {
   const location = useLocation();
   const { open, handleTitle } = props;
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const navigate = useNavigate();
   const { signOutHandler } = useAuth();
 
@@ -36,21 +36,25 @@ const ListItems = (props) => {
   const mainListItems = useMemo(
     () => [
       {
+        index: 0,
         id: 'Dashboard',
         icon: <DashboardIcon />,
         path: 'admin/dashboard',
       },
       {
+        index: 1,
         id: 'Posts',
         icon: <ArticleIcon />,
         path: 'admin/posts',
       },
       {
+        index: 2,
         id: 'Categories',
         icon: <CategoryIcon />,
         path: 'admin/categories',
       },
       {
+        index: 3,
         id: 'Users',
         icon: <PeopleIcon />,
         path: 'admin/users',
@@ -62,31 +66,37 @@ const ListItems = (props) => {
   const publicListItems = useMemo(
     () => [
       {
+        index: 4,
         id: 'Blog',
         icon: <DesignServicesIcon />,
         path: 'admin/blog',
       },
       {
+        index: 5,
         id: 'Slider',
         icon: <ViewCarouselIcon />,
         path: 'admin/slider',
       },
       {
+        index: 6,
         id: 'Pinned posts',
         icon: <PushPinIcon />,
         path: 'admin/pinned-posts',
       },
       {
+        index: 7,
         id: 'About',
         icon: <GroupWorkIcon />,
         path: 'admin/about',
       },
       {
+        index: 8,
         id: 'Contact',
         icon: <ContactPageIcon />,
         path: 'admin/contact',
       },
       {
+        index: 9,
         id: 'Privacy Policy',
         icon: <PolicyIcon />,
         path: 'admin/privacy-policy',
@@ -115,23 +125,32 @@ const ListItems = (props) => {
 
   useEffect(() => {
     const path = location.pathname.replace('/admin/', '');
-    let item, index;
-    item = mainListItems.filter((item) => item.id.toLowerCase() === path);
-    index = mainListItems.findIndex((item) => item.id.toLowerCase() === path);
+    const items = mainListItems.concat(publicListItems);
 
-    if (!item.length)
-      item = publicListItems.filter(
-        (item) => item.id.toLowerCase().replace(' ', '-') === path,
-      );
+    const selectedItem = items.find((item) => item.id.toLowerCase() === path);
+    console.log(selectedItem);
 
-    if (index < 0)
-      index =
-        publicListItems.findIndex(
-          (item) => item.id.toLowerCase().replace(' ', '-') === path,
-        ) + mainListItems.length;
+    if (!selectedItem) return;
 
-    handleTitle(item[0].id);
-    setSelectedIndex(index);
+    handleTitle(selectedItem?.id);
+    setSelectedIndex(selectedItem?.index);
+    // let item, index;
+    // item = mainListItems.filter((item) => item.id.toLowerCase() === path);
+    // index = mainListItems.findIndex((item) => item.id.toLowerCase() === path);
+
+    // if (!item.length)
+    //   item = publicListItems.filter(
+    //     (item) => item.id.toLowerCase().replace(' ', '-') === path,
+    //   );
+
+    // if (index < 0)
+    //   index =
+    //     publicListItems.findIndex(
+    //       (item) => item.id.toLowerCase().replace(' ', '-') === path,
+    //     ) + mainListItems.length;
+
+    // handleTitle(item[0].id);
+    // setSelectedIndex(index);
   }, [location, handleTitle, mainListItems, publicListItems]);
 
   return (
@@ -142,8 +161,8 @@ const ListItems = (props) => {
           key={item.id}
           component={NavLink}
           to={item.path}
-          selected={selectedIndex === index}
-          onClick={(e) => handleListItemClick(e, index)}
+          selected={selectedIndex === item.index}
+          onClick={(e) => handleListItemClick(e, item.index)}
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -170,8 +189,8 @@ const ListItems = (props) => {
           key={item.id}
           component={NavLink}
           to={item.path}
-          selected={selectedIndex === index + mainListItems.length}
-          onClick={(e) => handleListItemClick(e, index + mainListItems.length)}
+          selected={selectedIndex === item.index}
+          onClick={(e) => handleListItemClick(e, item.index)}
           sx={{
             display: 'flex',
             justifyContent: 'center',
