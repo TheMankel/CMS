@@ -11,11 +11,14 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Comments from '../components/Comments/Comments';
 import axios from 'axios';
+import { useAuth } from '../contexts/authContext';
 
 const PostDetails = () => {
   const params = useParams();
   const { postId } = params;
+  const { user } = useAuth();
   const [post, setPost] = useState({});
+  const [comment, setComment] = useState('');
 
   const getData = useCallback(async () => {
     try {
@@ -48,11 +51,30 @@ const PostDetails = () => {
   //   },
   // ];
 
-  const handleAddComment = (e) => {
+  const handleAddComment = async (e) => {
     e.preventDefault();
-    const commentRef = new FormData(e.currentTarget);
-    console.log(commentRef.get('comment'));
-    e.currentTarget.reset();
+
+    try {
+      if (!comment) return;
+
+      const data = {
+        uid: user.uid,
+        // fullName: user.displayName,
+        commentText: comment,
+        // avatar: user.photoURL,
+      };
+
+      const cos = await axios.post(
+        `http://localhost:8000/api/comment/${postId}`,
+        data,
+      );
+      console.log(cos);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    setComment('');
+    getData();
   };
 
   return (
@@ -106,35 +128,39 @@ const PostDetails = () => {
             <Typography variant='h5' gutterBottom>
               Comments
             </Typography>
-            <Box
-              component='form'
-              noValidate
-              autoComplete='off'
-              onSubmit={handleAddComment}
-              px={2}
-              display='flex'
-              alignItems='center'
-              gap={2}>
-              <Avatar alt='Avatar' src='' />
-              <TextField
-                placeholder='Add a comment'
-                variant='outlined'
-                fullWidth
-                multiline
-                id='comment'
-                name='comment'
-              />
-              <Box>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  sx={{
-                    textTransform: 'none',
-                  }}>
-                  Add
-                </Button>
+            {user && (
+              <Box
+                component='form'
+                noValidate
+                autoComplete='off'
+                onSubmit={handleAddComment}
+                px={2}
+                display='flex'
+                alignItems='center'
+                gap={2}>
+                <Avatar alt='Avatar' src={user?.photoURL} />
+                <TextField
+                  placeholder='Add a comment'
+                  variant='outlined'
+                  fullWidth
+                  multiline
+                  id='comment'
+                  name='comment'
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <Box>
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    sx={{
+                      textTransform: 'none',
+                    }}>
+                    Add
+                  </Button>
+                </Box>
               </Box>
-            </Box>
+            )}
             {/* <Comments comments={comments} /> */}
             <Comments comments={post?.comments} />
           </Box>
