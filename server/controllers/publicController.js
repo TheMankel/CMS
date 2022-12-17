@@ -1,5 +1,6 @@
 const { db } = require('../config/firebase-config');
 
+const usersCollectionRef = db.collection('users');
 const blogCollectionRef = db.collection('cms');
 const postsCollectionRef = db.collection('posts');
 
@@ -119,10 +120,56 @@ const postDetails = async (req, res, next) => {
     const { id } = req.params;
 
     const postsRef = await postsCollectionRef?.doc(id).get();
+    const usersRef = await usersCollectionRef.get();
 
     const data = postsRef.data();
+    const usersData = [];
+    const comments = data.comments;
+    const commentsData = [];
+
+    usersRef.forEach((user) => {
+      usersData.push({
+        id: user.id,
+        ...user.data(),
+      });
+    });
+
+    comments.forEach((comment) => {
+      const userComment = usersData.find((user) => user.id === comment.uid);
+      if (!userComment) return;
+
+      commentsData.push({
+        fullName: userComment.firstName + ' ' + userComment.lastName,
+        avatar: userComment.photoURL,
+        ...comment,
+      });
+    });
+
+    data.comments = commentsData;
 
     return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const comment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+
+    const postRef = postsCollectionRef?.doc(id);
+    const getPost = await postRef.get();
+    const { comments } = getPost.data();
+
+    comments.push(data);
+
+    postRef.update({
+      comments: comments,
+    });
+
+    return res.status(200).json('Comment added!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -135,4 +182,5 @@ module.exports = {
   slider,
   allPosts,
   postDetails,
+  comment,
 };
