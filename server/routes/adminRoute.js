@@ -8,6 +8,7 @@ const {
   editPost,
   deletePost,
   updateBlog,
+  updatePinnedPosts,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -16,5 +17,6 @@ router.post('/new-post', newPost);
 router.post('/edit-post', editPost);
 router.post('/delete-post', deletePost);
 router.post('/update-blog', updateBlog);
+router.post('/update-pinned-posts', updatePinnedPosts);
 
 module.exports = router;
