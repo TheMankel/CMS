@@ -127,8 +127,10 @@ const ListItems = (props) => {
     const path = location.pathname.replace('/admin/', '');
     const items = mainListItems.concat(publicListItems);
 
-    const selectedItem = items.find((item) => item.id.toLowerCase() === path);
-    // console.log(selectedItem);
+    const selectedItem = items.find(
+      (item) => item.id.toLowerCase().replace(' ', '-') === path,
+    );
+    console.log(selectedItem);
 
     if (!selectedItem) return;
 
