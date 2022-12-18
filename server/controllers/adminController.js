@@ -143,6 +143,24 @@ const updateBlog = async (req, res, next) => {
   }
 };
 
+const updatePinnedPosts = async (req, res, next) => {
+  try {
+    const { firstPost, secondPost } = req.body;
+    const pinnedPostsRef = blogCollectionRef.doc('pinned-posts');
+
+    const data = {
+      firstPost: firstPost,
+      secondPost: secondPost,
+    };
+
+    pinnedPostsRef.update(data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -150,4 +168,5 @@ module.exports = {
   editPost,
   deletePost,
   updateBlog,
+  updatePinnedPosts,
 };
