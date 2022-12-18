@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -13,14 +13,15 @@ import axios from 'axios';
 
 const Homepage = () => {
   const [carouselItems, setCarouselItems] = useState([]);
-  const recentPost = {
-    title: 'Title of a recent blog post',
-    date: 'Nov 12',
-    description:
-      "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  };
+  const [recentPost, setRecentPost] = useState({});
+  // const recentPost = {
+  //   title: 'Title of a recent blog post',
+  //   date: 'Nov 12',
+  //   description:
+  //     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  //   image: 'https://source.unsplash.com/random',
+  //   imageLabel: 'Image Text',
+  // };
 
   const featuredPosts = [
     {
@@ -66,21 +67,44 @@ const Homepage = () => {
     ],
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
-      const data = await axios.get('http://localhost:8000/api/slider');
+      const postsRes = await axios.get('http://localhost:8000/api/posts');
+      const sliderRes = await axios.get('http://localhost:8000/api/slider');
+      const postsData = postsRes?.data?.posts;
+      const sliderData = sliderRes?.data?.carouselItems;
 
-      setCarouselItems(data?.data.carouselItems);
+      if (!postsData) return;
 
-      // setLoading(false);
+      const recentPostData = postsData.pop();
+      setRecentPost(recentPostData);
+      console.log(recentPostData);
+
+      if (!sliderData) return;
+
+      setCarouselItems(sliderData);
+      console.log(sliderData);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    getData();
+    // getPostData();
+  }, [getData]);
+
+  // const getData = async () => {
+  //   try {
+  //     const data = await axios.get('http://localhost:8000/api/slider');
+
+  //     setCarouselItems(data?.data.carouselItems);
+
+  //     // setLoading(false);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // const carouselItems = [
   //   {
