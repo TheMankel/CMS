@@ -75,7 +75,8 @@ const ManageBlog = () => {
       <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Paper
+              sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Box>
                 <Title>Blog name</Title>
                 <TextField
@@ -109,7 +110,7 @@ const ManageBlog = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box alignSelf='center' sx={{ mt: 5 }}>
+              <Box alignSelf='center'>
                 <Button
                   variant='outlined'
                   onClick={handleCancel}
