@@ -12,8 +12,10 @@ import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 import axios from 'axios';
 
 const Homepage = () => {
-  const [carouselItems, setCarouselItems] = useState([]);
   const [recentPost, setRecentPost] = useState({});
+  const [carouselItems, setCarouselItems] = useState([]);
+  const [pinnedPosts, setPinnedPosts] = useState([]);
+
   // const recentPost = {
   //   title: 'Title of a recent blog post',
   //   date: 'Nov 12',
@@ -23,24 +25,24 @@ const Homepage = () => {
   //   imageLabel: 'Image Text',
   // };
 
-  const featuredPosts = [
-    {
-      title: 'Featured post',
-      date: 'Nov 12',
-      description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
-      image: 'https://source.unsplash.com/random',
-      imageLabel: 'Image Text',
-    },
-    {
-      title: 'Post title',
-      date: 'Nov 11',
-      description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
-      image: 'https://source.unsplash.com/random',
-      imageLabel: 'Image Text',
-    },
-  ];
+  // const featuredPosts = [
+  //   {
+  //     title: 'Featured post',
+  //     date: 'Nov 12',
+  //     description:
+  //       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //     image: 'https://source.unsplash.com/random',
+  //     imageLabel: 'Image Text',
+  //   },
+  //   {
+  //     title: 'Post title',
+  //     date: 'Nov 11',
+  //     description:
+  //       'This is a wider card with supporting text below as a natural lead-in to additional content.',
+  //     image: 'https://source.unsplash.com/random',
+  //     imageLabel: 'Image Text',
+  //   },
+  // ];
 
   const sidebar = {
     title: 'About',
@@ -71,8 +73,12 @@ const Homepage = () => {
     try {
       const postsRes = await axios.get('http://localhost:8000/api/posts');
       const sliderRes = await axios.get('http://localhost:8000/api/slider');
+      const pinnedPostsRes = await axios.get(
+        'http://localhost:8000/api/pinned-posts',
+      );
       const postsData = postsRes?.data?.posts;
       const sliderData = sliderRes?.data?.carouselItems;
+      const pinnedPostsData = pinnedPostsRes?.data;
 
       if (!postsData) return;
 
@@ -84,6 +90,11 @@ const Homepage = () => {
 
       setCarouselItems(sliderData);
       console.log(sliderData);
+
+      if (!pinnedPostsData) return;
+
+      setPinnedPosts(pinnedPostsData);
+      console.log(pinnedPostsData);
     } catch (err) {
       console.log(err);
     }
@@ -130,8 +141,8 @@ const Homepage = () => {
         <Slider items={carouselItems} />
         <main>
           <Grid container spacing={4} sx={{ mt: 1 }}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+            {pinnedPosts?.map((post) => (
+              <FeaturedPost key={post?.title} post={post} />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ my: 3 }}>
