@@ -5,11 +5,13 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
+import NoDataFound from './NoDataFound';
 import axios from 'axios';
 
 const Posts = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e, value) => {
     setPage(value);
@@ -19,6 +21,7 @@ const Posts = () => {
   const count = Math.ceil(posts.length / resPerPage);
 
   const getData = useCallback(async () => {
+    setLoading(false);
     try {
       const data = await axios.get('http://localhost:8000/api/posts');
 
@@ -33,6 +36,7 @@ const Posts = () => {
     } catch (err) {
       console.log(err);
     }
+    setLoading(true);
   }, []);
 
   useEffect(() => {
@@ -119,21 +123,32 @@ const Posts = () => {
 
   return (
     <Container maxWidth='lg'>
-      <Grid container spacing={6} minHeight={580} sx={{ mt: 1 }}>
-        {posts
-          ?.slice((page - 1) * resPerPage, page * resPerPage)
-          ?.map((post) => (
-            <FeaturedPost
-              key={post?.title?.toLowerCase()?.replace(' ', '-')}
-              post={post}
-            />
-          ))}
-      </Grid>
-      <Box margin={3} display={'flex'} justifyContent={'center'}>
-        <Stack spacing={2}>
-          <Pagination count={count} page={page} onChange={handleChange} />
-        </Stack>
-      </Box>
+      {loading && count > 0 && (
+        <Box>
+          <Grid
+            container
+            spacing={6}
+            minHeight={count > 2 ? 580 : 240}
+            sx={{ mt: 1 }}>
+            {posts
+              ?.slice((page - 1) * resPerPage, page * resPerPage)
+              ?.map((post) => (
+                <FeaturedPost
+                  key={post?.title?.toLowerCase()?.replace(' ', '-')}
+                  post={post}
+                />
+              ))}
+          </Grid>
+          <Box margin={3} display={'flex'} justifyContent={'center'}>
+            <Stack spacing={2}>
+              <Pagination count={count} page={page} onChange={handleChange} />
+            </Stack>
+          </Box>
+        </Box>
+      )}
+      {loading && !count && (
+        <NoDataFound message='Looks like no posts were found.' />
+      )}
     </Container>
   );
 };
