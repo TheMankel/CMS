@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -10,8 +10,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Title from './Title';
+import axios from 'axios';
 
 const PinnedPosts = () => {
+  const [posts, setPosts] = useState([]);
   const [firstPost, setFirstPost] = useState('');
   const [secondPost, setSecondPost] = useState('');
 
@@ -24,12 +26,38 @@ const PinnedPosts = () => {
     e.preventDefault();
 
     try {
+      if (!firstPost || !secondPost) return;
+
+      const data = {
+        firstPost,
+        secondPost,
+      };
+
+      await axios.post('http://localhost:8000/api/update-pinned-posts', data);
     } catch (err) {
       console.log(err);
     }
     setFirstPost('');
     setSecondPost('');
   };
+
+  const getData = useCallback(async () => {
+    try {
+      const data = await axios.get('http://localhost:8000/api/posts');
+
+      const postsData = data?.data?.posts;
+
+      if (!postsData) return;
+
+      setPosts(postsData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <Box
@@ -55,7 +83,7 @@ const PinnedPosts = () => {
                 gap: 2,
               }}>
               <Box>
-                <Title>First featured post</Title>
+                <Title>First pinned post</Title>
                 <FormControl fullWidth>
                   <InputLabel id='demo-simple-select-label'>
                     First post
@@ -66,17 +94,19 @@ const PinnedPosts = () => {
                     value={firstPost}
                     label='First post'
                     onChange={(e) => setFirstPost(e.target.value)}>
-                    <MenuItem value=''>
+                    <MenuItem value='none'>
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {posts.map((post) => (
+                      <MenuItem key={post.title} value={post.title}>
+                        {post.title}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
               <Box>
-                <Title>Second featured post</Title>
+                <Title>Second pinned post</Title>
                 <FormControl fullWidth>
                   <InputLabel id='demo-simple-select-label'>
                     Second post
@@ -87,12 +117,14 @@ const PinnedPosts = () => {
                     value={secondPost}
                     label='Second post'
                     onChange={(e) => setSecondPost(e.target.value)}>
-                    <MenuItem value=''>
+                    <MenuItem value='none'>
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {posts.map((post) => (
+                      <MenuItem key={post.title} value={post.title}>
+                        {post.title}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
