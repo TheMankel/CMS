@@ -176,6 +176,33 @@ const comment = async (req, res, next) => {
   }
 };
 
+const pinnedPosts = async (req, res, next) => {
+  try {
+    const pinnedPostsRef = await blogCollectionRef.doc('pinned-posts').get();
+    const { firstPost, secondPost } = pinnedPostsRef.data();
+    const data = [];
+
+    const firstPostRef = await postsCollectionRef
+      ?.doc(firstPost.toLowerCase().replace(' ', '-'))
+      ?.get();
+
+    const secondPostRef = await postsCollectionRef
+      ?.doc(secondPost.toLowerCase().replace(' ', '-'))
+      ?.get();
+
+    const firstPostData = firstPostRef.data();
+    const secondPostData = secondPostRef.data();
+
+    if (firstPostData) data.push(firstPostData);
+    if (secondPostData) data.push(secondPostData);
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   navigation,
   about,
@@ -183,4 +210,5 @@ module.exports = {
   allPosts,
   postDetails,
   comment,
+  pinnedPosts,
 };
