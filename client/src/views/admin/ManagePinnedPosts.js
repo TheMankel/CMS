@@ -146,7 +146,7 @@ const PinnedPosts = () => {
                     mx: '4px',
                     textTransform: 'none',
                   }}>
-                  Update
+                  Save
                 </Button>
               </Box>
             </Paper>
