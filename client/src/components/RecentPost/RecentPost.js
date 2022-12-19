@@ -1,5 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 // import Divider from '@mui/material/Divider';
@@ -7,10 +8,17 @@ import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
+import Link from '@mui/material/Link';
 
 const RecentPost = (props) => {
   const { post } = props;
+  const postText = post?.text
+    ?.replace('<br>', '<br/>')
+    .split('</p>')
+    .slice(0, 5)
+    .join('');
 
+  console.log(postText);
   return (
     <Grid item xs={12} md={8}>
       {/* <Typography component='h4' variant='h5' gutterBottom>
@@ -61,10 +69,20 @@ const RecentPost = (props) => {
           <Box>
             <div
               dangerouslySetInnerHTML={{
-                __html: post?.text?.replace('<br>', '<br/>'),
+                // __html: post?.text?.replace('<br>', '<br/>'),
+                __html: postText,
               }}
             />
           </Box>
+          <Link
+            component={NavLink}
+            to={'/posts/' + post?.title?.toLowerCase()?.replace(' ', '-')}
+            variant='subtitle1'
+            color='primary'
+            underline='none'
+            textTransform='capitalize'>
+            Continue reading...
+          </Link>
         </CardContent>
       </Card>
     </Grid>
