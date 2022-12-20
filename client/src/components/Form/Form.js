@@ -180,26 +180,10 @@ const Form = (props) => {
                   By clicking on "submit" you agree to our{' '}
                   <Box
                     component={NavLink}
-                    to='#0'
+                    to='privacy-policy'
                     color={theme.palette.text.primary}
                     fontWeight={'700'}>
                     Privacy Policy
-                  </Box>
-                  ,{' '}
-                  <Box
-                    component={NavLink}
-                    to='#0'
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}>
-                    Data Policy
-                  </Box>{' '}
-                  and{' '}
-                  <Box
-                    component={NavLink}
-                    to='#0'
-                    color={theme.palette.text.primary}
-                    fontWeight={'700'}>
-                    Cookie Policy
                   </Box>
                   .
                 </Typography>
