@@ -3,12 +3,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import EditIcon from '@mui/icons-material/Edit';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 
 const SliderTabPanel = (props) => {
   const { value, index, ...other } = props;
+  const [edit, setEdit] = useState(false);
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
@@ -25,11 +27,12 @@ const SliderTabPanel = (props) => {
     }
   };
 
-  // const handleCancel = () => {
-  //   setDescription('');
-  //   setImage(null);
-  //   setName('');
-  // };
+  const handleCancel = () => {
+    // setDescription('');
+    // setImage(null);
+    // setName('');
+    setEdit(false);
+  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -51,6 +54,7 @@ const SliderTabPanel = (props) => {
     } catch (err) {
       console.log(err);
     }
+    setEdit(false);
     getData();
   };
 
@@ -83,7 +87,26 @@ const SliderTabPanel = (props) => {
       id={`slider-tabpanel-${index}`}
       aria-labelledby={`slider-tab-${index}`}
       {...other}>
-      {value === index && (
+      {!edit && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
+          <Button
+            variant='contained'
+            type='submit'
+            onClick={() => setEdit(true)}
+            endIcon={<EditIcon />}
+            sx={{
+              mx: '4px',
+              textTransform: 'none',
+            }}>
+            Edit
+          </Button>
+        </Box>
+      )}
+      {value === index && edit && (
         <Box
           sx={{
             display: 'flex',
@@ -150,7 +173,7 @@ const SliderTabPanel = (props) => {
             />
           </Box>
           <Box alignSelf='center'>
-            {/* <Button
+            <Button
               variant='outlined'
               onClick={handleCancel}
               sx={{
@@ -158,7 +181,7 @@ const SliderTabPanel = (props) => {
                 textTransform: 'none',
               }}>
               Cancel
-            </Button> */}
+            </Button>
             <Button
               variant='contained'
               type='submit'
