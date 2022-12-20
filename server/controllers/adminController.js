@@ -161,6 +161,24 @@ const updatePinnedPosts = async (req, res, next) => {
   }
 };
 
+const updateSlider = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+
+    const sliderRef = blogCollectionRef
+      .doc('slider')
+      .collection('carouselItems')
+      .doc(id);
+
+    await sliderRef.update(data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -169,4 +187,5 @@ module.exports = {
   deletePost,
   updateBlog,
   updatePinnedPosts,
+  updateSlider,
 };
