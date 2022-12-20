@@ -3,14 +3,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import EditIcon from '@mui/icons-material/Edit';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 
 const SliderTabPanel = (props) => {
   const { value, index, ...other } = props;
-  const [edit, setEdit] = useState(false);
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
@@ -28,13 +26,15 @@ const SliderTabPanel = (props) => {
   };
 
   const handleCancel = () => {
-    setEdit(false);
+    setDescription('');
+    setImage(null);
+    setName('');
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      if (!description || !image || !name) return;
+      if (!image) return;
 
       const sliderImagesRef = createRef(`sliderImages/slider_${index + 1}`);
 
@@ -51,31 +51,32 @@ const SliderTabPanel = (props) => {
     } catch (err) {
       console.log(err);
     }
-    setEdit(false);
-    getData();
+    setDescription('');
+    setImage(null);
+    setName('');
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const data = await axios.get('http://localhost:8000/api/slider');
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const data = await axios.get('http://localhost:8000/api/slider');
 
-      const sliderData = data?.data?.carouselItems[index];
-      const image = {
-        name: `slider_${index + 1}`,
-        photo: sliderData.image,
-      };
+  //     const sliderData = data?.data?.carouselItems[index];
+  //     const image = {
+  //       name: `slider_${index + 1}`,
+  //       photo: sliderData.image,
+  //     };
 
-      setDescription(sliderData.description);
-      setImage(image);
-      setName(sliderData.name);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [index]);
+  //     setDescription(sliderData.description);
+  //     setImage(image);
+  //     setName(sliderData.name);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [index]);
 
-  useEffect(() => {
-    getData();
-  }, [getData]);
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   return (
     <div
@@ -84,26 +85,7 @@ const SliderTabPanel = (props) => {
       id={`slider-tabpanel-${index}`}
       aria-labelledby={`slider-tab-${index}`}
       {...other}>
-      {!edit && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}>
-          <Button
-            variant='contained'
-            type='submit'
-            onClick={() => setEdit(true)}
-            endIcon={<EditIcon />}
-            sx={{
-              mx: '4px',
-              textTransform: 'none',
-            }}>
-            Edit
-          </Button>
-        </Box>
-      )}
-      {value === index && edit && (
+      {value === index && (
         <Box
           sx={{
             display: 'flex',
