@@ -28,9 +28,6 @@ const SliderTabPanel = (props) => {
   };
 
   const handleCancel = () => {
-    // setDescription('');
-    // setImage(null);
-    // setName('');
     setEdit(false);
   };
 

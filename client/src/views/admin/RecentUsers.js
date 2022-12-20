@@ -6,19 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 
-// Generate Order Data
-// function createData(id, date, userName) {
-//   return { id, date, userName };
-// }
-
-// const rows = [
-//   createData(0, '16 Mar, 2019', 'Elvis Presley'),
-//   createData(1, '16 Mar, 2019', 'Paul McCartney'),
-//   createData(2, '16 Mar, 2019', 'Tom Scholz'),
-//   createData(3, '16 Mar, 2019', 'Michael Jackson'),
-//   createData(4, '15 Mar, 2019', 'Bruce Springsteen'),
-// ];
-
 const RecentUsers = (props) => {
   const { recentUsers } = props;
 

@@ -149,19 +149,6 @@ const ManagePosts = () => {
     getData();
   };
 
-  // Generate Order Data
-  // function createData(id, created, postTitle) {
-  //   return { id, created, postTitle };
-  // }
-
-  // const rows = [
-  //   createData(0, '16 Mar, 2019', 'Post test'),
-  //   createData(1, '16 Mar, 2019', 'Post 1'),
-  //   createData(2, '16 Mar, 2019', 'Post 2'),
-  //   createData(3, '16 Mar, 2019', 'Post 3'),
-  //   createData(4, '15 Mar, 2019', 'Post 4'),
-  // ];
-
   const getData = useCallback(async () => {
     try {
       const data = await axios.get('http://localhost:8000/api/posts');
