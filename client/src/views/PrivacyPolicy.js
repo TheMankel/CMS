@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
       <Container>
         <Box boxShadow={4} borderRadius={2} mt={5} mb={5}>
           <Box bgcolor={theme.palette.primary.main} borderRadius={2}>
-            <Container paddingX={{ xs: 2, sm: 4 }}>
+            <Container>
               <Typography
                 variant={'h3'}
                 gutterBottom
@@ -47,11 +47,7 @@ const PrivacyPolicy = () => {
                 d='M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z'></path>
             </Box>
           </Box>
-          <Container
-            paddingTop={'0 !important'}
-            paddingX={{ xs: 2, sm: 4 }}
-            position={'relative'}
-            top={0}>
+          <Container position={'relative'} top={0}>
             <Box
               component={Grid}
               container
