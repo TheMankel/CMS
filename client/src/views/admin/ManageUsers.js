@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,22 +12,54 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Title from './Title';
+import { useAuth } from '../../contexts/authContext';
+import axios from 'axios';
 
 // Generate Order Data
-function createData(id, created, fullName) {
-  return { id, created, fullName };
-}
+// function createData(id, created, fullName) {
+//   return { id, created, fullName };
+// }
 
-const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley'),
-  createData(1, '16 Mar, 2019', 'Paul McCartney'),
-  createData(2, '16 Mar, 2019', 'Tom Scholz'),
-  createData(3, '16 Mar, 2019', 'Michael Jackson'),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen'),
-];
+// const rows = [
+//   createData(0, '16 Mar, 2019', 'Elvis Presley'),
+//   createData(1, '16 Mar, 2019', 'Paul McCartney'),
+//   createData(2, '16 Mar, 2019', 'Tom Scholz'),
+//   createData(3, '16 Mar, 2019', 'Michael Jackson'),
+//   createData(4, '15 Mar, 2019', 'Bruce Springsteen'),
+// ];
 
 const ManageUsers = (props) => {
   const { title } = props;
+  const { user } = useAuth();
+  const [users, setUsers] = useState([]);
+
+  const handleDelete = async (e) => {
+    try {
+      const id = e.currentTarget?.id;
+
+      await axios.get(`http://localhost:8000/api/delete-user/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+    getData();
+  };
+
+  const getData = useCallback(async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/users/${user?.uid}`,
+      );
+
+      setUsers(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   return (
     <Box
       component='main'
@@ -56,13 +88,17 @@ const ManageUsers = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((user, i) => (
+                  {users?.map((user, i) => (
                     <TableRow key={i}>
                       <TableCell>{i}</TableCell>
                       <TableCell>{user?.fullName}</TableCell>
                       <TableCell>{user?.created}</TableCell>
                       <TableCell>
-                        <IconButton aria-label='delete user' component='label'>
+                        <IconButton
+                          id={user?.uid}
+                          aria-label='delete user'
+                          component='label'
+                          onClick={handleDelete}>
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
