@@ -73,7 +73,7 @@ const SignUp = () => {
       );
       console.log(cos);
 
-      if (res?.data?.role === 'admin') navigate('/dashboard');
+      if (res?.data?.role === 'admin') navigate('/admin/dashboard');
       else navigate('/');
     } catch (err) {
       console.error(err);
