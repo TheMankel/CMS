@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Switch from '@mui/material/Switch';
 import Title from './Title';
 import { useAuth } from '../../contexts/authContext';
 import axios from 'axios';
@@ -28,10 +29,21 @@ import axios from 'axios';
 //   createData(4, '15 Mar, 2019', 'Bruce Springsteen'),
 // ];
 
-const ManageUsers = (props) => {
-  const { title } = props;
+const ManageUsers = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);
+
+  const handleUpdate = async (e) => {
+    try {
+      const id = e.currentTarget?.id;
+      const data = users.find((user) => user.uid === id);
+
+      await axios.post(`http://localhost:8000/api/update-user/${id}`, data);
+    } catch (err) {
+      console.log(err);
+    }
+    getData();
+  };
 
   const handleDelete = async (e) => {
     try {
@@ -77,13 +89,14 @@ const ManageUsers = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Title>{title}</Title>
+              <Title>All users</Title>
               <Table size='small'>
                 <TableHead>
                   <TableRow>
                     <TableCell>lp</TableCell>
                     <TableCell>Full name</TableCell>
                     <TableCell>Sign up date</TableCell>
+                    <TableCell>Role</TableCell>
                     <TableCell>Delete</TableCell>
                   </TableRow>
                 </TableHead>
@@ -93,6 +106,15 @@ const ManageUsers = (props) => {
                       <TableCell>{i}</TableCell>
                       <TableCell>{user?.fullName}</TableCell>
                       <TableCell>{user?.created}</TableCell>
+                      <TableCell>
+                        {' '}
+                        <Switch
+                          id={user?.uid}
+                          checked={user?.role === 'admin' ? true : false}
+                          onChange={handleUpdate}
+                          inputProps={{ 'aria-label': 'user role' }}
+                        />
+                      </TableCell>
                       <TableCell>
                         <IconButton
                           id={user?.uid}
