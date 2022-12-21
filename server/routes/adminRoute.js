@@ -10,6 +10,9 @@ const {
   updateBlog,
   updatePinnedPosts,
   updateSlider,
+  users,
+  updateUser,
+  deleteUser,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -20,5 +23,8 @@ router.post('/delete-post', deletePost);
 router.post('/update-blog', updateBlog);
 router.post('/update-pinned-posts', updatePinnedPosts);
 router.post('/slider/:id', updateSlider);
+router.get('/users/:id', users);
+router.post('/update-user/:id', updateUser);
+router.get('/delete-user/:id', deleteUser);
 
 module.exports = router;
