@@ -24,6 +24,7 @@ import ManagePinnedPosts from './views/admin/ManagePinnedPosts';
 import ManageAbout from './views/admin/ManageAbout';
 import ManageContact from './views/admin/ManageContact';
 import ManagePrivacyPolicy from './views/admin/ManagePrivacyPolicy';
+import PrivacyPolicy from './views/PrivacyPolicy';
 
 function App() {
   const { user, role } = useAuth();
@@ -33,6 +34,7 @@ function App() {
         <Route element={<MainPublic showDetailed={true} />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/about' element={<About />} />
+          <Route path='/privacy policy' element={<PrivacyPolicy />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/posts/:postId' element={<PostDetails />} />
