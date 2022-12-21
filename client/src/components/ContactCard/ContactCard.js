@@ -3,6 +3,9 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { NavLink } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const ContactCard = () => {
   const theme = useTheme();
@@ -15,10 +18,7 @@ const ContactCard = () => {
         xs: 0,
         md: `1px solid ${theme.palette.divider}`,
       }}>
-      <Box
-        paddingX={{ xs: 0, md: 3 }}
-        paddingTop={3}
-        paddingBottom={{ xs: 0, md: 3 }}>
+      <Box margin={2}>
         <Typography
           sx={{
             fontWeight: '700',
@@ -35,15 +35,19 @@ const ContactCard = () => {
           If you have any questions or concerns about the privacy policy please
           contact us.
         </Typography>
-        <Typography variant={'subtitle2'}>
-          hi@maccarianagency.com
-          <br />
-          via Gola 4
-          <br />
-          Milan, Milano 20143
-          <br />
-          Italy
-        </Typography>
+        <Box display={'flex'} justifyContent={'center'}>
+          <Button
+            component={NavLink}
+            variant='contained'
+            size='large'
+            endIcon={<ArrowForwardIcon />}
+            to='/contact'
+            sx={{
+              textTransform: 'none',
+            }}>
+            Contact us
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
