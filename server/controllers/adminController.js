@@ -1,5 +1,7 @@
 const { firestore } = require('firebase-admin');
-const { db } = require('../config/firebase-config');
+const { db, firebase } = require('../config/firebase-config');
+
+const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
 const postsCollectionRef = db.collection('posts');
 const categoriesCollectionRef = db.collection('categories');
@@ -179,6 +181,65 @@ const updateSlider = async (req, res, next) => {
   }
 };
 
+const users = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const usersRef = await usersCollectionRef.get();
+    const usersData = [];
+
+    usersRef.forEach((user) => {
+      if (user.id !== id) {
+        const data = user.data();
+        usersData.push({
+          uid: user.id,
+          fullName: data.firstName + ' ' + data.lastName,
+          created: new Date(data.created).toLocaleString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          }),
+          email: data.email,
+          role: data.role,
+        });
+      }
+    });
+
+    return res.status(200).json(usersData);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    // await usersCollectionRef.doc(id).update({
+    //   role: data.role,
+    // });
+
+    return res.status(200).json('User role updated');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await usersCollectionRef.doc(id).delete();
+    await auth.deleteUser(id);
+
+    return res.status(200).json('User deleted');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -188,4 +249,7 @@ module.exports = {
   updateBlog,
   updatePinnedPosts,
   updateSlider,
+  users,
+  updateUser,
+  deleteUser,
 };
