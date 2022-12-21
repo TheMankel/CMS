@@ -190,6 +190,7 @@ const users = async (req, res, next) => {
     usersRef.forEach((user) => {
       if (user.id !== id) {
         const data = user.data();
+
         usersData.push({
           uid: user.id,
           fullName: data.firstName + ' ' + data.lastName,
@@ -214,10 +215,14 @@ const users = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const data = req.body;
 
-    // await usersCollectionRef.doc(id).update({
-    //   role: data.role,
-    // });
+    await usersCollectionRef.doc(id).update({
+      role: data.role === 'admin' ? 'user' : 'admin',
+    });
+    await auth.setCustomUserClaims(id, {
+      admin: data.role === 'admin' ? false : true,
+    });
 
     return res.status(200).json('User role updated');
   } catch (err) {
