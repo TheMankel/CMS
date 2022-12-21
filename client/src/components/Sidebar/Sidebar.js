@@ -59,7 +59,6 @@ Sidebar.propTypes = {
       url: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  description: PropTypes.string.isRequired,
   social: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.elementType.isRequired,

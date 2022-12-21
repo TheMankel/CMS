@@ -18,7 +18,7 @@ const RecentPost = (props) => {
     .slice(0, 5)
     .join('');
 
-  console.log(postText);
+  // console.log(postText);
   return (
     <Grid item xs={12} md={8}>
       {/* <Typography component='h4' variant='h5' gutterBottom>

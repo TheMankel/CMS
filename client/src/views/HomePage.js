@@ -45,9 +45,6 @@ const Homepage = () => {
   // ];
 
   const sidebar = {
-    title: 'About',
-    description:
-      'Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.',
     archives: [
       { title: 'March 2020', url: '#' },
       { title: 'February 2020', url: '#' },
@@ -80,20 +77,14 @@ const Homepage = () => {
       const sliderData = sliderRes?.data?.carouselItems;
       const pinnedPostsData = pinnedPostsRes?.data;
 
-      if (!postsData) return;
-
       const recentPostData = postsData.pop();
+
       setRecentPost(recentPostData);
-      console.log(recentPostData);
-
-      if (!sliderData) return;
-
       setCarouselItems(sliderData);
-      console.log(sliderData);
-
-      if (!pinnedPostsData) return;
-
       setPinnedPosts(pinnedPostsData);
+
+      // console.log(recentPostData);
+      // console.log(sliderData);
       console.log(pinnedPostsData);
     } catch (err) {
       console.log(err);
@@ -102,20 +93,7 @@ const Homepage = () => {
 
   useEffect(() => {
     getData();
-    // getPostData();
   }, [getData]);
-
-  // const getData = async () => {
-  //   try {
-  //     const data = await axios.get('http://localhost:8000/api/slider');
-
-  //     setCarouselItems(data?.data.carouselItems);
-
-  //     // setLoading(false);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   // const carouselItems = [
   //   {
@@ -147,12 +125,7 @@ const Homepage = () => {
           </Grid>
           <Grid container spacing={5} sx={{ my: 3 }}>
             <RecentPost post={recentPost} />
-            <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              archives={sidebar.archives}
-              social={sidebar.social}
-            />
+            <Sidebar archives={sidebar.archives} social={sidebar.social} />
           </Grid>
         </main>
       </Container>
