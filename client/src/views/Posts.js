@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
@@ -9,9 +10,15 @@ import NoDataFound from './NoDataFound';
 import axios from 'axios';
 
 const Posts = () => {
+  const { yearId = '', monthId = '' } = useParams();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const url =
+    monthId === '' && yearId === ''
+      ? 'posts'
+      : `posts/archives/${yearId}/${monthId}`;
 
   const handleChange = (e, value) => {
     setPage(value);
@@ -23,21 +30,18 @@ const Posts = () => {
   const getData = useCallback(async () => {
     setLoading(false);
     try {
-      const data = await axios.get('http://localhost:8000/api/posts');
+      const data = await axios.get(`http://localhost:8000/api/${url}`);
 
       const postsData = data?.data?.posts;
 
-      // console.log(postsData);
-
       if (!postsData) return;
 
-      // setPosts(postsData.slice((page - 1) * 4, page * 4));
       setPosts(postsData);
     } catch (err) {
       console.log(err);
     }
     setLoading(true);
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getData();

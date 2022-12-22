@@ -14,7 +14,6 @@ import Contact from './views/Contact';
 import ForgotPassword from './views/ForgotPassword';
 import Posts from './views/Posts';
 import PostDetails from './views/PostDetails';
-import PostsArchives from './views/PostArchives';
 import Dashboard from './views/admin/Dashboard';
 import ManagePosts from './views/admin/ManagePosts';
 import ManageCategories from './views/admin/ManageCategories';
@@ -39,10 +38,7 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/posts/:postId' element={<PostDetails />} />
-          <Route
-            path='/posts/archives/:yearId/:monthId'
-            element={<PostsArchives />}
-          />
+          <Route path='/posts/archives/:yearId/:monthId' element={<Posts />} />
           <Route
             path='/account'
             element={
