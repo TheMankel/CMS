@@ -13,6 +13,7 @@ const {
   users,
   updateUser,
   deleteUser,
+  updatePolicy,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -21,6 +22,7 @@ router.post('/new-post', newPost);
 router.post('/edit-post', editPost);
 router.post('/delete-post', deletePost);
 router.post('/update-blog', updateBlog);
+router.post('/update-policy', updatePolicy);
 router.post('/update-pinned-posts', updatePinnedPosts);
 router.post('/slider/:id', updateSlider);
 router.get('/users/:id', users);
