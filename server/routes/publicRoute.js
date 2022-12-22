@@ -9,6 +9,8 @@ const {
   postDetails,
   comment,
   pinnedPosts,
+  archives,
+  archivesPosts,
 } = require('../controllers/publicController');
 
 router.get('/navigation', navigation);
@@ -18,5 +20,7 @@ router.get('/posts', allPosts);
 router.get('/posts/:id', postDetails);
 router.post('/comment/:id', comment);
 router.get('/pinned-posts', pinnedPosts);
+router.get('/archives', archives);
+router.get('/posts/archives/:yearId/:monthId', archivesPosts);
 
 module.exports = router;
