@@ -254,6 +254,23 @@ const archivesPosts = async (req, res, next) => {
   }
 };
 
+const updatePolicy = async (req, res, next) => {
+  try {
+    const privacyRef = await blogCollectionRef.doc('privacy-policy').get();
+
+    const data = {
+      content: content,
+    };
+
+    data.content = privacyRef.data();
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   navigation,
   about,
@@ -264,4 +281,5 @@ module.exports = {
   pinnedPosts,
   archives,
   archivesPosts,
+  updatePolicy,
 };
