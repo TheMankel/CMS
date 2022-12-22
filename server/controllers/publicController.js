@@ -203,6 +203,57 @@ const pinnedPosts = async (req, res, next) => {
   }
 };
 
+const archives = async (req, res, next) => {
+  try {
+    const postsRef = await postsCollectionRef.orderBy('date', 'desc').get();
+
+    const dates = [];
+
+    postsRef.forEach((post) => {
+      const postData = post.data();
+      const string = postData.date.split(' ');
+      const date = string[0] + ' ' + string[2];
+
+      if (!dates.includes(date))
+        dates.push({
+          title: date,
+        });
+    });
+
+    return res.status(200).json(dates);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const archivesPosts = async (req, res, next) => {
+  try {
+    const { yearId, monthId } = req.params;
+    console.log(yearId, monthId);
+    const postsRef = await postsCollectionRef.orderBy('date', 'asc').get();
+
+    const data = {
+      posts: [],
+    };
+
+    postsRef.forEach((post) => {
+      const postData = post.data();
+      const words = [yearId, monthId];
+      const cos = words.every((word) =>
+        postData.date.toLowerCase().includes(word),
+      );
+      console.log(cos);
+      if (cos) data.posts.push(postData);
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   navigation,
   about,
@@ -211,4 +262,6 @@ module.exports = {
   postDetails,
   comment,
   pinnedPosts,
+  archives,
+  archivesPosts,
 };
