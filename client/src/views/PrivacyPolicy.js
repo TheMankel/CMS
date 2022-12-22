@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -6,8 +6,25 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ContactCard from '../components/ContactCard/ContactCard';
 import Content from '../components/Content/Content';
+import axios from 'axios';
 
 const PrivacyPolicy = () => {
+  // const [content, setContent] = useState('');
+
+  // const getData = async () => {
+  //   try {
+  //     const data = await axios.get('http://localhost:8000/api/update-policy');
+
+  //     setContent(data?.data?.content);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
   const theme = useTheme();
 
   return (
@@ -48,7 +65,7 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                <Content />
+                {/* <div>{content}</div> */}
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
