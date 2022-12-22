@@ -21,7 +21,11 @@ const Sidebar = (props) => {
           component={NavLink}
           display='block'
           variant='body1'
-          to={archive.url}
+          // to={'posts/archives/' + archive.url}
+          to={
+            'posts/archives/' +
+            archive.title?.toLowerCase()?.split(' ')?.join('/')
+          }
           key={archive.title}>
           {archive.title}
         </Link>
@@ -56,7 +60,7 @@ Sidebar.propTypes = {
   archives: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      // url: PropTypes.string.isRequired,
     }),
   ).isRequired,
   social: PropTypes.arrayOf(
