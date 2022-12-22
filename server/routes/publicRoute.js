@@ -11,6 +11,7 @@ const {
   pinnedPosts,
   archives,
   archivesPosts,
+  updatePolicy,
 } = require('../controllers/publicController');
 
 router.get('/navigation', navigation);
@@ -22,5 +23,6 @@ router.post('/comment/:id', comment);
 router.get('/pinned-posts', pinnedPosts);
 router.get('/archives', archives);
 router.get('/posts/archives/:yearId/:monthId', archivesPosts);
+router.get('/update-policy', updatePolicy);
 
 module.exports = router;
