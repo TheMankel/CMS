@@ -8,15 +8,17 @@ import Link from '@mui/material/Link';
 
 const Sidebar = (props) => {
   const { archives, social } = props;
-
+  console.log(archives);
   const socialProvided = social.some((network) => network.url !== '');
 
   return (
     <Grid item xs={12} md={4}>
-      <Typography component='h4' variant='h6' gutterBottom>
-        Archives
-      </Typography>
-      {archives.map((archive) => (
+      {archives.length > 0 && (
+        <Typography component='h4' variant='h6' gutterBottom>
+          Archives
+        </Typography>
+      )}
+      {archives?.map((archive) => (
         <Link
           component={NavLink}
           display='block'
