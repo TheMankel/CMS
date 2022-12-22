@@ -145,6 +145,23 @@ const updateBlog = async (req, res, next) => {
   }
 };
 
+const updatePolicy = async (req, res, next) => {
+  try {
+    const content = req.body;
+    const policyRef = blogCollectionRef.doc('privacy-policy');
+
+    const data = {
+      content: content,
+    };
+
+    policyRef.update(data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 const updatePinnedPosts = async (req, res, next) => {
   try {
     const { firstPost, secondPost } = req.body;
@@ -252,6 +269,7 @@ module.exports = {
   editPost,
   deletePost,
   updateBlog,
+  updatePolicy,
   updatePinnedPosts,
   updateSlider,
   users,
