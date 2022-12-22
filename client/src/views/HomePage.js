@@ -15,6 +15,7 @@ const Homepage = () => {
   const [recentPost, setRecentPost] = useState({});
   const [carouselItems, setCarouselItems] = useState([]);
   const [pinnedPosts, setPinnedPosts] = useState([]);
+  const [archives, setArchives] = useState([]);
 
   // const recentPost = {
   //   title: 'Title of a recent blog post',
@@ -45,19 +46,20 @@ const Homepage = () => {
   // ];
 
   const sidebar = {
-    archives: [
-      { title: 'March 2020', url: '#' },
-      { title: 'February 2020', url: '#' },
-      { title: 'January 2020', url: '#' },
-      { title: 'November 1999', url: '#' },
-      { title: 'October 1999', url: '#' },
-      { title: 'September 1999', url: '#' },
-      { title: 'August 1999', url: '#' },
-      { title: 'July 1999', url: '#' },
-      { title: 'June 1999', url: '#' },
-      { title: 'May 1999', url: '#' },
-      { title: 'April 1999', url: '#' },
-    ],
+    // archives: [
+    //   { title: 'March 2020', url: 'dec/2022' },
+    //   { title: 'February 2020', url: '#' },
+    //   { title: 'January 2020', url: '#' },
+    //   { title: 'November 1999', url: '#' },
+    //   { title: 'October 1999', url: '#' },
+    //   { title: 'September 1999', url: '#' },
+    //   { title: 'August 1999', url: '#' },
+    //   { title: 'July 1999', url: '#' },
+    //   { title: 'June 1999', url: '#' },
+    //   { title: 'May 1999', url: '#' },
+    //   { title: 'April 1999', url: '#' },
+    // ],
+    archives: archives,
     social: [
       { name: 'GitHub', icon: GitHubIcon, url: '' },
       { name: 'Twitter', icon: TwitterIcon, url: '' },
@@ -73,19 +75,24 @@ const Homepage = () => {
       const pinnedPostsRes = await axios.get(
         'http://localhost:8000/api/pinned-posts',
       );
+      const archivesRes = await axios.get('http://localhost:8000/api/archives');
+
       const postsData = postsRes?.data?.posts;
       const sliderData = sliderRes?.data?.carouselItems;
       const pinnedPostsData = pinnedPostsRes?.data;
+      const archivesData = archivesRes?.data;
 
       const recentPostData = postsData.pop();
 
       setRecentPost(recentPostData);
       setCarouselItems(sliderData);
       setPinnedPosts(pinnedPostsData);
+      setArchives(archivesData);
 
+      // console.log(archivesData);
       // console.log(recentPostData);
       // console.log(sliderData);
-      console.log(pinnedPostsData);
+      // console.log(pinnedPostsData);
     } catch (err) {
       console.log(err);
     }
