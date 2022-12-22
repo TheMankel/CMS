@@ -14,7 +14,7 @@ const PrivacySection = ({ title, description }) => {
         }}>
         {title}
       </Typography>
-      <Typography component={'p'} color={'textSecondary'}>
+      <Typography component={'p'} color={'textSecondary'} textAlign='justify'>
         {description}
       </Typography>
     </Box>
@@ -73,7 +73,8 @@ const Content = () => {
   return (
     <Box>
       {data.map((item, i) => (
-        <Box key={i} marginBottom={i < data.length - 1 ? 4 : 0}>
+        // <Box key={i} marginBottom={i < data.length - 1 ? 4 : 0}>
+        <Box key={i} marginBottom={4}>
           <PrivacySection {...item} />
         </Box>
       ))}

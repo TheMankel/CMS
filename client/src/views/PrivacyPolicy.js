@@ -13,24 +13,18 @@ const PrivacyPolicy = () => {
   return (
     <Box>
       <Container>
-        <Box boxShadow={4} borderRadius={2} mt={5} mb={5}>
+        <Box boxShadow={4} borderRadius={2} my={5}>
           <Box bgcolor={theme.palette.primary.main} borderRadius={2}>
             <Container>
               <Typography
                 variant={'h3'}
-                gutterBottom
+                // gutterBottom
+                py={2}
                 sx={{
                   fontWeight: 700,
                   color: theme.palette.common.white,
                 }}>
                 Privacy Policy
-              </Typography>
-              <Typography
-                gutterBottom
-                sx={{
-                  color: theme.palette.common.white,
-                }}>
-                Last modified on <strong>23 Feb, 2021</strong>
               </Typography>
             </Container>
             <Box
