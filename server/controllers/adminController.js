@@ -130,14 +130,16 @@ const deletePost = async (req, res, next) => {
 const updateBlog = async (req, res, next) => {
   try {
     const { title, logo } = req.body;
-    const fieldsRef = blogCollectionRef.doc('public-navigation');
+    // const blogRef = blogCollectionRef.doc('public-navigation');
+    const blogRef = blogCollectionRef.doc('blog');
 
     const data = {
       title: title,
       logo: logo,
     };
 
-    fieldsRef.update(data);
+    await blogRef.update(data);
+
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
