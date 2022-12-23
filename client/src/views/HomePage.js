@@ -17,34 +17,6 @@ const Homepage = () => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [archives, setArchives] = useState([]);
 
-  // const recentPost = {
-  //   title: 'Title of a recent blog post',
-  //   date: 'Nov 12',
-  //   description:
-  //     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  //   image: 'https://source.unsplash.com/random',
-  //   imageLabel: 'Image Text',
-  // };
-
-  // const featuredPosts = [
-  //   {
-  //     title: 'Featured post',
-  //     date: 'Nov 12',
-  //     description:
-  //       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //     image: 'https://source.unsplash.com/random',
-  //     imageLabel: 'Image Text',
-  //   },
-  //   {
-  //     title: 'Post title',
-  //     date: 'Nov 11',
-  //     description:
-  //       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //     image: 'https://source.unsplash.com/random',
-  //     imageLabel: 'Image Text',
-  //   },
-  // ];
-
   const sidebar = {
     // archives: [
     //   { title: 'March 2020', url: 'dec/2022' },
@@ -88,11 +60,6 @@ const Homepage = () => {
       setCarouselItems(sliderData);
       setPinnedPosts(pinnedPostsData);
       setArchives(archivesData);
-
-      // console.log(archivesData);
-      // console.log(recentPostData);
-      // console.log(sliderData);
-      // console.log(pinnedPostsData);
     } catch (err) {
       console.log(err);
     }
@@ -101,24 +68,6 @@ const Homepage = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-
-  // const carouselItems = [
-  //   {
-  //     name: '1',
-  //     description: 'Probably the most random thing you have ever seen!',
-  //     image: 'https://source.unsplash.com/random',
-  //   },
-  //   {
-  //     name: '2',
-  //     description: 'Hello World!',
-  //     image: 'https://source.unsplash.com/random',
-  //   },
-  //   {
-  //     name: '3',
-  //     description: 'Ok bye!',
-  //     image: 'https://source.unsplash.com/random',
-  //   },
-  // ];
 
   return (
     <>

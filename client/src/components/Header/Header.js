@@ -20,7 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from '../../contexts/authContext';
 
 const Header = (props) => {
-  const { sections, title, logo, showDetailed } = props;
+  const { navigation, title, logo, showDetailed } = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
@@ -29,9 +29,10 @@ const Header = (props) => {
   useEffect(() => {
     setOpenMenu(false);
     const onScroll = () => setOpenMenu(false);
-    // clean up code
+
     window.removeEventListener('scroll', onScroll);
     window.addEventListener('scroll', onScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', onScroll);
   }, [showDetailed]);
 
@@ -84,7 +85,7 @@ const Header = (props) => {
                 </Box>
                 <Divider />
                 <List sx={{ padding: 1 }}>
-                  {sections?.map((section) => (
+                  {navigation?.map((section) => (
                     <ListItemButton key={section.title}>
                       <Link
                         component={NavLink}
@@ -159,7 +160,7 @@ const Header = (props) => {
                 },
                 flexWrap: 'wrap',
               }}>
-              {sections?.map((section) => (
+              {navigation?.map((section) => (
                 <Link
                   component={NavLink}
                   color='inherit'
@@ -249,12 +250,12 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  sections: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  // navigation: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     title: PropTypes.string.isRequired,
+  //     url: PropTypes.string.isRequired,
+  //   }),
+  // ).isRequired,
   title: PropTypes.string.isRequired,
 };
 

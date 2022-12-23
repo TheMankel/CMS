@@ -151,9 +151,10 @@ const ManagePosts = () => {
 
   const getData = useCallback(async () => {
     try {
-      const data = await axios.get('http://localhost:8000/api/posts');
+      const res = await axios.get('http://localhost:8000/api/posts');
+      const { data } = res;
 
-      const postsData = data?.data?.posts;
+      const postsData = data?.posts;
 
       if (!postsData) return;
 

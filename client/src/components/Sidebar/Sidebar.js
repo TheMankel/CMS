@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 
 const Sidebar = (props) => {
   const { archives, social } = props;
-  console.log(archives);
+
   const socialProvided = social.some((network) => network.url !== '');
 
   return (
@@ -23,7 +23,6 @@ const Sidebar = (props) => {
           component={NavLink}
           display='block'
           variant='body1'
-          // to={'posts/archives/' + archive.url}
           to={
             'posts/archives/' +
             archive.title?.toLowerCase()?.split(' ')?.join('/')

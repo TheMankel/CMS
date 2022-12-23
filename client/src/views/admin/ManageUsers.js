@@ -16,19 +16,6 @@ import Title from './Title';
 import { useAuth } from '../../contexts/authContext';
 import axios from 'axios';
 
-// Generate Order Data
-// function createData(id, created, fullName) {
-//   return { id, created, fullName };
-// }
-
-// const rows = [
-//   createData(0, '16 Mar, 2019', 'Elvis Presley'),
-//   createData(1, '16 Mar, 2019', 'Paul McCartney'),
-//   createData(2, '16 Mar, 2019', 'Tom Scholz'),
-//   createData(3, '16 Mar, 2019', 'Michael Jackson'),
-//   createData(4, '15 Mar, 2019', 'Bruce Springsteen'),
-// ];
-
 const ManageUsers = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);

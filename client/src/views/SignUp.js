@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import Copyright from '../components/Copyright.js/Copyright';
 import { useAuth } from '../contexts/authContext';
 import axios from 'axios';
 
@@ -25,13 +24,6 @@ const SignUp = () => {
     e.preventDefault();
 
     const formRef = new FormData(e.currentTarget);
-
-    console.log({
-      firstName: formRef.get('firstName'),
-      lastName: formRef.get('lastName'),
-      email: formRef.get('email'),
-      password: formRef.get('password'),
-    });
 
     try {
       if (
@@ -51,8 +43,6 @@ const SignUp = () => {
 
       const { user } = userCredential;
 
-      console.log(user);
-
       const data = {
         uid: user.uid,
         firstName: formRef.get('firstName'),
@@ -65,13 +55,10 @@ const SignUp = () => {
         withCredentials: true,
       });
 
-      console.log(res.data);
-
-      const cos = await updateUserFullName(
+      await updateUserFullName(
         formRef.get('firstName'),
         formRef.get('lastName'),
       );
-      console.log(cos);
 
       if (res?.data?.role === 'admin') navigate('/admin/dashboard');
       else navigate('/');

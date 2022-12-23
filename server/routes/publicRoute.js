@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  navigation,
+  // navigation,
   blog,
   about,
   contact,
@@ -17,7 +17,7 @@ const {
   categories,
 } = require('../controllers/publicController');
 
-router.get('/navigation', navigation);
+// router.get('/navigation', navigation);
 router.get('/blog', blog);
 router.get('/about', about);
 router.get('/contact', contact);

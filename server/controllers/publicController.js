@@ -5,41 +5,41 @@ const blogCollectionRef = db.collection('cms');
 const postsCollectionRef = db.collection('posts');
 const usersCollectionRef = db.collection('users');
 
-const navigation = async (req, res, next) => {
-  try {
-    const categoriesRef = await blogCollectionRef
-      .doc('public-navigation')
-      .collection('categories')
-      .get();
+// const navigation = async (req, res, next) => {
+//   try {
+//     const categoriesRef = await blogCollectionRef
+//       .doc('public-navigation')
+//       .collection('categories')
+//       .get();
 
-    const sectionsRef = await blogCollectionRef
-      .doc('public-navigation')
-      .collection('sections')
-      .get();
+//     const sectionsRef = await blogCollectionRef
+//       .doc('public-navigation')
+//       .collection('sections')
+//       .get();
 
-    const fieldsRef = await blogCollectionRef.doc('public-navigation').get();
+//     const fieldsRef = await blogCollectionRef.doc('public-navigation').get();
 
-    const data = {
-      categories: [],
-      sections: [],
-      title: fieldsRef.data().title,
-      logo: fieldsRef.data().logo,
-    };
+//     const data = {
+//       categories: [],
+//       sections: [],
+//       title: fieldsRef.data().title,
+//       logo: fieldsRef.data().logo,
+//     };
 
-    categoriesRef.forEach((cat) => {
-      data.categories.push(cat.data());
-    });
+//     categoriesRef.forEach((cat) => {
+//       data.categories.push(cat.data());
+//     });
 
-    sectionsRef.forEach((sec) => {
-      data.sections.push(sec.data());
-    });
+//     sectionsRef.forEach((sec) => {
+//       data.sections.push(sec.data());
+//     });
 
-    return res.status(200).json(data);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
-  }
-};
+//     return res.status(200).json(data);
+//   } catch (err) {
+//     console.log(err);
+//     res.sendStatus(400);
+//   }
+// };
 
 const blog = async (req, res, next) => {
   try {
@@ -320,7 +320,7 @@ const categories = async (req, res, next) => {
 };
 
 module.exports = {
-  navigation,
+  // navigation,
   blog,
   about,
   contact,

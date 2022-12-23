@@ -22,9 +22,8 @@ const PostDetails = () => {
 
   const getData = useCallback(async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:8000/api/posts/${postId}`,
-      );
+      const res = await axios.get(`http://localhost:8000/api/posts/${postId}`);
+      const data = res.data;
 
       setPost(data);
     } catch (err) {
@@ -35,20 +34,6 @@ const PostDetails = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-
-  // const comments = [
-  //   {
-  //     fullName: 'Panama Lama',
-  //     commentText: 'Bardzo fajnie. Nie pisz więcej.',
-  //     avatar: 'https://pliki.meczyki.pl/user/232/5c6015d2ef516.jpg',
-  //   },
-  //   {
-  //     fullName: 'Ewa Mewa',
-  //     commentText: 'Super.',
-  //     avatar:
-  //       'https://images.unsplash.com/photo-1545238377-dee9b7db2414?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
-  //   },
-  // ];
 
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -61,12 +46,7 @@ const PostDetails = () => {
         commentText: comment,
       };
 
-      const res = await axios.post(
-        `http://localhost:8000/api/comment/${postId}`,
-        data,
-      );
-      console.log(res);
-      // if (res.status === 200) getData();
+      await axios.post(`http://localhost:8000/api/comment/${postId}`, data);
     } catch (err) {
       console.log(err);
     }

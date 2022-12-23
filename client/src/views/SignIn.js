@@ -8,12 +8,10 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-// import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import Copyright from '../components/Copyright.js/Copyright';
 import { useAuth } from '../contexts/authContext';
 import axios from 'axios';
 
@@ -29,11 +27,6 @@ const SignIn = () => {
 
     const formRef = new FormData(e.currentTarget);
 
-    console.log({
-      email: formRef.get('email'),
-      password: formRef.get('password'),
-    });
-
     try {
       if (!formRef.get('email') || !formRef.get('password')) return;
 
@@ -48,8 +41,6 @@ const SignIn = () => {
 
       const { user } = userCredential;
 
-      console.log(user);
-
       const data = {
         uid: user.uid,
         email: formRef.get('email'),
@@ -58,8 +49,6 @@ const SignIn = () => {
       const res = await axios.post('http://localhost:8000/api/signin', data, {
         withCredentials: true,
       });
-
-      console.log(res.data);
 
       if (res?.data?.role === 'admin') navigate('/admin/dashboard');
       else navigate('/');
@@ -144,7 +133,6 @@ const SignIn = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      // value='remember'
                       color='primary'
                       checked={checked}
                       onChange={handleChange}
@@ -175,7 +163,6 @@ const SignIn = () => {
                     </Link>
                   </Grid>
                 </Grid>
-                {/* <Copyright sx={{ mt: 5 }} /> */}
               </Box>
             </Box>
           </Grid>

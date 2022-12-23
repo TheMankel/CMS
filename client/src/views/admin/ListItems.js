@@ -130,7 +130,6 @@ const ListItems = (props) => {
     const selectedItem = items.find(
       (item) => item.id.toLowerCase().replace(' ', '-') === path,
     );
-    console.log(selectedItem);
 
     if (!selectedItem) return;
 

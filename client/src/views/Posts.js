@@ -30,9 +30,10 @@ const Posts = () => {
   const getData = useCallback(async () => {
     setLoading(false);
     try {
-      const data = await axios.get(`http://localhost:8000/api/${url}`);
+      const res = await axios.get(`http://localhost:8000/api/${url}`);
+      const { data } = res;
 
-      const postsData = data?.data?.posts;
+      const postsData = data?.posts;
 
       if (!postsData) return;
 
@@ -46,84 +47,6 @@ const Posts = () => {
   useEffect(() => {
     getData();
   }, [getData]);
-
-  // const featuredPosts = useMemo(
-  //   () => [
-  //     {
-  //       title: 'Featured post',
-  //       date: 'Nov 12',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Post title',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Featurede poste',
-  //       date: 'Nov 12',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titlee',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titleee',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titleee1',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titleee2',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titleee3',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //     {
-  //       title: 'Poste titleee4',
-  //       date: 'Nov 11',
-  //       description:
-  //         'This is a wider card with supporting text below as a natural lead-in to additional content.',
-  //       image: 'https://source.unsplash.com/random',
-  //       imageLabel: 'Image Text',
-  //     },
-  //   ],
-  //   [],
-  // );
 
   return (
     <Container maxWidth='lg'>

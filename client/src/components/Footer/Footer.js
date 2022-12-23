@@ -12,16 +12,15 @@ import Divider from '@mui/material/Divider';
 import Copyright from '../Copyright/Copyright';
 
 const Footer = (props) => {
-  const { title, categories, contact, showDetailed } = props;
+  const { title, navigation, contact, showDetailed } = props;
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
-      {/* {showDetailed && <Divider sx={{ marginBottom: '16px' }} />} */}
       {showDetailed && <Divider />}
       {showDetailed && (
         <Container maxWidth='lg' sx={{ my: 2 }}>
           <Box display='flex' justifyContent='space-around' flexWrap='wrap'>
-            {categories?.map((category, index) => (
+            {navigation?.map((item, index) => (
               <List
                 key={index}
                 sx={{
@@ -34,19 +33,17 @@ const Footer = (props) => {
                   variant='h5'
                   textTransform='capitalize'
                   fontWeight={700}>
-                  {category.title}
+                  {item.title}
                 </Typography>
-                {category.links.map((link, index) => (
+                {item.links?.map((link, index) => (
                   <Link
                     component={NavLink}
                     color='#424245'
                     variant='p'
                     underline='none'
                     key={index}
-                    // to={link.toLowerCase()}
                     to={link.url}
                     textTransform='capitalize'>
-                    {/* {link.toLowerCase()} */}
                     {link.title}
                   </Link>
                 ))}
@@ -121,7 +118,6 @@ const Footer = (props) => {
           </Box>
         </Container>
       )}
-      {/* <Divider sx={{ mt: '16px' }} /> */}
       <Divider />
       <Copyright title={title} />
     </Box>

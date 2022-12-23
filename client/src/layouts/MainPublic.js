@@ -12,8 +12,6 @@ const MainPublic = (props) => {
   const [webTitle, setWebTitle] = useState('');
   const [contact, setContact] = useState({});
   const [categories, setCategories] = useState(null);
-  // const [sections, setSections] = useState([{ title: '', url: '' }]);
-  // const [categories, setCategories] = useState([{ title: '', links: [''] }]);
   const theme = createTheme();
 
   const getData = async () => {
@@ -40,8 +38,6 @@ const MainPublic = (props) => {
           .toLowerCase()
           .replace(' ', '-')}`,
       }));
-
-      console.log(categoriesMap);
 
       setWebTitle(blogData?.title);
       setLogo(blogData?.logo);
@@ -92,8 +88,6 @@ const MainPublic = (props) => {
       title: 'Posts',
       url: '/posts',
     },
-    // ...postCategories,
-    // ...categories,
     {
       title: 'About',
       url: '/about',
@@ -129,52 +123,19 @@ const MainPublic = (props) => {
   //   phone: '+48123456789',
   // };
 
-  // const sections = [
-  //   { title: 'Technology', url: '#' },
-  //   { title: 'Design', url: '#' },
-  //   { title: 'Culture', url: '#' },
-  //   { title: 'Business', url: '#' },
-  //   { title: 'Politics', url: '#' },
-  //   { title: 'Opinion', url: '#' },
-  //   { title: 'Science', url: '#' },
-  //   { title: 'Health', url: '#' },
-  //   { title: 'Style', url: '#' },
-  //   { title: 'Travel', url: '#' },
-  // ];
-
-  // const categories = [
-  //   {
-  //     title: 'category1',
-  //     links: ['link1', 'link2', 'link3', 'link4'],
-  //   },
-  //   {
-  //     title: 'category2',
-  //     links: ['link1', 'link2', 'link3', 'link4'],
-  //   },
-  //   {
-  //     title: 'category3',
-  //     links: ['link1', 'link2', 'link3', 'link4'],
-  //   },
-  // ];
-
-  // const logo =
-  //   'https://seeklogo.com/images/B/blogger_B-logo-47610B2F87-seeklogo.com.png';
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header
         title={webTitle}
         logo={logo}
-        // sections={sections}
-        sections={navHeader}
+        navigation={navHeader}
         showDetailed={showDetailed}
       />
       <Outlet />
       <Footer
         title={webTitle}
-        // categories={categories}
-        categories={navFooter}
+        navigation={navFooter}
         contact={contact}
         showDetailed={showDetailed}
       />

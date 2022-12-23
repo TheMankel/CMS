@@ -27,21 +27,12 @@ const About = () => {
       const res = await axios.get('http://localhost:8000/api/about');
       const data = res?.data;
 
-      // const avatars = [
-      //   'https://play-lh.googleusercontent.com/O8mvDQlw4AwmGfUrh4lviZD_PwwhRHz2etA25F77SbXrm3qEHOt2826aNkKar4D0yw',
-      //   'https://wi.wallpapertip.com/wsimgs/10-107567_cat-wallpaper-funny-cat-desktop.jpg',
-      // ];
-      // console.log(data);
-
       // setPrimaryText(data?.data.storyText.primary);
       // setSecondaryText(data?.data.storyText.secondary);
 
       setPrimaryText(data?.story.primary);
       setSecondaryText(data?.story.secondary);
       setTeam(data?.team);
-
-      // const teamData = [...data?.data.team];
-      // teamData.forEach((author, i) => (author.avatar = avatars[i]));
 
       setLoading(false);
     } catch (err) {
