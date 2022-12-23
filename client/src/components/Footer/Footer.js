@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider';
 import Copyright from '../Copyright/Copyright';
 
 const Footer = (props) => {
-  const { title, categories, showDetailed } = props;
+  const { title, categories, contact, showDetailed } = props;
 
   return (
     <Box component='footer' sx={{ bgcolor: 'background.paper' }}>
@@ -34,7 +34,7 @@ const Footer = (props) => {
                   variant='h5'
                   textTransform='capitalize'
                   fontWeight={700}>
-                  {category.title.toLowerCase()}
+                  {category.title}
                 </Typography>
                 {category.links.map((link, index) => (
                   <Link
@@ -43,13 +43,45 @@ const Footer = (props) => {
                     variant='p'
                     underline='none'
                     key={index}
-                    to={link.toLowerCase()}
+                    // to={link.toLowerCase()}
+                    to={link.url}
                     textTransform='capitalize'>
-                    {link.toLowerCase()}
+                    {/* {link.toLowerCase()} */}
+                    {link.title}
                   </Link>
                 ))}
               </List>
             ))}
+            {contact && (
+              <List
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexWrap: 'wrap',
+                }}>
+                <Typography
+                  component='h5'
+                  variant='h5'
+                  textTransform='capitalize'
+                  fontWeight={700}>
+                  Contact
+                </Typography>
+                <Typography
+                  color='#424245'
+                  variant='p'
+                  underline='none'
+                  textTransform='capitalize'>
+                  {contact.email}
+                </Typography>
+                <Typography
+                  color='#424245'
+                  variant='p'
+                  underline='none'
+                  textTransform='capitalize'>
+                  {contact.phone}
+                </Typography>
+              </List>
+            )}
             <List>
               <Typography component='h5' variant='h5' fontWeight={700}>
                 Subscribe Blog for latest updates
