@@ -3,26 +3,32 @@ const router = express.Router();
 
 const {
   navigation,
+  blog,
   about,
+  contact,
   slider,
   allPosts,
   postDetails,
-  comment,
+  addComment,
   pinnedPosts,
   archives,
   archivesPosts,
-  updatePolicy,
+  privacyPolicy,
+  categories,
 } = require('../controllers/publicController');
 
 router.get('/navigation', navigation);
+router.get('/blog', blog);
 router.get('/about', about);
+router.get('/contact', contact);
 router.get('/slider', slider);
 router.get('/posts', allPosts);
 router.get('/posts/:id', postDetails);
-router.post('/comment/:id', comment);
+router.post('/comment/:id', addComment);
 router.get('/pinned-posts', pinnedPosts);
 router.get('/archives', archives);
 router.get('/posts/archives/:yearId/:monthId', archivesPosts);
-router.get('/update-policy', updatePolicy);
+router.get('/update-policy', privacyPolicy);
+router.get('/categories', categories);
 
 module.exports = router;
