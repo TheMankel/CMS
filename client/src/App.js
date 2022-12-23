@@ -34,7 +34,7 @@ function App() {
         <Route element={<MainPublic showDetailed={true} />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/about' element={<About />} />
-          <Route path='/privacy policy' element={<PrivacyPolicy />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/posts/:postId' element={<PostDetails />} />

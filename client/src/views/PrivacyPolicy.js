@@ -32,16 +32,16 @@ const PrivacyPolicy = () => {
       <Container>
         <Box boxShadow={4} borderRadius={2} my={5}>
           <Box bgcolor={theme.palette.primary.main} borderRadius={2}>
-            <Container>
+            <Container sx={{ py: 2 }}>
               <Typography
                 variant={'h3'}
-                // gutterBottom
-                py={2}
-                sx={{
-                  fontWeight: 700,
-                  color: theme.palette.common.white,
-                }}>
+                gutterBottom
+                color='white'
+                fontWeight={700}>
                 Privacy Policy
+              </Typography>
+              <Typography color='white' gutterBottom>
+                Last modified on <strong>23 Feb, 2021</strong>
               </Typography>
             </Container>
             <Box
@@ -65,7 +65,8 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                <div>{content}</div>
+                {/* <div>{content}</div> */}
+                <Content />
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
