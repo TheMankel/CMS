@@ -1,8 +1,9 @@
 const { db } = require('../config/firebase-config');
 
-const usersCollectionRef = db.collection('users');
+const categoriesCollectionRef = db.collection('categories');
 const blogCollectionRef = db.collection('cms');
 const postsCollectionRef = db.collection('posts');
+const usersCollectionRef = db.collection('users');
 
 const navigation = async (req, res, next) => {
   try {
@@ -40,32 +41,62 @@ const navigation = async (req, res, next) => {
   }
 };
 
+const blog = async (req, res, next) => {
+  try {
+    const blogRef = await blogCollectionRef.doc('blog').get();
+    const data = blogRef.data();
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 const about = async (req, res, next) => {
   try {
-    const storyRef = await blogCollectionRef
-      .doc('about')
-      .collection('story')
-      .doc('text')
-      .get();
+    // const storyRef = await blogCollectionRef
+    //   .doc('about')
+    //   .collection('story')
+    //   .doc('text')
+    //   .get();
 
-    const teamRef = await blogCollectionRef
-      .doc('about')
-      .collection('team')
-      .get();
+    const aboutRef = blogCollectionRef.doc('about');
+    const storyRef = await aboutRef.get();
+    const teamRef = await aboutRef.collection('team').get();
+    const storyData = storyRef.data();
+
+    // const teamRef = await blogCollectionRef
+    //   .doc('about')
+    //   .collection('team')
+    //   .get();
 
     const data = {
-      storyText: {
-        primary: '',
-        secondary: '',
-      },
+      // storyText: {
+      //   primary: '',
+      //   secondary: '',
+      // },
+      story: storyData.story,
       team: [],
     };
 
-    data.storyText = storyRef.data();
+    // data.storyText = storyRef.data();
 
     teamRef.forEach((member) => {
       data.team.push(member.data());
     });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const contact = async (req, res, next) => {
+  try {
+    const contactRef = await blogCollectionRef.doc('contact').get();
+    const data = contactRef.data();
 
     return res.status(200).json(data);
   } catch (err) {
@@ -154,7 +185,7 @@ const postDetails = async (req, res, next) => {
   }
 };
 
-const comment = async (req, res, next) => {
+const addComment = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
@@ -230,7 +261,7 @@ const archives = async (req, res, next) => {
 const archivesPosts = async (req, res, next) => {
   try {
     const { yearId, monthId } = req.params;
-    console.log(yearId, monthId);
+
     const postsRef = await postsCollectionRef.orderBy('date', 'asc').get();
 
     const data = {
@@ -254,7 +285,7 @@ const archivesPosts = async (req, res, next) => {
   }
 };
 
-const updatePolicy = async (req, res, next) => {
+const privacyPolicy = async (req, res, next) => {
   try {
     const privacyRef = await blogCollectionRef.doc('privacy-policy').get();
 
@@ -271,15 +302,35 @@ const updatePolicy = async (req, res, next) => {
   }
 };
 
+const categories = async (req, res, next) => {
+  try {
+    const categoriesRef = await categoriesCollectionRef
+      .orderBy('created', 'asc')
+      .get();
+
+    const data = [];
+
+    categoriesRef.forEach((category) => data.push(category.data()));
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   navigation,
+  blog,
   about,
+  contact,
   slider,
   allPosts,
   postDetails,
-  comment,
+  addComment,
   pinnedPosts,
   archives,
   archivesPosts,
-  updatePolicy,
+  privacyPolicy,
+  categories,
 };
