@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -9,12 +9,16 @@ import CategoryIcon from '@mui/icons-material/Category';
 import PeopleIcon from '@mui/icons-material/People';
 import RecentUsers from './RecentUsers';
 import WidgetSummary from './WidgetSummary.js';
-import useSummary from '../../hooks/useSummary.js';
-import useRecentUsers from '../../hooks/useRecentUsers';
+import { getData } from '../../lib/api';
 
 const Dashboard = () => {
-  const { summary } = useSummary();
-  const { recentUsers } = useRecentUsers();
+  const [summary, setSummary] = useState({});
+  const [recentUsers, setRecentUsers] = useState([]);
+
+  useEffect(() => {
+    getData('summary', setSummary);
+    getData('recent-users', setRecentUsers);
+  }, []);
 
   return (
     <Box
