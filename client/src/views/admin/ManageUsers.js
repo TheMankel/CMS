@@ -15,6 +15,7 @@ import Switch from '@mui/material/Switch';
 import Title from './Title';
 import { useAuth } from '../../contexts/authContext';
 import axios from 'axios';
+import { getData } from '../../lib/api';
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -29,7 +30,8 @@ const ManageUsers = () => {
     } catch (err) {
       console.log(err);
     }
-    getData();
+    // getData();
+    getData(`users/${user?.uid}`, setUsers);
   };
 
   const handleDelete = async (e) => {
@@ -40,24 +42,29 @@ const ManageUsers = () => {
     } catch (err) {
       console.log(err);
     }
-    getData();
+    // getData();
+    getData(`users/${user?.uid}`, setUsers);
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:8000/api/users/${user?.uid}`,
-      );
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:8000/api/users/${user?.uid}`,
+  //     );
 
-      setUsers(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [user]);
+  //     setUsers(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getData(`users/${user?.uid}`, setUsers);
+  }, [user]);
 
   return (
     <Box
