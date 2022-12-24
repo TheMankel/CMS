@@ -154,11 +154,11 @@ const ManagePosts = () => {
       const res = await axios.get('http://localhost:8000/api/posts');
       const { data } = res;
 
-      const postsData = data?.posts;
+      // const postsData = data?.posts;
 
-      if (!postsData) return;
+      if (!data) return;
 
-      setPosts(postsData);
+      setPosts(data);
     } catch (err) {
       console.log(err);
     }
