@@ -10,6 +10,7 @@ import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 import axios from 'axios';
+import { getData } from '../lib/api';
 
 const Homepage = () => {
   const [recentPost, setRecentPost] = useState({});
@@ -40,34 +41,41 @@ const Homepage = () => {
     ],
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const postsRes = await axios.get('http://localhost:8000/api/posts');
-      const sliderRes = await axios.get('http://localhost:8000/api/slider');
-      const pinnedPostsRes = await axios.get(
-        'http://localhost:8000/api/pinned-posts',
-      );
-      const archivesRes = await axios.get('http://localhost:8000/api/archives');
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const postsRes = await axios.get('http://localhost:8000/api/posts');
+  //     const sliderRes = await axios.get('http://localhost:8000/api/slider');
+  //     const pinnedPostsRes = await axios.get(
+  //       'http://localhost:8000/api/pinned-posts',
+  //     );
+  //     const archivesRes = await axios.get('http://localhost:8000/api/archives');
 
-      const postsData = postsRes?.data?.posts;
-      const sliderData = sliderRes?.data?.carouselItems;
-      const pinnedPostsData = pinnedPostsRes?.data;
-      const archivesData = archivesRes?.data;
+  //     const postsData = postsRes?.data;
+  //     const sliderData = sliderRes?.data;
+  //     const pinnedPostsData = pinnedPostsRes?.data;
+  //     const archivesData = archivesRes?.data;
 
-      const recentPostData = postsData.pop();
+  //     const recentPostData = postsData.pop();
 
-      setRecentPost(recentPostData);
-      setCarouselItems(sliderData);
-      setPinnedPosts(pinnedPostsData);
-      setArchives(archivesData);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  //     setRecentPost(recentPostData);
+  //     setCarouselItems(sliderData);
+  //     setPinnedPosts(pinnedPostsData);
+  //     setArchives(archivesData);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getData('recent-post', setRecentPost);
+    getData('slider', setCarouselItems);
+    getData('pinned-posts', setPinnedPosts);
+    getData('archives', setArchives);
+  }, []);
 
   return (
     <>
