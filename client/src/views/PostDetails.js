@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Comments from '../components/Comments/Comments';
 import axios from 'axios';
 import { useAuth } from '../contexts/authContext';
+import { getData } from '../lib/api';
 
 const PostDetails = () => {
   const params = useParams();
@@ -20,20 +21,24 @@ const PostDetails = () => {
   const [post, setPost] = useState({});
   const [comment, setComment] = useState('');
 
-  const getData = useCallback(async () => {
-    try {
-      const res = await axios.get(`http://localhost:8000/api/posts/${postId}`);
-      const data = res.data;
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:8000/api/posts/${postId}`);
+  //     const data = res.data;
 
-      setPost(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [postId]);
+  //     setPost(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [postId]);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getData(`posts/${postId}`, setPost);
+  }, [postId]);
 
   const handleAddComment = async (e) => {
     e.preventDefault();
