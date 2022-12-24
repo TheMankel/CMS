@@ -65,6 +65,7 @@ const Drawer = styled(MuiDrawer, {
 const MainAdmin = () => {
   const [open, setOpen] = useState(true);
   const [title, setTitle] = useState('');
+
   const toggleDrawer = () => {
     setOpen(!open);
   };

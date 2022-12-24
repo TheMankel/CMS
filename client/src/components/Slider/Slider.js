@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 
 const Slider = (props) => {
   const { items } = props;
+
   return (
     <Carousel animation='slide' sx={{ marginTop: '24px' }}>
       {items.map((item, i) => (

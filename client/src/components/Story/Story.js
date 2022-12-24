@@ -9,9 +9,6 @@ import TeamWorkingIllustration from '../../svg/TeamWorking';
 
 const Story = (props) => {
   const { primaryText, secondaryText, loading } = props;
-  // const primaryText = 'We travel around the world and blog about it!';
-  // const secondaryText =
-  //   'We were in every continent on the world and made a movie about it! We are also blogging every bit of our life here for five years already.';
 
   return (
     <Box>

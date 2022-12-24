@@ -24,7 +24,7 @@ const Form = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
