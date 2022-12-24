@@ -25,6 +25,7 @@ import {
   downloadImage,
   deleteImage,
 } from '../../lib/storage';
+import { getData } from '../../lib/api';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -105,7 +106,8 @@ const ManagePosts = () => {
     setPostImage(null);
     setPostText('');
     setNewPost(true);
-    getData();
+    // getData();
+    getData('posts', setPosts);
   };
 
   const handleEditPost = async (e) => {
@@ -146,27 +148,32 @@ const ManagePosts = () => {
     } catch (err) {
       console.log(err);
     }
-    getData();
+    // getData();
+    getData('posts', setPosts);
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const res = await axios.get('http://localhost:8000/api/posts');
-      const { data } = res;
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const res = await axios.get('http://localhost:8000/api/posts');
+  //     const { data } = res;
 
-      // const postsData = data?.posts;
+  //     // const postsData = data?.posts;
 
-      if (!data) return;
+  //     if (!data) return;
 
-      setPosts(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  //     setPosts(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getData('posts', setPosts);
+  }, []);
 
   return (
     <Box
