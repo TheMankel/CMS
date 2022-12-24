@@ -8,49 +8,54 @@ import Box from '@mui/material/Box';
 import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
 import NoDataFound from './NoDataFound';
 import axios from 'axios';
+import { getData } from '../lib/api';
 
 const Posts = () => {
   const { yearId = '', monthId = '' } = useParams();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const url =
     monthId === '' && yearId === ''
       ? 'posts'
       : `posts/archives/${yearId}/${monthId}`;
 
+  const resPerPage = 4;
+  const count = Math.ceil(posts.length / resPerPage);
+
   const handleChange = (e, value) => {
     setPage(value);
   };
 
-  const resPerPage = 4;
-  const count = Math.ceil(posts.length / resPerPage);
+  // const getData = useCallback(async () => {
+  //   setLoading(false);
+  //   try {
+  //     const res = await axios.get(`http://localhost:8000/api/${url}`);
+  //     const { data } = res;
 
-  const getData = useCallback(async () => {
-    setLoading(false);
-    try {
-      const res = await axios.get(`http://localhost:8000/api/${url}`);
-      const { data } = res;
+  //     // const postsData = data?.posts;
 
-      const postsData = data?.posts;
+  //     if (!data) return;
 
-      if (!postsData) return;
+  //     setPosts(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   setLoading(true);
+  // }, [url]);
 
-      setPosts(postsData);
-    } catch (err) {
-      console.log(err);
-    }
-    setLoading(true);
-  }, [url]);
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    getData(url, setPosts, setLoading);
+  }, [url]);
 
   return (
     <Container maxWidth='lg'>
-      {loading && count > 0 && (
+      {!loading && count > 0 && (
         <Box>
           <Grid
             container
@@ -73,7 +78,7 @@ const Posts = () => {
           </Box>
         </Box>
       )}
-      {loading && !count && (
+      {!loading && !count && (
         <NoDataFound message='Looks like no posts were found.' />
       )}
     </Container>
