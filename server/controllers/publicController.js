@@ -112,12 +112,10 @@ const slider = async (req, res, next) => {
       .collection('carouselItems')
       .get();
 
-    const data = {
-      carouselItems: [],
-    };
+    const data = [];
 
     sliderRef.forEach((item) => {
-      data.carouselItems.push(item.data());
+      data.push(item.data());
     });
 
     return res.status(200).json(data);
@@ -129,17 +127,32 @@ const slider = async (req, res, next) => {
 
 const allPosts = async (req, res, next) => {
   try {
-    const postsRef = await postsCollectionRef.orderBy('date', 'asc').get();
+    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
 
-    const data = {
-      posts: [],
-    };
+    const data = [];
 
     postsRef.forEach((post) => {
-      data.posts.push(post.data());
+      data.push(post.data());
     });
 
     return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const recentPost = async (req, res, next) => {
+  try {
+    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
+
+    const data = [];
+
+    postsRef.forEach((post) => {
+      data.push(post.data());
+    });
+
+    return res.status(200).json(data.pop());
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -264,18 +277,16 @@ const archivesPosts = async (req, res, next) => {
 
     const postsRef = await postsCollectionRef.orderBy('date', 'asc').get();
 
-    const data = {
-      posts: [],
-    };
+    const data = [];
 
     postsRef.forEach((post) => {
       const postData = post.data();
       const words = [yearId, monthId];
-      const cos = words.every((word) =>
+      const condition = words.every((word) =>
         postData.date.toLowerCase().includes(word),
       );
-      console.log(cos);
-      if (cos) data.posts.push(postData);
+
+      if (condition) data.push(postData);
     });
 
     return res.status(200).json(data);
@@ -326,6 +337,7 @@ module.exports = {
   contact,
   slider,
   allPosts,
+  recentPost,
   postDetails,
   addComment,
   pinnedPosts,
