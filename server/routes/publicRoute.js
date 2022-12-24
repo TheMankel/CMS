@@ -8,6 +8,7 @@ const {
   contact,
   slider,
   allPosts,
+  recentPost,
   postDetails,
   addComment,
   pinnedPosts,
@@ -23,6 +24,7 @@ router.get('/about', about);
 router.get('/contact', contact);
 router.get('/slider', slider);
 router.get('/posts', allPosts);
+router.get('/recent-post', recentPost);
 router.get('/posts/:id', postDetails);
 router.post('/comment/:id', addComment);
 router.get('/pinned-posts', pinnedPosts);
