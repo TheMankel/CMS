@@ -61,13 +61,6 @@ const PinnedPosts = () => {
   // }, [getData]);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   const data = await getData('posts', setPosts);
-    //   console.log(data);
-    //   setPosts(data);
-    // };
-
-    // fetchData();
     getData('posts', setPosts);
   }, []);
 
