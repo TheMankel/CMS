@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Title from './Title';
 import axios from 'axios';
+import { getData } from '../../lib/api';
 
 const PinnedPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -41,23 +42,34 @@ const PinnedPosts = () => {
     setSecondPost('');
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const data = await axios.get('http://localhost:8000/api/posts');
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const data = await axios.get('http://localhost:8000/api/posts');
 
-      const postsData = data?.data?.posts;
+  //     const postsData = data?.data?.posts;
 
-      if (!postsData) return;
+  //     if (!postsData) return;
 
-      setPosts(postsData);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  //     setPosts(postsData);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getData();
+  // }, [getData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    // const fetchData = async () => {
+    //   const data = await getData('posts', setPosts);
+    //   console.log(data);
+    //   setPosts(data);
+    // };
+
+    // fetchData();
+    getData('posts', setPosts);
+  }, []);
 
   return (
     <Box
