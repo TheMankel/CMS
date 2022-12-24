@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider';
 import Story from '../components/Story/Story';
 import Team from '../components/Team/Team';
 import axios from 'axios';
+import { getData } from '../lib/api';
 
 const About = () => {
   const [primaryText, setPrimaryText] = useState('');
@@ -18,27 +19,37 @@ const About = () => {
   ]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = async () => {
-    try {
-      const res = await axios.get('http://localhost:8000/api/about');
-      const data = res?.data;
+  // const getData = async () => {
+  //   try {
+  //     const res = await axios.get('http://localhost:8000/api/about');
+  //     const data = res?.data;
 
-      // setPrimaryText(data?.data.storyText.primary);
-      // setSecondaryText(data?.data.storyText.secondary);
+  //     // setPrimaryText(data?.data.storyText.primary);
+  //     // setSecondaryText(data?.data.storyText.secondary);
 
-      setPrimaryText(data?.story.primary);
-      setSecondaryText(data?.story.secondary);
-      setTeam(data?.team);
+  //     setPrimaryText(data?.story.primary);
+  //     setSecondaryText(data?.story.secondary);
+  //     setTeam(data?.team);
 
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const handleData = (data) => {
+    setPrimaryText(data?.story.primary);
+    setSecondaryText(data?.story.secondary);
+    setTeam(data?.team);
   };
+
+  useEffect(() => {
+    getData('about', handleData, setLoading);
+  }, []);
 
   return (
     <>
