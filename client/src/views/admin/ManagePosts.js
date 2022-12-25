@@ -27,6 +27,7 @@ import {
   deleteImage,
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
+import { verifyImage } from '../../lib/file-type';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -53,7 +54,13 @@ const ManagePosts = () => {
 
   const handleUpload = async (e) => {
     console.log(e.target.files[0]);
+
     try {
+      const status = await verifyImage(e.target.files[0]);
+
+      console.log(status);
+      if (status !== 'Ok') return;
+
       const imageFile = e.target.files[0];
       if (!imageFile) return;
 
