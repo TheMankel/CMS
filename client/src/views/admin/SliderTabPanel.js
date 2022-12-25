@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
@@ -21,6 +22,7 @@ const SliderTabPanel = (props) => {
       if (!imageFile) return;
 
       setImage(imageFile);
+      e.target.value = '';
     } catch (err) {
       console.log(err);
     }
@@ -152,7 +154,7 @@ const SliderTabPanel = (props) => {
               sx={{ mt: 1 }}
             />
           </Box>
-          <Box alignSelf='center'>
+          {/* <Box alignSelf='center'>
             <Button
               variant='outlined'
               onClick={handleCancel}
@@ -172,7 +174,11 @@ const SliderTabPanel = (props) => {
               }}>
               Save
             </Button>
-          </Box>
+          </Box> */}
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
         </Box>
       )}
     </div>
