@@ -17,6 +17,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import {
@@ -57,6 +58,7 @@ const ManagePosts = () => {
       if (!imageFile) return;
 
       setPostImage(imageFile);
+      e.target.value = '';
     } catch (err) {
       console.log(err);
     }
@@ -107,7 +109,7 @@ const ManagePosts = () => {
     setPostText('');
     setNewPost(true);
     // getData();
-    getData('posts', setPosts);
+    await getData('posts', setPosts);
   };
 
   const handleEditPost = async (e) => {
@@ -149,7 +151,7 @@ const ManagePosts = () => {
       console.log(err);
     }
     // getData();
-    getData('posts', setPosts);
+    await getData('posts', setPosts);
   };
 
   // const getData = useCallback(async () => {
@@ -293,6 +295,11 @@ const ManagePosts = () => {
                   {newPost ? 'Add new post' : 'Save edited post'}
                 </Button>
               </Box>
+              {/* <ActionButtons
+                secondTitle={newPost ? 'Add new post' : 'Save edited post'}
+                handleCancel={handleCancel}
+                handleUpdate={handleNewPost}
+              /> */}
             </Paper>
           </Grid>
           <Grid item xs={12}>
