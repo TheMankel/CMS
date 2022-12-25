@@ -26,7 +26,8 @@ export const downloadImage = async (ref, callback) => {
 
 export const getListImages = async (ref, callback) => {
   const listImages = await listAll(ref);
-  callback(listImages.items);
+  // callback(listImages.items);
+  return listImages.items;
 };
 
 export const downloadImages = async (ref, callback) => {
