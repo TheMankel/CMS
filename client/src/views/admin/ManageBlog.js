@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
@@ -19,8 +20,9 @@ const ManageBlog = () => {
     try {
       const logoFile = e.target.files[0];
       if (!logoFile) return;
-      console.log(logoFile);
+      // console.log(logoFile);
       setLogo(logoFile);
+      e.target.value = '';
     } catch (err) {
       console.log(err);
     }
@@ -110,7 +112,7 @@ const ManageBlog = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Box alignSelf='center'>
+              {/* <Box alignSelf='center'>
                 <Button
                   variant='outlined'
                   onClick={handleCancel}
@@ -130,7 +132,11 @@ const ManageBlog = () => {
                   }}>
                   Update
                 </Button>
-              </Box>
+              </Box> */}
+              <ActionButtons
+                handleCancel={handleCancel}
+                handleUpdate={handleUpdate}
+              />
             </Paper>
           </Grid>
         </Grid>
