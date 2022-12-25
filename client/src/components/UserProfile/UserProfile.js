@@ -44,6 +44,7 @@ const UserProfile = () => {
       await uploadImage(userImagesRef, imageFile);
       const img = await downloadImage(userImagesRef);
       handleImageChange(img);
+      e.target.value = '';
     } catch (err) {
       console.log(err);
     }
