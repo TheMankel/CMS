@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import { getData } from '../../lib/api';
@@ -133,7 +134,7 @@ const PinnedPosts = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Box alignSelf='center'>
+              {/* <Box alignSelf='center'>
                 <Button
                   variant='outlined'
                   onClick={handleCancel}
@@ -153,7 +154,11 @@ const PinnedPosts = () => {
                   }}>
                   Save
                 </Button>
-              </Box>
+              </Box> */}
+              <ActionButtons
+                handleCancel={handleCancel}
+                handleUpdate={handleUpdate}
+              />
             </Paper>
           </Grid>
         </Grid>
