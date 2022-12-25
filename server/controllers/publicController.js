@@ -144,7 +144,7 @@ const allPosts = async (req, res, next) => {
 
 const recentPost = async (req, res, next) => {
   try {
-    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
+    const postsRef = await postsCollectionRef.orderBy('created', 'asc').get();
 
     const data = [];
 
@@ -249,7 +249,7 @@ const pinnedPosts = async (req, res, next) => {
 
 const archives = async (req, res, next) => {
   try {
-    const postsRef = await postsCollectionRef.orderBy('date', 'desc').get();
+    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
 
     const dates = [];
 
@@ -258,7 +258,15 @@ const archives = async (req, res, next) => {
       const string = postData.date.split(' ');
       const date = string[0] + ' ' + string[2];
 
-      if (!dates.includes(date))
+      // if (!dates.includes(date)) {
+      //   console.log(item);
+      //   dates.push({
+      //     title: date,
+      //   });
+      // }
+      const isDuplicate = dates.some((item) => item.title === date);
+
+      if (!isDuplicate)
         dates.push({
           title: date,
         });
@@ -275,7 +283,7 @@ const archivesPosts = async (req, res, next) => {
   try {
     const { yearId, monthId } = req.params;
 
-    const postsRef = await postsCollectionRef.orderBy('date', 'asc').get();
+    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
 
     const data = [];
 

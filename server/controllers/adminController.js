@@ -63,6 +63,15 @@ const newPost = async (req, res, next) => {
   try {
     const { description, image, text, title } = req.body;
 
+    const postRef = await postsCollectionRef.where('title', '==', title).get();
+
+    console.log(postRef.empty);
+
+    if (!postRef.empty)
+      return res.json({
+        error: 'Post with same title already exists!',
+      });
+
     const date = new Date();
 
     const shortDate = date.toLocaleString('en-US', {
@@ -83,7 +92,8 @@ const newPost = async (req, res, next) => {
 
     const postTitle = title?.toLowerCase().replace(' ', '-');
 
-    postsCollectionRef.doc(postTitle).set(data);
+    await postsCollectionRef.doc(postTitle).set(data);
+
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
@@ -104,7 +114,8 @@ const editPost = async (req, res, next) => {
 
     const postTitle = title?.toLowerCase().replace(' ', '-');
 
-    postsCollectionRef.doc(postTitle).update(data);
+    await postsCollectionRef.doc(postTitle).update(data);
+
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
@@ -118,7 +129,7 @@ const deletePost = async (req, res, next) => {
     console.log(id);
 
     const postRef = postsCollectionRef.doc(id);
-    postRef.delete();
+    await postRef.delete();
 
     return res.status(200).json('Post deleted!');
   } catch (err) {
@@ -174,7 +185,7 @@ const updatePinnedPosts = async (req, res, next) => {
       secondPost: secondPost,
     };
 
-    pinnedPostsRef.update(data);
+    await pinnedPostsRef.update(data);
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
