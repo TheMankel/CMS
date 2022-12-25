@@ -25,6 +25,7 @@ import {
   uploadImage,
   downloadImage,
   deleteImage,
+  getListImages,
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
@@ -86,7 +87,14 @@ const ManagePosts = () => {
 
     try {
       const title = postTitle?.toLowerCase().replace(' ', '-');
+      const allPostImagesRef = createRef(`postImages`);
       const postImagesRef = createRef(`postImages/${title}`);
+
+      const uploadedImages = await getListImages(allPostImagesRef);
+      const isDuplicate = uploadedImages.some((image) => image.name === title);
+      console.log(isDuplicate);
+
+      if (isDuplicate && newPost) return;
 
       if (postImage instanceof File)
         await uploadImage(postImagesRef, postImage);
@@ -204,7 +212,7 @@ const ManagePosts = () => {
               component='form'
               noValidate
               autoComplete='off'
-              onSubmit={handleNewPost}
+              // onSubmit={handleNewPost}
               sx={{
                 p: 2,
                 display: 'flex',
@@ -282,7 +290,7 @@ const ManagePosts = () => {
                 placeholder='Write something'
                 modules={modules}
               />
-              <Box alignSelf='center'>
+              {/* <Box alignSelf='center'>
                 <Button
                   variant='outlined'
                   onClick={handleCancel}
@@ -301,12 +309,12 @@ const ManagePosts = () => {
                   }}>
                   {newPost ? 'Add new post' : 'Save edited post'}
                 </Button>
-              </Box>
-              {/* <ActionButtons
+              </Box> */}
+              <ActionButtons
                 secondTitle={newPost ? 'Add new post' : 'Save edited post'}
                 handleCancel={handleCancel}
                 handleUpdate={handleNewPost}
-              /> */}
+              />
             </Paper>
           </Grid>
           <Grid item xs={12}>
