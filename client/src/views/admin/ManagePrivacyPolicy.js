@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 
@@ -63,7 +64,7 @@ const PrivacyPolicy = () => {
                 onChange={setContent}
                 placeholder='Write something'
               />
-              <Box alignSelf='center'>
+              {/* <Box alignSelf='center'>
                 <Button
                   variant='outlined'
                   onClick={handleCancel}
@@ -83,7 +84,11 @@ const PrivacyPolicy = () => {
                   }}>
                   Update
                 </Button>
-              </Box>
+              </Box> */}
+              <ActionButtons
+                handleCancel={handleCancel}
+                handleUpdate={handleUpdate}
+              />
               <Box>
                 <Title>Preview the current privacy policy</Title>
               </Box>
