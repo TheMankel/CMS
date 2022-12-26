@@ -54,16 +54,14 @@ const ManagePosts = () => {
   };
 
   const handleUpload = async (e) => {
-    console.log(e.target.files[0]);
-
     try {
-      const status = await verifyImage(e.target.files[0]);
+      const imageFile = e.target.files[0];
+      const status = await verifyImage(imageFile);
 
       console.log(status);
-      if (status !== 'Ok') return;
+      if (status !== 'Ok' || !imageFile) return;
 
-      const imageFile = e.target.files[0];
-      if (!imageFile) return;
+      // if (!imageFile) return;
 
       setPostImage(imageFile);
       e.target.value = '';
