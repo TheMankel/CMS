@@ -8,51 +8,50 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-const FeaturedPost = (props) => {
-  const { post } = props;
+const FeaturedCard = (props) => {
+  const { item, url = '/', text = '' } = props;
 
   return (
     <Grid item xs={12} md={6}>
       <CardActionArea
         component={NavLink}
-        to={'/posts/' + post.title?.toLowerCase().replace(' ', '-')}>
+        to={url + item.title?.toLowerCase().replace(' ', '-')}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component='h2' variant='h5'>
-              {post.title}
+              {item.title}
             </Typography>
             <Typography
               component='p'
               variant='subtitle1'
               color='text.secondary'>
-              {post.date}
+              {item.date}
             </Typography>
             <Typography variant='subtitle1' paragraph>
-              {post.description}
+              {item.description}
             </Typography>
             <Typography component='h3' variant='subtitle1' color='primary'>
-              Continue reading...
+              {text}
             </Typography>
           </CardContent>
           <CardMedia
             component='img'
+            image={item.image || 'https://source.unsplash.com/random'}
+            alt={item.title}
             sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
-            image={post.image}
-            alt={post.title}
           />
         </Card>
       </CardActionArea>
     </Grid>
   );
 };
-
-FeaturedPost.propTypes = {
-  post: PropTypes.shape({
+FeaturedCard.propTypes = {
+  item: PropTypes.shape({
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    // image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default FeaturedPost;
+export default FeaturedCard;
