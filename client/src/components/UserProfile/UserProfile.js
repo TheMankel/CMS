@@ -19,6 +19,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AboutSection from '../ProfileSections/AboutSection';
 import DeleteAccountSection from '../ProfileSections/DeleteAccountSection';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import { verifyImage } from '../../lib/file-type';
 import { useAuth } from '../../contexts/authContext';
 import axios from 'axios';
 
@@ -39,7 +40,12 @@ const UserProfile = () => {
   const handleUpload = async (e) => {
     try {
       const imageFile = e.target.files[0];
-      if (!imageFile) return;
+      const status = await verifyImage(imageFile);
+
+      console.log(status);
+      if (status !== 'Ok' || !imageFile) return;
+
+      // if (!imageFile) return;
 
       await uploadImage(userImagesRef, imageFile);
       const img = await downloadImage(userImagesRef);
