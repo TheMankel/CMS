@@ -25,6 +25,7 @@ import ManageAbout from './views/admin/ManageAbout';
 import ManageContact from './views/admin/ManageContact';
 import ManagePrivacyPolicy from './views/admin/ManagePrivacyPolicy';
 import PrivacyPolicy from './views/PrivacyPolicy';
+import Categories from './views/Categories';
 
 function App() {
   const { user, role } = useAuth();
@@ -36,6 +37,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/categories' element={<Categories />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/posts/:postId' element={<PostDetails />} />
           <Route path='/posts/archives/:yearId/:monthId' element={<Posts />} />
