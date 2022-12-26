@@ -23,11 +23,17 @@ const Sidebar = (props) => {
           component={NavLink}
           display='block'
           variant='body1'
+          underline='none'
           to={
             'posts/archives/' +
             archive.title?.toLowerCase()?.split(' ')?.join('/')
           }
-          key={archive.title}>
+          key={archive.title}
+          sx={{
+            '&:hover': {
+              opacity: 0.75,
+            },
+          }}>
           {archive.title}
         </Link>
       ))}
@@ -43,9 +49,15 @@ const Sidebar = (props) => {
               component={NavLink}
               display='block'
               variant='body1'
+              underline='none'
               to={network.url}
               key={network.name}
-              sx={{ mb: 0.5 }}>
+              sx={{
+                mb: 0.5,
+                '&:hover': {
+                  opacity: 0.75,
+                },
+              }}>
               <Stack direction='row' spacing={1} alignItems='center'>
                 <network.icon />
                 <span>{network.name}</span>
