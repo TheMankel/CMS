@@ -8,7 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
-import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
+import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
 import axios from 'axios';
 import { getData } from '../lib/api';
 
@@ -84,7 +84,12 @@ const Homepage = () => {
         <main>
           <Grid container spacing={4} sx={{ mt: 1 }}>
             {pinnedPosts?.map((post) => (
-              <FeaturedPost key={post?.title} post={post} />
+              <FeaturedCard
+                key={post?.title}
+                item={post}
+                url='/posts/'
+                text='Continue reading...'
+              />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ my: 3 }}>
