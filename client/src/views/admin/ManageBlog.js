@@ -11,6 +11,7 @@ import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import { verifyImage } from '../../lib/file-type';
 
 const ManageBlog = () => {
   const [blogName, setBlogName] = useState('');
@@ -19,8 +20,13 @@ const ManageBlog = () => {
   const handleUpload = async (e) => {
     try {
       const logoFile = e.target.files[0];
-      if (!logoFile) return;
-      // console.log(logoFile);
+      const status = await verifyImage(logoFile);
+
+      console.log(status);
+      if (status !== 'Ok' || !logoFile) return;
+
+      // if (!logoFile) return;
+
       setLogo(logoFile);
       e.target.value = '';
     } catch (err) {
