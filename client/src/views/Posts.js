@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import FeaturedPost from '../components/FeaturedPost/FeaturedPost';
+import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
 import NoDataFound from './NoDataFound';
 import axios from 'axios';
 import { getData } from '../lib/api';
@@ -65,9 +65,11 @@ const Posts = () => {
             {posts
               ?.slice((page - 1) * resPerPage, page * resPerPage)
               ?.map((post) => (
-                <FeaturedPost
+                <FeaturedCard
                   key={post?.title?.toLowerCase()?.replace(' ', '-')}
-                  post={post}
+                  item={post}
+                  url='/posts/'
+                  text='Continue reading...'
                 />
               ))}
           </Grid>
