@@ -153,12 +153,27 @@ const SignIn = () => {
                     <Link
                       component={NavLink}
                       to='/forgot-password'
-                      variant='body2'>
+                      underline='none'
+                      variant='body2'
+                      sx={{
+                        '&:hover': {
+                          opacity: 0.75,
+                        },
+                      }}>
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link component={NavLink} to='/register' variant='body2'>
+                    <Link
+                      component={NavLink}
+                      to='/register'
+                      underline='none'
+                      variant='body2'
+                      sx={{
+                        '&:hover': {
+                          opacity: 0.75,
+                        },
+                      }}>
                       Don't have an account? Sign Up
                     </Link>
                   </Grid>

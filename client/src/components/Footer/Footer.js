@@ -41,9 +41,15 @@ const Footer = (props) => {
                     color='#424245'
                     variant='p'
                     underline='none'
+                    // underline='hover'
                     key={index}
                     to={link.url}
-                    textTransform='capitalize'>
+                    textTransform='capitalize'
+                    sx={{
+                      '&:hover': {
+                        opacity: 0.75,
+                      },
+                    }}>
                     {link.title}
                   </Link>
                 ))}

@@ -80,7 +80,12 @@ const RecentPost = (props) => {
             variant='subtitle1'
             color='primary'
             underline='none'
-            textTransform='capitalize'>
+            textTransform='capitalize'
+            sx={{
+              '&:hover': {
+                opacity: 0.75,
+              },
+            }}>
             Continue reading...
           </Link>
         </CardContent>

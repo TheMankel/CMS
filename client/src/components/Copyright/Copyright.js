@@ -12,7 +12,17 @@ const Copyright = (props) => {
       padding={2}
       {...props}>
       {'Copyright © '}
-      <Link component={NavLink} color='inherit' to={props.url}>
+      <Link
+        // underline='hover'
+        underline='none'
+        component={NavLink}
+        color='inherit'
+        to={props.url || '/'}
+        sx={{
+          '&:hover': {
+            opacity: 0.75,
+          },
+        }}>
         {props.title}
       </Link>{' '}
       {new Date().getFullYear()}

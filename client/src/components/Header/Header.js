@@ -92,8 +92,15 @@ const Header = (props) => {
                         color='inherit'
                         variant='button'
                         underline='none'
+                        // underline='hover'
                         to={section.url}
-                        sx={{ px: 1, flexShrink: 0 }}>
+                        sx={{
+                          px: 1,
+                          flexShrink: 0,
+                          '&:hover': {
+                            opacity: 0.75,
+                          },
+                        }}>
                         {section.title}
                       </Link>
                     </ListItemButton>
@@ -130,6 +137,9 @@ const Header = (props) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
+                '&:hover': {
+                  opacity: 0.75,
+                },
               }}>
               {logo && (
                 <img
@@ -168,7 +178,12 @@ const Header = (props) => {
                   underline='none'
                   key={section.title}
                   to={section.url}
-                  sx={{ px: 1 }}>
+                  sx={{
+                    px: 1,
+                    '&:hover': {
+                      opacity: 0.75,
+                    },
+                  }}>
                   {section.title}
                 </Link>
               ))}

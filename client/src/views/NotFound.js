@@ -53,7 +53,15 @@ const NotFound = () => {
                   Oops! Looks like you followed a bad link.
                   <br />
                   If you think this is a problem with us, please{' '}
-                  <Link component={NavLink} to={'/contact'} underline='none'>
+                  <Link
+                    component={NavLink}
+                    to={'/contact'}
+                    underline='none'
+                    sx={{
+                      '&:hover': {
+                        opacity: 0.75,
+                      },
+                    }}>
                     tell us
                   </Link>
                 </Typography>

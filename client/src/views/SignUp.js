@@ -146,7 +146,16 @@ const SignUp = () => {
               </Button>
               <Grid container justifyContent='flex-end'>
                 <Grid item>
-                  <Link component={NavLink} to='/login' variant='body2'>
+                  <Link
+                    component={NavLink}
+                    to='/login'
+                    underline='none'
+                    variant='body2'
+                    sx={{
+                      '&:hover': {
+                        opacity: 0.75,
+                      },
+                    }}>
                     Already have an account? Sign in
                   </Link>
                 </Grid>
