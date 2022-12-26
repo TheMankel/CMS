@@ -8,6 +8,7 @@ import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
+import { verifyImage } from '../../lib/file-type';
 
 const SliderTabPanel = (props) => {
   const { value, index, ...other } = props;
@@ -16,10 +17,14 @@ const SliderTabPanel = (props) => {
   const [name, setName] = useState('');
 
   const handleUpload = async (e) => {
-    console.log(e.target.files[0]);
     try {
       const imageFile = e.target.files[0];
-      if (!imageFile) return;
+      const status = await verifyImage(imageFile);
+
+      console.log(status);
+      if (status !== 'Ok' || !imageFile) return;
+
+      // if (!imageFile) return;
 
       setImage(imageFile);
       e.target.value = '';
