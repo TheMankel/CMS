@@ -21,7 +21,7 @@ import { useAuth } from '../../contexts/authContext';
 
 const ListItems = (props) => {
   const location = useLocation();
-  const { open, handleTitle } = props;
+  const { open, handleTitle, blog } = props;
   const [selectedIndex, setSelectedIndex] = useState(null);
   const navigate = useNavigate();
   const { signOutHandler } = useAuth();
@@ -124,6 +124,11 @@ const ListItems = (props) => {
   ];
 
   useEffect(() => {
+    const link = document.querySelector("link[rel~='icon']");
+
+    if (blog.title !== '') document.title = blog.title;
+    if (blog.logo !== '') link.href = blog.logo;
+
     const path = location.pathname.replace('/admin/', '');
     const items = mainListItems.concat(publicListItems);
 
@@ -135,7 +140,7 @@ const ListItems = (props) => {
 
     handleTitle(selectedItem?.id);
     setSelectedIndex(selectedItem?.index);
-  }, [location, handleTitle, mainListItems, publicListItems]);
+  }, [location, handleTitle, mainListItems, publicListItems, blog]);
 
   return (
     <>
