@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
 import NoDataFound from './NoDataFound';
-import axios from 'axios';
+// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const Posts = () => {

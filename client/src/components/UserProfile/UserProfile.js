@@ -34,7 +34,6 @@ const UserProfile = () => {
   useEffect(() => {
     setImage(user?.photoURL);
     setUserName(user?.displayName);
-    // console.log(user);
   }, [user]);
 
   const handleUpload = async (e) => {
@@ -44,8 +43,6 @@ const UserProfile = () => {
 
       console.log(status);
       if (status !== 'Ok' || !imageFile) return;
-
-      // if (!imageFile) return;
 
       await uploadImage(userImagesRef, imageFile);
       const img = await downloadImage(userImagesRef);

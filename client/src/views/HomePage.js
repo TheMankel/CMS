@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -9,7 +9,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
-import axios from 'axios';
+// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const Homepage = () => {

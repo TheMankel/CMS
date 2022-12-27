@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Story from '../components/Story/Story';
 import Team from '../components/Team/Team';
-import axios from 'axios';
+// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const About = () => {

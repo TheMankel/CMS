@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import axios from 'axios';
+// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const MainPublic = (props) => {

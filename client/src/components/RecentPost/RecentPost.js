@@ -1,9 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-// import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -18,12 +17,8 @@ const RecentPost = (props) => {
     .slice(0, 5)
     .join('');
 
-  // console.log(postText);
   return (
     <Grid item xs={12} md={8}>
-      {/* <Typography component='h4' variant='h5' gutterBottom>
-        {post.title}
-      </Typography> */}
       <Card sx={{ flex: 1 }}>
         <CardMedia
           image={post?.image}
@@ -61,15 +56,10 @@ const RecentPost = (props) => {
             </CardContent>
           </div>
         </CardMedia>
-        {/* <Divider sx={{ mb: 1 }} /> */}
-        {/* <Typography variant='subtitle1' paragraph>
-        {post.description}
-      </Typography> */}
         <CardContent sx={{ flex: 1 }}>
           <Box>
             <div
               dangerouslySetInnerHTML={{
-                // __html: post?.text?.replace('<br>', '<br/>'),
                 __html: postText,
               }}
             />
@@ -94,14 +84,13 @@ const RecentPost = (props) => {
   );
 };
 
-// RecentPost.propTypes = {
-//   post: PropTypes.shape({
-//     date: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired,
-//     imageLabel: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
+RecentPost.propTypes = {
+  post: PropTypes.shape({
+    // date: PropTypes.string.isRequired,
+    // description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default RecentPost;

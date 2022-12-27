@@ -30,6 +30,7 @@ const AboutSection = (props) => {
   };
 
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setSelectedInfoIndex(-1);

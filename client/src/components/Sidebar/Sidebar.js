@@ -73,7 +73,6 @@ Sidebar.propTypes = {
   archives: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      // url: PropTypes.string.isRequired,
     }),
   ).isRequired,
   social: PropTypes.arrayOf(
