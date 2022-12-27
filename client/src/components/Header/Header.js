@@ -33,8 +33,13 @@ const Header = (props) => {
     window.removeEventListener('scroll', onScroll);
     window.addEventListener('scroll', onScroll, { passive: true });
 
+    const link = document.querySelector("link[rel~='icon']");
+
+    if (title !== '') document.title = title;
+    if (logo !== '') link.href = logo;
+
     return () => window.removeEventListener('scroll', onScroll);
-  }, [showDetailed]);
+  }, [showDetailed, title, logo]);
 
   const signOut = () => {
     signOutHandler();
