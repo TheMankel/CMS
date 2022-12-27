@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItems from '../views/admin/ListItems';
+import { getData } from '../lib/api';
 
 const drawerWidth = 240;
 
@@ -65,10 +66,15 @@ const Drawer = styled(MuiDrawer, {
 const MainAdmin = () => {
   const [open, setOpen] = useState(true);
   const [title, setTitle] = useState('');
+  const [blog, setBlog] = useState('');
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    getData('blog', setBlog);
+  }, []);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -125,7 +131,7 @@ const MainAdmin = () => {
             overflowX: 'hidden',
             maxHeight: 'calc(100vh - 4.1em)',
           }}>
-          <ListItems open={open} handleTitle={setTitle} />
+          <ListItems open={open} handleTitle={setTitle} blog={blog} />
         </List>
       </Drawer>
       <Outlet />
