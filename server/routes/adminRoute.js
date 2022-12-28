@@ -14,6 +14,7 @@ const {
   updateUser,
   deleteUser,
   updatePolicy,
+  updateContact,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -28,5 +29,6 @@ router.post('/slider/:id', updateSlider);
 router.get('/users/:id', users);
 router.post('/update-user/:id', updateUser);
 router.get('/delete-user/:id', deleteUser);
+router.post('/update-contact', updateContact);
 
 module.exports = router;
