@@ -275,6 +275,26 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const updateContact = async (req, res, next) => {
+  try {
+    const { email, phone } = req.body;
+
+    const contactRef = blogCollectionRef.doc('contact');
+
+    const data = {
+      email: email,
+      phone: phone,
+    };
+
+    await contactRef.update(data);
+
+    return res.status(200).json('Contact changed');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -288,4 +308,5 @@ module.exports = {
   users,
   updateUser,
   deleteUser,
+  updateContact,
 };
