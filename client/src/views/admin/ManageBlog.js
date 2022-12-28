@@ -42,7 +42,7 @@ const ManageBlog = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!logo && !blogName) return;
+    if (!logo || !blogName) return;
 
     try {
       // const title = blogName?.toLowerCase().replace(' ', '-');
