@@ -17,6 +17,10 @@ const Homepage = () => {
   const [carouselItems, setCarouselItems] = useState([]);
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [archives, setArchives] = useState([]);
+  const [isLoadingRecent, setIsLoadingRecent] = useState(true);
+  const [isLoadingCarousel, setIsLoadingCarousel] = useState(true);
+  const [isLoadingPinned, setIsLoadingPinned] = useState(true);
+  const [isLoadingArchives, setIsLoadingArchives] = useState(true);
 
   const sidebar = {
     // archives: [
@@ -71,16 +75,16 @@ const Homepage = () => {
   // }, [getData]);
 
   useEffect(() => {
-    getData('recent-post', setRecentPost);
-    getData('slider', setCarouselItems);
-    getData('pinned-posts', setPinnedPosts);
-    getData('archives', setArchives);
+    getData('recent-post', setRecentPost, setIsLoadingRecent);
+    getData('slider', setCarouselItems, setIsLoadingCarousel);
+    getData('pinned-posts', setPinnedPosts, setIsLoadingPinned);
+    getData('archives', setArchives, setIsLoadingArchives);
   }, []);
 
   return (
     <>
       <Container maxWidth='lg'>
-        <Slider items={carouselItems} />
+        <Slider items={carouselItems} isLoading={isLoadingCarousel} />
         <main>
           <Grid container spacing={4} sx={{ mt: 1 }}>
             {pinnedPosts?.map((post) => (
