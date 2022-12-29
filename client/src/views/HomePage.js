@@ -93,11 +93,12 @@ const Homepage = () => {
                 item={post}
                 url='/posts/'
                 text='Continue reading...'
+                isLoading={isLoadingPinned}
               />
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ my: 3 }}>
-            <RecentPost post={recentPost} />
+            <RecentPost post={recentPost} isLoading={isLoadingRecent} />
             <Sidebar archives={sidebar.archives} social={sidebar.social} />
           </Grid>
         </main>
