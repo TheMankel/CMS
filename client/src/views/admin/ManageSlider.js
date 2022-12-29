@@ -15,15 +15,6 @@ const SliderAdmin = () => {
     setValue(newValue);
   };
 
-  const handleNewPost = async (e) => {
-    e.preventDefault();
-
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Box
       component='main'
@@ -40,11 +31,7 @@ const SliderAdmin = () => {
       <Container maxWidth='lg' sx={{ my: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper
-              component='form'
-              noValidate
-              autoComplete='off'
-              onSubmit={handleNewPost}>
+            <Paper>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
                   value={value}
@@ -58,10 +45,6 @@ const SliderAdmin = () => {
               </Box>
             </Paper>
             <Paper
-              component='form'
-              noValidate
-              autoComplete='off'
-              onSubmit={handleNewPost}
               sx={{
                 p: 2,
                 display: 'flex',
