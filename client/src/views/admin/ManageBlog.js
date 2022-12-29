@@ -60,6 +60,11 @@ const ManageBlog = () => {
       await axios.post('http://localhost:8000/api/update-blog', data, {
         withCredentials: true,
       });
+
+      const link = document.querySelector("link[rel~='icon']");
+
+      document.title = blogName;
+      link.href = logoUrl;
     } catch (err) {
       console.log(err);
     }
