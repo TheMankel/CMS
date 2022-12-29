@@ -70,6 +70,7 @@ const FeaturedCard = (props) => {
     </Grid>
   );
 };
+
 FeaturedCard.propTypes = {
   item: PropTypes.shape({
     date: PropTypes.string.isRequired,
