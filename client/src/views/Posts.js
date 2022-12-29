@@ -14,7 +14,7 @@ const Posts = () => {
   const { yearId = '', monthId = '' } = useParams();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const url =
     monthId === '' && yearId === ''
@@ -29,7 +29,7 @@ const Posts = () => {
   };
 
   // const getData = useCallback(async () => {
-  //   setLoading(false);
+  //   setIsLoading(false);
   //   try {
   //     const res = await axios.get(`http://localhost:8000/api/${url}`);
   //     const { data } = res;
@@ -42,7 +42,7 @@ const Posts = () => {
   //   } catch (err) {
   //     console.log(err);
   //   }
-  //   setLoading(true);
+  //   setIsLoading(true);
   // }, [url]);
 
   // useEffect(() => {
@@ -50,12 +50,31 @@ const Posts = () => {
   // }, [getData]);
 
   useEffect(() => {
-    getData(url, setPosts, setLoading);
+    getData(url, setPosts, setIsLoading);
   }, [url]);
 
   return (
     <Container maxWidth='lg'>
-      {!loading && count > 0 && (
+      {isLoading && (
+        <Box>
+          <Grid container spacing={6} minHeight={240} sx={{ mt: 1 }}>
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+          </Grid>
+          <Box margin={3} display={'flex'} justifyContent={'center'}>
+            <Stack spacing={2}>
+              <Pagination count={1} page={page} />
+            </Stack>
+          </Box>
+        </Box>
+      )}
+      {!isLoading && count > 0 && (
         <Box>
           <Grid
             container
@@ -80,7 +99,7 @@ const Posts = () => {
           </Box>
         </Box>
       )}
-      {!loading && !count && (
+      {!isLoading && !count && (
         <NoDataFound message='Looks like no posts were found.' />
       )}
     </Container>
