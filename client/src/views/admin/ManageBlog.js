@@ -36,7 +36,7 @@ const ManageBlog = () => {
 
   const handleCancel = () => {
     setBlogName('');
-    setLogo('none');
+    setLogo(null);
   };
 
   const handleUpdate = async (e) => {
@@ -64,7 +64,7 @@ const ManageBlog = () => {
       console.log(err);
     }
     setBlogName('');
-    setLogo('none');
+    setLogo(null);
   };
 
   return (
