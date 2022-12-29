@@ -13,7 +13,32 @@ const Slider = (props) => {
   return (
     <>
       {isLoading && (
-        <Skeleton variant='rounded' height={340} sx={{ marginTop: '24px' }} />
+        // <Skeleton variant='rounded' height={340} sx={{ marginTop: '24px' }} />
+        <Card
+          sx={{ marginTop: '24px', backgroundColor: 'rgba(0, 0, 0, 0.11)' }}>
+          <Skeleton variant='rounded' height={340 - 118.8} />
+          <CardMedia>
+            <CardContent
+              sx={{
+                backgroundColor: 'rgba(0, 0, 0, 0.31)',
+                backgroundBlendMode: 'difference',
+                p: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+              <Skeleton
+                variant='rounded'
+                sx={{
+                  bgcolor: 'grey.400',
+                  my: 1,
+                  width: '50%',
+                  alignSelf: 'center',
+                }}
+              />
+              <Skeleton variant='rounded' sx={{ bgcolor: 'grey.400', my: 1 }} />
+            </CardContent>
+          </CardMedia>
+        </Card>
       )}
       {!isLoading && (
         <Carousel animation='slide' sx={{ marginTop: '24px', borderRadius: 1 }}>
