@@ -14,7 +14,7 @@ const Posts = () => {
   const { yearId = '', monthId = '' } = useParams();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const url =
     monthId === '' && yearId === ''
@@ -22,14 +22,14 @@ const Posts = () => {
       : `posts/archives/${yearId}/${monthId}`;
 
   const resPerPage = 4;
-  const count = Math.ceil(posts.length / resPerPage);
+  const count = Math.ceil(posts.length / resPerPage) || 1;
 
   const handleChange = (e, value) => {
     setPage(value);
   };
 
   // const getData = useCallback(async () => {
-  //   setLoading(false);
+  //   setIsLoading(false);
   //   try {
   //     const res = await axios.get(`http://localhost:8000/api/${url}`);
   //     const { data } = res;
@@ -42,7 +42,7 @@ const Posts = () => {
   //   } catch (err) {
   //     console.log(err);
   //   }
-  //   setLoading(true);
+  //   setIsLoading(true);
   // }, [url]);
 
   // useEffect(() => {
@@ -50,28 +50,41 @@ const Posts = () => {
   // }, [getData]);
 
   useEffect(() => {
-    getData(url, setPosts, setLoading);
+    getData(url, setPosts, setIsLoading);
   }, [url]);
 
   return (
     <Container maxWidth='lg'>
-      {!loading && count > 0 && (
+      {
         <Box>
           <Grid
             container
             spacing={6}
             minHeight={count > 2 ? 580 : 240}
             sx={{ mt: 1 }}>
-            {posts
-              ?.slice((page - 1) * resPerPage, page * resPerPage)
-              ?.map((post) => (
+            {!isLoading &&
+              posts
+                ?.slice((page - 1) * resPerPage, page * resPerPage)
+                ?.map((post) => (
+                  <FeaturedCard
+                    key={post?.title?.toLowerCase()?.replace(' ', '-')}
+                    item={post}
+                    url='/posts/'
+                    text='Continue reading...'
+                  />
+                ))}
+            {isLoading && (
+              <>
                 <FeaturedCard
-                  key={post?.title?.toLowerCase()?.replace(' ', '-')}
-                  item={post}
-                  url='/posts/'
-                  text='Continue reading...'
+                  item={{ title: '', date: '', description: '' }}
+                  isLoading={isLoading}
                 />
-              ))}
+                <FeaturedCard
+                  item={{ title: '', date: '', description: '' }}
+                  isLoading={isLoading}
+                />
+              </>
+            )}
           </Grid>
           <Box margin={3} display={'flex'} justifyContent={'center'}>
             <Stack spacing={2}>
@@ -79,8 +92,8 @@ const Posts = () => {
             </Stack>
           </Box>
         </Box>
-      )}
-      {!loading && !count && (
+      }
+      {!isLoading && !count && (
         <NoDataFound message='Looks like no posts were found.' />
       )}
     </Container>
