@@ -4,10 +4,18 @@ import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ActionButtons from './ActionButtons';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import TextField from '@mui/material/TextField';
 import Title from './Title';
 import axios from 'axios';
 
@@ -56,43 +64,52 @@ const PrivacyPolicy = () => {
             <Paper
               sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Box>
-                <Title>Edit Privacy Policy</Title>
-              </Box>
-              <ReactQuill
-                theme='snow'
-                value={content}
-                onChange={setContent}
-                placeholder='Write something'
-              />
-              {/* <Box alignSelf='center'>
-                <Button
+                <Title>Add rule title</Title>
+                <TextField
+                  id='set-chapterTitle'
+                  label='Write new chapter title'
                   variant='outlined'
-                  onClick={handleCancel}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  type='submit'
-                  onClick={handleUpdate}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Update
-                </Button>
-              </Box> */}
+                  fullWidth
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+              <Box>
+                <Title>Rule content</Title>
+              </Box>
+              <ReactQuill theme='snow' placeholder='Write rule content' />
               <ActionButtons
                 handleCancel={handleCancel}
                 handleUpdate={handleUpdate}
               />
-              <Box>
-                <Title>Preview the current privacy policy</Title>
-              </Box>
             </Paper>
+            <Grid item xs={12} mt={4}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>Privacy Policy rules</Title>
+                <Table size='small'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>id</TableCell>
+                      <TableCell>Rules</TableCell>
+                      <TableCell align='center'>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell align='center'>
+                        <IconButton aria-label='edit post' component='label'>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton aria-label='delete post' component='label'>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
