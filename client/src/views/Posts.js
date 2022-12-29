@@ -22,7 +22,7 @@ const Posts = () => {
       : `posts/archives/${yearId}/${monthId}`;
 
   const resPerPage = 4;
-  const count = Math.ceil(posts.length / resPerPage) || 1;
+  const count = Math.ceil(posts.length / resPerPage);
 
   const handleChange = (e, value) => {
     setPage(value);
@@ -55,36 +55,42 @@ const Posts = () => {
 
   return (
     <Container maxWidth='lg'>
-      {
+      {isLoading && (
+        <Box>
+          <Grid container spacing={6} minHeight={240} sx={{ mt: 1 }}>
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+          </Grid>
+          <Box margin={3} display={'flex'} justifyContent={'center'}>
+            <Stack spacing={2}>
+              <Pagination count={1} page={page} />
+            </Stack>
+          </Box>
+        </Box>
+      )}
+      {!isLoading && count > 0 && (
         <Box>
           <Grid
             container
             spacing={6}
             minHeight={count > 2 ? 580 : 240}
             sx={{ mt: 1 }}>
-            {!isLoading &&
-              posts
-                ?.slice((page - 1) * resPerPage, page * resPerPage)
-                ?.map((post) => (
-                  <FeaturedCard
-                    key={post?.title?.toLowerCase()?.replace(' ', '-')}
-                    item={post}
-                    url='/posts/'
-                    text='Continue reading...'
-                  />
-                ))}
-            {isLoading && (
-              <>
+            {posts
+              ?.slice((page - 1) * resPerPage, page * resPerPage)
+              ?.map((post) => (
                 <FeaturedCard
-                  item={{ title: '', date: '', description: '' }}
-                  isLoading={isLoading}
+                  key={post?.title?.toLowerCase()?.replace(' ', '-')}
+                  item={post}
+                  url='/posts/'
+                  text='Continue reading...'
                 />
-                <FeaturedCard
-                  item={{ title: '', date: '', description: '' }}
-                  isLoading={isLoading}
-                />
-              </>
-            )}
+              ))}
           </Grid>
           <Box margin={3} display={'flex'} justifyContent={'center'}>
             <Stack spacing={2}>
@@ -92,7 +98,7 @@ const Posts = () => {
             </Stack>
           </Box>
         </Box>
-      }
+      )}
       {!isLoading && !count && (
         <NoDataFound message='Looks like no posts were found.' />
       )}
