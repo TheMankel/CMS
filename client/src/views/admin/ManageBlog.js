@@ -104,6 +104,20 @@ const ManageBlog = () => {
               </Box>
               <Box display='flex' flexDirection='column' sx={{ mt: 2 }}>
                 <Title>Logo</Title>
+                {logo?.name && (
+                  <Box
+                    component='img'
+                    src={logo?.photo ? logo?.photo : URL?.createObjectURL(logo)}
+                    alt={logo?.name}
+                    sx={{
+                      objectFit: 'cover',
+                      width: '25%',
+                      alignSelf: 'center',
+                      borderRadius: 2,
+                      mb: 1,
+                    }}
+                  />
+                )}
                 <Button
                   id='upload-logo'
                   variant='contained'
