@@ -38,10 +38,10 @@ const Homepage = () => {
     // ],
     archives: archives,
     social: [
-      { name: 'GitHub', icon: GitHubIcon, url: '' },
-      { name: 'Twitter', icon: TwitterIcon, url: '' },
-      { name: 'Facebook', icon: FacebookIcon, url: '' },
-      { name: 'Instagram', icon: InstagramIcon, url: '' },
+      { name: 'GitHub', icon: GitHubIcon, url: '/' },
+      { name: 'Twitter', icon: TwitterIcon, url: '/' },
+      { name: 'Facebook', icon: FacebookIcon, url: '/' },
+      { name: 'Instagram', icon: InstagramIcon, url: '/' },
     ],
   };
 
@@ -99,7 +99,11 @@ const Homepage = () => {
           </Grid>
           <Grid container spacing={5} sx={{ my: 3 }}>
             <RecentPost post={recentPost} isLoading={isLoadingRecent} />
-            <Sidebar archives={sidebar.archives} social={sidebar.social} />
+            <Sidebar
+              archives={sidebar.archives}
+              social={sidebar.social}
+              isLoading={isLoadingArchives}
+            />
           </Grid>
         </main>
       </Container>
