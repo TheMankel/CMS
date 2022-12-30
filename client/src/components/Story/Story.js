@@ -8,45 +8,51 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TeamWorkingIllustration from '../../svg/TeamWorking';
 
 const Story = (props) => {
-  const { primaryText, secondaryText, loading } = props;
+  const { primaryText, secondaryText, isLoading } = props;
 
   return (
     <Box>
-      <Box marginBottom={4}>
+      <Box
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        marginBottom={4}>
         <Typography
-          component={'h2'}
+          component='h2'
           gutterBottom
-          color={'textSecondary'}
-          align={'center'}
+          color='textSecondary'
+          align='center'
           sx={{
             textTransform: 'uppercase',
             fontWeight: 'medium',
           }}>
-          Our story
+          Our Story
+          {/* {isLoading ? <Skeleton variant='text' width={200} /> : 'Our Story'} */}
         </Typography>
-        <Box px={2} align={'center'}>
+        <Box px={2} width='100%' align='center'>
           <Typography
-            variant={'h3'}
+            variant='h3'
             fontWeight={700}
             gutterBottom
-            align={'center'}
+            align='center'
             maxWidth='700px'>
-            {loading ? <Skeleton /> : primaryText}
+            {isLoading ? <Skeleton variant='text' /> : primaryText}
             {/* {primaryText} */}
           </Typography>
         </Box>
-        <Box px={2} align={'center'}>
+        <Box px={2} width='100%' align='center'>
           <Typography
-            variant={'h6'}
-            component={'p'}
-            color={'textSecondary'}
-            align={'center'}
+            variant='h6'
+            component='p'
+            color='textSecondary'
+            align='center'
             maxWidth='1000px'>
-            {loading ? <Skeleton /> : secondaryText}
+            {isLoading ? <Skeleton variant='text' /> : secondaryText}
             {/* {secondaryText} */}
           </Typography>
         </Box>
-        <Box marginTop={3} display={'flex'} justifyContent={'center'}>
+        <Box marginTop={3}>
           <Button
             component={NavLink}
             variant='contained'
@@ -59,17 +65,10 @@ const Story = (props) => {
             Contact us
           </Button>
         </Box>
-      </Box>
-      <Box
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        marginBottom={4}>
-        <Box height={'100%'} width={'100%'} maxWidth={600}>
-          <TeamWorkingIllustration height={'100%'} width={'100%'} />
+        <Box height='100%' width='100%' maxWidth={600} marginTop={4}>
+          <TeamWorkingIllustration height='100%' width='100%' />
         </Box>
       </Box>
-      <Box></Box>
     </Box>
   );
 };
