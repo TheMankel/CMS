@@ -315,6 +315,31 @@ const updateStory = async (req, res, next) => {
   }
 };
 
+const updateTeam = async (req, res, next) => {
+  try {
+    const { name, title, about, avatar } = req.body;
+
+    const aboutTeamRef = blogCollectionRef
+      .doc('about')
+      .collection('team')
+      .doc('0');
+
+    const data = {
+      name: name,
+      title: title,
+      about: about,
+      avatar: avatar,
+    };
+
+    await aboutTeamRef.update(data);
+
+    return res.status(200).json('Team member information updated');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -330,4 +355,5 @@ module.exports = {
   deleteUser,
   updateContact,
   updateStory,
+  updateTeam,
 };
