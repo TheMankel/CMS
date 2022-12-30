@@ -16,6 +16,7 @@ const {
   updatePolicy,
   updateContact,
   updateStory,
+  updateTeam,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -32,5 +33,6 @@ router.post('/update-user/:id', updateUser);
 router.get('/delete-user/:id', deleteUser);
 router.post('/update-contact', updateContact);
 router.post('/update-about-story', updateStory);
+router.post('/update-about-team', updateTeam);
 
 module.exports = router;
