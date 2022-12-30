@@ -16,18 +16,48 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import axios from 'axios';
+import {
+  createRef,
+  uploadImage,
+  downloadImage,
+  deleteImage,
+  getListImages,
+} from '../../lib/storage';
+import { getData } from '../../lib/api';
+import { verifyImage } from '../../lib/file-type';
 
 const AboutTabPanel = (props) => {
   const { value, index, ...other } = props;
   const [primary, setPrimary] = useState('');
   const [secondary, setSecondary] = useState('');
+  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
+  const [about, setAbout] = useState('');
+  const [avatar, setAvatar] = useState(null);
 
-  const handleCancel = () => {
+  const handleUpload = async (e) => {
+    try {
+      const avatarFile = e.target.files[0];
+      const status = await verifyImage(avatarFile);
+
+      console.log(status);
+      if (status !== 'Ok' || !avatarFile) return;
+
+      // if (!logoFile) return;
+
+      setAvatar(avatarFile);
+      e.target.value = '';
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCancelStory = () => {
     setPrimary('');
     setSecondary('');
   };
 
-  const handleUpdate = async (e) => {
+  const handleUpdateStory = async (e) => {
     e.preventDefault();
 
     if (!primary || !secondary) return;
@@ -46,6 +76,39 @@ const AboutTabPanel = (props) => {
     }
     setPrimary('');
     setSecondary('');
+  };
+
+  const handleCancelTeam = () => {
+    setName('');
+    setTitle('');
+    setAbout('');
+    setAvatar(null);
+  };
+
+  const handleUpdateTeam = async (e) => {
+    e.preventDefault();
+
+    if (!name || !title || !about || !avatar) return;
+
+    try {
+      const userAvatarRef = createRef('userImages/logo');
+
+      await uploadImage(userAvatarRef, avatar);
+      const avatarUrl = await downloadImage(userAvatarRef);
+
+      const data = {
+        name: name,
+        title: title,
+        about: about,
+        avatar: avatarUrl,
+      };
+
+      await axios.post('http://localhost:8000/api/update-about-team', data, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -88,8 +151,8 @@ const AboutTabPanel = (props) => {
             />
           </Box>
           <ActionButtons
-            handleCancel={handleCancel}
-            handleUpdate={handleUpdate}
+            handleCancel={handleCancelStory}
+            handleUpdate={handleUpdateStory}
           />
         </Grid>
       )}
@@ -111,6 +174,8 @@ const AboutTabPanel = (props) => {
                 id='set-title'
                 label='Write your name'
                 variant='outlined'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 fullWidth
                 sx={{ mt: 1 }}
               />
@@ -121,26 +186,35 @@ const AboutTabPanel = (props) => {
                 id='set-description'
                 label='Write your job title'
                 variant='outlined'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 fullWidth
                 sx={{ mt: 1 }}
               />
             </Box>
             <Box display='flex' flexDirection='column' gap={1}>
               <Title>Avatar</Title>
-              <Box
-                component='img'
-                sx={{
-                  objectFit: 'cover',
-                  width: '50%',
-                  alignSelf: 'center',
-                  borderRadius: 2,
-                  mb: 1,
-                }}
-              />
+              {avatar?.name && (
+                <Box
+                  component='img'
+                  src={
+                    avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)
+                  }
+                  alt={avatar?.name}
+                  sx={{
+                    objectFit: 'cover',
+                    width: '25%',
+                    alignSelf: 'center',
+                    borderRadius: 2,
+                    mb: 1,
+                  }}
+                />
+              )}
               <Button
                 id='upload-background'
                 variant='contained'
                 component='label'
+                onChange={handleUpload}
                 sx={{
                   alignSelf: 'center',
                   textTransform: 'none',
@@ -150,7 +224,9 @@ const AboutTabPanel = (props) => {
               </Button>
               <Box display='flex' gap={1}>
                 <Typography>Currently uploaded photo:</Typography>
-                <Typography color='GrayText'></Typography>
+                <Typography color='GrayText'>
+                  {avatar?.name ? avatar.name : 'none'}
+                </Typography>
               </Box>
             </Box>
             <Title>About</Title>
@@ -158,10 +234,15 @@ const AboutTabPanel = (props) => {
               id='set-secondary'
               label='Write about yourself'
               variant='outlined'
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
               fullWidth
               sx={{ mt: 1 }}
             />
-            <ActionButtons />
+            <ActionButtons
+              handleCancel={handleCancelTeam}
+              handleUpdate={handleUpdateTeam}
+            />
           </Grid>
           <Grid sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
             <Title>Team</Title>
