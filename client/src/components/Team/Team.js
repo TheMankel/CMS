@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { colors, Skeleton } from '@mui/material';
+import { colors } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -8,13 +8,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import Skeleton from '@mui/material/Skeleton';
 import IconButton from '@mui/material/IconButton';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Team = (props) => {
   const theme = useTheme();
-  const { team, loading } = props;
+  const { team, isLoading } = props;
 
   return (
     <Box>
@@ -59,7 +60,7 @@ const Team = (props) => {
                   height: '320px',
                 }}>
                 <Box align={'center'}>
-                  {loading ? (
+                  {isLoading ? (
                     <Skeleton variant='circular'>
                       <Avatar sx={{ height: 80, width: 80 }} />
                     </Skeleton>
@@ -72,7 +73,7 @@ const Team = (props) => {
                   )}
                 </Box>
                 <Box align={'center'}>
-                  {loading ? (
+                  {isLoading ? (
                     <Box>
                       <Skeleton />
                       <Skeleton />
@@ -92,7 +93,7 @@ const Team = (props) => {
                       </Typography>
                     </>
                   )}
-                  {loading ? (
+                  {isLoading ? (
                     <Box
                       mt={2}
                       sx={{

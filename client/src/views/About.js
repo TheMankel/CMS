@@ -17,7 +17,7 @@ const About = () => {
       about: '',
     },
   ]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   getData();
@@ -57,12 +57,12 @@ const About = () => {
         <Story
           primaryText={primaryText}
           secondaryText={secondaryText}
-          loading={loading}
+          isLoading={isLoading}
         />
       </Box>
       <Divider />
       <Box my={3}>
-        <Team team={team} loading={loading} />
+        <Team team={team} isLoading={isLoading} />
       </Box>
     </>
   );
