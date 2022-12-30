@@ -295,6 +295,26 @@ const updateContact = async (req, res, next) => {
   }
 };
 
+const updateStory = async (req, res, next) => {
+  try {
+    const { primary, secondary } = req.body;
+
+    const aboutRef = blogCollectionRef.doc('about');
+
+    const data = {
+      'story.primary': primary,
+      'story.secondary': secondary,
+    };
+
+    await aboutRef.update(data);
+
+    return res.status(200).json('Story updated');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -309,4 +329,5 @@ module.exports = {
   updateUser,
   deleteUser,
   updateContact,
+  updateStory,
 };

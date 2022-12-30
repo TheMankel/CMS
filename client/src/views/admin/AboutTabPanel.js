@@ -19,29 +19,33 @@ import axios from 'axios';
 
 const AboutTabPanel = (props) => {
   const { value, index, ...other } = props;
-  const [content, setContent] = useState('');
+  const [primary, setPrimary] = useState('');
+  const [secondary, setSecondary] = useState('');
 
   const handleCancel = () => {
-    setContent('');
+    setPrimary('');
+    setSecondary('');
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!content) return;
+    if (!primary || !secondary) return;
 
     try {
       const data = {
-        content: content,
+        primary: primary,
+        secondary: secondary,
       };
 
-      await axios.post('http://localhost:8000/api/update-policy', data, {
+      await axios.post('http://localhost:8000/api/update-about-story', data, {
         withCredentials: true,
       });
     } catch (err) {
       console.log(err);
     }
-    setContent('');
+    setPrimary('');
+    setSecondary('');
   };
 
   return (
@@ -65,6 +69,8 @@ const AboutTabPanel = (props) => {
               id='set-primary'
               label='Write your main story'
               variant='outlined'
+              value={primary}
+              onChange={(e) => setPrimary(e.target.value)}
               fullWidth
               sx={{ mt: 1 }}
             />
@@ -75,11 +81,16 @@ const AboutTabPanel = (props) => {
               id='set-secondary'
               label='Write your secondary story'
               variant='outlined'
+              value={secondary}
+              onChange={(e) => setSecondary(e.target.value)}
               fullWidth
               sx={{ mt: 1 }}
             />
           </Box>
-          <ActionButtons />
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
         </Grid>
       )}
       {value === 1 && (
