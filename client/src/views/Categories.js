@@ -11,7 +11,7 @@ import { getData } from '../lib/api';
 const Categories = () => {
   const [page, setPage] = useState(1);
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const resPerPage = 4;
   const count = Math.ceil(categories.length / resPerPage);
@@ -21,12 +21,31 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    getData('categories', setCategories, setLoading);
+    getData('categories', setCategories, setIsLoading);
   }, []);
 
   return (
     <Container maxWidth='lg'>
-      {!loading && count > 0 && (
+      {isLoading && (
+        <Box>
+          <Grid container spacing={6} minHeight={240} sx={{ mt: 1 }}>
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+            <FeaturedCard
+              item={{ title: '', date: '', description: '' }}
+              isLoading={isLoading}
+            />
+          </Grid>
+          <Box margin={3} display={'flex'} justifyContent={'center'}>
+            <Stack spacing={2}>
+              <Pagination count={1} page={page} />
+            </Stack>
+          </Box>
+        </Box>
+      )}
+      {!isLoading && count > 0 && (
         <Box>
           <Grid
             container
@@ -51,7 +70,7 @@ const Categories = () => {
           </Box>
         </Box>
       )}
-      {!loading && !count && (
+      {!isLoading && !count && (
         <NoDataFound message='Looks like no categories were found.' />
       )}
     </Container>
