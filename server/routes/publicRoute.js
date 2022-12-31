@@ -30,7 +30,7 @@ router.post('/comment/:id', addComment);
 router.get('/pinned-posts', pinnedPosts);
 router.get('/archives', archives);
 router.get('/posts/archives/:yearId/:monthId', archivesPosts);
-router.get('/update-policy', privacyPolicy);
+router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
 
 module.exports = router;
