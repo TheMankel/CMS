@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -30,7 +30,7 @@ const AboutTabPanel = (props) => {
   const { value, index, ...other } = props;
   const [primary, setPrimary] = useState('');
   const [secondary, setSecondary] = useState('');
-  const [members, setMembers] = useState([]);
+  const [team, setTeam] = useState([]);
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
@@ -123,7 +123,7 @@ const AboutTabPanel = (props) => {
     setAvatar(null);
     setNewMember(true);
     // Get Data
-    await getData('about', setMembers);
+    await getData('about', setTeam);
   };
 
   const handleEditTeam = async (e) => {
@@ -132,7 +132,7 @@ const AboutTabPanel = (props) => {
     setNewMember(false);
 
     const id = e.currentTarget?.id;
-    const memberToEdit = members?.find((member) => member.name === id);
+    const memberToEdit = team?.find((member) => member.name === id);
     console.log(memberToEdit);
     const image = {
       name: memberToEdit.name,
@@ -164,11 +164,17 @@ const AboutTabPanel = (props) => {
       console.log(err);
     }
     // getData();
-    await getData('about', setMembers);
+    await getData('about', setTeam);
+  };
+
+  const handleTeamData = (data) => {
+    // console.log(data);
+    const { team } = data;
+    setTeam(team);
   };
 
   useEffect(() => {
-    getData('about', setMembers);
+    getData('about', handleTeamData);
   }, []);
 
   return (
@@ -315,19 +321,19 @@ const AboutTabPanel = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {members?.team?.map((member, i) => (
+                {team?.map((member, i) => (
                   <TableRow key={i}>
                     <TableCell>{i}</TableCell>
                     <TableCell>{member?.name}</TableCell>
                     <TableCell align='center'>
                       <IconButton
-                        aria-label='edit post'
+                        aria-label='edit team member'
                         component='label'
                         onClick={handleEditTeam}>
                         <EditIcon />
                       </IconButton>
                       <IconButton
-                        aria-label='delete post'
+                        aria-label='delete team member'
                         component='label'
                         onClick={handleDeleteTeam}>
                         <DeleteIcon />
