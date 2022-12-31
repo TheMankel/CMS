@@ -13,9 +13,9 @@ const PrivacyPolicy = () => {
 
   const getData = async () => {
     try {
-      const data = await axios.get('http://localhost:8000/api/update-policy');
-
-      setContent(data?.data?.content);
+      const res = await axios.get('http://localhost:8000/api/privacy-policy');
+      console.log(res?.data);
+      setContent(res?.data?.content);
     } catch (err) {
       console.log(err);
     }
