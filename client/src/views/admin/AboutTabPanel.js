@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -30,10 +30,12 @@ const AboutTabPanel = (props) => {
   const { value, index, ...other } = props;
   const [primary, setPrimary] = useState('');
   const [secondary, setSecondary] = useState('');
+  const [members, setMembers] = useState([]);
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
   const [avatar, setAvatar] = useState(null);
+  const [newMember, setNewMember] = useState(true);
 
   const handleUpload = async (e) => {
     try {
@@ -83,6 +85,7 @@ const AboutTabPanel = (props) => {
     setTitle('');
     setAbout('');
     setAvatar(null);
+    setNewMember(true);
   };
 
   const handleUpdateTeam = async (e) => {
@@ -109,7 +112,18 @@ const AboutTabPanel = (props) => {
     } catch (err) {
       console.log(err);
     }
+    setName('');
+    setTitle('');
+    setAbout('');
+    setAvatar(null);
+    setNewMember(true);
+    // Get Data
+    await getData('about', setMembers);
   };
+
+  useEffect(() => {
+    getData('about', setMembers);
+  }, []);
 
   return (
     <div
@@ -255,18 +269,20 @@ const AboutTabPanel = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell align='center'>
-                    <IconButton aria-label='edit post' component='label'>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton aria-label='delete post' component='label'>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
+                {members?.team?.map((member, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{member?.name}</TableCell>
+                    <TableCell align='center'>
+                      <IconButton aria-label='edit post' component='label'>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton aria-label='delete post' component='label'>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </Grid>
