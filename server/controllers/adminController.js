@@ -319,10 +319,7 @@ const updateTeam = async (req, res, next) => {
   try {
     const { name, title, about, avatar } = req.body;
 
-    const aboutTeamRef = blogCollectionRef
-      .doc('about')
-      .collection('team')
-      .doc('0');
+    const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
 
     const data = {
       name: name,
@@ -331,9 +328,50 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    await aboutTeamRef.update(data);
+    await aboutTeamRef.set(data);
 
     return res.status(200).json('Team member information updated');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const editTeam = async (req, res, next) => {
+  try {
+    const { name, title, about, avatar } = req.body;
+
+    const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
+
+    const data = {
+      name: name,
+      title: title,
+      about: about,
+      avatar: avatar,
+    };
+
+    const memberName = name?.toLowerCase().replace(' ', '-');
+
+    await aboutTeamRef.doc(memberName).update(data);
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const deleteTeam = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+
+    const aboutTeamRef = blogCollectionRef
+      .doc('about')
+      .collection('team')
+      .doc(id);
+    await aboutTeamRef.delete();
+
+    return res.status(200).json('Post deleted!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -356,4 +394,6 @@ module.exports = {
   updateContact,
   updateStory,
   updateTeam,
+  editTeam,
+  deleteTeam,
 };
