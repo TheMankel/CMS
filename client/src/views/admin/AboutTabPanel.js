@@ -106,9 +106,14 @@ const AboutTabPanel = (props) => {
         avatar: avatarUrl,
       };
 
-      await axios.post('http://localhost:8000/api/update-about-team', data, {
-        withCredentials: true,
-      });
+      if (newMember)
+        await axios.post('http://localhost:8000/api/update-about-team', data, {
+          withCredentials: true,
+        });
+      else
+        await axios.post('http://localhost:8000/api/edit-about-team', data, {
+          withCredentials: true,
+        });
     } catch (err) {
       console.log(err);
     }
@@ -118,6 +123,47 @@ const AboutTabPanel = (props) => {
     setAvatar(null);
     setNewMember(true);
     // Get Data
+    await getData('about', setMembers);
+  };
+
+  const handleEditTeam = async (e) => {
+    e.preventDefault();
+
+    setNewMember(false);
+
+    const id = e.currentTarget?.id;
+    const memberToEdit = members?.find((member) => member.name === id);
+    console.log(memberToEdit);
+    const image = {
+      name: memberToEdit.name,
+      avatar: memberToEdit.avatar,
+    };
+
+    setName(memberToEdit.name);
+    setTitle(memberToEdit.title);
+    setAvatar(image);
+    setAbout(memberToEdit.about);
+  };
+
+  const handleDeleteTeam = async (e) => {
+    try {
+      const id = e.currentTarget?.id;
+
+      if (!id) return;
+      const memberID = id.toLowerCase().replace(' ', '-');
+
+      const data = { id: memberID };
+
+      const res = await axios.post(
+        'http://localhost:8000/api/delete-about-team',
+        data,
+      );
+
+      if (res.status !== 200) return;
+    } catch (err) {
+      console.log(err);
+    }
+    // getData();
     await getData('about', setMembers);
   };
 
@@ -274,10 +320,16 @@ const AboutTabPanel = (props) => {
                     <TableCell>{i}</TableCell>
                     <TableCell>{member?.name}</TableCell>
                     <TableCell align='center'>
-                      <IconButton aria-label='edit post' component='label'>
+                      <IconButton
+                        aria-label='edit post'
+                        component='label'
+                        onClick={handleEditTeam}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton aria-label='delete post' component='label'>
+                      <IconButton
+                        aria-label='delete post'
+                        component='label'
+                        onClick={handleDeleteTeam}>
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
