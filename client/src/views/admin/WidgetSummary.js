@@ -2,9 +2,10 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 
 const WidgetSummary = (props) => {
-  const { icon, title, value, color } = props;
+  const { icon, title, value, color, isLoading } = props;
   return (
     <Card>
       <Box
@@ -17,7 +18,7 @@ const WidgetSummary = (props) => {
             {title}
           </Typography>
           <Typography component='h1' variant='h4'>
-            {value}
+            {!isLoading ? value : <Skeleton variant='text' />}
           </Typography>
         </Box>
         <Box
