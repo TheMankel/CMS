@@ -14,10 +14,12 @@ import { getData } from '../../lib/api';
 const Dashboard = () => {
   const [summary, setSummary] = useState({});
   const [recentUsers, setRecentUsers] = useState([]);
+  const [isLoadingSummary, setIsLoadingSummary] = useState(true);
+  const [isLoadingTable, setIsLoadingTable] = useState(true);
 
   useEffect(() => {
-    getData('summary', setSummary);
-    getData('recent-users', setRecentUsers);
+    getData('summary', setSummary, setIsLoadingSummary);
+    getData('recent-users', setRecentUsers, setIsLoadingTable);
   }, []);
 
   return (
@@ -41,6 +43,7 @@ const Dashboard = () => {
               title='Posts'
               value={summary.posts}
               color='#c70046'
+              isLoading={isLoadingSummary}
             />
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
@@ -49,6 +52,7 @@ const Dashboard = () => {
               title='Categories'
               value={summary.categories}
               color='#00c788'
+              isLoading={isLoadingSummary}
             />
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
@@ -57,11 +61,15 @@ const Dashboard = () => {
               title='Users'
               value={summary.users}
               color='#ffbf00'
+              isLoading={isLoadingSummary}
             />
           </Grid>
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <RecentUsers recentUsers={recentUsers} />
+              <RecentUsers
+                recentUsers={recentUsers}
+                isLoading={isLoadingTable}
+              />
             </Paper>
           </Grid>
         </Grid>
