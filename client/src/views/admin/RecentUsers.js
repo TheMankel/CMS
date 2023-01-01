@@ -4,10 +4,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Skeleton from '@mui/material/Skeleton';
 import Title from './Title';
 
 const RecentUsers = (props) => {
-  const { recentUsers } = props;
+  const { recentUsers, isLoading } = props;
 
   return (
     <>
@@ -21,13 +22,22 @@ const RecentUsers = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {recentUsers.map((user, i) => (
-            <TableRow key={i}>
-              <TableCell>{i}</TableCell>
-              <TableCell>{user?.fullName}</TableCell>
-              <TableCell>{user?.created}</TableCell>
-            </TableRow>
-          ))}
+          {isLoading &&
+            [...Array(4)].map((_, i) => (
+              <TableRow key={i}>
+                <TableCell>{i}</TableCell>
+                <TableCell>{<Skeleton variant='text' />}</TableCell>
+                <TableCell>{<Skeleton variant='text' />}</TableCell>
+              </TableRow>
+            ))}
+          {!isLoading &&
+            recentUsers.map((user, i) => (
+              <TableRow key={i}>
+                <TableCell>{i}</TableCell>
+                <TableCell>{user?.fullName}</TableCell>
+                <TableCell>{user?.created}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </>
