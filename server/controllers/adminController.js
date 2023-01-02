@@ -328,11 +328,13 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    await aboutTeamRef.set(data);
+    const teamMemberName = name?.toLowerCase().replace(' ', '-');
+
+    await aboutTeamRef.doc(teamMemberName).set(data);
 
     return res.status(200).json('Team member information updated');
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.sendStatus(400);
   }
 };
@@ -350,9 +352,9 @@ const editTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    const memberName = name?.toLowerCase().replace(' ', '-');
+    const teamMemberName = name?.toLowerCase().replace(' ', '-');
 
-    await aboutTeamRef.doc(memberName).update(data);
+    await aboutTeamRef.doc(teamMemberName).update(data);
 
     return res.status(200).json(data);
   } catch (err) {
@@ -371,7 +373,7 @@ const deleteTeam = async (req, res, next) => {
       .doc(id);
     await aboutTeamRef.delete();
 
-    return res.status(200).json('Post deleted!');
+    return res.status(200).json('Team member deleted!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
