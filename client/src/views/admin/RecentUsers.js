@@ -12,7 +12,6 @@ import Title from './Title';
 
 const RecentUsers = (props) => {
   const { recentUsers, isLoading } = props;
-  console.log(recentUsers);
 
   return (
     <>
