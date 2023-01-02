@@ -12,14 +12,16 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Switch from '@mui/material/Switch';
+import Skeleton from '@mui/material/Skeleton';
 import Title from './Title';
-import { useAuth } from '../../contexts/authContext';
 import axios from 'axios';
+import { useAuth } from '../../contexts/authContext';
 import { getData } from '../../lib/api';
 
 const ManageUsers = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUpdate = async (e) => {
     try {
@@ -63,7 +65,7 @@ const ManageUsers = () => {
   // }, [getData]);
 
   useEffect(() => {
-    getData(`users/${user?.uid}`, setUsers);
+    getData(`users/${user?.uid}`, setUsers, setIsLoading);
   }, [user]);
 
   return (
@@ -95,31 +97,42 @@ const ManageUsers = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {users?.map((user, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{i}</TableCell>
-                      <TableCell>{user?.fullName}</TableCell>
-                      <TableCell>{user?.created}</TableCell>
-                      <TableCell>
-                        {' '}
-                        <Switch
-                          id={user?.uid}
-                          checked={user?.role === 'admin' ? true : false}
-                          onChange={handleUpdate}
-                          inputProps={{ 'aria-label': 'user role' }}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <IconButton
-                          id={user?.uid}
-                          aria-label='delete user'
-                          component='label'
-                          onClick={handleDelete}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {isLoading &&
+                    [...Array(4)].map((_, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                      </TableRow>
+                    ))}
+                  {!isLoading &&
+                    users?.map((user, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{user?.fullName}</TableCell>
+                        <TableCell>{user?.created}</TableCell>
+                        <TableCell>
+                          {' '}
+                          <Switch
+                            id={user?.uid}
+                            checked={user?.role === 'admin' ? true : false}
+                            onChange={handleUpdate}
+                            inputProps={{ 'aria-label': 'user role' }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            id={user?.uid}
+                            aria-label='delete user'
+                            component='label'
+                            onClick={handleDelete}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </Paper>
