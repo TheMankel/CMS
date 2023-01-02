@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InfoIcon from '@mui/icons-material/Info';
 import Title from './Title';
-import { Icon } from '@mui/material';
 
 const RecentUsers = (props) => {
   const { recentUsers, isLoading } = props;
