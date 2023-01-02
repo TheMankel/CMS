@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,32 +17,87 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Title from './Title';
 import axios from 'axios';
+import { getData } from '../../lib/api';
 
 const PrivacyPolicy = () => {
-  const [content, setContent] = useState('');
+  const [ruleTitle, setRuleTitle] = useState('');
+  const [ruleContent, setRuleContent] = useState('');
+  const [rules, setRules] = useState([]);
+  const [newRule, setNewRule] = useState(true);
 
   const handleCancel = () => {
-    setContent('');
+    setRuleTitle('');
+    setRuleContent('');
+    setNewRule(true);
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!content) return;
+    if (!ruleContent || !ruleTitle) return;
 
     try {
       const data = {
-        content: content,
+        ruleTitle: ruleTitle,
+        ruleContent: ruleContent,
       };
 
-      await axios.post('http://localhost:8000/api/update-policy', data, {
-        withCredentials: true,
-      });
+      if (newRule)
+        await axios.post('http://localhost:8000/api/update-policy', data, {
+          withCredentials: true,
+        });
+      else
+        await axios.post('http://localhost:8000/api/edit-policy', data, {
+          withCredentials: true,
+        });
     } catch (err) {
       console.log(err);
     }
-    setContent('');
+    setRuleTitle('');
+    setRuleContent('');
+    setNewRule(true);
+    //GetData
+    await getData('privacy-policy', setRules);
   };
+
+  const handleEdit = async (e) => {
+    setNewRule(false);
+
+    const id = e.currentTarget?.id;
+    console.log(rules);
+    const ruleToEdit = rules?.content.find((rule) => rule.title === id);
+    console.log(ruleToEdit);
+
+    setRuleTitle(ruleToEdit.title);
+    setRuleContent(ruleToEdit.content);
+  };
+
+  const handleDelete = async (e) => {
+    try {
+      const id = e.currentTarget?.id;
+      console.log(id);
+
+      if (!id) return;
+      const data = { id: id };
+
+      const res = await axios.post(
+        'http://localhost:8000/api/delete-policy',
+        data,
+      );
+
+      if (res.status !== 200) return;
+    } catch (err) {
+      console.log(err);
+    }
+    // getData();
+    await getData('privacy-policy', setRules);
+  };
+
+  useEffect(() => {
+    getData('privacy-policy', setRules);
+  }, []);
+
+  console.log(rules);
 
   return (
     <Box
@@ -66,9 +120,12 @@ const PrivacyPolicy = () => {
               <Box>
                 <Title>Add rule title</Title>
                 <TextField
-                  id='set-chapterTitle'
-                  label='Write new chapter title'
+                  id='set-ruleTitle'
+                  label='Write rule title'
+                  disabled={!newRule}
                   variant='outlined'
+                  value={ruleTitle}
+                  onChange={(e) => setRuleTitle(e.target.value)}
                   fullWidth
                   sx={{ mt: 1 }}
                 />
@@ -76,8 +133,17 @@ const PrivacyPolicy = () => {
               <Box>
                 <Title>Rule content</Title>
               </Box>
-              <ReactQuill theme='snow' placeholder='Write rule content' />
+              <TextField
+                id='set-ruleContent'
+                label='Write rule content'
+                variant='outlined'
+                value={ruleContent}
+                onChange={(e) => setRuleContent(e.target.value)}
+                fullWidth
+                sx={{ mt: 1 }}
+              />
               <ActionButtons
+                secondTitle={newRule ? 'Add new rule' : 'Save edited rule'}
                 handleCancel={handleCancel}
                 handleUpdate={handleUpdate}
               />
@@ -89,23 +155,33 @@ const PrivacyPolicy = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>id</TableCell>
-                      <TableCell>Rules</TableCell>
+                      <TableCell>Rule Titles</TableCell>
                       <TableCell align='center'>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell></TableCell>
-                      <TableCell align='center'>
-                        <IconButton aria-label='edit post' component='label'>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton aria-label='delete post' component='label'>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
+                    {rules?.content?.map((rule, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{rule?.title}</TableCell>
+                        <TableCell align='center'>
+                          <IconButton
+                            id={rule.title}
+                            aria-label='edit post'
+                            component='label'
+                            onClick={handleEdit}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            id={rule.title}
+                            aria-label='delete post'
+                            component='label'
+                            onClick={handleDelete}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               </Paper>
