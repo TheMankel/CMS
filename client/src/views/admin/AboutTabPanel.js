@@ -95,7 +95,7 @@ const AboutTabPanel = (props) => {
 
     try {
       const nameAvatar = name?.toLowerCase().replace(' ', '-');
-      const userAvatarRef = createRef(`userImages/${nameAvatar}`);
+      const userAvatarRef = createRef(`teamImages/${nameAvatar}`);
 
       await uploadImage(userAvatarRef, avatar);
       const avatarUrl = await downloadImage(userAvatarRef);
@@ -176,6 +176,8 @@ const AboutTabPanel = (props) => {
     getData('about', handleTeamData);
   }, []);
 
+  console.log(team);
+
   return (
     <div
       role='tabpanel'
@@ -237,6 +239,7 @@ const AboutTabPanel = (props) => {
               <Title>Name</Title>
               <TextField
                 id='set-title'
+                disabled={!newMember}
                 label='Write your name'
                 variant='outlined'
                 value={name}
