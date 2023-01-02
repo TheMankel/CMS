@@ -14,6 +14,8 @@ const {
   updateUser,
   deleteUser,
   updatePolicy,
+  editPolicy,
+  deletePolicy,
   updateContact,
   updateStory,
   updateTeam,
@@ -28,6 +30,8 @@ router.post('/edit-post', editPost);
 router.post('/delete-post', deletePost);
 router.post('/update-blog', updateBlog);
 router.post('/update-policy', updatePolicy);
+router.post('/edit-policy', editPolicy);
+router.post('/delete-policy', deletePolicy);
 router.post('/update-pinned-posts', updatePinnedPosts);
 router.post('/slider/:id', updateSlider);
 router.get('/users/:id', users);
