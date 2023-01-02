@@ -94,7 +94,8 @@ const AboutTabPanel = (props) => {
     if (!name || !title || !about || !avatar) return;
 
     try {
-      const userAvatarRef = createRef('userImages/logo');
+      const nameAvatar = name?.toLowerCase().replace(' ', '-');
+      const userAvatarRef = createRef(`userImages/${nameAvatar}`);
 
       await uploadImage(userAvatarRef, avatar);
       const avatarUrl = await downloadImage(userAvatarRef);
@@ -124,18 +125,17 @@ const AboutTabPanel = (props) => {
     setNewMember(true);
     // Get Data
     await getData('about', setTeam);
+    console.log(about);
   };
 
   const handleEditTeam = async (e) => {
-    e.preventDefault();
-
     setNewMember(false);
 
     const id = e.currentTarget?.id;
     const memberToEdit = team?.find((member) => member.name === id);
     console.log(memberToEdit);
     const image = {
-      name: memberToEdit.name,
+      name: memberToEdit.title.toLowerCase().replace(' ', '-'),
       avatar: memberToEdit.avatar,
     };
 
@@ -148,11 +148,10 @@ const AboutTabPanel = (props) => {
   const handleDeleteTeam = async (e) => {
     try {
       const id = e.currentTarget?.id;
+      console.log(id);
 
       if (!id) return;
-      const memberID = id.toLowerCase().replace(' ', '-');
-
-      const data = { id: memberID };
+      const data = { id: id };
 
       const res = await axios.post(
         'http://localhost:8000/api/delete-about-team',
@@ -263,9 +262,9 @@ const AboutTabPanel = (props) => {
               {avatar?.name && (
                 <Box
                   component='img'
-                  src={
-                    avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)
-                  }
+                  // src={
+                  //   avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)
+                  // }
                   alt={avatar?.name}
                   sx={{
                     objectFit: 'cover',
@@ -306,6 +305,7 @@ const AboutTabPanel = (props) => {
               sx={{ mt: 1 }}
             />
             <ActionButtons
+              secondTitle={newMember ? 'Add new member' : 'Save edited member'}
               handleCancel={handleCancelTeam}
               handleUpdate={handleUpdateTeam}
             />
@@ -327,12 +327,14 @@ const AboutTabPanel = (props) => {
                     <TableCell>{member?.name}</TableCell>
                     <TableCell align='center'>
                       <IconButton
+                        id={member?.name}
                         aria-label='edit team member'
                         component='label'
                         onClick={handleEditTeam}>
                         <EditIcon />
                       </IconButton>
                       <IconButton
+                        id={member?.name}
                         aria-label='delete team member'
                         component='label'
                         onClick={handleDeleteTeam}>
