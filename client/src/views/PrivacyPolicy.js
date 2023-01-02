@@ -5,24 +5,41 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ContactCard from '../components/ContactCard/ContactCard';
-import Content from '../components/Content/Content';
-import axios from 'axios';
+//import axios from 'axios';
+import { getData } from '../lib/api';
 
 const PrivacyPolicy = () => {
-  const [content, setContent] = useState('');
+  const PrivacySection = ({ title, content, number }) => {
+    return (
+      <Box>
+        <Typography
+          variant={'h6'}
+          gutterBottom
+          sx={{
+            fontWeight: 'medium',
+          }}>
+          {number}.{title}
+        </Typography>
+        <Typography color={'textSecondary'} textAlign='justify'>
+          {content}
+        </Typography>
+      </Box>
+    );
+  };
 
-  const getData = async () => {
-    try {
-      const res = await axios.get('http://localhost:8000/api/privacy-policy');
-      console.log(res?.data);
-      setContent(res?.data?.content);
-    } catch (err) {
-      console.log(err);
-    }
+  const [content, setContent] = useState([
+    {
+      ruleTitle: '',
+      ruleContent: '',
+    },
+  ]);
+
+  const handleData = (data) => {
+    setContent(data?.content);
   };
 
   useEffect(() => {
-    getData();
+    getData('privacy-policy', handleData);
   }, []);
 
   const theme = useTheme();
@@ -39,9 +56,6 @@ const PrivacyPolicy = () => {
                 color='white'
                 fontWeight={700}>
                 Privacy Policy
-              </Typography>
-              <Typography color='white' gutterBottom>
-                Last modified on <strong>23 Feb, 2021</strong>
               </Typography>
             </Container>
             <Box
@@ -65,8 +79,11 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                {/* <div>{content}</div> */}
-                <Content />
+                {content?.map((rule, i) => (
+                  <Box key={i} marginBottom={4}>
+                    <PrivacySection {...rule} number={i + 1} />
+                  </Box>
+                ))}
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
