@@ -306,13 +306,18 @@ const archivesPosts = async (req, res, next) => {
 
 const privacyPolicy = async (req, res, next) => {
   try {
-    const privacyRef = await blogCollectionRef.doc('privacy-policy').get();
+    const privacyRef = await blogCollectionRef
+      .doc('privacy-policy')
+      .collection('content')
+      .get();
 
     const data = {
-      content: content,
+      content: [],
     };
 
-    data.content = privacyRef.data();
+    privacyRef.forEach((rule) => {
+      data.content.push(rule.data());
+    });
 
     return res.status(200).json(data);
   } catch (err) {
