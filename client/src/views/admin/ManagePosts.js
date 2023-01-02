@@ -17,6 +17,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Skeleton from '@mui/material/Skeleton';
 import ActionButtons from './ActionButtons';
 import Title from './Title';
 import axios from 'axios';
@@ -37,6 +38,7 @@ const ManagePosts = () => {
   const [postImage, setPostImage] = useState(null);
   const [postText, setPostText] = useState('');
   const [newPost, setNewPost] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const modules = {
     toolbar: [
@@ -187,7 +189,7 @@ const ManagePosts = () => {
   // }, [getData]);
 
   useEffect(() => {
-    getData('posts', setPosts);
+    getData('posts', setPosts, setIsLoading);
   }, []);
 
   return (
@@ -328,29 +330,39 @@ const ManagePosts = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {posts?.map((post, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{i}</TableCell>
-                      <TableCell>{post?.title}</TableCell>
-                      <TableCell>{post?.date}</TableCell>
-                      <TableCell align='center'>
-                        <IconButton
-                          id={post?.title}
-                          onClick={handleEditPost}
-                          aria-label='edit post'
-                          component='label'>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          id={post?.title}
-                          onClick={handleDeletePost}
-                          aria-label='delete post'
-                          component='label'>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {isLoading &&
+                    [...Array(4)].map((_, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                      </TableRow>
+                    ))}
+                  {!isLoading &&
+                    posts?.map((post, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{post?.title}</TableCell>
+                        <TableCell>{post?.date}</TableCell>
+                        <TableCell align='center'>
+                          <IconButton
+                            id={post?.title}
+                            onClick={handleEditPost}
+                            aria-label='edit post'
+                            component='label'>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            id={post?.title}
+                            onClick={handleDeletePost}
+                            aria-label='delete post'
+                            component='label'>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </Paper>
