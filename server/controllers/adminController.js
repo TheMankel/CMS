@@ -1,5 +1,6 @@
 const { firestore } = require('firebase-admin');
 const { db, firebase } = require('../config/firebase-config');
+const { about } = require('./publicController');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
@@ -160,15 +161,63 @@ const updateBlog = async (req, res, next) => {
 
 const updatePolicy = async (req, res, next) => {
   try {
-    const content = req.body;
-    const policyRef = blogCollectionRef.doc('privacy-policy');
+    const { ruleContent, ruleTitle } = req.body;
+    const policyRef = blogCollectionRef
+      .doc('privacy-policy')
+      .collection('content');
 
     const data = {
-      content: content,
+      title: ruleTitle,
+      content: ruleContent,
     };
 
-    policyRef.update(data);
+    const policyRuleTitle = ruleTitle?.toLowerCase().replace(' ', '-');
+    policyRef.doc(policyRuleTitle).set(data);
+
     return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const editPolicy = async (req, res, next) => {
+  try {
+    const { ruleContent, ruleTitle } = req.body;
+
+    const policyRef = blogCollectionRef
+      .doc('privacy-policy')
+      .collection('content');
+
+    const data = {
+      title: ruleTitle,
+      content: ruleContent,
+    };
+
+    const policyRuleTitle = ruleTitle?.toLowerCase().replace(' ', '-');
+
+    await policyRef.doc(policyRuleTitle).update(data);
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const deletePolicy = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+
+    const aboutTeamRef = blogCollectionRef
+      .doc('privacy-policy')
+      .collection('content')
+      .doc(id);
+    console.log(aboutTeamRef);
+    await aboutTeamRef.delete();
+
+    return res.status(200).json('Team member deleted!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -388,6 +437,8 @@ module.exports = {
   deletePost,
   updateBlog,
   updatePolicy,
+  editPolicy,
+  deletePolicy,
   updatePinnedPosts,
   updateSlider,
   users,
