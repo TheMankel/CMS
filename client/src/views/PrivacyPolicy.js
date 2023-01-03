@@ -5,37 +5,23 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ContactCard from '../components/ContactCard/ContactCard';
+import PrivacySection from '../components/PrivacySection/PrivacySection';
 //import axios from 'axios';
 import { getData } from '../lib/api';
 
 const PrivacyPolicy = () => {
-  const PrivacySection = ({ title, content, number }) => {
-    return (
-      <Box>
-        <Typography
-          variant={'h6'}
-          gutterBottom
-          sx={{
-            fontWeight: 'medium',
-          }}>
-          {number}.{title}
-        </Typography>
-        <Typography color={'textSecondary'} textAlign='justify'>
-          {content}
-        </Typography>
-      </Box>
-    );
-  };
-
   const [content, setContent] = useState([
     {
-      ruleTitle: '',
-      ruleContent: '',
+      title: '',
+      description: '',
     },
   ]);
+  const [created, setCreated] = useState(null);
 
   const handleData = (data) => {
+    console.log(data);
     setContent(data?.content);
+    setCreated(data?.created);
   };
 
   useEffect(() => {
@@ -56,6 +42,9 @@ const PrivacyPolicy = () => {
                 color='white'
                 fontWeight={700}>
                 Privacy Policy
+              </Typography>
+              <Typography variant={'h6'} gutterBottom color='white'>
+                Last modified on <strong>{created}</strong>
               </Typography>
             </Container>
             <Box
@@ -79,11 +68,12 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                {content?.map((rule, i) => (
+                {/* {content?.map((rule, i) => (
                   <Box key={i} marginBottom={4}>
                     <PrivacySection {...rule} number={i + 1} />
                   </Box>
-                ))}
+                ))} */}
+                <PrivacySection content={content} />
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
