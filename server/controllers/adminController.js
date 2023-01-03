@@ -161,18 +161,31 @@ const updateBlog = async (req, res, next) => {
 
 const updatePolicy = async (req, res, next) => {
   try {
-    const { ruleContent, ruleTitle } = req.body;
+    const { title, description } = req.body;
     const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content');
 
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
+
+    const date = new Date();
+
+    const shortDate = date.toLocaleString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+
     const data = {
-      title: ruleTitle,
-      content: ruleContent,
+      created: firestore.Timestamp.fromDate(date),
+      date: shortDate,
+      title: title,
+      description: description,
     };
 
-    const policyRuleTitle = ruleTitle?.toLowerCase().replace(' ', '-');
-    policyRef.doc(policyRuleTitle).set(data);
+    const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
+    await policyRef.doc(policyRuleTitle).set(data);
+    await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
     return res.status(200).json(data);
   } catch (err) {
@@ -183,20 +196,24 @@ const updatePolicy = async (req, res, next) => {
 
 const editPolicy = async (req, res, next) => {
   try {
-    const { ruleContent, ruleTitle } = req.body;
+    const { description, title } = req.body;
 
     const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content');
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
+
+    const date = new Date();
 
     const data = {
-      title: ruleTitle,
-      content: ruleContent,
+      title: title,
+      description: description,
     };
 
-    const policyRuleTitle = ruleTitle?.toLowerCase().replace(' ', '-');
+    const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
 
     await policyRef.doc(policyRuleTitle).update(data);
+    await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
     return res.status(200).json(data);
   } catch (err) {
@@ -208,14 +225,18 @@ const editPolicy = async (req, res, next) => {
 const deletePolicy = async (req, res, next) => {
   try {
     const { id } = req.body;
-    console.log(id);
 
-    const aboutTeamRef = blogCollectionRef
+    const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content')
       .doc(id);
-    console.log(aboutTeamRef);
-    await aboutTeamRef.delete();
+
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
+
+    const date = new Date();
+
+    await policyRef.delete();
+    await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
     return res.status(200).json('Team member deleted!');
   } catch (err) {
