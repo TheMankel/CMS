@@ -38,7 +38,7 @@ const RecentUsers = (props) => {
       )}
       {recentUsers.length === 0 && !isLoading && (
         <Box display='flex' flexDirection='column' alignItems='center' gap={1}>
-          <InfoIcon sx={{ fontSize: '57.6px' }} />
+          <InfoIcon sx={{ fontSize: '57.6px', color: '#505050' }} />
           <Typography component='h1' variant='h5'>
             No new users!
           </Typography>
