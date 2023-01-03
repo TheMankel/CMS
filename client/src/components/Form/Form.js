@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -12,13 +11,13 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import axios from 'axios';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 const Form = (props) => {
-  const [sent, setSent] = useState(false);
   const [formError, setFormError] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -36,6 +35,8 @@ const Form = (props) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
+    setOpen(true);
+
     if (!firstName || !lastName || !email || !msg) {
       setFormError('All fields are required.');
       return;
@@ -45,9 +46,6 @@ const Form = (props) => {
       setFormError('Please enter a valid email address.');
       return;
     }
-
-    e.preventDefault();
-    setSent(true);
 
     try {
       await axios.post('http://localhost:8000/api/contact', {
@@ -63,7 +61,7 @@ const Form = (props) => {
     setLastName('');
     setEmail('');
     setMsg('');
-    setOpen(true);
+    setFormError('');
   };
 
   const theme = useTheme();
@@ -154,22 +152,11 @@ const Form = (props) => {
                 onClose={handleClose}>
                 <Alert
                   onClose={handleClose}
-                  severity='success'
+                  severity={formError ? 'error' : 'success'}
                   sx={{ width: '100%' }}>
-                  Sending email success!
+                  {formError ? formError : 'Sending email success!'}
                 </Alert>
               </Snackbar>
-              {formError && (
-                <Snackbar
-                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                  open={true}
-                  autoHideDuration={4000}
-                  onClose={() => setFormError('')}>
-                  <Alert onClose={() => setFormError('')} severity='error'>
-                    {formError}
-                  </Alert>
-                </Snackbar>
-              )}
             </Grid>
             <Grid item xs={12}>
               <Divider />
