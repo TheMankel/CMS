@@ -21,25 +21,25 @@ import { getData } from '../../lib/api';
 
 const PrivacyPolicy = () => {
   const [ruleTitle, setRuleTitle] = useState('');
-  const [ruleContent, setRuleContent] = useState('');
+  const [ruleDescription, setRuleDescription] = useState('');
   const [rules, setRules] = useState([]);
   const [newRule, setNewRule] = useState(true);
 
   const handleCancel = () => {
     setRuleTitle('');
-    setRuleContent('');
+    setRuleDescription('');
     setNewRule(true);
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!ruleContent || !ruleTitle) return;
+    if (!ruleDescription || !ruleTitle) return;
 
     try {
       const data = {
-        ruleTitle: ruleTitle,
-        ruleContent: ruleContent,
+        title: ruleTitle,
+        description: ruleDescription,
       };
 
       if (newRule)
@@ -54,10 +54,10 @@ const PrivacyPolicy = () => {
       console.log(err);
     }
     setRuleTitle('');
-    setRuleContent('');
+    setRuleDescription('');
     setNewRule(true);
     //GetData
-    await getData('privacy-policy', setRules);
+    await getData('privacy-policy', handleRules);
   };
 
   const handleEdit = async (e) => {
@@ -65,11 +65,11 @@ const PrivacyPolicy = () => {
 
     const id = e.currentTarget?.id;
     console.log(rules);
-    const ruleToEdit = rules?.content.find((rule) => rule.title === id);
+    const ruleToEdit = rules?.find((rule) => rule?.title === id);
     console.log(ruleToEdit);
 
-    setRuleTitle(ruleToEdit.title);
-    setRuleContent(ruleToEdit.content);
+    setRuleTitle(ruleToEdit?.title);
+    setRuleDescription(ruleToEdit?.description);
   };
 
   const handleDelete = async (e) => {
@@ -89,15 +89,20 @@ const PrivacyPolicy = () => {
     } catch (err) {
       console.log(err);
     }
+    setRuleTitle('');
+    setRuleDescription('');
+    setNewRule(true);
     // getData();
-    await getData('privacy-policy', setRules);
+    await getData('privacy-policy', handleRules);
+  };
+
+  const handleRules = (data) => {
+    setRules(data?.content);
   };
 
   useEffect(() => {
-    getData('privacy-policy', setRules);
+    getData('privacy-policy', handleRules);
   }, []);
-
-  console.log(rules);
 
   return (
     <Box
@@ -112,7 +117,7 @@ const PrivacyPolicy = () => {
         overflow: 'auto',
       }}>
       <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth='lg' sx={{ my: 4 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper
@@ -131,14 +136,14 @@ const PrivacyPolicy = () => {
                 />
               </Box>
               <Box>
-                <Title>Rule content</Title>
+                <Title>Rule description</Title>
               </Box>
               <TextField
-                id='set-ruleContent'
-                label='Write rule content'
+                id='set-ruleDescription'
+                label='Write rule description'
                 variant='outlined'
-                value={ruleContent}
-                onChange={(e) => setRuleContent(e.target.value)}
+                value={ruleDescription}
+                onChange={(e) => setRuleDescription(e.target.value)}
                 fullWidth
                 sx={{ mt: 1 }}
               />
@@ -160,7 +165,7 @@ const PrivacyPolicy = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rules?.content?.map((rule, i) => (
+                    {rules?.map((rule, i) => (
                       <TableRow key={i}>
                         <TableCell>{i}</TableCell>
                         <TableCell>{rule?.title}</TableCell>
