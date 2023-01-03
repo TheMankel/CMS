@@ -306,18 +306,36 @@ const archivesPosts = async (req, res, next) => {
 
 const privacyPolicy = async (req, res, next) => {
   try {
-    const privacyRef = await blogCollectionRef
-      .doc('privacy-policy')
+    // const privacyRef = await blogCollectionRef
+    //   .doc('privacy-policy')
+    //   .collection('content')
+    //   .get();
+
+    // const data = {
+    //   content: [],
+    // };
+
+    // privacyRef.forEach((rule) => {
+    //   data.content.push(rule.data());
+    // });
+
+    const privacyRef = blogCollectionRef.doc('privacy-policy');
+    const contentRef = await privacyRef
       .collection('content')
+      .orderBy('created', 'asc')
       .get();
+    const fieldsRef = await privacyRef.get();
 
     const data = {
       content: [],
+      created: fieldsRef.data().created.toDate().toLocaleString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }),
     };
 
-    privacyRef.forEach((rule) => {
-      data.content.push(rule.data());
-    });
+    contentRef.forEach((rule) => data.content.push(rule.data()));
 
     return res.status(200).json(data);
   } catch (err) {
