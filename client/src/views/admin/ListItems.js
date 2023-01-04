@@ -14,6 +14,7 @@ import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import PolicyIcon from '@mui/icons-material/Policy';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -97,6 +98,12 @@ const ListItems = (props) => {
       },
       {
         index: 9,
+        id: 'Socials',
+        icon: <SmartphoneIcon />,
+        path: 'admin/socials',
+      },
+      {
+        index: 10,
         id: 'Privacy Policy',
         icon: <PolicyIcon />,
         path: 'admin/privacy-policy',
