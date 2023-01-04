@@ -83,7 +83,7 @@ const about = async (req, res, next) => {
     // data.storyText = storyRef.data();
 
     teamRef.forEach((member) => {
-      data.team.push(member.data());
+      data.team.push({ ...member.data(), id: member.id });
     });
 
     return res.status(200).json(data);
