@@ -4,6 +4,7 @@ const categoriesCollectionRef = db.collection('categories');
 const blogCollectionRef = db.collection('cms');
 const postsCollectionRef = db.collection('posts');
 const usersCollectionRef = db.collection('users');
+const subscribeCollectionRef = db.collection('subscribtion');
 
 // const navigation = async (req, res, next) => {
 //   try {
@@ -98,6 +99,18 @@ const contact = async (req, res, next) => {
     const contactRef = await blogCollectionRef.doc('contact').get();
     const data = contactRef.data();
 
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const subscribe = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    await subscribeCollectionRef.add(email);
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
@@ -378,6 +391,7 @@ module.exports = {
   blog,
   about,
   contact,
+  subscribe,
   slider,
   allPosts,
   recentPost,
