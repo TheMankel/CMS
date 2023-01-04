@@ -6,6 +6,7 @@ const {
   blog,
   about,
   contact,
+  subscribe,
   slider,
   allPosts,
   recentPost,
@@ -34,5 +35,6 @@ router.get('/posts/archives/:yearId/:monthId', archivesPosts);
 router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
 router.get('/socials', socials);
+router.post('/subscribe', subscribe);
 
 module.exports = router;
