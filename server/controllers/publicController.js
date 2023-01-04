@@ -361,6 +361,18 @@ const categories = async (req, res, next) => {
   }
 };
 
+const socials = async (req, res, next) => {
+  try {
+    const socialsRef = await blogCollectionRef.doc('socials').get();
+    const socialsData = socialsRef.data();
+
+    return res.status(200).json(socialsData);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   // navigation,
   blog,
@@ -376,4 +388,5 @@ module.exports = {
   archivesPosts,
   privacyPolicy,
   categories,
+  socials,
 };
