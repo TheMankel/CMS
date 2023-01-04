@@ -78,11 +78,12 @@ const Sidebar = (props) => {
           (network) =>
             network.url && (
               <Link
-                component={NavLink}
+                // component={NavLink}
                 display='block'
                 variant='body1'
                 underline='none'
-                to={network.url}
+                target='_blank'
+                href={network.url}
                 key={network.name}
                 sx={{
                   mb: 0.5,
