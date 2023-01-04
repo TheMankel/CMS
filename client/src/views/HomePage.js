@@ -17,6 +17,7 @@ const Homepage = () => {
   const [carouselItems, setCarouselItems] = useState([]);
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [archives, setArchives] = useState([]);
+  const [socials, setSocials] = useState({});
   const [isLoadingRecent, setIsLoadingRecent] = useState(true);
   const [isLoadingCarousel, setIsLoadingCarousel] = useState(true);
   const [isLoadingPinned, setIsLoadingPinned] = useState(true);
@@ -38,10 +39,10 @@ const Homepage = () => {
     // ],
     archives: archives,
     social: [
-      { name: 'GitHub', icon: GitHubIcon, url: '/' },
-      { name: 'Twitter', icon: TwitterIcon, url: '/' },
-      { name: 'Facebook', icon: FacebookIcon, url: '/' },
-      { name: 'Instagram', icon: InstagramIcon, url: '/' },
+      { name: 'GitHub', icon: GitHubIcon, url: socials?.github },
+      { name: 'Twitter', icon: TwitterIcon, url: socials?.twitter },
+      { name: 'Facebook', icon: FacebookIcon, url: socials?.facebook },
+      { name: 'Instagram', icon: InstagramIcon, url: socials?.instagram },
     ],
   };
 
@@ -79,6 +80,7 @@ const Homepage = () => {
     getData('slider', setCarouselItems, setIsLoadingCarousel);
     getData('pinned-posts', setPinnedPosts, setIsLoadingPinned);
     getData('archives', setArchives, setIsLoadingArchives);
+    getData('socials', setSocials);
   }, []);
 
   return (
