@@ -284,9 +284,9 @@ const AboutTabPanel = (props) => {
               {avatar?.name && (
                 <Box
                   component='img'
-                  // src={
-                  //   avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)
-                  // }
+                  src={
+                    avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)
+                  }
                   alt={avatar?.name}
                   sx={{
                     objectFit: 'cover',
