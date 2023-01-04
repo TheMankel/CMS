@@ -450,6 +450,24 @@ const deleteTeam = async (req, res, next) => {
   }
 };
 
+const updateSocials = async (req, res, next) => {
+  try {
+    const { name, url } = req.body;
+
+    const socialsRef = blogCollectionRef.doc('socials');
+    const socialsGet = await socialsRef.get();
+    const socialsData = socialsGet.data();
+
+    socialsData[name.toLowerCase()] = url;
+    socialsRef.update(socialsData);
+
+    return res.status(200).json('Socials updated!');
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -470,4 +488,5 @@ module.exports = {
   updateTeam,
   editTeam,
   deleteTeam,
+  updateSocials,
 };
