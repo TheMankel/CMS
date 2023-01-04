@@ -16,6 +16,7 @@ const {
   archivesPosts,
   privacyPolicy,
   categories,
+  socials,
 } = require('../controllers/publicController');
 
 // router.get('/navigation', navigation);
@@ -32,5 +33,6 @@ router.get('/archives', archives);
 router.get('/posts/archives/:yearId/:monthId', archivesPosts);
 router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
+router.get('/socials', socials);
 
 module.exports = router;
