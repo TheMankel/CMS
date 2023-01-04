@@ -13,7 +13,9 @@ import About from './views/About';
 import Contact from './views/Contact';
 import ForgotPassword from './views/ForgotPassword';
 import Posts from './views/Posts';
+import Categories from './views/Categories';
 import PostDetails from './views/PostDetails';
+import PrivacyPolicy from './views/PrivacyPolicy';
 import Dashboard from './views/admin/Dashboard';
 import ManagePosts from './views/admin/ManagePosts';
 import ManageCategories from './views/admin/ManageCategories';
@@ -23,9 +25,8 @@ import ManageSlider from './views/admin/ManageSlider';
 import ManagePinnedPosts from './views/admin/ManagePinnedPosts';
 import ManageAbout from './views/admin/ManageAbout';
 import ManageContact from './views/admin/ManageContact';
+import ManageSocials from './views/admin/ManageSocials';
 import ManagePrivacyPolicy from './views/admin/ManagePrivacyPolicy';
-import PrivacyPolicy from './views/PrivacyPolicy';
-import Categories from './views/Categories';
 
 function App() {
   const { user, role } = useAuth();
@@ -72,6 +73,7 @@ function App() {
           <Route path='admin/pinned-posts' element={<ManagePinnedPosts />} />
           <Route path='admin/about' element={<ManageAbout />} />
           <Route path='admin/contact' element={<ManageContact />} />
+          <Route path='admin/socials' element={<ManageSocials />} />
           <Route
             path='admin/privacy-policy'
             element={<ManagePrivacyPolicy />}
