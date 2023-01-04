@@ -31,6 +31,7 @@ const AboutTabPanel = (props) => {
   const [primary, setPrimary] = useState('');
   const [secondary, setSecondary] = useState('');
   const [team, setTeam] = useState([]);
+  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
@@ -81,6 +82,7 @@ const AboutTabPanel = (props) => {
   };
 
   const handleCancelTeam = () => {
+    setId('');
     setName('');
     setTitle('');
     setAbout('');
@@ -106,6 +108,7 @@ const AboutTabPanel = (props) => {
         about: about,
         avatar: avatarUrl,
       };
+      console.log(data);
 
       if (newMember)
         await axios.post('http://localhost:8000/api/update-about-team', data, {
@@ -124,18 +127,18 @@ const AboutTabPanel = (props) => {
     setAvatar(null);
     setNewMember(true);
     // Get Data
-    await getData('about', setTeam);
-    console.log(about);
+    await getData('about', handleTeamData);
   };
 
   const handleEditTeam = async (e) => {
     setNewMember(false);
 
     const id = e.currentTarget?.id;
+    console.log(id);
     const memberToEdit = team?.find((member) => member.name === id);
     console.log(memberToEdit);
     const image = {
-      name: memberToEdit.title.toLowerCase().replace(' ', '-'),
+      name: memberToEdit.name.toLowerCase().replace(' ', '-'),
       avatar: memberToEdit.avatar,
     };
 
@@ -152,6 +155,7 @@ const AboutTabPanel = (props) => {
 
       if (!id) return;
       const data = { id: id };
+      console.log(data);
 
       const res = await axios.post(
         'http://localhost:8000/api/delete-about-team',
@@ -163,7 +167,7 @@ const AboutTabPanel = (props) => {
       console.log(err);
     }
     // getData();
-    await getData('about', setTeam);
+    await getData('about', handleTeamData);
   };
 
   const handleTeamData = (data) => {
@@ -239,7 +243,6 @@ const AboutTabPanel = (props) => {
               <Title>Name</Title>
               <TextField
                 id='set-title'
-                disabled={!newMember}
                 label='Write your name'
                 variant='outlined'
                 value={name}

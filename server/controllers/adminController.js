@@ -390,6 +390,7 @@ const updateTeam = async (req, res, next) => {
     const { name, title, about, avatar } = req.body;
 
     const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
+    const teamMemberID = aboutTeamRef.doc().id;
 
     const data = {
       name: name,
@@ -398,9 +399,7 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    const teamMemberName = name?.toLowerCase().replace(' ', '-');
-
-    await aboutTeamRef.doc(teamMemberName).set(data);
+    await aboutTeamRef.doc(teamMemberID).set(data);
 
     return res.status(200).json('Team member information updated');
   } catch (err) {
@@ -411,20 +410,21 @@ const updateTeam = async (req, res, next) => {
 
 const editTeam = async (req, res, next) => {
   try {
-    const { name, title, about, avatar } = req.body;
+    const { name, title, about, avatar, id } = req.body;
 
     const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
 
     const data = {
+      id: id,
       name: name,
       title: title,
       about: about,
       avatar: avatar,
     };
 
-    const teamMemberName = name?.toLowerCase().replace(' ', '-');
+    console.log(id);
 
-    await aboutTeamRef.doc(teamMemberName).update(data);
+    await aboutTeamRef.doc(id).update(data);
 
     return res.status(200).json(data);
   } catch (err) {
