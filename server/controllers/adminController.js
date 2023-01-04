@@ -415,7 +415,6 @@ const editTeam = async (req, res, next) => {
     const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
 
     const data = {
-      id: id,
       name: name,
       title: title,
       about: about,
