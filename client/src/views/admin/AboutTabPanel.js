@@ -87,6 +87,7 @@ const AboutTabPanel = (props) => {
     setAbout('');
     setAvatar(null);
     setNewMember(true);
+    setId('');
   };
 
   const handleUpdateTeam = async (e) => {
@@ -95,14 +96,19 @@ const AboutTabPanel = (props) => {
     if (!name || !title || !about || !avatar) return;
 
     try {
-      const nameAvatar = name?.toLowerCase().replace(' ', '-');
-      const userAvatarRef = createRef(`teamImages/${nameAvatar}`);
+      const memberId =
+        id || Date.now().toString() + Math.floor(Math.random() * 100);
+      console.log(id);
+      const userAvatarRef = createRef(`teamImages/${memberId}`);
+
+      // const nameAvatar = name?.toLowerCase().replace(' ', '-');
+      // const userAvatarRef = createRef(`teamImages/${nameAvatar}`);
 
       await uploadImage(userAvatarRef, avatar);
       const avatarUrl = await downloadImage(userAvatarRef);
-
+      console.log(id);
       const data = {
-        id: id,
+        id: memberId,
         name: name,
         title: title,
         about: about,
@@ -126,17 +132,19 @@ const AboutTabPanel = (props) => {
     setAbout('');
     setAvatar(null);
     setNewMember(true);
+    setId('');
     // Get Data
     await getData('about', handleTeamData);
   };
 
-  const handleEditTeam = async (e, id) => {
+  const handleEditTeam = async (e) => {
     setNewMember(false);
 
-    setId(id);
-    console.log(id);
-    const memberToEdit = team?.find((member) => member.id === id);
-    console.log(memberToEdit);
+    const memberId = e.currentTarget?.id;
+    // console.log(memberId);
+
+    const memberToEdit = team?.find((member) => member.id === memberId);
+    // console.log(memberToEdit);
     const image = {
       name: memberToEdit.name.toLowerCase().replace(' ', '-'),
       avatar: memberToEdit.avatar,
@@ -146,16 +154,17 @@ const AboutTabPanel = (props) => {
     setTitle(memberToEdit.title);
     setAvatar(image);
     setAbout(memberToEdit.about);
+    setId(memberId);
   };
 
   const handleDeleteTeam = async (e) => {
     try {
-      const id = e.currentTarget?.id;
-      console.log(id);
+      const memberId = e.currentTarget?.id;
+      // console.log(memberId);
 
-      if (!id) return;
-      const data = { id: id };
-      console.log(data);
+      if (!memberId) return;
+      const data = { id: memberId };
+      // console.log(data);
 
       const res = await axios.post(
         'http://localhost:8000/api/delete-about-team',
@@ -163,9 +172,18 @@ const AboutTabPanel = (props) => {
       );
 
       if (res.status !== 200) return;
+
+      const teamImagesRef = createRef(`teamImages/${memberId}`);
+      deleteImage(teamImagesRef);
     } catch (err) {
       console.log(err);
     }
+    setName('');
+    setTitle('');
+    setAbout('');
+    setAvatar(null);
+    setNewMember(true);
+    setId('');
     // getData();
     await getData('about', handleTeamData);
   };
@@ -179,8 +197,6 @@ const AboutTabPanel = (props) => {
   useEffect(() => {
     getData('about', handleTeamData);
   }, []);
-
-  console.log(team);
 
   return (
     <div
@@ -336,7 +352,7 @@ const AboutTabPanel = (props) => {
                         id={member?.id}
                         aria-label='edit team member'
                         component='label'
-                        onClick={(e) => handleEditTeam(e, member.id)}>
+                        onClick={handleEditTeam}>
                         <EditIcon />
                       </IconButton>
                       <IconButton

@@ -387,10 +387,12 @@ const updateStory = async (req, res, next) => {
 
 const updateTeam = async (req, res, next) => {
   try {
-    const { name, title, about, avatar } = req.body;
+    const { id, name, title, about, avatar } = req.body;
 
-    const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
-    const teamMemberID = aboutTeamRef.doc().id;
+    // const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
+    // const teamMemberID = aboutTeamRef.doc().id;
+
+    const teamRef = blogCollectionRef.doc('about').collection('team');
 
     const data = {
       name: name,
@@ -399,9 +401,10 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    await aboutTeamRef.doc(teamMemberID).set(data);
+    // await aboutTeamRef.doc(teamMemberID).set(data);
+    await teamRef.doc(id).set(data);
 
-    return res.status(200).json('Team member information updated');
+    return res.status(200).json('New team member added');
   } catch (err) {
     console.error(err);
     res.sendStatus(400);
