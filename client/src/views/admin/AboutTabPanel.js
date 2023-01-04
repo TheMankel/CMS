@@ -82,7 +82,6 @@ const AboutTabPanel = (props) => {
   };
 
   const handleCancelTeam = () => {
-    setId('');
     setName('');
     setTitle('');
     setAbout('');
@@ -103,6 +102,7 @@ const AboutTabPanel = (props) => {
       const avatarUrl = await downloadImage(userAvatarRef);
 
       const data = {
+        id: id,
         name: name,
         title: title,
         about: about,
@@ -130,12 +130,12 @@ const AboutTabPanel = (props) => {
     await getData('about', handleTeamData);
   };
 
-  const handleEditTeam = async (e) => {
+  const handleEditTeam = async (e, id) => {
     setNewMember(false);
 
-    const id = e.currentTarget?.id;
+    setId(id);
     console.log(id);
-    const memberToEdit = team?.find((member) => member.name === id);
+    const memberToEdit = team?.find((member) => member.id === id);
     console.log(memberToEdit);
     const image = {
       name: memberToEdit.name.toLowerCase().replace(' ', '-'),
@@ -333,14 +333,14 @@ const AboutTabPanel = (props) => {
                     <TableCell>{member?.name}</TableCell>
                     <TableCell align='center'>
                       <IconButton
-                        id={member?.name}
+                        id={member?.id}
                         aria-label='edit team member'
                         component='label'
-                        onClick={handleEditTeam}>
+                        onClick={(e) => handleEditTeam(e, member.id)}>
                         <EditIcon />
                       </IconButton>
                       <IconButton
-                        id={member?.name}
+                        id={member?.id}
                         aria-label='delete team member'
                         component='label'
                         onClick={handleDeleteTeam}>
