@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ContactCard from '../components/ContactCard/ContactCard';
 import PrivacySection from '../components/PrivacySection/PrivacySection';
-//import axios from 'axios';
 import { getData } from '../lib/api';
 
 const PrivacyPolicy = () => {
@@ -67,11 +66,6 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                {/* {content?.map((rule, i) => (
-                  <Box key={i} marginBottom={4}>
-                    <PrivacySection {...rule} number={i + 1} />
-                  </Box>
-                ))} */}
                 <PrivacySection content={content} />
               </Grid>
               <Grid item xs={12} md={3}>

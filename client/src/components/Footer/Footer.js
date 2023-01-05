@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-// import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
@@ -85,40 +83,6 @@ const Footer = (props) => {
                 </Typography>
               </List>
             )}
-            {/* <Typography component='h5' variant='h5' fontWeight={700}>
-                Subscribe Blog for latest updates
-              </Typography>
-              <Typography
-                component='p'
-                variant='p'
-                color='#424245'
-                sx={{ mt: '16px' }}>
-                Just leave your email address so we can stay in touch
-              </Typography>
-              <Box
-                component='form'
-                noValidate
-                autoComplete='off'
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  gap: '24px',
-                  mt: '16px',
-                }}>
-                <TextField
-                  id='outlined-basic'
-                  label='Enter email address'
-                  variant='outlined'
-                  size='small'
-                />
-                <Button
-                  variant='contained'
-                  sx={{
-                    textTransform: 'none',
-                  }}>
-                  Subscribe Now
-                </Button>
-              </Box> */}
             <Subscribe />
           </Box>
         </Container>

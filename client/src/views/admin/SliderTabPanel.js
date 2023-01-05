@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import React, { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -63,28 +62,6 @@ const SliderTabPanel = (props) => {
     setImage(null);
     setName('');
   };
-
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const data = await axios.get('http://localhost:8000/api/slider');
-
-  //     const sliderData = data?.data?.carouselItems[index];
-  //     const image = {
-  //       name: `slider_${index + 1}`,
-  //       photo: sliderData.image,
-  //     };
-
-  //     setDescription(sliderData.description);
-  //     setImage(image);
-  //     setName(sliderData.name);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [index]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   return (
     <div
@@ -159,27 +136,6 @@ const SliderTabPanel = (props) => {
               sx={{ mt: 1 }}
             />
           </Box>
-          {/* <Box alignSelf='center'>
-            <Button
-              variant='outlined'
-              onClick={handleCancel}
-              sx={{
-                mx: '4px',
-                textTransform: 'none',
-              }}>
-              Cancel
-            </Button>
-            <Button
-              variant='contained'
-              type='submit'
-              onClick={handleUpdate}
-              sx={{
-                mx: '4px',
-                textTransform: 'none',
-              }}>
-              Save
-            </Button>
-          </Box> */}
           <ActionButtons
             handleCancel={handleCancel}
             handleUpdate={handleUpdate}

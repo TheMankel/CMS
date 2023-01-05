@@ -28,7 +28,6 @@ const Story = (props) => {
             fontWeight: 'medium',
           }}>
           Our Story
-          {/* {isLoading ? <Skeleton variant='text' width={200} /> : 'Our Story'} */}
         </Typography>
         <Box px={2} width='100%' align='center'>
           <Typography
@@ -38,7 +37,6 @@ const Story = (props) => {
             align='center'
             maxWidth='700px'>
             {isLoading ? <Skeleton variant='text' /> : primaryText}
-            {/* {primaryText} */}
           </Typography>
         </Box>
         <Box px={2} width='100%' align='center'>
@@ -49,7 +47,6 @@ const Story = (props) => {
             align='center'
             maxWidth='1000px'>
             {isLoading ? <Skeleton variant='text' /> : secondaryText}
-            {/* {secondaryText} */}
           </Typography>
         </Box>
         <Box marginTop={3}>

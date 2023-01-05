@@ -25,8 +25,6 @@ const ManageBlog = () => {
       console.log(status);
       if (status !== 'Ok' || !logoFile) return;
 
-      // if (!logoFile) return;
-
       setLogo(logoFile);
       e.target.value = '';
     } catch (err) {
@@ -45,8 +43,6 @@ const ManageBlog = () => {
     if (!logo || !blogName) return;
 
     try {
-      // const title = blogName?.toLowerCase().replace(' ', '-');
-      // const blogLogoRef = createRef(`logoImages/${title}`);
       const blogLogoRef = createRef('logoImages/logo');
 
       await uploadImage(blogLogoRef, logo);
@@ -137,27 +133,6 @@ const ManageBlog = () => {
                   </Typography>
                 </Box>
               </Box>
-              {/* <Box alignSelf='center'>
-                <Button
-                  variant='outlined'
-                  onClick={handleCancel}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  type='submit'
-                  onClick={handleUpdate}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Update
-                </Button>
-              </Box> */}
               <ActionButtons
                 handleCancel={handleCancel}
                 handleUpdate={handleUpdate}

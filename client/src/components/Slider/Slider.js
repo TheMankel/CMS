@@ -13,7 +13,6 @@ const Slider = (props) => {
   return (
     <>
       {isLoading && (
-        // <Skeleton variant='rounded' height={340} sx={{ marginTop: '24px' }} />
         <Card
           sx={{ marginTop: '24px', backgroundColor: 'rgba(0, 0, 0, 0.11)' }}>
           <Skeleton variant='rounded' height={340 - 118.8} />

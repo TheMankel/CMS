@@ -52,7 +52,6 @@ const PrivacySection = (props) => {
   return (
     <Box>
       {content.map((item, i) => (
-        // <Box key={i} marginBottom={i < data.length - 1 ? 4 : 0}>
         <Box key={i} marginBottom={4}>
           <Box>
             <Typography

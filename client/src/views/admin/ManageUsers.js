@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -48,22 +48,6 @@ const ManageUsers = () => {
     // getData();
     getData(`users/${user?.uid}`, setUsers);
   };
-
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `http://localhost:8000/api/users/${user?.uid}`,
-  //     );
-
-  //     setUsers(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [user]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   useEffect(() => {
     getData(`users/${user?.uid}`, setUsers, setIsLoading);

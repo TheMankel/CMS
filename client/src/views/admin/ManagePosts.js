@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
@@ -17,7 +17,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import InfoIcon from '@mui/icons-material/Info';
 import Skeleton from '@mui/material/Skeleton';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
@@ -170,25 +169,6 @@ const ManagePosts = () => {
     // getData();
     await getData('posts', setPosts);
   };
-
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const res = await axios.get('http://localhost:8000/api/posts');
-  //     const { data } = res;
-
-  //     // const postsData = data?.posts;
-
-  //     if (!data) return;
-
-  //     setPosts(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   useEffect(() => {
     getData('posts', setPosts, setIsLoading);

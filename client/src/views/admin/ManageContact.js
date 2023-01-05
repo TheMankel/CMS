@@ -18,7 +18,7 @@ const ContactAdmin = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const handleClose = (event, reason) => {
+  const handleClose = (e, reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -35,7 +35,6 @@ const ContactAdmin = () => {
 
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
     const phoneRegex =
       /^\+?[0-9]{2,3}?[-. ]?[0-9]{3}[-. ]?[0-9]{3}[-. ]?[0-9]{3}$/;

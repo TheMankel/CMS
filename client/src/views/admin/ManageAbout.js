@@ -11,7 +11,7 @@ import AboutTabPanel from './AboutTabPanel';
 const AboutAdmin = () => {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 

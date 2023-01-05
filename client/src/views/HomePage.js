@@ -9,7 +9,6 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Slider from '../components/Slider/Slider';
 import RecentPost from '../components/RecentPost/RecentPost';
 import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
-// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const Homepage = () => {
@@ -22,21 +21,9 @@ const Homepage = () => {
   const [isLoadingCarousel, setIsLoadingCarousel] = useState(true);
   const [isLoadingPinned, setIsLoadingPinned] = useState(true);
   const [isLoadingArchives, setIsLoadingArchives] = useState(true);
+  const [isLoadingSocial, setIsLoadingSocial] = useState(true);
 
   const sidebar = {
-    // archives: [
-    //   { title: 'March 2020', url: 'dec/2022' },
-    //   { title: 'February 2020', url: '#' },
-    //   { title: 'January 2020', url: '#' },
-    //   { title: 'November 1999', url: '#' },
-    //   { title: 'October 1999', url: '#' },
-    //   { title: 'September 1999', url: '#' },
-    //   { title: 'August 1999', url: '#' },
-    //   { title: 'July 1999', url: '#' },
-    //   { title: 'June 1999', url: '#' },
-    //   { title: 'May 1999', url: '#' },
-    //   { title: 'April 1999', url: '#' },
-    // ],
     archives: archives,
     social: [
       { name: 'GitHub', icon: GitHubIcon, url: socials?.github },
@@ -46,41 +33,12 @@ const Homepage = () => {
     ],
   };
 
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const postsRes = await axios.get('http://localhost:8000/api/posts');
-  //     const sliderRes = await axios.get('http://localhost:8000/api/slider');
-  //     const pinnedPostsRes = await axios.get(
-  //       'http://localhost:8000/api/pinned-posts',
-  //     );
-  //     const archivesRes = await axios.get('http://localhost:8000/api/archives');
-
-  //     const postsData = postsRes?.data;
-  //     const sliderData = sliderRes?.data;
-  //     const pinnedPostsData = pinnedPostsRes?.data;
-  //     const archivesData = archivesRes?.data;
-
-  //     const recentPostData = postsData.pop();
-
-  //     setRecentPost(recentPostData);
-  //     setCarouselItems(sliderData);
-  //     setPinnedPosts(pinnedPostsData);
-  //     setArchives(archivesData);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
-
   useEffect(() => {
     getData('recent-post', setRecentPost, setIsLoadingRecent);
     getData('slider', setCarouselItems, setIsLoadingCarousel);
     getData('pinned-posts', setPinnedPosts, setIsLoadingPinned);
     getData('archives', setArchives, setIsLoadingArchives);
-    getData('socials', setSocials);
+    getData('socials', setSocials, setIsLoadingSocial);
   }, []);
 
   return (
@@ -104,7 +62,8 @@ const Homepage = () => {
             <Sidebar
               archives={sidebar.archives}
               social={sidebar.social}
-              isLoading={isLoadingArchives}
+              isLoadingArchives={isLoadingArchives}
+              isLoadingSocial={isLoadingSocial}
             />
           </Grid>
         </main>

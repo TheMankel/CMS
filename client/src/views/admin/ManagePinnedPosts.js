@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -8,7 +8,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
 import axios from 'axios';
@@ -42,24 +41,6 @@ const PinnedPosts = () => {
     setFirstPost('');
     setSecondPost('');
   };
-
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const data = await axios.get('http://localhost:8000/api/posts');
-
-  //     const postsData = data?.data?.posts;
-
-  //     if (!postsData) return;
-
-  //     setPosts(postsData);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   useEffect(() => {
     getData('posts', setPosts);
@@ -103,9 +84,9 @@ const PinnedPosts = () => {
                     <MenuItem value='none'>
                       <em>None</em>
                     </MenuItem>
-                    {posts.map((post) => (
-                      <MenuItem key={post.title} value={post.title}>
-                        {post.title}
+                    {posts?.map((post) => (
+                      <MenuItem key={post?.title} value={post?.title}>
+                        {post?.title}
                       </MenuItem>
                     ))}
                   </Select>
@@ -126,35 +107,14 @@ const PinnedPosts = () => {
                     <MenuItem value='none'>
                       <em>None</em>
                     </MenuItem>
-                    {posts.map((post) => (
-                      <MenuItem key={post.title} value={post.title}>
-                        {post.title}
+                    {posts?.map((post) => (
+                      <MenuItem key={post?.title} value={post?.title}>
+                        {post?.title}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Box>
-              {/* <Box alignSelf='center'>
-                <Button
-                  variant='outlined'
-                  onClick={handleCancel}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  type='submit'
-                  onClick={handleUpdate}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Save
-                </Button>
-              </Box> */}
               <ActionButtons
                 handleCancel={handleCancel}
                 handleUpdate={handleUpdate}

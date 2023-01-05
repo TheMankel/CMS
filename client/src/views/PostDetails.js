@@ -23,25 +23,6 @@ const PostDetails = () => {
   const [comment, setComment] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // const getData = useCallback(async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:8000/api/posts/${postId}`);
-  //     const data = res.data;
-
-  //     setPost(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [postId]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
-
-  useEffect(() => {
-    getData(`posts/${postId}`, setPost, setIsLoading);
-  }, [postId]);
-
   const handleAddComment = async (e) => {
     e.preventDefault();
 
@@ -58,8 +39,12 @@ const PostDetails = () => {
       console.log(err);
     }
     setComment('');
-    getData();
+    getData(`posts/${postId}`, setPost);
   };
+
+  useEffect(() => {
+    getData(`posts/${postId}`, setPost, setIsLoading);
+  }, [postId]);
 
   return (
     <Container maxWidth='lg'>

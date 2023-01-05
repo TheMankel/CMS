@@ -11,7 +11,7 @@ import SliderTabPanel from './SliderTabPanel';
 const SliderAdmin = () => {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 

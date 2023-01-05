@@ -9,18 +9,18 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 
 const Sidebar = (props) => {
-  const { archives, social, isLoading } = props;
+  const { archives, social, isLoadingArchives, isLoadingSocial } = props;
 
-  const socialProvided = social.some((network) => network.url !== '');
+  const socialProvided = social.some((network) => network?.url !== '');
 
   return (
     <Grid item xs={12} md={4}>
-      {(archives.length > 0 || isLoading) && (
+      {(archives.length > 0 || isLoadingArchives) && (
         <Typography component='h4' variant='h6' gutterBottom>
           Archives
         </Typography>
       )}
-      {isLoading && (
+      {isLoadingArchives && (
         <>
           <Skeleton variant='text' width='25%' />
           <Skeleton variant='text' width='25%' />
@@ -28,7 +28,7 @@ const Sidebar = (props) => {
           <Skeleton variant='text' width='25%' />
         </>
       )}
-      {!isLoading &&
+      {!isLoadingArchives &&
         archives?.map((archive) => (
           <Link
             component={NavLink}
@@ -37,23 +37,23 @@ const Sidebar = (props) => {
             underline='none'
             to={
               'posts/archives/' +
-              archive.title?.toLowerCase()?.split(' ')?.join('/')
+              archive?.title?.toLowerCase()?.split(' ')?.join('/')
             }
-            key={archive.title}
+            key={archive?.title}
             sx={{
               '&:hover': {
                 opacity: 0.75,
               },
             }}>
-            {archive.title}
+            {archive?.title}
           </Link>
         ))}
-      {socialProvided && (
+      {(socialProvided || isLoadingSocial) && (
         <Typography component='h4' variant='h6' gutterBottom sx={{ mt: 3 }}>
           Social
         </Typography>
       )}
-      {isLoading && (
+      {isLoadingSocial && (
         <>
           <Box display='flex' gap={1}>
             <Skeleton variant='circular' width={24} height={24} />
@@ -73,18 +73,18 @@ const Sidebar = (props) => {
           </Box>
         </>
       )}
-      {!isLoading &&
-        social.map(
+      {!isLoadingSocial &&
+        social?.map(
           (network) =>
-            network.url && (
+            network?.url && (
               <Link
                 // component={NavLink}
                 display='block'
                 variant='body1'
                 underline='none'
                 target='_blank'
-                href={network.url}
-                key={network.name}
+                href={network?.url}
+                key={network?.name}
                 sx={{
                   mb: 0.5,
                   '&:hover': {
@@ -93,7 +93,7 @@ const Sidebar = (props) => {
                 }}>
                 <Stack direction='row' spacing={1} alignItems='center'>
                   <network.icon />
-                  <span>{network.name}</span>
+                  <span>{network?.name}</span>
                 </Stack>
               </Link>
             ),

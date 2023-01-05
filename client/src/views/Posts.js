@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FeaturedCard from '../components/FeaturedCard/FeaturedCard';
 import NoDataFound from './NoDataFound';
-// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const Posts = () => {
@@ -27,27 +26,6 @@ const Posts = () => {
   const handleChange = (e, value) => {
     setPage(value);
   };
-
-  // const getData = useCallback(async () => {
-  //   setIsLoading(false);
-  //   try {
-  //     const res = await axios.get(`http://localhost:8000/api/${url}`);
-  //     const { data } = res;
-
-  //     // const postsData = data?.posts;
-
-  //     if (!data) return;
-
-  //     setPosts(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   setIsLoading(true);
-  // }, [url]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, [getData]);
 
   useEffect(() => {
     getData(url, setPosts, setIsLoading);

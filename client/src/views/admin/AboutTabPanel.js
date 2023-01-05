@@ -21,7 +21,6 @@ import {
   uploadImage,
   downloadImage,
   deleteImage,
-  getListImages,
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
@@ -45,8 +44,6 @@ const AboutTabPanel = (props) => {
 
       console.log(status);
       if (status !== 'Ok' || !avatarFile) return;
-
-      // if (!logoFile) return;
 
       setAvatar(avatarFile);
       e.target.value = '';
