@@ -18,6 +18,7 @@ import Info from '../../components/Info/Info';
 import axios from 'axios';
 import { useAuth } from '../../contexts/authContext';
 import { getData } from '../../lib/api';
+import { createRef, deleteImage } from '../../lib/storage';
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -41,7 +42,14 @@ const ManageUsers = () => {
     try {
       const id = e.currentTarget?.id;
 
-      await axios.get(`http://localhost:8000/api/delete-user/${id}`);
+      const res = await axios.get(
+        `http://localhost:8000/api/delete-user/${id}`,
+      );
+
+      if (res.status !== 200) return;
+
+      const userRef = createRef(`userImages/${id}`);
+      deleteImage(userRef);
     } catch (err) {
       console.log(err);
     }
