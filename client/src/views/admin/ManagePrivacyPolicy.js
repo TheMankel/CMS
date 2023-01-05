@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import ActionButtons from './ActionButtons';
+import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,7 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
-import Title from './Title';
+import Title from '../../components/Title/Title';
+import Info from '../../components/Info/Info';
 import axios from 'axios';
 import { getData } from '../../lib/api';
 
@@ -156,39 +157,42 @@ const PrivacyPolicy = () => {
             <Grid item xs={12} mt={4}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                 <Title>Privacy Policy rules</Title>
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Rule Titles</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rules?.map((rule, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{rule?.title}</TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            id={rule.title}
-                            aria-label='edit post'
-                            component='label'
-                            onClick={handleEdit}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            id={rule.title}
-                            aria-label='delete post'
-                            component='label'
-                            onClick={handleDelete}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
+                {rules.length === 0 && <Info message='No rules added!' />}
+                {rules.length > 0 && (
+                  <Table size='small'>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>id</TableCell>
+                        <TableCell>Rule Titles</TableCell>
+                        <TableCell align='center'>Actions</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHead>
+                    <TableBody>
+                      {rules?.map((rule, i) => (
+                        <TableRow key={i}>
+                          <TableCell>{i}</TableCell>
+                          <TableCell>{rule?.title}</TableCell>
+                          <TableCell align='center'>
+                            <IconButton
+                              id={rule.title}
+                              aria-label='edit post'
+                              component='label'
+                              onClick={handleEdit}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              id={rule.title}
+                              aria-label='delete post'
+                              component='label'
+                              onClick={handleDelete}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </Paper>
             </Grid>
           </Grid>

@@ -21,108 +21,104 @@ const RecentPost = (props) => {
   return (
     <Grid item xs={12} md={8}>
       {isLoading && (
-        <>
-          <Card sx={{ flex: 1 }}>
-            <CardMedia>
-              <CardContent
+        <Card sx={{ flex: 1 }}>
+          <CardMedia>
+            <CardContent
+              sx={{
+                height: 140,
+                backgroundColor: 'rgba(0, 0, 0, 0.31)',
+                backgroundBlendMode: 'difference',
+                p: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}>
+              <Skeleton
+                variant='rounded'
+                height={60}
                 sx={{
-                  height: 140,
-                  backgroundColor: 'rgba(0, 0, 0, 0.31)',
-                  backgroundBlendMode: 'difference',
-                  p: '24px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <Skeleton
-                  variant='rounded'
-                  height={60}
-                  sx={{
-                    bgcolor: 'grey.400',
-                    my: 1,
-                    width: '50%',
-                    alignSelf: 'center',
-                  }}
-                />
-              </CardContent>
-            </CardMedia>
-            <CardContent sx={{ flex: 1 }}>
-              <Box display='flex' flexDirection='column' gap={1}>
-                <Skeleton variant='rounded' height={60} />
-                <Skeleton variant='text' width='40%' />
-                <Skeleton variant='rounded' height={40} />
-                <Skeleton variant='text' width='65%' />
-                <Skeleton variant='rounded' height={50} />
-              </Box>
-              <Skeleton variant='text' width='20%' sx={{ mt: 1 }} />
+                  bgcolor: 'grey.400',
+                  my: 1,
+                  width: '50%',
+                  alignSelf: 'center',
+                }}
+              />
             </CardContent>
-          </Card>
-        </>
+          </CardMedia>
+          <CardContent sx={{ flex: 1 }}>
+            <Box display='flex' flexDirection='column' gap={1}>
+              <Skeleton variant='rounded' height={60} />
+              <Skeleton variant='text' width='40%' />
+              <Skeleton variant='rounded' height={40} />
+              <Skeleton variant='text' width='65%' />
+              <Skeleton variant='rounded' height={50} />
+            </Box>
+            <Skeleton variant='text' width='20%' sx={{ mt: 1 }} />
+          </CardContent>
+        </Card>
       )}
       {!isLoading && (
-        <>
-          <Card sx={{ flex: 1 }}>
-            <CardMedia
-              image={post?.image}
-              title={post?.title}
-              sx={{
-                height: '200px',
-                overflow: 'hidden',
+        <Card sx={{ flex: 1 }}>
+          <CardMedia
+            image={post?.image}
+            title={post?.title}
+            sx={{
+              height: '200px',
+              overflow: 'hidden',
+            }}>
+            <div
+              style={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <div
-                style={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <CardContent
-                  sx={{
-                    color: 'white',
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    backgroundBlendMode: 'darken',
-                    p: '24px',
-                    px: 8,
-                    textOverflow: 'ellipsis',
-                    textAlign: 'center',
-                    borderRadius: 2,
-                  }}>
-                  <Typography
-                    component='h1'
-                    variant='h4'
-                    maxWidth='800px'
-                    sx={{ wordBreak: 'break-word' }}>
-                    {post?.title}
-                  </Typography>
-                </CardContent>
-              </div>
-            </CardMedia>
-            <CardContent sx={{ flex: 1 }}>
-              <Box>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: postText,
-                  }}
-                />
-              </Box>
-              <Link
-                component={NavLink}
-                to={'/posts/' + post?.title?.toLowerCase()?.replace(' ', '-')}
-                variant='subtitle1'
-                color='primary'
-                underline='none'
-                textTransform='capitalize'
+              <CardContent
                 sx={{
-                  '&:hover': {
-                    opacity: 0.75,
-                  },
+                  color: 'white',
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  backgroundBlendMode: 'darken',
+                  p: '24px',
+                  px: 8,
+                  textOverflow: 'ellipsis',
+                  textAlign: 'center',
+                  borderRadius: 2,
                 }}>
-                Continue reading...
-              </Link>
-            </CardContent>
-          </Card>
-        </>
+                <Typography
+                  component='h1'
+                  variant='h4'
+                  maxWidth='800px'
+                  sx={{ wordBreak: 'break-word' }}>
+                  {post?.title}
+                </Typography>
+              </CardContent>
+            </div>
+          </CardMedia>
+          <CardContent sx={{ flex: 1 }}>
+            <Box>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: postText,
+                }}
+              />
+            </Box>
+            <Link
+              component={NavLink}
+              to={'/posts/' + post?.title?.toLowerCase()?.replace(' ', '-')}
+              variant='subtitle1'
+              color='primary'
+              underline='none'
+              textTransform='capitalize'
+              sx={{
+                '&:hover': {
+                  opacity: 0.75,
+                },
+              }}>
+              Continue reading...
+            </Link>
+          </CardContent>
+        </Card>
       )}
       {/* <Card sx={{ flex: 1 }}>
         <CardMedia

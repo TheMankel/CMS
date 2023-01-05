@@ -17,9 +17,11 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
 import Skeleton from '@mui/material/Skeleton';
-import ActionButtons from './ActionButtons';
-import Title from './Title';
+import ActionButtons from '../../components/ActionButtons/ActionButtons';
+import Title from '../../components/Title/Title';
+import Info from '../../components/Info/Info';
 import axios from 'axios';
 import {
   createRef,
@@ -320,51 +322,54 @@ const ManagePosts = () => {
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
               <Title>Created posts</Title>
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell>Post title</TableCell>
-                    <TableCell>Created</TableCell>
-                    <TableCell align='center'>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {isLoading &&
-                    [...Array(4)].map((_, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                      </TableRow>
-                    ))}
-                  {!isLoading &&
-                    posts?.map((post, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{post?.title}</TableCell>
-                        <TableCell>{post?.date}</TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            id={post?.title}
-                            onClick={handleEditPost}
-                            aria-label='edit post'
-                            component='label'>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            id={post?.title}
-                            onClick={handleDeletePost}
-                            aria-label='delete post'
-                            component='label'>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
+              {posts.length === 0 && <Info message='No posts added!' />}
+              {posts.length > 0 && (
+                <Table size='small'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>id</TableCell>
+                      <TableCell>Post title</TableCell>
+                      <TableCell>Created</TableCell>
+                      <TableCell align='center'>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {isLoading &&
+                      [...Array(4)].map((_, i) => (
+                        <TableRow key={i}>
+                          <TableCell>{i}</TableCell>
+                          <TableCell>{<Skeleton variant='text' />}</TableCell>
+                          <TableCell>{<Skeleton variant='text' />}</TableCell>
+                          <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        </TableRow>
+                      ))}
+                    {!isLoading &&
+                      posts?.map((post, i) => (
+                        <TableRow key={i}>
+                          <TableCell>{i}</TableCell>
+                          <TableCell>{post?.title}</TableCell>
+                          <TableCell>{post?.date}</TableCell>
+                          <TableCell align='center'>
+                            <IconButton
+                              id={post?.title}
+                              onClick={handleEditPost}
+                              aria-label='edit post'
+                              component='label'>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              id={post?.title}
+                              onClick={handleDeletePost}
+                              aria-label='delete post'
+                              component='label'>
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              )}
             </Paper>
           </Grid>
         </Grid>

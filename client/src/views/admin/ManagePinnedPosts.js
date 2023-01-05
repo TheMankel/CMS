@@ -9,8 +9,8 @@ import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import ActionButtons from './ActionButtons';
-import Title from './Title';
+import ActionButtons from '../../components/ActionButtons/ActionButtons';
+import Title from '../../components/Title/Title';
 import axios from 'axios';
 import { getData } from '../../lib/api';
 

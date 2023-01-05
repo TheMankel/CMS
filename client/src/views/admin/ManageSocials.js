@@ -8,10 +8,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import ActionButtons from './ActionButtons';
-import Title from './Title';
+import TextField from '@mui/material/TextField';
+import ActionButtons from '../../components/ActionButtons/ActionButtons';
+import Title from '../../components/Title/Title';
 import axios from 'axios';
-import { TextField } from '@mui/material';
 
 const ManageSocials = () => {
   const [socialName, setSocialName] = useState('none');

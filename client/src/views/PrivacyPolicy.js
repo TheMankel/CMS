@@ -19,7 +19,6 @@ const PrivacyPolicy = () => {
   const [created, setCreated] = useState(null);
 
   const handleData = (data) => {
-    console.log(data);
     setContent(data?.content);
     setCreated(data?.created);
   };

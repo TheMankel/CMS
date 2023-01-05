@@ -8,7 +8,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InfoIcon from '@mui/icons-material/Info';
-import Title from './Title';
+import Title from '../../components/Title/Title';
 
 const RecentUsers = (props) => {
   const { recentUsers, isLoading } = props;

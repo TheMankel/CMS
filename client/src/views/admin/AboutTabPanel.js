@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import ActionButtons from './ActionButtons';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,7 +13,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
+import Title from '../../components/Title/Title';
+import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import axios from 'axios';
 import {
   createRef,
