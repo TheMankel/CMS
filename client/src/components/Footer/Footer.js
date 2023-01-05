@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+// import TextField from '@mui/material/TextField';
+// import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import Copyright from '../Copyright/Copyright';
+import Subscribe from '../Subscribe/Subscribe';
 
 const Footer = (props) => {
   const { title, navigation, contact, showDetailed } = props;
@@ -84,8 +85,7 @@ const Footer = (props) => {
                 </Typography>
               </List>
             )}
-            <List>
-              <Typography component='h5' variant='h5' fontWeight={700}>
+            {/* <Typography component='h5' variant='h5' fontWeight={700}>
                 Subscribe Blog for latest updates
               </Typography>
               <Typography
@@ -118,8 +118,8 @@ const Footer = (props) => {
                   }}>
                   Subscribe Now
                 </Button>
-              </Box>
-            </List>
+              </Box> */}
+            <Subscribe />
           </Box>
         </Container>
       )}

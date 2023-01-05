@@ -93,7 +93,7 @@ const Team = (props) => {
                       </Typography>
                     </>
                   )}
-                  {isLoading ? (
+                  {/* {isLoading ? (
                     <Box
                       mt={2}
                       sx={{
@@ -121,7 +121,7 @@ const Team = (props) => {
                         <TwitterIcon />
                       </IconButton>
                     </Box>
-                  )}
+                  )} */}
                 </Box>
               </CardContent>
             </Box>

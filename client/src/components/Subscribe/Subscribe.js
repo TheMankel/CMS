@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
+import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -57,78 +56,54 @@ const Subscribe = () => {
   };
 
   return (
-    <Container maxWidth='sm'>
-      <Grid item xs={12} md={6} sx={{ mt: 3, mb: 1 }}>
-        <Card sx={{ display: 'flex', borderRadius: '16px' }}>
-          <CardContent
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-              gap: 2,
-              width: '100%',
-              py: 3,
-              textAlign: 'center',
-            }}>
-            <Typography component='h5' variant='h5' fontWeight={700}>
-              Subscribe Blog for latest updates
-            </Typography>
-            <Typography component='p' variant='p' color='gray'>
-              Just leave your email address so we can stay in touch
-            </Typography>
-            <Box
-              component='form'
-              noValidate
-              autoComplete='off'
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: '24px',
-              }}>
-              <TextField
-                id='outlined-basic'
-                label='Enter email address'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant='outlined'
-                sx={{
-                  '& label.Mui-focused': {
-                    color: '#454545',
-                  },
-                  '& .MuiOutlinedInput-root': {
-                    ' &.Mui-focused fieldset ': {
-                      borderColor: '#454545',
-                    },
-                  },
-                }}
-              />
-              <Button
-                variant='contained'
-                onClick={handleSend}
-                sx={{
-                  textTransform: 'none',
-                  backgroundColor: 'gray',
-                  '&:hover': { backgroundColor: '#454545' },
-                }}>
-                Subscribe Now
-              </Button>
-              <Snackbar
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={open}
-                autoHideDuration={4000}
-                onClose={handleClose}>
-                <Alert
-                  onClose={handleClose}
-                  severity={emailError ? 'error' : 'success'}
-                  sx={{ width: '100%' }}>
-                  {emailError ? emailError : 'Sending email success!'}
-                </Alert>
-              </Snackbar>
-            </Box>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Container>
+    <List>
+      <Typography component='h5' variant='h5' fontWeight={700}>
+        Subscribe Blog for latest updates
+      </Typography>
+      <Typography component='p' variant='p' color='#424245' gutterBottom>
+        Just leave your email address so we can stay in touch
+      </Typography>
+      <Box
+        component='form'
+        noValidate
+        autoComplete='off'
+        onSubmit={handleSend}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '24px',
+        }}>
+        <TextField
+          id='outlined-basic'
+          label='Enter email address'
+          variant='outlined'
+          size='small'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Button
+          variant='contained'
+          // onClick={handleSend}
+          type='submit'
+          sx={{
+            textTransform: 'none',
+          }}>
+          Subscribe Now
+        </Button>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity={emailError ? 'error' : 'success'}
+            sx={{ width: '100%' }}>
+            {emailError ? emailError : 'Sending email success!'}
+          </Alert>
+        </Snackbar>
+      </Box>
+    </List>
   );
 };
 
