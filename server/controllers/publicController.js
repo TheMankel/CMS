@@ -65,7 +65,10 @@ const about = async (req, res, next) => {
 
     const aboutRef = blogCollectionRef.doc('about');
     const storyRef = await aboutRef.get();
-    const teamRef = await aboutRef.collection('team').get();
+    const teamRef = await aboutRef
+      .collection('team')
+      .orderBy('created', 'asc')
+      .get();
     const storyData = storyRef.data();
 
     // const teamRef = await blogCollectionRef

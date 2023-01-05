@@ -393,7 +393,10 @@ const updateTeam = async (req, res, next) => {
 
     const teamRef = blogCollectionRef.doc('about').collection('team');
 
+    const date = new Date();
+
     const data = {
+      created: firestore.Timestamp.fromDate(date),
       name: name,
       title: title,
       about: about,
