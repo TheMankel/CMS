@@ -1,10 +1,11 @@
+const { firestore } = require('firebase-admin');
 const { db } = require('../config/firebase-config');
 
 const categoriesCollectionRef = db.collection('categories');
 const blogCollectionRef = db.collection('cms');
 const postsCollectionRef = db.collection('posts');
 const usersCollectionRef = db.collection('users');
-const subscribeCollectionRef = db.collection('subscribtion');
+const subscriptionCollectionRef = db.collection('subscription');
 
 // const navigation = async (req, res, next) => {
 //   try {
@@ -110,7 +111,15 @@ const subscribe = async (req, res, next) => {
   try {
     const { email } = req.body;
 
-    await subscribeCollectionRef.add(email);
+    const date = new Date();
+
+    const data = {
+      created: firestore.Timestamp.fromDate(date),
+      email,
+    };
+
+    await subscriptionCollectionRef.add(data);
+
     return res.status(200).json(data);
   } catch (err) {
     console.log(err);
