@@ -106,13 +106,13 @@ const TeamTabPanel = () => {
     setNewMember(false);
 
     const memberId = e.currentTarget?.id;
-    // console.log(memberId);
+    console.log(memberId);
 
     const memberToEdit = team?.find((member) => member.id === memberId);
-    // console.log(memberToEdit);
+    console.log(memberToEdit);
     const image = {
       name: memberToEdit.name.toLowerCase().replace(' ', '-'),
-      avatar: memberToEdit.avatar,
+      photo: memberToEdit.avatar,
     };
 
     setName(memberToEdit.name);
@@ -205,6 +205,7 @@ const TeamTabPanel = () => {
             <Box
               component='img'
               src={avatar?.photo ? avatar?.photo : URL?.createObjectURL(avatar)}
+              // src=''
               alt={avatar?.name}
               sx={{
                 objectFit: 'cover',
