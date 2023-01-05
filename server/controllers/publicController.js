@@ -360,7 +360,10 @@ const privacyPolicy = async (req, res, next) => {
       }),
     };
 
-    contentRef.forEach((rule) => data.content.push(rule.data()));
+    // contentRef.forEach((rule) => data.content.push(rule.data()));
+    contentRef.forEach((rule) =>
+      data.content.push({ ...rule.data(), id: rule.id }),
+    );
 
     return res.status(200).json(data);
   } catch (err) {

@@ -126,7 +126,6 @@ const editPost = async (req, res, next) => {
 const deletePost = async (req, res, next) => {
   try {
     const { id } = req.body;
-    console.log(id);
 
     const postRef = postsCollectionRef.doc(id);
     await postRef.delete();
@@ -141,7 +140,6 @@ const deletePost = async (req, res, next) => {
 const updateBlog = async (req, res, next) => {
   try {
     const { title, logo } = req.body;
-    // const blogRef = blogCollectionRef.doc('public-navigation');
     const blogRef = blogCollectionRef.doc('blog');
 
     const data = {
@@ -161,11 +159,11 @@ const updateBlog = async (req, res, next) => {
 const updatePolicy = async (req, res, next) => {
   try {
     const { title, description } = req.body;
+
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
     const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content');
-
-    const fieldsRef = blogCollectionRef.doc('privacy-policy');
 
     const date = new Date();
 
@@ -182,8 +180,9 @@ const updatePolicy = async (req, res, next) => {
       description: description,
     };
 
-    const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
-    await policyRef.doc(policyRuleTitle).set(data);
+    // const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
+    // await policyRef.doc(policyRuleTitle).set(data);
+    await policyRef.add(data);
     await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
     return res.status(200).json(data);
@@ -195,12 +194,12 @@ const updatePolicy = async (req, res, next) => {
 
 const editPolicy = async (req, res, next) => {
   try {
-    const { description, title } = req.body;
+    const { id, description, title } = req.body;
 
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
     const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content');
-    const fieldsRef = blogCollectionRef.doc('privacy-policy');
 
     const date = new Date();
 
@@ -209,9 +208,10 @@ const editPolicy = async (req, res, next) => {
       description: description,
     };
 
-    const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
+    // const policyRuleTitle = title?.toLowerCase().replace(' ', '-');
 
-    await policyRef.doc(policyRuleTitle).update(data);
+    // await policyRef.doc(policyRuleTitle).update(data);
+    await policyRef.doc(id).update(data);
     await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
     return res.status(200).json(data);
@@ -225,12 +225,11 @@ const deletePolicy = async (req, res, next) => {
   try {
     const { id } = req.body;
 
+    const fieldsRef = blogCollectionRef.doc('privacy-policy');
     const policyRef = blogCollectionRef
       .doc('privacy-policy')
       .collection('content')
       .doc(id);
-
-    const fieldsRef = blogCollectionRef.doc('privacy-policy');
 
     const date = new Date();
 

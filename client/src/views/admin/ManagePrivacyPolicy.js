@@ -25,11 +25,13 @@ const PrivacyPolicy = () => {
   const [ruleDescription, setRuleDescription] = useState('');
   const [rules, setRules] = useState([]);
   const [newRule, setNewRule] = useState(true);
+  const [id, setId] = useState(null);
 
   const handleCancel = () => {
     setRuleTitle('');
     setRuleDescription('');
     setNewRule(true);
+    setId(null);
   };
 
   const handleUpdate = async (e) => {
@@ -39,6 +41,7 @@ const PrivacyPolicy = () => {
 
     try {
       const data = {
+        id: id,
         title: ruleTitle,
         description: ruleDescription,
       };
@@ -57,6 +60,7 @@ const PrivacyPolicy = () => {
     setRuleTitle('');
     setRuleDescription('');
     setNewRule(true);
+    setId(null);
     //GetData
     await getData('privacy-policy', handleRules);
   };
@@ -64,22 +68,24 @@ const PrivacyPolicy = () => {
   const handleEdit = async (e) => {
     setNewRule(false);
 
-    const id = e.currentTarget?.id;
-    console.log(rules);
-    const ruleToEdit = rules?.find((rule) => rule?.title === id);
+    const ruleId = e.currentTarget?.id;
+    console.log(ruleId);
+    const ruleToEdit = rules?.find((rule) => rule?.id === ruleId);
     console.log(ruleToEdit);
 
     setRuleTitle(ruleToEdit?.title);
     setRuleDescription(ruleToEdit?.description);
+    setId(ruleId);
   };
 
   const handleDelete = async (e) => {
     try {
-      const id = e.currentTarget?.id;
-      console.log(id);
+      const ruleId = e.currentTarget?.id;
+      setId(ruleId);
+      console.log(ruleId);
 
-      if (!id) return;
-      const data = { id: id };
+      if (!ruleId) return;
+      const data = { id: ruleId };
 
       const res = await axios.post(
         'http://localhost:8000/api/delete-policy',
@@ -93,6 +99,7 @@ const PrivacyPolicy = () => {
     setRuleTitle('');
     setRuleDescription('');
     setNewRule(true);
+    setId(null);
     // getData();
     await getData('privacy-policy', handleRules);
   };
@@ -128,7 +135,7 @@ const PrivacyPolicy = () => {
                 <TextField
                   id='set-ruleTitle'
                   label='Write rule title'
-                  disabled={!newRule}
+                  // disabled={!newRule}
                   variant='outlined'
                   value={ruleTitle}
                   onChange={(e) => setRuleTitle(e.target.value)}
@@ -174,14 +181,14 @@ const PrivacyPolicy = () => {
                           <TableCell>{rule?.title}</TableCell>
                           <TableCell align='center'>
                             <IconButton
-                              id={rule.title}
+                              id={rule?.id}
                               aria-label='edit post'
                               component='label'
                               onClick={handleEdit}>
                               <EditIcon />
                             </IconButton>
                             <IconButton
-                              id={rule.title}
+                              id={rule?.id}
                               aria-label='delete post'
                               component='label'
                               onClick={handleDelete}>
