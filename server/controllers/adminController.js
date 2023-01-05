@@ -1,6 +1,5 @@
 const { firestore } = require('firebase-admin');
 const { db, firebase } = require('../config/firebase-config');
-const { about } = require('./publicController');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
@@ -389,8 +388,8 @@ const updateTeam = async (req, res, next) => {
   try {
     const { id, name, title, about, avatar } = req.body;
 
-    // const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
-    // const teamMemberID = aboutTeamRef.doc().id;
+    // const teamRef = blogCollectionRef.doc('about').collection('team');
+    // const teamMemberID = teamRef.doc().id;
 
     const teamRef = blogCollectionRef.doc('about').collection('team');
 
@@ -401,7 +400,7 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    // await aboutTeamRef.doc(teamMemberID).set(data);
+    // await teamRef.doc(teamMemberID).set(data);
     await teamRef.doc(id).set(data);
 
     return res.status(200).json('New team member added');
@@ -415,7 +414,7 @@ const editTeam = async (req, res, next) => {
   try {
     const { name, title, about, avatar, id } = req.body;
 
-    const aboutTeamRef = blogCollectionRef.doc('about').collection('team');
+    const teamRef = blogCollectionRef.doc('about').collection('team');
 
     const data = {
       name: name,
@@ -426,7 +425,7 @@ const editTeam = async (req, res, next) => {
 
     console.log(id);
 
-    await aboutTeamRef.doc(id).update(data);
+    await teamRef.doc(id).update(data);
 
     return res.status(200).json(data);
   } catch (err) {
@@ -439,11 +438,8 @@ const deleteTeam = async (req, res, next) => {
   try {
     const { id } = req.body;
 
-    const aboutTeamRef = blogCollectionRef
-      .doc('about')
-      .collection('team')
-      .doc(id);
-    await aboutTeamRef.delete();
+    const teamRef = blogCollectionRef.doc('about').collection('team').doc(id);
+    await teamRef.delete();
 
     return res.status(200).json('Team member deleted!');
   } catch (err) {
