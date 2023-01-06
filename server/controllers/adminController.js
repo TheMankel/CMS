@@ -1,5 +1,5 @@
 const { firestore } = require('firebase-admin');
-const { db, firebase } = require('../config/firebase-config');
+const { db, firebase, bucket } = require('../config/firebase-config');
 
 const auth = firebase.auth();
 const usersCollectionRef = db.collection('users');
@@ -385,10 +385,7 @@ const updateStory = async (req, res, next) => {
 
 const updateTeam = async (req, res, next) => {
   try {
-    const { id, name, title, about, avatar } = req.body;
-
-    // const teamRef = blogCollectionRef.doc('about').collection('team');
-    // const teamMemberID = teamRef.doc().id;
+    const { name, title, about, avatar } = req.body;
 
     const teamRef = blogCollectionRef.doc('about').collection('team');
 
@@ -402,8 +399,18 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    // await teamRef.doc(teamMemberID).set(data);
-    await teamRef.doc(id).set(data);
+    // await teamRef.doc(id).set(data);
+
+    const teamDoc = await teamRef.add(data);
+    const file = bucket.file(`teamImages/${name}`);
+    const newFile = bucket.file(`teamImages/${teamDoc.id}`);
+    await file.move(newFile);
+    const url = newFile.id;
+    // console.log(url);
+
+    await teamDoc.update({
+      avatar: `https://firebasestorage.googleapis.com/v0/b/cms-blog-pp.appspot.com/o/${url}?alt=media`,
+    });
 
     return res.status(200).json('New team member added');
   } catch (err) {

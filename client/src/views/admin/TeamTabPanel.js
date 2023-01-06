@@ -64,9 +64,11 @@ const TeamTabPanel = () => {
     if (!name || !title || !about || !avatar) return;
 
     try {
-      const memberId =
-        id || Date.now().toString() + Math.floor(Math.random() * 100);
-      console.log(id);
+      // const memberId =
+      //   id || Date.now().toString() + Math.floor(Math.random() * 100);
+      // console.log(id);
+
+      const memberId = id || name;
       const userAvatarRef = createRef(`teamImages/${memberId}`);
 
       await uploadImage(userAvatarRef, avatar);
