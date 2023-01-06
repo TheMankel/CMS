@@ -23,6 +23,8 @@ const {
   deleteTeam,
   updateSocials,
   updateCategory,
+  editCategory,
+  deleteCategory,
 } = require('../controllers/adminController');
 
 router.get('/summary', summary);
@@ -46,5 +48,7 @@ router.post('/edit-about-team', editTeam);
 router.post('/delete-about-team', deleteTeam);
 router.post('/update-socials', updateSocials);
 router.post('/update-category', updateCategory);
+router.post('/edit-category', editCategory);
+router.post('/delete-category', deleteCategory);
 
 module.exports = router;
