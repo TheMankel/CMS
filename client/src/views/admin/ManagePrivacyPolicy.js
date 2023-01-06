@@ -143,7 +143,7 @@ const PrivacyPolicy = () => {
                   sx={{ mt: 1 }}
                 />
               </Box>
-              <Box>
+              <Box mt={2}>
                 <Title>Rule description</Title>
               </Box>
               <TextField
@@ -182,14 +182,14 @@ const PrivacyPolicy = () => {
                           <TableCell align='center'>
                             <IconButton
                               id={rule?.id}
-                              aria-label='edit post'
+                              aria-label='edit rule'
                               component='label'
                               onClick={handleEdit}>
                               <EditIcon />
                             </IconButton>
                             <IconButton
                               id={rule?.id}
-                              aria-label='delete post'
+                              aria-label='delete rule'
                               component='label'
                               onClick={handleDelete}>
                               <DeleteIcon />
