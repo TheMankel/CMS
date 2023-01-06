@@ -497,7 +497,41 @@ const updateCategory = async (req, res, next) => {
 
     const categoryTitle = title?.replace(' ', '-');
 
-    categoriesCollectionRef.doc(categoryTitle).set(data);
+    await categoriesCollectionRef.doc(categoryTitle).set(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const editCategory = async (req, res, next) => {
+  try {
+    const { title, description, image } = req.body;
+
+    const data = {
+      title: title,
+      description: description,
+      image: image,
+    };
+
+    const categoryTitle = title?.replace(' ', '-');
+
+    await categoriesCollectionRef.doc(categoryTitle).update(data);
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
+const deleteCategory = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+
+    const categoryRef = categoriesCollectionRef.doc(id);
+
+    await categoryRef.delete();
+    return res.status(200).json('Team member deleted!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -526,4 +560,6 @@ module.exports = {
   deleteTeam,
   updateSocials,
   updateCategory,
+  editCategory,
+  deleteCategory,
 };
