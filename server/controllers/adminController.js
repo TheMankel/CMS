@@ -475,6 +475,35 @@ const updateSocials = async (req, res, next) => {
   }
 };
 
+const updateCategory = async (req, res, next) => {
+  try {
+    const { title, description, image } = req.body;
+
+    const date = new Date();
+
+    const shortDate = date.toLocaleString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+
+    const data = {
+      created: firestore.Timestamp.fromDate(date),
+      date: shortDate,
+      title: title,
+      description: description,
+      image: image,
+    };
+
+    const categoryTitle = title?.replace(' ', '-');
+
+    categoriesCollectionRef.doc(categoryTitle).set(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 module.exports = {
   summary,
   recentUsers,
@@ -496,4 +525,5 @@ module.exports = {
   editTeam,
   deleteTeam,
   updateSocials,
+  updateCategory,
 };
