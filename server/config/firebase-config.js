@@ -17,10 +17,14 @@ const firebase = admin.initializeApp({
   }),
   // credential: admin.credential.cert(process.env.SERVICE_ACCOUNT_KEY),
   databaseURL: process.env.DATABASE,
+  storageBucket: process.env.STORAGE_BUCKET,
 });
+
 const db = admin.firestore();
+const bucket = admin.storage().bucket();
 
 module.exports = {
   firebase,
   db,
+  bucket,
 };
