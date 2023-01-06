@@ -60,7 +60,7 @@ const Categories = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!categoryTitle || !categoryDescription) return;
+    if (!categoryTitle || !categoryDescription || !categoryImage) return;
 
     const categoryImageRef = createRef(`categoryImages/${categoryTitle}`);
 
@@ -90,13 +90,53 @@ const Categories = () => {
     await getData('categories', handleCategories);
   };
 
-  const handleEdit = async (e) => {};
+  const handleEdit = async (e) => {
+    setNewCategory(false);
 
-  const handleDelete = async (e) => {};
+    const categoryId = e.currenttarget?.id;
+    console.log(categoryId);
+
+    const categoryToEdit = categories?.find(
+      (category) => category.title === categoryId,
+    );
+    console.log(categoryToEdit);
+    const image = {
+      title: categoryToEdit.title.replace(' ', '-'),
+      photo: categoryToEdit.categoryImage,
+    };
+    setCategoryTitle(categoryToEdit.title);
+    setCategoryDescription(categoryToEdit.description);
+    setCategoryImage(image);
+  };
+
+  const handleDelete = async (e) => {
+    try {
+      const categoryId = e.currenttarget?.id;
+      setId(categoryId);
+      console.log(categoryId);
+
+      if (!categoryId) return;
+      const data = { id: categoryId };
+      const res = await axios.post(
+        'http://localhost:8000/api/delete-category',
+        data,
+      );
+
+      if (res.status !== 200) return;
+    } catch (err) {
+      console.log(err);
+    }
+    setCategoryTitle('');
+    setCategoryDescription('');
+    setCategoryImage(null);
+    setNewCategory(true);
+  };
 
   const handleCategories = (data) => {
-    setCategories(data);
+    const { categories } = data;
+    setCategories(categories);
     console.log(data);
+    console.log(categories);
   };
 
   useEffect(() => {
@@ -209,14 +249,14 @@ const Categories = () => {
                       <TableCell>{category?.title}</TableCell>
                       <TableCell align='center'>
                         <IconButton
-                          id={category?.id}
+                          id={category?.title}
                           aria-label='edit category'
                           component='label'
                           onClick={handleEdit}>
                           <EditIcon />
                         </IconButton>
                         <IconButton
-                          id={category?.id}
+                          id={category?.title}
                           aria-label='delete category'
                           component='label'
                           onClick={handleDelete}>
