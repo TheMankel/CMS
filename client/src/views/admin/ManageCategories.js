@@ -130,6 +130,8 @@ const Categories = () => {
     setCategoryDescription('');
     setCategoryImage(null);
     setNewCategory(true);
+    //GetData
+    await getData('categories', handleCategories);
   };
 
   const handleCategories = (data) => {
@@ -168,6 +170,7 @@ const Categories = () => {
                   label='Write new category title'
                   variant='outlined'
                   value={categoryTitle}
+                  disabled={!newCategory}
                   onChange={(e) => setCategoryTitle(e.target.value)}
                   fullWidth
                   sx={{ mt: 1 }}
