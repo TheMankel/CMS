@@ -498,6 +498,7 @@ const updateCategory = async (req, res, next) => {
     const categoryTitle = title?.replace(' ', '-');
 
     await categoriesCollectionRef.doc(categoryTitle).set(data);
+    return res.status(200).json('Categories updated!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -514,7 +515,7 @@ const editCategory = async (req, res, next) => {
       image: image,
     };
 
-    const categoryTitle = title?.replace(' ', '-');
+    const categoryTitle = title?.replaceAll(' ', '-');
 
     await categoriesCollectionRef.doc(categoryTitle).update(data);
     return res.status(200).json(data);
