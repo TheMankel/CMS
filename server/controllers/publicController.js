@@ -130,6 +130,27 @@ const updateSubscribe = async (req, res, next) => {
   }
 };
 
+const getSubscribe = async (req, res, next) => {
+  try {
+    const emailsRef = await subscriptionCollectionRef
+      .orderBy('created', 'asc')
+      .get();
+
+    const data = {
+      subscriptions: [],
+    };
+
+    emailsRef.forEach((subscriber) => {
+      data.subscriptions.push(subscriber.data());
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 const slider = async (req, res, next) => {
   try {
     const sliderRef = await blogCollectionRef
@@ -407,6 +428,7 @@ module.exports = {
   about,
   contact,
   updateSubscribe,
+  getSubscribe,
   slider,
   allPosts,
   recentPost,

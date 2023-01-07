@@ -18,6 +18,7 @@ const {
   privacyPolicy,
   categories,
   socials,
+  getSubscribe,
 } = require('../controllers/publicController');
 
 // router.get('/navigation', navigation);
@@ -35,6 +36,7 @@ router.get('/posts/archives/:yearId/:monthId', archivesPosts);
 router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
 router.get('/socials', socials);
-router.post('/update-subscribe', updateSubscribe);
+router.post('/subscribe', updateSubscribe);
+router.get('/subscribe', getSubscribe);
 
 module.exports = router;

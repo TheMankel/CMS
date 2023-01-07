@@ -44,7 +44,7 @@ const Subscribe = () => {
     };
 
     try {
-      await axios.post('http://localhost:8000/api/update-subscribe', data, {
+      await axios.post('http://localhost:8000/api/subscribe', data, {
         withCredentials: true,
       });
     } catch (error) {
