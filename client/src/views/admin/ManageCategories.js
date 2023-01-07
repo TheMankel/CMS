@@ -33,7 +33,6 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categoryImage, setCategoryImage] = useState(null);
-  const [id, setId] = useState(null);
 
   const handleUpload = async (e) => {
     try {
@@ -103,9 +102,10 @@ const Categories = () => {
     );
     console.log(categoryToEdit);
     const image = {
-      title: categoryToEdit.title.replaceAll(' ', '-'),
-      photo: categoryToEdit.categoryImage,
+      name: categoryToEdit.title.toLowerCase().replaceAll(' ', '-'),
+      photo: categoryToEdit.image,
     };
+    console.log(image);
     setCategoryTitle(categoryToEdit.title);
     setCategoryDescription(categoryToEdit.description);
     setCategoryImage(image);
@@ -114,7 +114,6 @@ const Categories = () => {
   const handleDelete = async (e) => {
     try {
       const categoryId = e.currentTarget?.id;
-      setId(categoryId);
       console.log(categoryId);
 
       if (!categoryId) return;
@@ -125,6 +124,9 @@ const Categories = () => {
       );
 
       if (res.status !== 200) return;
+
+      const categoryImageRef = createRef(`categoryImages/${categoryId}`);
+      deleteImage(categoryImageRef);
     } catch (err) {
       console.log(err);
     }
