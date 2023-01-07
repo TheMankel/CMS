@@ -6,7 +6,7 @@ const {
   blog,
   about,
   contact,
-  subscribe,
+  updateSubscribe,
   slider,
   allPosts,
   recentPost,
@@ -35,6 +35,6 @@ router.get('/posts/archives/:yearId/:monthId', archivesPosts);
 router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
 router.get('/socials', socials);
-router.post('/subscribe', subscribe);
+router.post('/update-subscribe', updateSubscribe);
 
 module.exports = router;

@@ -110,7 +110,7 @@ const contact = async (req, res, next) => {
   }
 };
 
-const subscribe = async (req, res, next) => {
+const updateSubscribe = async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -406,7 +406,7 @@ module.exports = {
   blog,
   about,
   contact,
-  subscribe,
+  updateSubscribe,
   slider,
   allPosts,
   recentPost,
