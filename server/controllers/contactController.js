@@ -47,4 +47,29 @@ const contact = (req, res, next) => {
   });
 };
 
-module.exports = { contact };
+const subscription = (req, res, next) => {
+  const subscriptions = req.body.subscriptions;
+  console.log(subscriptions);
+  const postTitle = req.body.title;
+
+  const mail = {
+    from: '"Blog"',
+    to: 'Writemailhere@kot.com',
+    subject: 'New post added',
+    text: `A new post titled "${postTitle}" has been added to our site.`,
+  };
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail',
+      });
+    } else {
+      res.json({
+        status: 'success',
+      });
+    }
+  });
+};
+
+module.exports = { contact, subscription };
