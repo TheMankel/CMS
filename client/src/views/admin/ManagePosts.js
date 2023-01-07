@@ -31,6 +31,7 @@ import {
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
+import { getImageListItemBarUtilityClass } from '@mui/material';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -40,6 +41,7 @@ const ManagePosts = () => {
   const [postText, setPostText] = useState('');
   const [newPost, setNewPost] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [subscribeEmails, setSubscribeEmails] = useState([]);
 
   const modules = {
     toolbar: [
@@ -108,10 +110,24 @@ const ManagePosts = () => {
         title: postTitle,
       };
 
+      const subscriptions = {
+        subscriptions: subscribeEmails,
+        title: postTitle,
+      };
+
       if (newPost)
-        await axios.post('http://localhost:8000/api/new-post', data, {
-          withCredentials: true,
-        });
+        await Promise.all([
+          axios.post('http://localhost:8000/api/new-post', data, {
+            withCredentials: true,
+          }),
+          axios.post(
+            'http://localhost:8000/api/send-subscriptions',
+            subscriptions,
+            {
+              withCredentials: true,
+            },
+          ),
+        ]);
       else
         await axios.post('http://localhost:8000/api/edit-post', data, {
           withCredentials: true,
@@ -119,6 +135,7 @@ const ManagePosts = () => {
     } catch (err) {
       console.log(err);
     }
+    console.log('Email sent');
     setPostTitle('');
     setPostDescription('');
     setPostImage(null);
@@ -130,7 +147,6 @@ const ManagePosts = () => {
 
   const handleEditPost = async (e) => {
     setNewPost(false);
-
     const id = e.currentTarget?.id;
     const postToEdit = posts?.find((post) => post.title === id);
     console.log(postToEdit);
@@ -170,7 +186,13 @@ const ManagePosts = () => {
     await getData('posts', setPosts);
   };
 
+  const handleSubscribeEmails = (data) => {
+    setSubscribeEmails(data);
+    console.log(data);
+  };
+
   useEffect(() => {
+    getData('subscribe', handleSubscribeEmails);
     getData('posts', setPosts, setIsLoading);
   }, []);
 
