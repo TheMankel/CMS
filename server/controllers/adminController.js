@@ -495,7 +495,7 @@ const updateCategory = async (req, res, next) => {
       image: image,
     };
 
-    const categoryTitle = title?.replace(' ', '-');
+    const categoryTitle = title?.toLowerCase().replaceAll(' ', '-');
 
     await categoriesCollectionRef.doc(categoryTitle).set(data);
     return res.status(200).json('Categories updated!');
@@ -515,7 +515,7 @@ const editCategory = async (req, res, next) => {
       image: image,
     };
 
-    const categoryTitle = title?.replaceAll(' ', '-');
+    const categoryTitle = title?.toLowerCase().replaceAll(' ', '-');
 
     await categoriesCollectionRef.doc(categoryTitle).update(data);
     return res.status(200).json(data);
