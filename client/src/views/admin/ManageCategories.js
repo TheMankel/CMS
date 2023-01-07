@@ -64,11 +64,13 @@ const Categories = () => {
 
     const categoryImageRef = createRef(`categoryImages/${categoryTitle}`);
 
+    await uploadImage(categoryImageRef, categoryImage);
+    const categoryImageUrl = await downloadImage(categoryImageRef);
     try {
       const data = {
         title: categoryTitle,
         description: categoryDescription,
-        image: categoryImageRef,
+        image: categoryImageUrl,
       };
 
       if (newCategory)
@@ -93,7 +95,7 @@ const Categories = () => {
   const handleEdit = async (e) => {
     setNewCategory(false);
 
-    const categoryId = e.currenttarget?.id;
+    const categoryId = e.currentTarget?.id;
     console.log(categoryId);
 
     const categoryToEdit = categories?.find(
@@ -101,7 +103,7 @@ const Categories = () => {
     );
     console.log(categoryToEdit);
     const image = {
-      title: categoryToEdit.title.replace(' ', '-'),
+      title: categoryToEdit.title.replaceAll(' ', '-'),
       photo: categoryToEdit.categoryImage,
     };
     setCategoryTitle(categoryToEdit.title);
@@ -111,7 +113,7 @@ const Categories = () => {
 
   const handleDelete = async (e) => {
     try {
-      const categoryId = e.currenttarget?.id;
+      const categoryId = e.currentTarget?.id;
       setId(categoryId);
       console.log(categoryId);
 
@@ -135,10 +137,8 @@ const Categories = () => {
   };
 
   const handleCategories = (data) => {
-    const { categories } = data;
-    setCategories(categories);
+    setCategories(data);
     console.log(data);
-    console.log(categories);
   };
 
   useEffect(() => {
