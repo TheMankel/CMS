@@ -216,7 +216,6 @@ const ManagePosts = () => {
               component='form'
               noValidate
               autoComplete='off'
-              // onSubmit={handleNewPost}
               sx={{
                 p: 2,
                 display: 'flex',
@@ -294,26 +293,6 @@ const ManagePosts = () => {
                 placeholder='Write something'
                 modules={modules}
               />
-              {/* <Box alignSelf='center'>
-                <Button
-                  variant='outlined'
-                  onClick={handleCancel}
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  type='submit'
-                  sx={{
-                    mx: '4px',
-                    textTransform: 'none',
-                  }}>
-                  {newPost ? 'Add new post' : 'Save edited post'}
-                </Button>
-              </Box> */}
               <ActionButtons
                 secondTitle={newPost ? 'Add new post' : 'Save edited post'}
                 handleCancel={handleCancel}
@@ -324,8 +303,7 @@ const ManagePosts = () => {
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
               <Title>Created posts</Title>
-              {posts.length === 0 && <Info message='No posts added!' />}
-              {posts.length > 0 && (
+              {isLoading && (
                 <Table size='small'>
                   <TableHead>
                     <TableRow>
@@ -336,39 +314,54 @@ const ManagePosts = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {isLoading &&
-                      [...Array(4)].map((_, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{i}</TableCell>
-                          <TableCell>{<Skeleton variant='text' />}</TableCell>
-                          <TableCell>{<Skeleton variant='text' />}</TableCell>
-                          <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        </TableRow>
-                      ))}
-                    {!isLoading &&
-                      posts?.map((post, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{i}</TableCell>
-                          <TableCell>{post?.title}</TableCell>
-                          <TableCell>{post?.date}</TableCell>
-                          <TableCell align='center'>
-                            <IconButton
-                              id={post?.title}
-                              onClick={handleEditPost}
-                              aria-label='edit post'
-                              component='label'>
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton
-                              id={post?.title}
-                              onClick={handleDeletePost}
-                              aria-label='delete post'
-                              component='label'>
-                              <DeleteIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                    {[...Array(4)].map((_, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+              {posts.length === 0 && !isLoading && (
+                <Info message='No posts added!' />
+              )}
+              {posts.length > 0 && !isLoading && (
+                <Table size='small'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>id</TableCell>
+                      <TableCell>Post title</TableCell>
+                      <TableCell>Created</TableCell>
+                      <TableCell align='center'>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {posts?.map((post, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{post?.title}</TableCell>
+                        <TableCell>{post?.date}</TableCell>
+                        <TableCell align='center'>
+                          <IconButton
+                            id={post?.title}
+                            onClick={handleEditPost}
+                            aria-label='edit post'
+                            component='label'>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            id={post?.title}
+                            onClick={handleDeletePost}
+                            aria-label='delete post'
+                            component='label'>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
               )}
