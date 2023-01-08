@@ -1,9 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
 
 const PrivacySection = (props) => {
-  const { content } = props;
+  const { content, isLoading } = props;
 
   // const data = [
   //   {
@@ -51,26 +52,37 @@ const PrivacySection = (props) => {
 
   return (
     <Box>
-      {content.map((item, i) => (
-        <Box key={i} marginBottom={4}>
-          <Box>
-            <Typography
-              variant={'h6'}
-              gutterBottom
-              sx={{
-                fontWeight: 'medium',
-              }}>
-              {i + 1}. {item.title}
-            </Typography>
-            <Typography
-              component={'p'}
-              color={'textSecondary'}
-              textAlign='justify'>
-              {item.description}
-            </Typography>
+      {!isLoading &&
+        content?.map((item, i) => (
+          <Box key={i} marginBottom={4}>
+            <Box>
+              <Typography
+                variant={'h6'}
+                gutterBottom
+                sx={{
+                  fontWeight: 'medium',
+                }}>
+                {i + 1}. {item.title}
+              </Typography>
+              <Typography
+                component={'p'}
+                color={'textSecondary'}
+                textAlign='justify'>
+                {item.description}
+              </Typography>
+            </Box>
           </Box>
+        ))}
+      {isLoading && (
+        <Box display='flex' flexDirection='column' gap={1} marginBottom={4}>
+          <Skeleton variant='text' width='25%' />
+          <Skeleton variant='rounded' height={60} />
+          <Skeleton variant='text' width='35%' />
+          <Skeleton variant='rounded' height={100} />
+          <Skeleton variant='text' width='30%' />
+          <Skeleton variant='rounded' height={80} />
         </Box>
-      ))}
+      )}
     </Box>
   );
 };

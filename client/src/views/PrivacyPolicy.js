@@ -69,7 +69,7 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                <PrivacySection content={content} isLoading={true} />
+                <PrivacySection content={content} isLoading={isLoading} />
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
