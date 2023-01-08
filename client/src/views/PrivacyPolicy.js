@@ -16,6 +16,7 @@ const PrivacyPolicy = () => {
     },
   ]);
   const [created, setCreated] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleData = (data) => {
     setContent(data?.content);
@@ -23,7 +24,7 @@ const PrivacyPolicy = () => {
   };
 
   useEffect(() => {
-    getData('privacy-policy', handleData);
+    getData('privacy-policy', handleData, setIsLoading);
   }, []);
 
   const theme = useTheme();
@@ -41,9 +42,11 @@ const PrivacyPolicy = () => {
                 fontWeight={700}>
                 Privacy Policy
               </Typography>
-              <Typography variant={'h6'} gutterBottom color='white'>
-                Last modified on <strong>{created}</strong>
-              </Typography>
+              {created && (
+                <Typography variant={'h6'} gutterBottom color='white'>
+                  Last modified on <strong>{created}</strong>
+                </Typography>
+              )}
             </Container>
             <Box
               component={'svg'}
@@ -66,7 +69,7 @@ const PrivacyPolicy = () => {
               spacing={4}
               flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={9}>
-                <PrivacySection content={content} />
+                <PrivacySection content={content} isLoading={true} />
               </Grid>
               <Grid item xs={12} md={3}>
                 <Box
