@@ -5,10 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import InfoIcon from '@mui/icons-material/Info';
 import Title from '../../components/Title/Title';
+import Info from '../../components/Info/Info';
 
 const RecentUsers = (props) => {
   const { recentUsers, isLoading } = props;
@@ -37,12 +35,7 @@ const RecentUsers = (props) => {
         </Table>
       )}
       {recentUsers.length === 0 && !isLoading && (
-        <Box display='flex' flexDirection='column' alignItems='center' gap={1}>
-          <InfoIcon sx={{ fontSize: '57.6px', color: '#505050' }} />
-          <Typography component='h1' variant='h5'>
-            No new users!
-          </Typography>
-        </Box>
+        <Info message='No new users!' />
       )}
       {recentUsers.length > 0 && !isLoading && (
         <Table size='small'>
