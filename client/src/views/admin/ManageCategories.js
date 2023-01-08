@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Skeleton from '@mui/material/Skeleton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,6 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
+import Info from '../../components/Info/Info';
 import axios from 'axios';
 import {
   createRef,
@@ -33,6 +35,7 @@ const Categories = () => {
   const [newCategory, setNewCategory] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categoryImage, setCategoryImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleUpload = async (e) => {
     try {
@@ -144,7 +147,7 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    getData('categories', handleCategories);
+    getData('categories', handleCategories, setIsLoading);
   }, []);
 
   return (
@@ -239,39 +242,66 @@ const Categories = () => {
           <Grid item xs={12} mt={4}>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
               <Title>Categories</Title>
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell>Category names</TableCell>
-                    <TableCell align='center'>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {categories?.map((category, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{i}</TableCell>
-                      <TableCell>{category?.title}</TableCell>
-                      <TableCell align='center'>
-                        <IconButton
-                          id={category?.title}
-                          aria-label='edit category'
-                          component='label'
-                          onClick={handleEdit}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          id={category?.title}
-                          aria-label='delete category'
-                          component='label'
-                          onClick={handleDelete}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
+              {isLoading && (
+                <Table size='small'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>id</TableCell>
+                      <TableCell>Post title</TableCell>
+                      <TableCell>Created</TableCell>
+                      <TableCell align='center'>Actions</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {[...Array(4)].map((_, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        <TableCell>{<Skeleton variant='text' />}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+              {categories.length === 0 && !isLoading && (
+                <Info message='No categories added!' />
+              )}
+              {categories.length > 0 && !isLoading && (
+                <Table size='small'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>id</TableCell>
+                      <TableCell>Category names</TableCell>
+                      <TableCell align='center'>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {categories?.map((category, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{i}</TableCell>
+                        <TableCell>{category?.title}</TableCell>
+                        <TableCell align='center'>
+                          <IconButton
+                            id={category?.title}
+                            aria-label='edit category'
+                            component='label'
+                            onClick={handleEdit}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            id={category?.title}
+                            aria-label='delete category'
+                            component='label'
+                            onClick={handleDelete}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </Paper>
           </Grid>
         </Grid>

@@ -31,7 +31,6 @@ import {
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
-import { getImageListItemBarUtilityClass } from '@mui/material';
 
 const ManagePosts = () => {
   const [posts, setPosts] = useState([]);
