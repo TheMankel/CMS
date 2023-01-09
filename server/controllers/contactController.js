@@ -1,4 +1,8 @@
 const nodemailer = require('nodemailer');
+const { firestore } = require('firebase-admin');
+const { db } = require('../config/firebase-config');
+
+const subscriptionCollectionRef = db.collection('subscription');
 
 const transporter = nodemailer.createTransport({
   //   host: 'smtp.gmail.com',
@@ -47,29 +51,50 @@ const contact = (req, res, next) => {
   });
 };
 
-const subscription = (req, res, next) => {
-  const subscriptions = req.body.subscriptions;
-  console.log(subscriptions);
-  const postTitle = req.body.title;
+const subscription = async (req, res, next) => {
+  try {
+    const emailsRef = await subscriptionCollectionRef
+      .orderBy('created', 'asc')
+      .get();
 
-  const mail = {
-    from: '"Blog"',
-    to: 'Writemailhere@kot.com',
-    subject: 'New post added',
-    text: `A new post titled "${postTitle}" has been added to our site.`,
-  };
+    const data = {
+      subscriptions: [],
+    };
 
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        status: 'fail',
+    emailsRef.forEach((subscriber) => {
+      data.subscriptions.push(subscriber.data().email);
+    });
+
+    const emails = data;
+
+    console.log(emails.subscriptions);
+
+    const postTitle = req.body.title;
+
+    emails.subscriptions.forEach((email) => {
+      const mail = {
+        from: '"Blog"',
+        to: email,
+        subject: 'New post added',
+        text: `A new post titled "${postTitle}" has been added to our site.`,
+      };
+
+      transporter.sendMail(mail, (err, data) => {
+        if (err) {
+          res.json({
+            status: 'fail',
+          });
+        } else {
+          res.json({
+            status: 'success',
+          });
+        }
       });
-    } else {
-      res.json({
-        status: 'success',
-      });
-    }
-  });
+    });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
 };
 
 module.exports = { contact, subscription };
