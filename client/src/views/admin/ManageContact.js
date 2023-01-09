@@ -3,11 +3,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
-import Button from '@mui/material/Button';
 import Title from '../../components/Title/Title';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
-
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 
 const ContactAdmin = () => {
@@ -70,18 +68,6 @@ const ContactAdmin = () => {
 
   return (
     <Grid container spacing={3}>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={errorMessage}
-        action={
-          <Button color='secondary' size='small' onClick={handleClose}>
-            OK
-          </Button>
-        }
-      />
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
@@ -114,6 +100,12 @@ const ContactAdmin = () => {
           />
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        errorMessage={errorMessage}
+        successMessage='Contact saved!'
+        handleClose={handleClose}
+      />
     </Grid>
   );
 };

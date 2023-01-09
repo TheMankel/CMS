@@ -4,13 +4,8 @@ import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
-});
+import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Subscribe = () => {
   const [emailError, setEmailError] = useState('');
@@ -90,18 +85,12 @@ const Subscribe = () => {
           }}>
           Subscribe Now
         </Button>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        <AlertInfo
           open={open}
-          autoHideDuration={4000}
-          onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity={emailError ? 'error' : 'success'}
-            sx={{ width: '100%' }}>
-            {emailError ? emailError : 'Sending email success!'}
-          </Alert>
-        </Snackbar>
+          errorMessage={emailError}
+          successMessage='You are now a subscriber!'
+          handleClose={handleClose}
+        />
       </Box>
     </List>
   );
