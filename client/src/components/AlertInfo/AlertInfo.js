@@ -7,7 +7,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const AlertInfo = (props) => {
-  const { open, errorMessage, successMessage, handleClose } = props;
+  const { open, handleOpen, errorMessage, successMessage } = props;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    handleOpen(false);
+  };
 
   return (
     <Snackbar

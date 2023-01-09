@@ -12,14 +12,6 @@ const Subscribe = () => {
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   const handleSend = async (e) => {
     e.preventDefault();
     setOpen(true);
@@ -87,9 +79,9 @@ const Subscribe = () => {
         </Button>
         <AlertInfo
           open={open}
+          handleOpen={setOpen}
           errorMessage={emailError}
           successMessage='You are now a subscriber!'
-          handleClose={handleClose}
         />
       </Box>
     </List>

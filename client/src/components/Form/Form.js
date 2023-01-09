@@ -20,14 +20,6 @@ const Form = (props) => {
   const [msg, setMsg] = useState('');
   const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   const handleSend = async (e) => {
     e.preventDefault();
     setOpen(true);
@@ -161,9 +153,9 @@ const Form = (props) => {
             </Grid>
             <AlertInfo
               open={open}
+              handleOpen={setOpen}
               errorMessage={formError}
               successMessage='Sending email success!'
-              handleClose={handleClose}
             />
           </Grid>
         </Box>

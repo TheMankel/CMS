@@ -14,13 +14,6 @@ const ContactAdmin = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const handleClose = (e, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
-
   const handleCancel = () => {
     setEmail('');
     setPhone('');
@@ -102,9 +95,9 @@ const ContactAdmin = () => {
       </Grid>
       <AlertInfo
         open={open}
+        handleOpen={setOpen}
         errorMessage={errorMessage}
         successMessage='Contact saved!'
-        handleClose={handleClose}
       />
     </Grid>
   );
