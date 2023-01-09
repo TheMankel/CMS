@@ -247,8 +247,7 @@ const Categories = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>id</TableCell>
-                      <TableCell>Post title</TableCell>
-                      <TableCell>Created</TableCell>
+                      <TableCell>Category names</TableCell>
                       <TableCell align='center'>Actions</TableCell>
                     </TableRow>
                   </TableHead>
@@ -256,7 +255,6 @@ const Categories = () => {
                     {[...Array(4)].map((_, i) => (
                       <TableRow key={i}>
                         <TableCell>{i}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
                         <TableCell>{<Skeleton variant='text' />}</TableCell>
                         <TableCell>{<Skeleton variant='text' />}</TableCell>
                       </TableRow>
