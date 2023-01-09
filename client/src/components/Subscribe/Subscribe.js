@@ -8,21 +8,27 @@ import axios from 'axios';
 import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Subscribe = () => {
-  const [emailError, setEmailError] = useState('');
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleSend = async (e) => {
     e.preventDefault();
-    setOpen(true);
 
     if (!email) {
-      setEmailError('Field is empty.');
+      setMessage('Field is empty!');
+      setSeverity('error');
+      setOpen(true);
+
       return;
     }
 
     if (!/@/.test(email)) {
-      setEmailError('Please enter a valid email address.');
+      setMessage('Please enter a valid email address!');
+      setSeverity('error');
+      setOpen(true);
+
       return;
     }
 
@@ -37,9 +43,10 @@ const Subscribe = () => {
     } catch (error) {
       console.log(error);
     }
-
+    setMessage('You are now a subscriber!');
+    setSeverity('success');
+    setOpen(true);
     setEmail('');
-    setEmailError('');
   };
 
   return (
@@ -80,8 +87,8 @@ const Subscribe = () => {
         <AlertInfo
           open={open}
           handleOpen={setOpen}
-          errorMessage={emailError}
-          successMessage='You are now a subscriber!'
+          message={message}
+          severity={severity}
         />
       </Box>
     </List>
