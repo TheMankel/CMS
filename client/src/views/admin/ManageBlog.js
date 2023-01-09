@@ -84,7 +84,7 @@ const ManageBlog = () => {
     //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Blog name</Title>
             <TextField
@@ -97,7 +97,7 @@ const ManageBlog = () => {
               sx={{ mt: 1 }}
             />
           </Box>
-          <Box display='flex' flexDirection='column' sx={{ mt: 2 }}>
+          <Box display='flex' flexDirection='column' gap={1}>
             <Title>Logo</Title>
             {logo?.name && (
               <Box
@@ -125,7 +125,7 @@ const ManageBlog = () => {
               Upload
               <input hidden accept='image/*' type='file' />
             </Button>
-            <Box display='flex' gap={1} sx={{ mt: 1 }}>
+            <Box display='flex' gap={1}>
               <Typography>Currently uploaded logo:</Typography>
               <Typography color='GrayText'>
                 {logo?.name ? logo.name : 'none'}

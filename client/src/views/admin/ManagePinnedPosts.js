@@ -62,20 +62,14 @@ const PinnedPosts = () => {
     //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>First pinned post</Title>
-            <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>First post</InputLabel>
+            <FormControl fullWidth sx={{ mt: 1 }}>
+              <InputLabel id='first-select-label'>First post</InputLabel>
               <Select
-                labelId='demo-simple-select-label'
-                id='demo-simple-select'
+                labelId='first-select-label'
+                id='first-select'
                 value={firstPost}
                 label='First post'
                 onChange={(e) => setFirstPost(e.target.value)}>
@@ -92,11 +86,11 @@ const PinnedPosts = () => {
           </Box>
           <Box>
             <Title>Second pinned post</Title>
-            <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>Second post</InputLabel>
+            <FormControl fullWidth sx={{ mt: 1 }}>
+              <InputLabel id='second-select-label'>Second post</InputLabel>
               <Select
-                labelId='demo-simple-select-label'
-                id='demo-simple-select'
+                labelId='second-select-label'
+                id='second-select'
                 value={secondPost}
                 label='Second post'
                 onChange={(e) => setSecondPost(e.target.value)}>

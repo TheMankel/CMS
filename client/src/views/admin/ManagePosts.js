@@ -211,16 +211,7 @@ const ManagePosts = () => {
     //   <Container maxWidth='lg' sx={{ my: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper
-          component='form'
-          noValidate
-          autoComplete='off'
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Post title</Title>
             <TextField

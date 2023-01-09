@@ -44,13 +44,7 @@ const SliderAdmin = () => {
             </Tabs>
           </Box>
         </Paper>
-        <Paper
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <SliderTabPanel value={value} index={0} />
           <SliderTabPanel value={value} index={1} />
           <SliderTabPanel value={value} index={2} />

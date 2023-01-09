@@ -60,19 +60,13 @@ const ManageSocials = () => {
     //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Choose social</Title>
-            <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>Social name</InputLabel>
+            <FormControl fullWidth sx={{ mt: 1 }}>
+              <InputLabel id='social-select-label'>Social name</InputLabel>
               <Select
-                labelId='select-social-name'
+                labelId='social-select-name'
                 id='social-name'
                 value={socialName}
                 label='Social name'
@@ -90,7 +84,7 @@ const ManageSocials = () => {
           </Box>
           <Box>
             <Title>Provide link</Title>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 1 }}>
               <TextField
                 id='social-url'
                 label='Social link'

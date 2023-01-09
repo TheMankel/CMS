@@ -166,7 +166,7 @@ const Categories = () => {
     //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Add category</Title>
             <TextField
@@ -180,19 +180,19 @@ const Categories = () => {
               sx={{ mt: 1 }}
             />
           </Box>
-          <Box mt={1}>
+          <Box>
             <Title>Category description</Title>
+            <TextField
+              id='set-categoryDescription'
+              label='Write category description'
+              variant='outlined'
+              value={categoryDescription}
+              onChange={(e) => setCategoryDescription(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
           </Box>
-          <TextField
-            id='set-categoryDescription'
-            label='Write category description'
-            variant='outlined'
-            value={categoryDescription}
-            onChange={(e) => setCategoryDescription(e.target.value)}
-            fullWidth
-            sx={{ mt: 1 }}
-          />
-          <Box display='flex' flexDirection='column' gap={1} mt={1}>
+          <Box display='flex' flexDirection='column' gap={1}>
             <Title>Category image</Title>
             {categoryImage?.name && (
               <Box
@@ -202,7 +202,6 @@ const Categories = () => {
                     ? categoryImage?.photo
                     : URL?.createObjectURL(categoryImage)
                 }
-                // src=''
                 alt={categoryImage?.name}
                 sx={{
                   objectFit: 'cover',
@@ -238,7 +237,7 @@ const Categories = () => {
           />
         </Paper>
       </Grid>
-      <Grid item xs={12} mt={4}>
+      <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <Title>Categories</Title>
           {isLoading && (

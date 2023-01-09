@@ -130,13 +130,12 @@ const PrivacyPolicy = () => {
     //   <Container maxWidth='lg' sx={{ my: 4 }}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Add rule title</Title>
             <TextField
               id='set-ruleTitle'
               label='Write rule title'
-              // disabled={!newRule}
               variant='outlined'
               value={ruleTitle}
               onChange={(e) => setRuleTitle(e.target.value)}
@@ -144,87 +143,87 @@ const PrivacyPolicy = () => {
               sx={{ mt: 1 }}
             />
           </Box>
-          <Box mt={2}>
+          <Box>
             <Title>Rule description</Title>
+            <TextField
+              id='set-ruleDescription'
+              label='Write rule description'
+              variant='outlined'
+              value={ruleDescription}
+              onChange={(e) => setRuleDescription(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
           </Box>
-          <TextField
-            id='set-ruleDescription'
-            label='Write rule description'
-            variant='outlined'
-            value={ruleDescription}
-            onChange={(e) => setRuleDescription(e.target.value)}
-            fullWidth
-            sx={{ mt: 1 }}
-          />
           <ActionButtons
             secondTitle={newRule ? 'Add new rule' : 'Save edited rule'}
             handleCancel={handleCancel}
             handleUpdate={handleUpdate}
           />
         </Paper>
-        <Grid item xs={12} mt={4}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-            <Title>Privacy Policy rules</Title>
-            {isLoading && (
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell>Rule title</TableCell>
-                    <TableCell align='center'>Actions</TableCell>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Title>Privacy Policy rules</Title>
+          {isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Rule title</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {[...Array(4)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {[...Array(4)].map((_, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{i}</TableCell>
-                      <TableCell>{<Skeleton variant='text' />}</TableCell>
-                      <TableCell>{<Skeleton variant='text' />}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-            {rules.length === 0 && !isLoading && (
-              <Info message='No rules added!' />
-            )}
-            {rules.length > 0 && !isLoading && (
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell>Rule title</TableCell>
-                    <TableCell align='center'>Actions</TableCell>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+          {rules.length === 0 && !isLoading && (
+            <Info message='No rules added!' />
+          )}
+          {rules.length > 0 && !isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Rule title</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rules?.map((rule, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{rule?.title}</TableCell>
+                    <TableCell align='center'>
+                      <IconButton
+                        id={rule?.id}
+                        aria-label='edit rule'
+                        component='label'
+                        onClick={handleEdit}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        id={rule?.id}
+                        aria-label='delete rule'
+                        component='label'
+                        onClick={handleDelete}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rules?.map((rule, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{i}</TableCell>
-                      <TableCell>{rule?.title}</TableCell>
-                      <TableCell align='center'>
-                        <IconButton
-                          id={rule?.id}
-                          aria-label='edit rule'
-                          component='label'
-                          onClick={handleEdit}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          id={rule?.id}
-                          aria-label='delete rule'
-                          component='label'
-                          onClick={handleDelete}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </Paper>
-        </Grid>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Paper>
       </Grid>
     </Grid>
     //   </Container>

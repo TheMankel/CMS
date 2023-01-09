@@ -98,16 +98,7 @@ const ContactAdmin = () => {
         }
       />
       <Grid item xs={12}>
-        <Paper
-          component='form'
-          noValidate
-          autoComplete='off'
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box>
             <Title>Change Email</Title>
             <TextField

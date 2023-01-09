@@ -43,13 +43,7 @@ const AboutAdmin = () => {
             </Tabs>
           </Box>
         </Paper>
-        <Paper
-          sx={{
-            p: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <AboutTabPanel value={value} index={0} />
           <AboutTabPanel value={value} index={1} />
         </Paper>
