@@ -16,6 +16,10 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Skeleton from '@mui/material/Skeleton';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
@@ -36,9 +40,10 @@ const ManagePosts = () => {
   const [postDescription, setPostDescription] = useState('');
   const [postImage, setPostImage] = useState(null);
   const [postText, setPostText] = useState('');
+  const [postCategory, setPostCategory] = useState('none');
   const [newPost, setNewPost] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [subscribeEmails, setSubscribeEmails] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const modules = {
     toolbar: [
@@ -75,6 +80,7 @@ const ManagePosts = () => {
     setPostDescription('');
     setPostImage(null);
     setPostText('');
+    setPostCategory('none');
     setNewPost(true);
   };
 
@@ -103,10 +109,10 @@ const ManagePosts = () => {
         image: imageUrl,
         text: postText,
         title: postTitle,
+        category: postCategory,
       };
 
-      const subscriptions = {
-        subscriptions: subscribeEmails,
+      const subscriptionsTitle = {
         title: postTitle,
       };
 
@@ -117,7 +123,7 @@ const ManagePosts = () => {
           }),
           axios.post(
             'http://localhost:8000/api/send-subscriptions',
-            subscriptions,
+            subscriptionsTitle,
             {
               withCredentials: true,
             },
@@ -135,6 +141,7 @@ const ManagePosts = () => {
     setPostDescription('');
     setPostImage(null);
     setPostText('');
+    setPostCategory('none');
     setNewPost(true);
     // getData();
     await getData('posts', setPosts);
@@ -154,6 +161,7 @@ const ManagePosts = () => {
     setPostDescription(postToEdit.description);
     setPostImage(image);
     setPostText(postToEdit.text);
+    setPostCategory(postToEdit.category);
   };
 
   const handleDeletePost = async (e) => {
@@ -181,13 +189,13 @@ const ManagePosts = () => {
     await getData('posts', setPosts);
   };
 
-  const handleSubscribeEmails = (data) => {
-    setSubscribeEmails(data);
+  const handleCategories = (data) => {
+    setCategories(data);
     console.log(data);
   };
 
   useEffect(() => {
-    getData('subscribe', handleSubscribeEmails);
+    getData('categories', handleCategories);
     getData('posts', setPosts, setIsLoading);
   }, []);
 
@@ -219,6 +227,27 @@ const ManagePosts = () => {
               fullWidth
               sx={{ mt: 1 }}
             />
+          </Box>
+          <Box>
+            <Title>Post category</Title>
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
+              <Select
+                id='set-category'
+                value={postCategory}
+                label='Category'
+                onChange={(e) => setPostCategory(e.target.value)}
+                sx={{ mt: 1 }}>
+                <MenuItem key='none' value='none'>
+                  none
+                </MenuItem>
+                {categories.map((category, i) => (
+                  <MenuItem key={i} value={category.title}>
+                    {category.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
           <Box display='flex' flexDirection='column' gap={1}>
             <Title>Background photo</Title>
