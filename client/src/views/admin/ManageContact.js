@@ -10,7 +10,8 @@ import axios from 'axios';
 
 const ContactAdmin = () => {
   const [open, setOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -32,14 +33,18 @@ const ContactAdmin = () => {
     const isValidPhone = phoneRegex.test(phone);
 
     if (!isValidEmail) {
-      setErrorMessage('Please enter a valid email address');
+      setMessage('Please enter a valid email address');
+      setSeverity('error');
       setOpen(true);
+
       return;
     }
 
     if (!isValidPhone) {
-      setErrorMessage('Please enter a valid phone number starting with +');
+      setMessage('Please enter a valid phone number starting with +');
+      setSeverity('error');
       setOpen(true);
+
       return;
     }
 
@@ -55,6 +60,9 @@ const ContactAdmin = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Contact saved!');
+    setSeverity('success');
+    setOpen(true);
     setEmail('');
     setPhone('');
   };
@@ -96,8 +104,8 @@ const ContactAdmin = () => {
       <AlertInfo
         open={open}
         handleOpen={setOpen}
-        errorMessage={errorMessage}
-        successMessage='Contact saved!'
+        severity={severity}
+        message={message}
       />
     </Grid>
   );

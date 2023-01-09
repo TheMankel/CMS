@@ -12,25 +12,41 @@ import Switch from '@mui/material/Switch';
 import Skeleton from '@mui/material/Skeleton';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import { useAuth } from '../../contexts/authContext';
 import { getData } from '../../lib/api';
-import { createRef, deleteImage } from '../../lib/storage';
+import { createRef, getListImages, deleteImage } from '../../lib/storage';
 
 const ManageUsers = () => {
   const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleUpdate = async (e) => {
     try {
       const id = e.currentTarget?.id;
+
+      if (!id) {
+        setMessage("Could not change user's role. Try again later!");
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
+
       const data = users.find((user) => user.uid === id);
 
       await axios.post(`http://localhost:8000/api/update-user/${id}`, data);
     } catch (err) {
       console.log(err);
     }
+    setMessage("Successfully changed user's role!");
+    setSeverity('success');
+    setOpen(true);
     // getData();
     getData(`users/${user?.uid}`, setUsers);
   };
@@ -39,17 +55,38 @@ const ManageUsers = () => {
     try {
       const id = e.currentTarget?.id;
 
+      if (!id) {
+        setMessage('Could not delete user. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
+
       const res = await axios.get(
         `http://localhost:8000/api/delete-user/${id}`,
       );
 
-      if (res.status !== 200) return;
+      if (res.status !== 200) {
+        setMessage('Something went wrong. Try again later!');
+        setSeverity('error');
+        setOpen(true);
 
+        return;
+      }
+
+      const allUserImagesRef = createRef(`userImages`);
       const userRef = createRef(`userImages/${id}`);
-      deleteImage(userRef);
+      const uploadedImages = await getListImages(allUserImagesRef);
+      const imageExists = uploadedImages.some((image) => image.name === id);
+
+      if (imageExists) deleteImage(userRef);
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully deleted user!');
+    setSeverity('success');
+    setOpen(true);
     // getData();
     getData(`users/${user?.uid}`, setUsers);
   };
@@ -132,6 +169,12 @@ const ManageUsers = () => {
           )}
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };

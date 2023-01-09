@@ -13,24 +13,30 @@ import axios from 'axios';
 import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Form = (props) => {
-  const [formError, setFormError] = useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
-  const [open, setOpen] = useState(false);
 
   const handleSend = async (e) => {
     e.preventDefault();
-    setOpen(true);
 
     if (!firstName || !lastName || !email || !msg) {
-      setFormError('All fields are required.');
+      setMessage('All fields are required!');
+      setSeverity('error');
+      setOpen(true);
+
       return;
     }
 
     if (!/@/.test(email)) {
-      setFormError('Please enter a valid email address.');
+      setMessage('Please enter a valid email address!');
+      setSeverity('error');
+      setOpen(true);
+
       return;
     }
 
@@ -43,12 +49,18 @@ const Form = (props) => {
       });
     } catch (error) {
       console.log(error);
+      setMessage('Something went wrong. Try again later!');
+      setSeverity('error');
+      setOpen(true);
     }
+    setMessage('Successfully sent message!');
+    setSeverity('success');
+    setOpen(true);
     setFirstName('');
     setLastName('');
     setEmail('');
     setMsg('');
-    setFormError('');
+    // setMessage('');
   };
 
   const theme = useTheme();
@@ -154,8 +166,8 @@ const Form = (props) => {
             <AlertInfo
               open={open}
               handleOpen={setOpen}
-              errorMessage={formError}
-              successMessage='Sending email success!'
+              severity={severity}
+              message={message}
             />
           </Grid>
         </Box>
