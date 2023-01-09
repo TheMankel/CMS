@@ -13,13 +13,13 @@ import axios from 'axios';
 import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Form = (props) => {
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [severity, setSeverity] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
-  const [open, setOpen] = useState(false);
 
   const handleSend = async (e) => {
     e.preventDefault();

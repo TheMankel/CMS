@@ -8,10 +8,10 @@ import axios from 'axios';
 import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Subscribe = () => {
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [severity, setSeverity] = useState(null);
   const [email, setEmail] = useState('');
-  const [open, setOpen] = useState(false);
 
   const handleSend = async (e) => {
     e.preventDefault();
