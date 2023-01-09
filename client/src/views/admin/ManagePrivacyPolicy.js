@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
+import Skeleton from '@mui/material/Skeleton';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
 import axios from 'axios';
@@ -26,6 +27,7 @@ const PrivacyPolicy = () => {
   const [rules, setRules] = useState([]);
   const [newRule, setNewRule] = useState(true);
   const [id, setId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleCancel = () => {
     setRuleTitle('');
@@ -109,7 +111,7 @@ const PrivacyPolicy = () => {
   };
 
   useEffect(() => {
-    getData('privacy-policy', handleRules);
+    getData('privacy-policy', handleRules, setIsLoading);
   }, []);
 
   return (
@@ -164,13 +166,35 @@ const PrivacyPolicy = () => {
             <Grid item xs={12} mt={4}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                 <Title>Privacy Policy rules</Title>
-                {rules.length === 0 && <Info message='No rules added!' />}
-                {rules.length > 0 && (
+                {isLoading && (
                   <Table size='small'>
                     <TableHead>
                       <TableRow>
                         <TableCell>id</TableCell>
-                        <TableCell>Rule Titles</TableCell>
+                        <TableCell>Rule title</TableCell>
+                        <TableCell align='center'>Actions</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {[...Array(4)].map((_, i) => (
+                        <TableRow key={i}>
+                          <TableCell>{i}</TableCell>
+                          <TableCell>{<Skeleton variant='text' />}</TableCell>
+                          <TableCell>{<Skeleton variant='text' />}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+                {rules.length === 0 && !isLoading && (
+                  <Info message='No rules added!' />
+                )}
+                {rules.length > 0 && !isLoading && (
+                  <Table size='small'>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>id</TableCell>
+                        <TableCell>Rule title</TableCell>
                         <TableCell align='center'>Actions</TableCell>
                       </TableRow>
                     </TableHead>
