@@ -71,18 +71,20 @@ const ContactAdmin = () => {
   };
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={open}
@@ -93,53 +95,52 @@ const ContactAdmin = () => {
           <Button color='secondary' size='small' onClick={handleClose}>
             OK
           </Button>
-        }></Snackbar>
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              component='form'
-              noValidate
-              autoComplete='off'
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}>
-              <Box>
-                <Title>Change Email</Title>
-                <TextField
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  id='set-email'
-                  label='Write new email'
-                  variant='outlined'
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <Box>
-                <Title>Change Phone Number</Title>
-                <TextField
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  id='set-phone'
-                  label='Write new phone number'
-                  variant='outlined'
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <ActionButtons
-                handleCancel={handleCancel}
-                handleUpdate={handleUpdate}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+        }
+      />
+      <Grid item xs={12}>
+        <Paper
+          component='form'
+          noValidate
+          autoComplete='off'
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}>
+          <Box>
+            <Title>Change Email</Title>
+            <TextField
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id='set-email'
+              label='Write new email'
+              variant='outlined'
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box>
+            <Title>Change Phone Number</Title>
+            <TextField
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              id='set-phone'
+              label='Write new phone number'
+              variant='outlined'
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

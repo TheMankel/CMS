@@ -69,79 +69,78 @@ const ManageBlog = () => {
   };
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Box>
-                <Title>Blog name</Title>
-                <TextField
-                  id='set-blogName'
-                  label='Write new blog name'
-                  variant='outlined'
-                  value={blogName}
-                  onChange={(e) => setBlogName(e.target.value)}
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <Box display='flex' flexDirection='column' sx={{ mt: 2 }}>
-                <Title>Logo</Title>
-                {logo?.name && (
-                  <Box
-                    component='img'
-                    src={logo?.photo ? logo?.photo : URL?.createObjectURL(logo)}
-                    alt={logo?.name}
-                    sx={{
-                      objectFit: 'cover',
-                      width: '25%',
-                      alignSelf: 'center',
-                      borderRadius: 2,
-                      mb: 1,
-                    }}
-                  />
-                )}
-                <Button
-                  id='upload-logo'
-                  variant='contained'
-                  component='label'
-                  onChange={handleUpload}
-                  sx={{
-                    alignSelf: 'center',
-                    textTransform: 'none',
-                  }}>
-                  Upload
-                  <input hidden accept='image/*' type='file' />
-                </Button>
-                <Box display='flex' gap={1} sx={{ mt: 1 }}>
-                  <Typography>Currently uploaded logo:</Typography>
-                  <Typography color='GrayText'>
-                    {logo?.name ? logo.name : 'none'}
-                  </Typography>
-                </Box>
-              </Box>
-              <ActionButtons
-                handleCancel={handleCancel}
-                handleUpdate={handleUpdate}
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <Box>
+            <Title>Blog name</Title>
+            <TextField
+              id='set-blogName'
+              label='Write new blog name'
+              variant='outlined'
+              value={blogName}
+              onChange={(e) => setBlogName(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box display='flex' flexDirection='column' sx={{ mt: 2 }}>
+            <Title>Logo</Title>
+            {logo?.name && (
+              <Box
+                component='img'
+                src={logo?.photo ? logo?.photo : URL?.createObjectURL(logo)}
+                alt={logo?.name}
+                sx={{
+                  objectFit: 'cover',
+                  width: '25%',
+                  alignSelf: 'center',
+                  borderRadius: 2,
+                  mb: 1,
+                }}
               />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+            )}
+            <Button
+              id='upload-logo'
+              variant='contained'
+              component='label'
+              onChange={handleUpload}
+              sx={{
+                alignSelf: 'center',
+                textTransform: 'none',
+              }}>
+              Upload
+              <input hidden accept='image/*' type='file' />
+            </Button>
+            <Box display='flex' gap={1} sx={{ mt: 1 }}>
+              <Typography>Currently uploaded logo:</Typography>
+              <Typography color='GrayText'>
+                {logo?.name ? logo.name : 'none'}
+              </Typography>
+            </Box>
+          </Box>
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

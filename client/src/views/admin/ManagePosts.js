@@ -196,179 +196,179 @@ const ManagePosts = () => {
   }, []);
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ my: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              component='form'
-              noValidate
-              autoComplete='off'
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ my: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper
+          component='form'
+          noValidate
+          autoComplete='off'
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1,
+          }}>
+          <Box>
+            <Title>Post title</Title>
+            <TextField
+              id='set-title'
+              label='Write post title'
+              variant='outlined'
+              disabled={!newPost}
+              value={postTitle}
+              onChange={(e) => setPostTitle(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box>
+            <Title>Post description</Title>
+            <TextField
+              id='set-description'
+              label='Write post description'
+              variant='outlined'
+              value={postDescription}
+              onChange={(e) => setPostDescription(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box display='flex' flexDirection='column' gap={1}>
+            <Title>Background photo</Title>
+            {postImage?.name && (
+              <Box
+                component='img'
+                src={
+                  postImage?.photo
+                    ? postImage?.photo
+                    : URL?.createObjectURL(postImage)
+                }
+                alt={postImage?.name}
+                sx={{
+                  objectFit: 'cover',
+                  width: '50%',
+                  alignSelf: 'center',
+                  borderRadius: 2,
+                  mb: 1,
+                }}
+              />
+            )}
+            <Button
+              id='upload-background'
+              variant='contained'
+              component='label'
+              onChange={handleUpload}
               sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
+                alignSelf: 'center',
+                textTransform: 'none',
               }}>
-              <Box>
-                <Title>Post title</Title>
-                <TextField
-                  id='set-title'
-                  label='Write post title'
-                  variant='outlined'
-                  disabled={!newPost}
-                  value={postTitle}
-                  onChange={(e) => setPostTitle(e.target.value)}
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <Box>
-                <Title>Post description</Title>
-                <TextField
-                  id='set-description'
-                  label='Write post description'
-                  variant='outlined'
-                  value={postDescription}
-                  onChange={(e) => setPostDescription(e.target.value)}
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <Box display='flex' flexDirection='column' gap={1}>
-                <Title>Background photo</Title>
-                {postImage?.name && (
-                  <Box
-                    component='img'
-                    src={
-                      postImage?.photo
-                        ? postImage?.photo
-                        : URL?.createObjectURL(postImage)
-                    }
-                    alt={postImage?.name}
-                    sx={{
-                      objectFit: 'cover',
-                      width: '50%',
-                      alignSelf: 'center',
-                      borderRadius: 2,
-                      mb: 1,
-                    }}
-                  />
-                )}
-                <Button
-                  id='upload-background'
-                  variant='contained'
-                  component='label'
-                  onChange={handleUpload}
-                  sx={{
-                    alignSelf: 'center',
-                    textTransform: 'none',
-                  }}>
-                  Upload
-                  <input hidden accept='image/*' type='file' />
-                </Button>
-                <Box display='flex' gap={1}>
-                  <Typography>Currently uploaded photo:</Typography>
-                  <Typography color='GrayText'>
-                    {postImage?.name ? postImage?.name : 'none'}
-                  </Typography>
-                </Box>
-              </Box>
-              <ReactQuill
-                theme='snow'
-                value={postText}
-                onChange={setPostText}
-                placeholder='Write something'
-                modules={modules}
-              />
-              <ActionButtons
-                secondTitle={newPost ? 'Add new post' : 'Save edited post'}
-                handleCancel={handleCancel}
-                handleUpdate={handleNewPost}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Title>Created posts</Title>
-              {isLoading && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Post title</TableCell>
-                      <TableCell>Created</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {[...Array(4)].map((_, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-              {posts.length === 0 && !isLoading && (
-                <Info message='No posts added!' />
-              )}
-              {posts.length > 0 && !isLoading && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Post title</TableCell>
-                      <TableCell>Created</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {posts?.map((post, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{post?.title}</TableCell>
-                        <TableCell>{post?.date}</TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            id={post?.title}
-                            onClick={handleEditPost}
-                            aria-label='edit post'
-                            component='label'>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            id={post?.title}
-                            onClick={handleDeletePost}
-                            aria-label='delete post'
-                            component='label'>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+              Upload
+              <input hidden accept='image/*' type='file' />
+            </Button>
+            <Box display='flex' gap={1}>
+              <Typography>Currently uploaded photo:</Typography>
+              <Typography color='GrayText'>
+                {postImage?.name ? postImage?.name : 'none'}
+              </Typography>
+            </Box>
+          </Box>
+          <ReactQuill
+            theme='snow'
+            value={postText}
+            onChange={setPostText}
+            placeholder='Write something'
+            modules={modules}
+          />
+          <ActionButtons
+            secondTitle={newPost ? 'Add new post' : 'Save edited post'}
+            handleCancel={handleCancel}
+            handleUpdate={handleNewPost}
+          />
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Title>Created posts</Title>
+          {isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Post title</TableCell>
+                  <TableCell>Created</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {[...Array(4)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+          {posts.length === 0 && !isLoading && (
+            <Info message='No posts added!' />
+          )}
+          {posts.length > 0 && !isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Post title</TableCell>
+                  <TableCell>Created</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {posts?.map((post, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{post?.title}</TableCell>
+                    <TableCell>{post?.date}</TableCell>
+                    <TableCell align='center'>
+                      <IconButton
+                        id={post?.title}
+                        onClick={handleEditPost}
+                        aria-label='edit post'
+                        component='label'>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        id={post?.title}
+                        onClick={handleDeletePost}
+                        aria-label='delete post'
+                        component='label'>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

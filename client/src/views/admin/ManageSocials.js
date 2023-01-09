@@ -45,71 +45,69 @@ const ManageSocials = () => {
   };
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}>
-              <Box>
-                <Title>Choose social</Title>
-                <FormControl fullWidth>
-                  <InputLabel id='demo-simple-select-label'>
-                    Social name
-                  </InputLabel>
-                  <Select
-                    labelId='select-social-name'
-                    id='social-name'
-                    value={socialName}
-                    label='Social name'
-                    onChange={(e) => setSocialName(e.target.value)}>
-                    <MenuItem value='none'>
-                      <em>None</em>
-                    </MenuItem>
-                    {socials.map((social) => (
-                      <MenuItem key={social} value={social}>
-                        {social}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box>
-                <Title>Provide link</Title>
-                <FormControl fullWidth>
-                  <TextField
-                    id='social-url'
-                    label='Social link'
-                    value={socialURL}
-                    onChange={(e) => setSocialURL(e.target.value)}
-                  />
-                </FormControl>
-              </Box>
-              <ActionButtons
-                handleCancel={handleCancel}
-                handleUpdate={handleUpdate}
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}>
+          <Box>
+            <Title>Choose social</Title>
+            <FormControl fullWidth>
+              <InputLabel id='demo-simple-select-label'>Social name</InputLabel>
+              <Select
+                labelId='select-social-name'
+                id='social-name'
+                value={socialName}
+                label='Social name'
+                onChange={(e) => setSocialName(e.target.value)}>
+                <MenuItem value='none'>
+                  <em>None</em>
+                </MenuItem>
+                {socials.map((social) => (
+                  <MenuItem key={social} value={social}>
+                    {social}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box>
+            <Title>Provide link</Title>
+            <FormControl fullWidth>
+              <TextField
+                id='social-url'
+                label='Social link'
+                value={socialURL}
+                onChange={(e) => setSocialURL(e.target.value)}
               />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+            </FormControl>
+          </Box>
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

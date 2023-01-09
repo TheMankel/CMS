@@ -16,47 +16,47 @@ const AboutAdmin = () => {
   };
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ my: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  variant='fullWidth'
-                  aria-label='full width tabs about'>
-                  <Tab label='Story' />
-                  <Tab label='Manage Team' />
-                </Tabs>
-              </Box>
-            </Paper>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}>
-              <AboutTabPanel value={value} index={0} />
-              <AboutTabPanel value={value} index={1} />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ my: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant='fullWidth'
+              aria-label='full width tabs about'>
+              <Tab label='Story' />
+              <Tab label='Manage Team' />
+            </Tabs>
+          </Box>
+        </Paper>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}>
+          <AboutTabPanel value={value} index={0} />
+          <AboutTabPanel value={value} index={1} />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

@@ -151,160 +151,159 @@ const Categories = () => {
   }, []);
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Box>
-                <Title>Add category</Title>
-                <TextField
-                  id='set-category'
-                  label='Write new category title'
-                  variant='outlined'
-                  value={categoryTitle}
-                  disabled={!newCategory}
-                  onChange={(e) => setCategoryTitle(e.target.value)}
-                  fullWidth
-                  sx={{ mt: 1 }}
-                />
-              </Box>
-              <Box mt={1}>
-                <Title>Category description</Title>
-              </Box>
-              <TextField
-                id='set-categoryDescription'
-                label='Write category description'
-                variant='outlined'
-                value={categoryDescription}
-                onChange={(e) => setCategoryDescription(e.target.value)}
-                fullWidth
-                sx={{ mt: 1 }}
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <Box>
+            <Title>Add category</Title>
+            <TextField
+              id='set-category'
+              label='Write new category title'
+              variant='outlined'
+              value={categoryTitle}
+              disabled={!newCategory}
+              onChange={(e) => setCategoryTitle(e.target.value)}
+              fullWidth
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box mt={1}>
+            <Title>Category description</Title>
+          </Box>
+          <TextField
+            id='set-categoryDescription'
+            label='Write category description'
+            variant='outlined'
+            value={categoryDescription}
+            onChange={(e) => setCategoryDescription(e.target.value)}
+            fullWidth
+            sx={{ mt: 1 }}
+          />
+          <Box display='flex' flexDirection='column' gap={1} mt={1}>
+            <Title>Category image</Title>
+            {categoryImage?.name && (
+              <Box
+                component='img'
+                src={
+                  categoryImage?.photo
+                    ? categoryImage?.photo
+                    : URL?.createObjectURL(categoryImage)
+                }
+                // src=''
+                alt={categoryImage?.name}
+                sx={{
+                  objectFit: 'cover',
+                  width: '25%',
+                  alignSelf: 'center',
+                  borderRadius: 2,
+                  mb: 1,
+                }}
               />
-              <Box display='flex' flexDirection='column' gap={1} mt={1}>
-                <Title>Category image</Title>
-                {categoryImage?.name && (
-                  <Box
-                    component='img'
-                    src={
-                      categoryImage?.photo
-                        ? categoryImage?.photo
-                        : URL?.createObjectURL(categoryImage)
-                    }
-                    // src=''
-                    alt={categoryImage?.name}
-                    sx={{
-                      objectFit: 'cover',
-                      width: '25%',
-                      alignSelf: 'center',
-                      borderRadius: 2,
-                      mb: 1,
-                    }}
-                  />
-                )}
-                <Button
-                  id='upload-background'
-                  variant='contained'
-                  component='label'
-                  onChange={handleUpload}
-                  sx={{
-                    alignSelf: 'center',
-                    textTransform: 'none',
-                  }}>
-                  Upload
-                  <input hidden accept='image/*' type='file' />
-                </Button>
-                <Box display='flex' gap={1}>
-                  <Typography>Currently uploaded photo:</Typography>
-                  <Typography color='GrayText'>
-                    {categoryImage?.name ? categoryImage.name : 'none'}
-                  </Typography>
-                </Box>
-              </Box>
-              <ActionButtons
-                handleCancel={handleCancel}
-                handleUpdate={handleUpdate}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} mt={4}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Title>Categories</Title>
-              {isLoading && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Category names</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {[...Array(4)].map((_, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-              {categories.length === 0 && !isLoading && (
-                <Info message='No categories added!' />
-              )}
-              {categories.length > 0 && !isLoading && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>id</TableCell>
-                      <TableCell>Category names</TableCell>
-                      <TableCell align='center'>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {categories?.map((category, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{category?.title}</TableCell>
-                        <TableCell align='center'>
-                          <IconButton
-                            id={category?.title}
-                            aria-label='edit category'
-                            component='label'
-                            onClick={handleEdit}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            id={category?.title}
-                            aria-label='delete category'
-                            component='label'
-                            onClick={handleDelete}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+            )}
+            <Button
+              id='upload-background'
+              variant='contained'
+              component='label'
+              onChange={handleUpload}
+              sx={{
+                alignSelf: 'center',
+                textTransform: 'none',
+              }}>
+              Upload
+              <input hidden accept='image/*' type='file' />
+            </Button>
+            <Box display='flex' gap={1}>
+              <Typography>Currently uploaded photo:</Typography>
+              <Typography color='GrayText'>
+                {categoryImage?.name ? categoryImage.name : 'none'}
+              </Typography>
+            </Box>
+          </Box>
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
+        </Paper>
+      </Grid>
+      <Grid item xs={12} mt={4}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Title>Categories</Title>
+          {isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Category names</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {[...Array(4)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+          {categories.length === 0 && !isLoading && (
+            <Info message='No categories added!' />
+          )}
+          {categories.length > 0 && !isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>id</TableCell>
+                  <TableCell>Category names</TableCell>
+                  <TableCell align='center'>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {categories?.map((category, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{category?.title}</TableCell>
+                    <TableCell align='center'>
+                      <IconButton
+                        id={category?.title}
+                        aria-label='edit category'
+                        component='label'
+                        onClick={handleEdit}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        id={category?.title}
+                        aria-label='delete category'
+                        component='label'
+                        onClick={handleDelete}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

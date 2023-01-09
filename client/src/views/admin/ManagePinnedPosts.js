@@ -47,83 +47,79 @@ const PinnedPosts = () => {
   }, []);
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-              }}>
-              <Box>
-                <Title>First pinned post</Title>
-                <FormControl fullWidth>
-                  <InputLabel id='demo-simple-select-label'>
-                    First post
-                  </InputLabel>
-                  <Select
-                    labelId='demo-simple-select-label'
-                    id='demo-simple-select'
-                    value={firstPost}
-                    label='First post'
-                    onChange={(e) => setFirstPost(e.target.value)}>
-                    <MenuItem value='none'>
-                      <em>None</em>
-                    </MenuItem>
-                    {posts?.map((post) => (
-                      <MenuItem key={post?.title} value={post?.title}>
-                        {post?.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box>
-                <Title>Second pinned post</Title>
-                <FormControl fullWidth>
-                  <InputLabel id='demo-simple-select-label'>
-                    Second post
-                  </InputLabel>
-                  <Select
-                    labelId='demo-simple-select-label'
-                    id='demo-simple-select'
-                    value={secondPost}
-                    label='Second post'
-                    onChange={(e) => setSecondPost(e.target.value)}>
-                    <MenuItem value='none'>
-                      <em>None</em>
-                    </MenuItem>
-                    {posts?.map((post) => (
-                      <MenuItem key={post?.title} value={post?.title}>
-                        {post?.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <ActionButtons
-                handleCancel={handleCancel}
-                handleUpdate={handleUpdate}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}>
+          <Box>
+            <Title>First pinned post</Title>
+            <FormControl fullWidth>
+              <InputLabel id='demo-simple-select-label'>First post</InputLabel>
+              <Select
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                value={firstPost}
+                label='First post'
+                onChange={(e) => setFirstPost(e.target.value)}>
+                <MenuItem value='none'>
+                  <em>None</em>
+                </MenuItem>
+                {posts?.map((post) => (
+                  <MenuItem key={post?.title} value={post?.title}>
+                    {post?.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box>
+            <Title>Second pinned post</Title>
+            <FormControl fullWidth>
+              <InputLabel id='demo-simple-select-label'>Second post</InputLabel>
+              <Select
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                value={secondPost}
+                label='Second post'
+                onChange={(e) => setSecondPost(e.target.value)}>
+                <MenuItem value='none'>
+                  <em>None</em>
+                </MenuItem>
+                {posts?.map((post) => (
+                  <MenuItem key={post?.title} value={post?.title}>
+                    {post?.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <ActionButtons
+            handleCancel={handleCancel}
+            handleUpdate={handleUpdate}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

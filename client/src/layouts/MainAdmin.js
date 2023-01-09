@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -134,7 +136,22 @@ const MainAdmin = () => {
           <ListItems open={open} handleTitle={setTitle} blog={blog} />
         </List>
       </Drawer>
-      <Outlet />
+      <Box
+        component='main'
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}>
+        <Toolbar />
+        <Container maxWidth='lg' sx={{ my: 4 }}>
+          <Outlet />
+        </Container>
+      </Box>
     </Box>
   );
 };

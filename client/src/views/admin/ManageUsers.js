@@ -62,95 +62,95 @@ const ManageUsers = () => {
   }, [user]);
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Title>All users</Title>
-              {isLoading && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>lp</TableCell>
-                      <TableCell>Full name</TableCell>
-                      <TableCell>Sign up date</TableCell>
-                      <TableCell>Role</TableCell>
-                      <TableCell>Delete</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {[...Array(4)].map((_, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                        <TableCell>{<Skeleton variant='text' />}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-              {users.length === 0 && !isLoading && (
-                <Info message='No registered users!' />
-              )}
-              {users.length > 0 && (
-                <Table size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>lp</TableCell>
-                      <TableCell>Full name</TableCell>
-                      <TableCell>Sign up date</TableCell>
-                      <TableCell>Role</TableCell>
-                      <TableCell>Delete</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {users?.map((user, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{i}</TableCell>
-                        <TableCell>{user?.fullName}</TableCell>
-                        <TableCell>{user?.created}</TableCell>
-                        <TableCell>
-                          {' '}
-                          <Switch
-                            id={user?.uid}
-                            checked={user?.role === 'admin' ? true : false}
-                            onChange={handleUpdate}
-                            inputProps={{ 'aria-label': 'user role' }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <IconButton
-                            id={user?.uid}
-                            aria-label='delete user'
-                            component='label'
-                            onClick={handleDelete}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Title>All users</Title>
+          {isLoading && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>lp</TableCell>
+                  <TableCell>Full name</TableCell>
+                  <TableCell>Sign up date</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {[...Array(4)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+          {users.length === 0 && !isLoading && (
+            <Info message='No registered users!' />
+          )}
+          {users.length > 0 && (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>lp</TableCell>
+                  <TableCell>Full name</TableCell>
+                  <TableCell>Sign up date</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users?.map((user, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{i}</TableCell>
+                    <TableCell>{user?.fullName}</TableCell>
+                    <TableCell>{user?.created}</TableCell>
+                    <TableCell>
+                      {' '}
+                      <Switch
+                        id={user?.uid}
+                        checked={user?.role === 'admin' ? true : false}
+                        onChange={handleUpdate}
+                        inputProps={{ 'aria-label': 'user role' }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        id={user?.uid}
+                        aria-label='delete user'
+                        component='label'
+                        onClick={handleDelete}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 

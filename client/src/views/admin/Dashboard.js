@@ -23,58 +23,55 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Box
-      component='main'
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}>
-      <Toolbar />
-      <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={4} lg={4}>
-            <WidgetSummary
-              icon={<ArticleIcon sx={{ color: '#ffffff' }} />}
-              title='Posts'
-              value={summary.posts}
-              color='#c70046'
-              isLoading={isLoadingSummary}
-            />
-          </Grid>
-          <Grid item xs={12} md={4} lg={4}>
-            <WidgetSummary
-              icon={<CategoryIcon sx={{ color: '#ffffff' }} />}
-              title='Categories'
-              value={summary.categories}
-              color='#00c788'
-              isLoading={isLoadingSummary}
-            />
-          </Grid>
-          <Grid item xs={12} md={4} lg={4}>
-            <WidgetSummary
-              icon={<PeopleIcon sx={{ color: '#ffffff' }} />}
-              title='Users'
-              value={summary.users}
-              color='#ffbf00'
-              isLoading={isLoadingSummary}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <RecentUsers
-                recentUsers={recentUsers}
-                isLoading={isLoadingTable}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    // <Box
+    //   component='main'
+    //   sx={{
+    //     backgroundColor: (theme) =>
+    //       theme.palette.mode === 'light'
+    //         ? theme.palette.grey[100]
+    //         : theme.palette.grey[900],
+    //     flexGrow: 1,
+    //     height: '100vh',
+    //     overflow: 'auto',
+    //   }}>
+    //   <Toolbar />
+    //   <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={4} lg={4}>
+        <WidgetSummary
+          icon={<ArticleIcon sx={{ color: '#ffffff' }} />}
+          title='Posts'
+          value={summary.posts}
+          color='#c70046'
+          isLoading={isLoadingSummary}
+        />
+      </Grid>
+      <Grid item xs={12} md={4} lg={4}>
+        <WidgetSummary
+          icon={<CategoryIcon sx={{ color: '#ffffff' }} />}
+          title='Categories'
+          value={summary.categories}
+          color='#00c788'
+          isLoading={isLoadingSummary}
+        />
+      </Grid>
+      <Grid item xs={12} md={4} lg={4}>
+        <WidgetSummary
+          icon={<PeopleIcon sx={{ color: '#ffffff' }} />}
+          title='Users'
+          value={summary.users}
+          color='#ffbf00'
+          isLoading={isLoadingSummary}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <RecentUsers recentUsers={recentUsers} isLoading={isLoadingTable} />
+        </Paper>
+      </Grid>
+    </Grid>
+    //   </Container>
+    // </Box>
   );
 };
 
