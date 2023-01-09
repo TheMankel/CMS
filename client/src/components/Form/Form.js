@@ -9,13 +9,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import axios from 'axios';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
-});
+import AlertInfo from '../AlertInfo/AlertInfo';
 
 const Form = (props) => {
   const [formError, setFormError] = useState('');
@@ -145,18 +140,6 @@ const Form = (props) => {
                 sx={{ height: 54, textTransform: 'none' }}>
                 Submit
               </Button>
-              <Snackbar
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={open}
-                autoHideDuration={4000}
-                onClose={handleClose}>
-                <Alert
-                  onClose={handleClose}
-                  severity={formError ? 'error' : 'success'}
-                  sx={{ width: '100%' }}>
-                  {formError ? formError : 'Sending email success!'}
-                </Alert>
-              </Snackbar>
             </Grid>
             <Grid item xs={12}>
               <Divider />
@@ -167,7 +150,7 @@ const Form = (props) => {
                   By clicking on "submit" you agree to our{' '}
                   <Box
                     component={NavLink}
-                    to='privacy-policy'
+                    to='/privacy-policy'
                     color={theme.palette.text.primary}
                     fontWeight={'700'}>
                     Privacy Policy
@@ -176,6 +159,12 @@ const Form = (props) => {
                 </Typography>
               </Box>
             </Grid>
+            <AlertInfo
+              open={open}
+              errorMessage={formError}
+              successMessage='Sending email success!'
+              handleClose={handleClose}
+            />
           </Grid>
         </Box>
       </Box>
