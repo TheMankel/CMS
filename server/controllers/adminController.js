@@ -61,7 +61,7 @@ const recentUsers = async (req, res, next) => {
 
 const newPost = async (req, res, next) => {
   try {
-    const { description, image, text, title } = req.body;
+    const { description, image, text, title, category } = req.body;
 
     const postRef = await postsCollectionRef.where('title', '==', title).get();
 
@@ -88,9 +88,10 @@ const newPost = async (req, res, next) => {
       image: image,
       text: text,
       title: title,
+      category: category,
     };
 
-    const postTitle = title?.toLowerCase().replace(' ', '-');
+    const postTitle = title?.toLowerCase().replaceAll(' ', '-');
 
     await postsCollectionRef.doc(postTitle).set(data);
 
@@ -103,13 +104,14 @@ const newPost = async (req, res, next) => {
 
 const editPost = async (req, res, next) => {
   try {
-    const { description, image, text, title } = req.body;
+    const { description, image, text, title, category } = req.body;
 
     const data = {
       description: description,
       image: image,
       text: text,
       title: title,
+      category: category,
     };
 
     const postTitle = title?.toLowerCase().replace(' ', '-');
