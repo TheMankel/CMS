@@ -16,7 +16,7 @@ const FeaturedCard = (props) => {
     <Grid item xs={12} md={6}>
       <CardActionArea
         component={NavLink}
-        to={url + item.title?.toLowerCase().replace(' ', '-')}>
+        to={url + item.title?.toLowerCase().replaceAll(' ', '-')}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             {isLoading && (

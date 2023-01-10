@@ -4,7 +4,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-// import axios from 'axios';
 import { getData } from '../lib/api';
 
 const MainPublic = (props) => {
@@ -15,44 +14,6 @@ const MainPublic = (props) => {
   const [categories, setCategories] = useState(null);
   const theme = createTheme();
 
-  // const getData = async () => {
-  //   try {
-  //     // const data = await axios.get('http://localhost:8000/api/navigation');
-  //     const blogRes = await axios.get('http://localhost:8000/api/blog');
-  //     const contactRes = await axios.get('http://localhost:8000/api/contact');
-  //     const categoriesRes = await axios.get(
-  //       'http://localhost:8000/api/categories',
-  //     );
-
-  //     const blogData = blogRes?.data;
-  //     const contactData = contactRes?.data;
-  //     const categoriesData = categoriesRes?.data;
-
-  //     // setCategories(data?.data?.categories);
-  //     // setSections(data?.data?.sections);
-  //     // setWebTitle(data?.data?.title);
-  //     // setLogo(data?.data?.logo);
-
-  //     const categoriesMap = categoriesData.map((category) => ({
-  //       title: category.title,
-  //       url: `/posts/category/${category.title
-  //         .toLowerCase()
-  //         .replace(' ', '-')}`,
-  //     }));
-
-  //     setWebTitle(blogData?.title);
-  //     setLogo(blogData?.logo);
-  //     setContact(contactData);
-  //     setCategories(categoriesMap);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
   const handleBlog = (data) => {
     setWebTitle(data?.title);
     setLogo(data?.logo);
@@ -61,7 +22,9 @@ const MainPublic = (props) => {
   const handleCategories = (data) => {
     const categoriesMap = data?.map((category) => ({
       title: category.title,
-      url: `/posts/category/${category.title.toLowerCase().replace(' ', '-')}`,
+      url: `/posts/category/${category.title
+        .toLowerCase()
+        .replaceAll(' ', '-')}`,
     }));
 
     setCategories(categoriesMap);
@@ -119,7 +82,6 @@ const MainPublic = (props) => {
     },
   ];
 
-  // navHeader.splice(2, 0, ...postCategories);
   if (categories) navHeader?.splice(2, 0, ...categories);
 
   const navFooter = [

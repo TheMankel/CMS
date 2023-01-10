@@ -63,7 +63,7 @@ const Posts = () => {
               ?.slice((page - 1) * resPerPage, page * resPerPage)
               ?.map((post) => (
                 <FeaturedCard
-                  key={post?.title?.toLowerCase()?.replace(' ', '-')}
+                  key={post?.title?.toLowerCase()?.replaceAll(' ', '-')}
                   item={post}
                   url='/posts/'
                   text='Continue reading...'

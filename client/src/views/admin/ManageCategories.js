@@ -78,7 +78,7 @@ const Categories = () => {
       return;
     }
 
-    const title = categoryTitle?.toLowerCase().replace(' ', '-');
+    const title = categoryTitle?.toLowerCase().replaceAll(' ', '-');
     const categoryImageRef = createRef(`categoryImages/${title}`);
 
     await uploadImage(categoryImageRef, categoryImage);
@@ -149,7 +149,7 @@ const Categories = () => {
         return;
       }
 
-      const categoryId = id.toLowerCase().replace(' ', '-');
+      const categoryId = id.toLowerCase().replaceAll(' ', '-');
 
       const data = { id: categoryId };
       const res = await axios.post(

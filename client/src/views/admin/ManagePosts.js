@@ -106,7 +106,7 @@ const ManagePosts = () => {
     }
 
     try {
-      const title = postTitle?.toLowerCase().replace(' ', '-');
+      const title = postTitle?.toLowerCase().replaceAll(' ', '-');
       const allPostImagesRef = createRef(`postImages`);
       const postImagesRef = createRef(`postImages/${title}`);
 
@@ -180,7 +180,7 @@ const ManagePosts = () => {
     const postToEdit = posts?.find((post) => post.title === id);
     console.log(postToEdit);
     const image = {
-      name: postToEdit.title.toLowerCase().replace(' ', '-'),
+      name: postToEdit.title.toLowerCase().replaceAll(' ', '-'),
       photo: postToEdit.image,
     };
 
@@ -203,7 +203,7 @@ const ManagePosts = () => {
         return;
       }
 
-      const postID = id.toLowerCase().replace(' ', '-');
+      const postID = id.toLowerCase().replaceAll(' ', '-');
       const data = { id: postID };
       const res = await axios.post(
         'http://localhost:8000/api/delete-post',

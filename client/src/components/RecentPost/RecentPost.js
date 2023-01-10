@@ -104,7 +104,7 @@ const RecentPost = (props) => {
             </Box>
             <Link
               component={NavLink}
-              to={'/posts/' + post?.title?.toLowerCase()?.replace(' ', '-')}
+              to={'/posts/' + post?.title?.toLowerCase()?.replaceAll(' ', '-')}
               variant='subtitle1'
               color='primary'
               underline='none'

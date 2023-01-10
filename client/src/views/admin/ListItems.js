@@ -140,7 +140,7 @@ const ListItems = (props) => {
     const items = mainListItems.concat(publicListItems);
 
     const selectedItem = items.find(
-      (item) => item.id.toLowerCase().replace(' ', '-') === path,
+      (item) => item.id.toLowerCase().replaceAll(' ', '-') === path,
     );
 
     if (!selectedItem) return;

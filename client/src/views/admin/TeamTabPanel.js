@@ -136,7 +136,7 @@ const TeamTabPanel = () => {
     const memberToEdit = team?.find((member) => member.id === memberId);
     console.log(memberToEdit);
     const image = {
-      name: memberToEdit.name.toLowerCase().replace(' ', '-'),
+      name: memberToEdit.name.toLowerCase().replaceAll(' ', '-'),
       photo: memberToEdit.avatar,
     };
 

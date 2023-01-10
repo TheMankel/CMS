@@ -56,7 +56,7 @@ const Categories = () => {
               ?.slice((page - 1) * resPerPage, page * resPerPage)
               ?.map((category) => (
                 <FeaturedCard
-                  key={category?.title?.toLowerCase()?.replace(' ', '-')}
+                  key={category?.title?.toLowerCase()?.replaceAll(' ', '-')}
                   item={category}
                   url='/posts/category/'
                   text='Show posts...'
