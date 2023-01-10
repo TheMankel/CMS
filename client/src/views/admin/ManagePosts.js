@@ -23,6 +23,7 @@ import Select from '@mui/material/Select';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import {
   createRef,
@@ -40,10 +41,13 @@ const ManagePosts = () => {
   const [postDescription, setPostDescription] = useState('');
   const [postImage, setPostImage] = useState(null);
   const [postText, setPostText] = useState('');
-  const [postCategory, setPostCategory] = useState('none');
+  const [postCategory, setPostCategory] = useState('');
   const [newPost, setNewPost] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const modules = {
     toolbar: [
@@ -66,7 +70,13 @@ const ManagePosts = () => {
       const status = await verifyImage(imageFile);
 
       console.log(status);
-      if (status !== 'Ok' || !imageFile) return;
+      if (status !== 'Ok' || !imageFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       setPostImage(imageFile);
       e.target.value = '';
@@ -80,14 +90,20 @@ const ManagePosts = () => {
     setPostDescription('');
     setPostImage(null);
     setPostText('');
-    setPostCategory('none');
+    setPostCategory('');
     setNewPost(true);
   };
 
   const handleNewPost = async (e) => {
     e.preventDefault();
 
-    if (!postTitle || !postDescription || !postImage || !postText) return;
+    if (!postTitle || !postDescription || !postImage || !postText) {
+      setMessage('Please provide all data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     try {
       const title = postTitle?.toLowerCase().replace(' ', '-');
@@ -96,9 +112,15 @@ const ManagePosts = () => {
 
       const uploadedImages = await getListImages(allPostImagesRef);
       const isDuplicate = uploadedImages.some((image) => image.name === title);
-      console.log(isDuplicate);
+      // console.log(isDuplicate);
 
-      if (isDuplicate && newPost) return;
+      if (isDuplicate && newPost) {
+        setMessage('There is already a post with this title!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       if (postImage instanceof File)
         await uploadImage(postImagesRef, postImage);
@@ -136,12 +158,17 @@ const ManagePosts = () => {
     } catch (err) {
       console.log(err);
     }
-    console.log('Email sent');
+    console.log(newPost);
+    setMessage(
+      newPost ? 'Successfully added a post!' : 'Successfully edited a post!',
+    );
+    setSeverity('success');
+    setOpen(true);
     setPostTitle('');
     setPostDescription('');
     setPostImage(null);
     setPostText('');
-    setPostCategory('none');
+    setPostCategory('');
     setNewPost(true);
     // getData();
     await getData('posts', setPosts);
@@ -168,34 +195,43 @@ const ManagePosts = () => {
     try {
       const id = e.currentTarget?.id;
 
-      if (!id) return;
+      if (!id) {
+        setMessage('Could not delete a post. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
+
       const postID = id.toLowerCase().replace(' ', '-');
-
       const data = { id: postID };
-
       const res = await axios.post(
         'http://localhost:8000/api/delete-post',
         data,
       );
 
-      if (res.status !== 200) return;
+      if (res.status !== 200) {
+        setMessage('Something went wrong. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       const postImagesRef = createRef(`postImages/${postID}`);
       deleteImage(postImagesRef);
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully deleted a post!');
+    setSeverity('success');
+    setOpen(true);
     // getData();
     await getData('posts', setPosts);
   };
 
-  const handleCategories = (data) => {
-    setCategories(data);
-    console.log(data);
-  };
-
   useEffect(() => {
-    getData('categories', handleCategories);
+    getData('categories', setCategories);
     getData('posts', setPosts, setIsLoading);
   }, []);
 
@@ -230,16 +266,16 @@ const ManagePosts = () => {
           </Box>
           <Box>
             <Title>Post category</Title>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 1 }}>
               <InputLabel>Category</InputLabel>
               <Select
-                id='set-category'
+                labelId='category-select-label'
+                id='category-select'
                 value={postCategory}
                 label='Category'
-                onChange={(e) => setPostCategory(e.target.value)}
-                sx={{ mt: 1 }}>
-                <MenuItem key='none' value='none'>
-                  none
+                onChange={(e) => setPostCategory(e.target.value)}>
+                <MenuItem value='none'>
+                  <em>None</em>
                 </MenuItem>
                 {categories.map((category, i) => (
                   <MenuItem key={i} value={category.title}>
@@ -369,6 +405,12 @@ const ManagePosts = () => {
           )}
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
