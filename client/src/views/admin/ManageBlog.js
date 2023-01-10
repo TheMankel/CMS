@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 import { verifyImage } from '../../lib/file-type';
@@ -14,6 +15,9 @@ import { verifyImage } from '../../lib/file-type';
 const ManageBlog = () => {
   const [blogName, setBlogName] = useState('');
   const [logo, setLogo] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleUpload = async (e) => {
     try {
@@ -21,7 +25,13 @@ const ManageBlog = () => {
       const status = await verifyImage(logoFile);
 
       console.log(status);
-      if (status !== 'Ok' || !logoFile) return;
+      if (status !== 'Ok' || !logoFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       setLogo(logoFile);
       e.target.value = '';
@@ -38,7 +48,13 @@ const ManageBlog = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!logo || !blogName) return;
+    if (!logo || !blogName) {
+      setMessage('Please provide all data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     try {
       const blogLogoRef = createRef('logoImages/logo');
@@ -62,6 +78,9 @@ const ManageBlog = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully changed blog data!');
+    setSeverity('success');
+    setOpen(true);
     setBlogName('');
     setLogo(null);
   };
@@ -123,6 +142,12 @@ const ManageBlog = () => {
           />
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
