@@ -16,6 +16,7 @@ import TextField from '@mui/material/TextField';
 import Skeleton from '@mui/material/Skeleton';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import { getData } from '../../lib/api';
 
@@ -26,6 +27,9 @@ const PrivacyPolicy = () => {
   const [newRule, setNewRule] = useState(true);
   const [id, setId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleCancel = () => {
     setRuleTitle('');
@@ -37,7 +41,13 @@ const PrivacyPolicy = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!ruleDescription || !ruleTitle) return;
+    if (!ruleDescription || !ruleTitle) {
+      setMessage('Please provide all data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     try {
       const data = {
@@ -57,6 +67,11 @@ const PrivacyPolicy = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage(
+      newRule ? 'Successfully added a rule!' : 'Successfully edited a rule!',
+    );
+    setSeverity('success');
+    setOpen(true);
     setRuleTitle('');
     setRuleDescription('');
     setNewRule(true);
@@ -84,7 +99,13 @@ const PrivacyPolicy = () => {
       setId(ruleId);
       console.log(ruleId);
 
-      if (!ruleId) return;
+      if (!ruleId) {
+        setMessage('Could not delete a rule. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
       const data = { id: ruleId };
 
       const res = await axios.post(
@@ -92,10 +113,19 @@ const PrivacyPolicy = () => {
         data,
       );
 
-      if (res.status !== 200) return;
+      if (res.status !== 200) {
+        setMessage('Something went wrong. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully deleted a rule!');
+    setSeverity('success');
+    setOpen(true);
     setRuleTitle('');
     setRuleDescription('');
     setNewRule(true);
@@ -156,6 +186,7 @@ const PrivacyPolicy = () => {
                 <TableRow>
                   <TableCell>id</TableCell>
                   <TableCell>Rule title</TableCell>
+                  <TableCell>Created</TableCell>
                   <TableCell align='center'>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -163,6 +194,7 @@ const PrivacyPolicy = () => {
                 {[...Array(4)].map((_, i) => (
                   <TableRow key={i}>
                     <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
                     <TableCell>{<Skeleton variant='text' />}</TableCell>
                     <TableCell>{<Skeleton variant='text' />}</TableCell>
                   </TableRow>
@@ -179,6 +211,7 @@ const PrivacyPolicy = () => {
                 <TableRow>
                   <TableCell>id</TableCell>
                   <TableCell>Rule title</TableCell>
+                  <TableCell>Created</TableCell>
                   <TableCell align='center'>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -187,6 +220,7 @@ const PrivacyPolicy = () => {
                   <TableRow key={i}>
                     <TableCell>{i}</TableCell>
                     <TableCell>{rule?.title}</TableCell>
+                    <TableCell>{rule?.date}</TableCell>
                     <TableCell align='center'>
                       <IconButton
                         id={rule?.id}
@@ -210,6 +244,12 @@ const PrivacyPolicy = () => {
           )}
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
