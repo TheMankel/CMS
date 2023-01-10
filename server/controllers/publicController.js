@@ -252,11 +252,11 @@ const pinnedPosts = async (req, res, next) => {
     const data = [];
 
     const firstPostRef = await postsCollectionRef
-      ?.doc(firstPost.toLowerCase().replace(' ', '-'))
+      ?.doc(firstPost.toLowerCase().replaceAll(' ', '-'))
       ?.get();
 
     const secondPostRef = await postsCollectionRef
-      ?.doc(secondPost.toLowerCase().replace(' ', '-'))
+      ?.doc(secondPost.toLowerCase().replaceAll(' ', '-'))
       ?.get();
 
     const firstPostData = firstPostRef.data();
