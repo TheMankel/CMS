@@ -62,7 +62,8 @@ const Categories = () => {
 
     if (!categoryTitle || !categoryDescription || !categoryImage) return;
 
-    const categoryImageRef = createRef(`categoryImages/${categoryTitle}`);
+    const title = categoryTitle?.toLowerCase().replace(' ', '-');
+    const categoryImageRef = createRef(`categoryImages/${title}`);
 
     await uploadImage(categoryImageRef, categoryImage);
     const categoryImageUrl = await downloadImage(categoryImageRef);
@@ -114,10 +115,11 @@ const Categories = () => {
 
   const handleDelete = async (e) => {
     try {
-      const categoryId = e.currentTarget?.id;
-      console.log(categoryId);
+      const id = e.currentTarget?.id;
+      console.log(id);
 
-      if (!categoryId) return;
+      if (!id) return;
+      const categoryId = id.toLowerCase().replace(' ', '-');
       const data = { id: categoryId };
       const res = await axios.post(
         'http://localhost:8000/api/delete-category',
