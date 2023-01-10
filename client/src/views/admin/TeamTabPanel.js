@@ -14,6 +14,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Title from '../../components/Title/Title';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
+import Info from '../../components/Info/Info';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import {
   createRef,
   uploadImage,
@@ -23,7 +25,6 @@ import {
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
 import axios from 'axios';
-import Info from '../../components/Info/Info';
 
 const TeamTabPanel = () => {
   const [team, setTeam] = useState([]);
@@ -33,6 +34,9 @@ const TeamTabPanel = () => {
   const [about, setAbout] = useState('');
   const [avatar, setAvatar] = useState(null);
   const [newMember, setNewMember] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleUpload = async (e) => {
     try {
@@ -40,7 +44,13 @@ const TeamTabPanel = () => {
       const status = await verifyImage(avatarFile);
 
       console.log(status);
-      if (status !== 'Ok' || !avatarFile) return;
+      if (status !== 'Ok' || !avatarFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       setAvatar(avatarFile);
       e.target.value = '';
@@ -61,7 +71,13 @@ const TeamTabPanel = () => {
   const handleUpdateTeam = async (e) => {
     e.preventDefault();
 
-    if (!name || !title || !about || !avatar) return;
+    if (!name || !title || !about || !avatar) {
+      setMessage('Please provide all data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     try {
       // const memberId =
@@ -94,6 +110,13 @@ const TeamTabPanel = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage(
+      newMember
+        ? 'Successfully added a team member!'
+        : 'Successfully edited a team member!',
+    );
+    setSeverity('success');
+    setOpen(true);
     setName('');
     setTitle('');
     setAbout('');
@@ -129,7 +152,13 @@ const TeamTabPanel = () => {
       const memberId = e.currentTarget?.id;
       // console.log(memberId);
 
-      if (!memberId) return;
+      if (!memberId) {
+        setMessage('Could not delete a post. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
       const data = { id: memberId };
       // console.log(data);
 
@@ -138,13 +167,22 @@ const TeamTabPanel = () => {
         data,
       );
 
-      if (res.status !== 200) return;
+      if (res.status !== 200) {
+        setMessage('Something went wrong. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       const teamImagesRef = createRef(`teamImages/${memberId}`);
       deleteImage(teamImagesRef);
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully deleted a team member!');
+    setSeverity('success');
+    setOpen(true);
     setName('');
     setTitle('');
     setAbout('');
@@ -292,6 +330,12 @@ const TeamTabPanel = () => {
           </Table>
         )}
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };

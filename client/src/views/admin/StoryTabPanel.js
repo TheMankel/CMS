@@ -4,11 +4,15 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Title from '../../components/Title/Title';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 
 const StoryTabPanel = () => {
   const [primary, setPrimary] = useState('');
   const [secondary, setSecondary] = useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleCancelStory = () => {
     setPrimary('');
@@ -18,7 +22,13 @@ const StoryTabPanel = () => {
   const handleUpdateStory = async (e) => {
     e.preventDefault();
 
-    if (!primary || !secondary) return;
+    if (!primary || !secondary) {
+      setMessage('Please provide all story data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     try {
       const data = {
@@ -32,6 +42,9 @@ const StoryTabPanel = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully saved a story!');
+    setSeverity('success');
+    setOpen(true);
     setPrimary('');
     setSecondary('');
   };
@@ -71,6 +84,12 @@ const StoryTabPanel = () => {
       <ActionButtons
         handleCancel={handleCancelStory}
         handleUpdate={handleUpdateStory}
+      />
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
       />
     </Grid>
   );
