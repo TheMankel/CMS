@@ -8,8 +8,10 @@ import SliderTabPanel from './SliderTabPanel';
 
 const SliderAdmin = () => {
   const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e, newValue) => {
+    setOpen(false);
     setValue(newValue);
   };
 
@@ -30,9 +32,24 @@ const SliderAdmin = () => {
           </Box>
         </Paper>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <SliderTabPanel value={value} index={0} />
-          <SliderTabPanel value={value} index={1} />
-          <SliderTabPanel value={value} index={2} />
+          <SliderTabPanel
+            value={value}
+            index={0}
+            open={open}
+            handleOpen={setOpen}
+          />
+          <SliderTabPanel
+            value={value}
+            index={1}
+            open={open}
+            handleOpen={setOpen}
+          />
+          <SliderTabPanel
+            value={value}
+            index={2}
+            open={open}
+            handleOpen={setOpen}
+          />
         </Paper>
       </Grid>
     </Grid>

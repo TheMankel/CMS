@@ -5,15 +5,18 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 import { verifyImage } from '../../lib/file-type';
 
 const SliderTabPanel = (props) => {
-  const { value, index, ...other } = props;
+  const { value, index, open, handleOpen, ...other } = props;
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleUpload = async (e) => {
     try {
@@ -21,9 +24,13 @@ const SliderTabPanel = (props) => {
       const status = await verifyImage(imageFile);
 
       console.log(status);
-      if (status !== 'Ok' || !imageFile) return;
+      if (status !== 'Ok' || !imageFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        handleOpen(true);
 
-      // if (!imageFile) return;
+        return;
+      }
 
       setImage(imageFile);
       e.target.value = '';
@@ -41,7 +48,13 @@ const SliderTabPanel = (props) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      if (!image) return;
+      if (!image) {
+        setMessage('Please upload an image!');
+        setSeverity('error');
+        handleOpen(true);
+
+        return;
+      }
 
       const sliderImagesRef = createRef(`sliderImages/slider_${index + 1}`);
 
@@ -58,6 +71,9 @@ const SliderTabPanel = (props) => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully changed slider!');
+    setSeverity('success');
+    handleOpen(true);
     setDescription('');
     setImage(null);
     setName('');
@@ -139,6 +155,12 @@ const SliderTabPanel = (props) => {
           <ActionButtons
             handleCancel={handleCancel}
             handleUpdate={handleUpdate}
+          />
+          <AlertInfo
+            open={open}
+            handleOpen={handleOpen}
+            severity={severity}
+            message={message}
           />
         </Box>
       )}
