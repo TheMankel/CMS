@@ -273,6 +273,7 @@ const Categories = () => {
                 <TableRow>
                   <TableCell>id</TableCell>
                   <TableCell>Category names</TableCell>
+                  <TableCell>Created</TableCell>
                   <TableCell align='center'>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -280,6 +281,7 @@ const Categories = () => {
                 {[...Array(4)].map((_, i) => (
                   <TableRow key={i}>
                     <TableCell>{i}</TableCell>
+                    <TableCell>{<Skeleton variant='text' />}</TableCell>
                     <TableCell>{<Skeleton variant='text' />}</TableCell>
                     <TableCell>{<Skeleton variant='text' />}</TableCell>
                   </TableRow>
@@ -296,6 +298,7 @@ const Categories = () => {
                 <TableRow>
                   <TableCell>id</TableCell>
                   <TableCell>Category names</TableCell>
+                  <TableCell>Created</TableCell>
                   <TableCell align='center'>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -304,6 +307,7 @@ const Categories = () => {
                   <TableRow key={i}>
                     <TableCell>{i}</TableCell>
                     <TableCell>{category?.title}</TableCell>
+                    <TableCell>{category?.date}</TableCell>
                     <TableCell align='center'>
                       <IconButton
                         id={category?.title}
