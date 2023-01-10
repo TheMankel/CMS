@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import { getData } from '../../lib/api';
 
@@ -15,6 +16,9 @@ const PinnedPosts = () => {
   const [posts, setPosts] = useState([]);
   const [firstPost, setFirstPost] = useState('');
   const [secondPost, setSecondPost] = useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleCancel = () => {
     setFirstPost('');
@@ -25,7 +29,13 @@ const PinnedPosts = () => {
     e.preventDefault();
 
     try {
-      if (!firstPost || !secondPost) return;
+      if (!firstPost || !secondPost) {
+        setMessage('Please select both posts!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       const data = {
         firstPost,
@@ -36,6 +46,9 @@ const PinnedPosts = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully changed pinned posts!');
+    setSeverity('success');
+    setOpen(true);
     setFirstPost('');
     setSecondPost('');
   };
@@ -96,6 +109,12 @@ const PinnedPosts = () => {
           />
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
