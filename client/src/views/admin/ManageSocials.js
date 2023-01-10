@@ -12,12 +12,12 @@ import Title from '../../components/Title/Title';
 import axios from 'axios';
 
 const ManageSocials = () => {
-  const [socialName, setSocialName] = useState('none');
+  const [socialName, setSocialName] = useState('');
   const [socialURL, setSocialURL] = useState('');
   const socials = ['Github', 'Twitter', 'Facebook', 'Instagram'];
 
   const handleCancel = () => {
-    setSocialName('none');
+    setSocialName('');
     setSocialURL('');
   };
 
@@ -38,7 +38,7 @@ const ManageSocials = () => {
     } catch (err) {
       console.log(err);
     }
-    setSocialName('none');
+    setSocialName('');
     setSocialURL('');
   };
 
