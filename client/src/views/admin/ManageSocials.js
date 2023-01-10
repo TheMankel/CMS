@@ -9,12 +9,16 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 
 const ManageSocials = () => {
   const [socialName, setSocialName] = useState('');
   const [socialURL, setSocialURL] = useState('');
   const socials = ['Github', 'Twitter', 'Facebook', 'Instagram'];
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleCancel = () => {
     setSocialName('');
@@ -25,7 +29,13 @@ const ManageSocials = () => {
     e.preventDefault();
 
     try {
-      if (socialName === 'none') return;
+      if (!socialName) {
+        setMessage('Please choose social to update!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       console.log(socialURL);
 
@@ -38,6 +48,9 @@ const ManageSocials = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully saved socials!');
+    setSeverity('success');
+    setOpen(true);
     setSocialName('');
     setSocialURL('');
   };
@@ -56,9 +69,6 @@ const ManageSocials = () => {
                 value={socialName}
                 label='Social name'
                 onChange={(e) => setSocialName(e.target.value)}>
-                <MenuItem value='none'>
-                  <em>None</em>
-                </MenuItem>
                 {socials.map((social) => (
                   <MenuItem key={social} value={social}>
                     {social}
@@ -84,6 +94,12 @@ const ManageSocials = () => {
           />
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
