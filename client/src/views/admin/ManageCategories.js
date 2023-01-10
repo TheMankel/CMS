@@ -17,6 +17,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import Title from '../../components/Title/Title';
 import Info from '../../components/Info/Info';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 import {
   createRef,
@@ -34,6 +35,9 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [categoryImage, setCategoryImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
 
   const handleUpload = async (e) => {
     try {
@@ -41,7 +45,13 @@ const Categories = () => {
       const status = await verifyImage(imageFile);
 
       console.log(status);
-      if (status !== 'Ok' || !imageFile) return;
+      if (status !== 'Ok' || !imageFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       setCategoryImage(imageFile);
       e.target.value = '';
@@ -60,7 +70,13 @@ const Categories = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (!categoryTitle || !categoryDescription || !categoryImage) return;
+    if (!categoryTitle || !categoryDescription || !categoryImage) {
+      setMessage('Please provide all data!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
 
     const title = categoryTitle?.toLowerCase().replace(' ', '-');
     const categoryImageRef = createRef(`categoryImages/${title}`);
@@ -85,6 +101,13 @@ const Categories = () => {
     } catch (err) {
       console.log(err);
     }
+    setMessage(
+      newCategory
+        ? 'Successfully added a category!'
+        : 'Successfully edited a category!',
+    );
+    setSeverity('success');
+    setOpen(true);
     setCategoryTitle('');
     setCategoryDescription('');
     setCategoryImage(null);
@@ -118,21 +141,38 @@ const Categories = () => {
       const id = e.currentTarget?.id;
       console.log(id);
 
-      if (!id) return;
+      if (!id) {
+        setMessage('Could not delete a category. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
+
       const categoryId = id.toLowerCase().replace(' ', '-');
+
       const data = { id: categoryId };
       const res = await axios.post(
         'http://localhost:8000/api/delete-category',
         data,
       );
 
-      if (res.status !== 200) return;
+      if (res.status !== 200) {
+        setMessage('Something went wrong. Try again later!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       const categoryImageRef = createRef(`categoryImages/${categoryId}`);
       deleteImage(categoryImageRef);
     } catch (err) {
       console.log(err);
     }
+    setMessage('Successfully deleted a category!');
+    setSeverity('success');
+    setOpen(true);
     setCategoryTitle('');
     setCategoryDescription('');
     setCategoryImage(null);
@@ -287,6 +327,12 @@ const Categories = () => {
           )}
         </Paper>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Grid>
   );
 };
