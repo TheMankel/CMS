@@ -91,6 +91,8 @@ const subscription = async (req, res, next) => {
         }
       });
     });
+
+    return res.status(200).json('Mails sent to subscribers!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
