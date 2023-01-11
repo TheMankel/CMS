@@ -97,7 +97,13 @@ const ManagePosts = () => {
   const handleNewPost = async (e) => {
     e.preventDefault();
 
-    if (!postTitle || !postDescription || !postImage || !postText) {
+    if (
+      !postTitle ||
+      !postDescription ||
+      !postImage ||
+      !postText ||
+      !postCategory
+    ) {
       setMessage('Please provide all data!');
       setSeverity('error');
       setOpen(true);
@@ -272,7 +278,7 @@ const ManagePosts = () => {
                 labelId='category-select-label'
                 id='category-select'
                 value={postCategory}
-                label='Category'
+                label='Select category'
                 onChange={(e) => setPostCategory(e.target.value)}>
                 <MenuItem value='none'>
                   <em>None</em>
