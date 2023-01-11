@@ -24,6 +24,7 @@ import {
   uploadImage,
   downloadImage,
   deleteImage,
+  getListImages,
 } from '../../lib/storage';
 import { getData } from '../../lib/api';
 import { verifyImage } from '../../lib/file-type';
@@ -79,10 +80,25 @@ const Categories = () => {
     }
 
     const title = categoryTitle?.toLowerCase().replaceAll(' ', '-');
+    const allPostImagesRef = createRef(`categoryImages`);
     const categoryImageRef = createRef(`categoryImages/${title}`);
 
-    await uploadImage(categoryImageRef, categoryImage);
+    const uploadedImages = await getListImages(allPostImagesRef);
+    const isDuplicate = uploadedImages.some((image) => image.name === title);
+    // console.log(isDuplicate);
+
+    if (isDuplicate && newCategory) {
+      setMessage('There is already a category with this title!');
+      setSeverity('error');
+      setOpen(true);
+
+      return;
+    }
+
+    if (categoryImage instanceof File)
+      await uploadImage(categoryImageRef, categoryImage);
     const categoryImageUrl = await downloadImage(categoryImageRef);
+
     try {
       const data = {
         title: categoryTitle,
