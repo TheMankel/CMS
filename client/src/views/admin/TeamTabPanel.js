@@ -80,15 +80,12 @@ const TeamTabPanel = () => {
     }
 
     try {
-      // const memberId =
-      //   id || Date.now().toString() + Math.floor(Math.random() * 100);
-      // console.log(id);
-
       const memberId = id || name;
       const userAvatarRef = createRef(`teamImages/${memberId}`);
 
-      await uploadImage(userAvatarRef, avatar);
+      if (avatar instanceof File) await uploadImage(userAvatarRef, avatar);
       const avatarUrl = await downloadImage(userAvatarRef);
+
       console.log(id);
       const data = {
         id: memberId,
