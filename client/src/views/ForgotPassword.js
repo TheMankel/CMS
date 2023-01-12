@@ -17,9 +17,7 @@ const ForgotPassword = () => {
 
     const formRef = new FormData(e.currentTarget);
 
-    console.log({
-      email: formRef.get('email'),
-    });
+   
     try {
       if (!formRef.get('email')) return;
 
