@@ -14,12 +14,16 @@ import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAuth } from '../contexts/authContext';
 import axios from 'axios';
+import AlertInfo from '../components/AlertInfo/AlertInfo';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { signInHandler, rememberSessionUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const theme = createTheme();
 
   const handleSubmit = async (e) => {
@@ -28,7 +32,13 @@ const SignIn = () => {
     const formRef = new FormData(e.currentTarget);
 
     try {
-      if (!formRef.get('email') || !formRef.get('password')) return;
+      if (!formRef.get('email') || !formRef.get('password')) {
+        setMessage('Please provide all data!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       setLoading(true);
 
@@ -38,6 +48,15 @@ const SignIn = () => {
         formRef.get('email'),
         formRef.get('password'),
       );
+
+      if (!userCredential) {
+        setMessage('Wrong email or password!');
+        setSeverity('error');
+        setOpen(true);
+        setLoading(false);
+
+        return;
+      }
 
       const { user } = userCredential;
 
@@ -55,7 +74,6 @@ const SignIn = () => {
     } catch (err) {
       console.error(err);
     }
-
     setLoading(false);
   };
 
@@ -181,6 +199,12 @@ const SignIn = () => {
               </Box>
             </Box>
           </Grid>
+          <AlertInfo
+            open={open}
+            handleOpen={setOpen}
+            severity={severity}
+            message={message}
+          />
         </Grid>
       </Box>
     </ThemeProvider>
