@@ -29,13 +29,33 @@ export function AuthProvider({ children }) {
   const [role, setRole] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signUpHandler(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
-  }
+  const signUpHandler = async (email, password) => {
+    try {
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      return credentials;
+    } catch (err) {
+      console.log(err.code);
+      return;
+    }
+  };
 
-  function signInHandler(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
+  const signInHandler = async (email, password) => {
+    try {
+      const credentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      return credentials;
+    } catch (err) {
+      console.log(err.code);
+      return;
+    }
+  };
 
   function signOutHandler() {
     return signOut(auth);
