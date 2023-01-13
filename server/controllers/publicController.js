@@ -389,6 +389,31 @@ const categories = async (req, res, next) => {
   }
 };
 
+const categoriesPosts = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+
+    const postsRef = await postsCollectionRef.orderBy('created', 'desc').get();
+
+    const data = [];
+
+    postsRef.forEach((post) => {
+      const postData = post.data();
+      const word = [categoryId];
+      const condition = word.every((word) =>
+        postData.category.toLowerCase().replaceAll(' ', '-').includes(word),
+      );
+
+      if (condition) data.push(postData);
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+};
+
 const socials = async (req, res, next) => {
   try {
     const socialsRef = await blogCollectionRef.doc('socials').get();
@@ -417,5 +442,6 @@ module.exports = {
   archivesPosts,
   privacyPolicy,
   categories,
+  categoriesPosts,
   socials,
 };
