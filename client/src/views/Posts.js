@@ -10,14 +10,16 @@ import NoDataFound from './NoDataFound';
 import { getData } from '../lib/api';
 
 const Posts = () => {
-  const { yearId = '', monthId = '' } = useParams();
+  const { yearId = '', monthId = '', categoryId = 'None' } = useParams();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const url =
     monthId === '' && yearId === ''
-      ? 'posts'
+      ? categoryId === 'None'
+        ? 'posts'
+        : `posts/categories/${categoryId}`
       : `posts/archives/${yearId}/${monthId}`;
 
   const resPerPage = 4;
