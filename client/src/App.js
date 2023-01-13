@@ -42,6 +42,7 @@ function App() {
           <Route path='/posts' element={<Posts />} />
           <Route path='/posts/:postId' element={<PostDetails />} />
           <Route path='/posts/archives/:yearId/:monthId' element={<Posts />} />
+          <Route path='/posts/category/:categoryId' element={<Posts />} />
           <Route
             path='/account'
             element={
