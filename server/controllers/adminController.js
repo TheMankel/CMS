@@ -182,8 +182,6 @@ const updatePolicy = async (req, res, next) => {
       description: description,
     };
 
-    // const policyRuleTitle = title?.toLowerCase().replaceAll(' ', '-');
-    // await policyRef.doc(policyRuleTitle).set(data);
     await policyRef.add(data);
     await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
@@ -210,9 +208,6 @@ const editPolicy = async (req, res, next) => {
       description: description,
     };
 
-    // const policyRuleTitle = title?.toLowerCase().replaceAll(' ', '-');
-
-    // await policyRef.doc(policyRuleTitle).update(data);
     await policyRef.doc(id).update(data);
     await fieldsRef.update({ created: firestore.Timestamp.fromDate(date) });
 
@@ -401,14 +396,11 @@ const updateTeam = async (req, res, next) => {
       avatar: avatar,
     };
 
-    // await teamRef.doc(id).set(data);
-
     const teamDoc = await teamRef.add(data);
     const file = bucket.file(`teamImages/${name}`);
     const newFile = bucket.file(`teamImages/${teamDoc.id}`);
     await file.move(newFile);
     const url = newFile.id;
-    // console.log(url);
 
     await teamDoc.update({
       avatar: `https://firebasestorage.googleapis.com/v0/b/cms-blog-pp.appspot.com/o/${url}?alt=media`,
@@ -540,21 +532,6 @@ const deleteCategory = async (req, res, next) => {
         await postsCollectionRef.doc(postTitle).update({ category: 'none' });
       }
     });
-
-    // const updatedPosts = posts.docs.map((post) => {
-    //   const postData = post.data();
-    //   if (postData.category === id) {
-    //     return { ...postData, category: 'none' };
-    //   }
-    //   return postData;
-    // });
-    // console.log(updatedPosts);
-
-    // updatedPosts.forEach(async (post) => {
-    //   if (!post.title) return;
-    //   const postTitle = post.title?.toLowerCase().replaceAll(' ', '-');
-    //   await postsCollectionRef.doc(postTitle).set(post);
-    // });
 
     const categoryId = id.toLowerCase().replaceAll(' ', '-');
     const categoryRef = categoriesCollectionRef.doc(categoryId);

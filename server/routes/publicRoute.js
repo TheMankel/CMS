@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  // navigation,
   blog,
   about,
   contact,
@@ -21,7 +20,6 @@ const {
   socials,
 } = require('../controllers/publicController');
 
-// router.get('/navigation', navigation);
 router.get('/blog', blog);
 router.get('/about', about);
 router.get('/contact', contact);

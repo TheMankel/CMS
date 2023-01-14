@@ -7,42 +7,6 @@ const postsCollectionRef = db.collection('posts');
 const usersCollectionRef = db.collection('users');
 const subscriptionCollectionRef = db.collection('subscription');
 
-// const navigation = async (req, res, next) => {
-//   try {
-//     const categoriesRef = await blogCollectionRef
-//       .doc('public-navigation')
-//       .collection('categories')
-//       .get();
-
-//     const sectionsRef = await blogCollectionRef
-//       .doc('public-navigation')
-//       .collection('sections')
-//       .get();
-
-//     const fieldsRef = await blogCollectionRef.doc('public-navigation').get();
-
-//     const data = {
-//       categories: [],
-//       sections: [],
-//       title: fieldsRef.data().title,
-//       logo: fieldsRef.data().logo,
-//     };
-
-//     categoriesRef.forEach((cat) => {
-//       data.categories.push(cat.data());
-//     });
-
-//     sectionsRef.forEach((sec) => {
-//       data.sections.push(sec.data());
-//     });
-
-//     return res.status(200).json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(400);
-//   }
-// };
-
 const blog = async (req, res, next) => {
   try {
     const blogRef = await blogCollectionRef.doc('blog').get();
@@ -57,12 +21,6 @@ const blog = async (req, res, next) => {
 
 const about = async (req, res, next) => {
   try {
-    // const storyRef = await blogCollectionRef
-    //   .doc('about')
-    //   .collection('story')
-    //   .doc('text')
-    //   .get();
-
     const aboutRef = blogCollectionRef.doc('about');
     const storyRef = await aboutRef.get();
     const teamRef = await aboutRef
@@ -71,21 +29,10 @@ const about = async (req, res, next) => {
       .get();
     const storyData = storyRef.data();
 
-    // const teamRef = await blogCollectionRef
-    //   .doc('about')
-    //   .collection('team')
-    //   .get();
-
     const data = {
-      // storyText: {
-      //   primary: '',
-      //   secondary: '',
-      // },
       story: storyData.story,
       team: [],
     };
-
-    // data.storyText = storyRef.data();
 
     teamRef.forEach((member) => {
       data.team.push({ ...member.data(), id: member.id });
@@ -283,12 +230,6 @@ const archives = async (req, res, next) => {
       const string = postData.date.split(' ');
       const date = string[0] + ' ' + string[2];
 
-      // if (!dates.includes(date)) {
-      //   console.log(item);
-      //   dates.push({
-      //     title: date,
-      //   });
-      // }
       const isDuplicate = dates.some((item) => item.title === date);
 
       if (!isDuplicate)
@@ -331,19 +272,6 @@ const archivesPosts = async (req, res, next) => {
 
 const privacyPolicy = async (req, res, next) => {
   try {
-    // const privacyRef = await blogCollectionRef
-    //   .doc('privacy-policy')
-    //   .collection('content')
-    //   .get();
-
-    // const data = {
-    //   content: [],
-    // };
-
-    // privacyRef.forEach((rule) => {
-    //   data.content.push(rule.data());
-    // });
-
     const privacyRef = blogCollectionRef.doc('privacy-policy');
     const contentRef = await privacyRef
       .collection('content')
@@ -360,7 +288,6 @@ const privacyPolicy = async (req, res, next) => {
       }),
     };
 
-    // contentRef.forEach((rule) => data.content.push(rule.data()));
     contentRef.forEach((rule) =>
       data.content.push({ ...rule.data(), id: rule.id }),
     );
@@ -427,7 +354,6 @@ const socials = async (req, res, next) => {
 };
 
 module.exports = {
-  // navigation,
   blog,
   about,
   contact,

@@ -24,8 +24,6 @@ const signUp = async (req, res, next) => {
 
     const usersRef = await usersCollectionRef.where('email', '==', email).get();
 
-    // console.log(usersRef.empty);
-
     if (!usersRef.empty)
       return res.json({
         error: 'Email is taken',
