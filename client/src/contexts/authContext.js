@@ -16,6 +16,7 @@ import {
   EmailAuthProvider,
 } from 'firebase/auth';
 import app from '../config/firebase-config';
+import { getMessageFromErrorCode } from '../lib/error-code';
 
 const AuthContext = React.createContext();
 const auth = getAuth(app);
@@ -38,8 +39,11 @@ export function AuthProvider({ children }) {
       );
       return credentials;
     } catch (err) {
-      console.log(err.code);
-      return;
+      const error = {
+        code: 400,
+        message: getMessageFromErrorCode(err.code),
+      };
+      return error;
     }
   };
 
@@ -52,8 +56,11 @@ export function AuthProvider({ children }) {
       );
       return credentials;
     } catch (err) {
-      console.log(err.code);
-      return;
+      const error = {
+        code: 400,
+        message: getMessageFromErrorCode(err.code),
+      };
+      return error;
     }
   };
 
