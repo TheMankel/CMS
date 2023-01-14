@@ -20,27 +20,29 @@ export const getMessageFromErrorCode = (code) => {
   //   default:
   //     return 'An undefined error happened. Try again later!';
   // }
-
+  console.log(errorCode);
   switch (errorCode) {
     case 'ERROR_EMAIL_ALREADY_IN_USE':
     case 'account-exists-with-different-credential':
     case 'email-already-in-use':
-      return 'Email already used. Go to login page.';
+      return 'User with this email already exists!';
     case 'ERROR_WRONG_PASSWORD':
     case 'wrong-password':
-      return 'Wrong email/password combination.';
+      return 'Wrong email/password combination!';
+    case 'weak-password':
+      return 'Password is too weak. Use at least six characters!';
     case 'ERROR_USER_NOT_FOUND':
     case 'user-not-found':
-      return 'No user found with this email.';
+      return 'No user found with this email!';
     case 'ERROR_USER_DISABLED':
     case 'user-disabled':
-      return 'User disabled.';
+      return 'User disabled!';
     case 'ERROR_TOO_MANY_REQUESTS':
     case 'too-many-requests':
-      return 'Too many requests to log into this account.';
+      return 'Too many requests to log into this account!';
     case 'ERROR_INVALID_EMAIL':
     case 'invalid-email':
-      return 'Email address is invalid.';
+      return 'Email address is invalid!';
     default:
       return 'An undefined error happened. Try again later!';
   }
