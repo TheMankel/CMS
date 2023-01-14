@@ -12,12 +12,16 @@ import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../contexts/authContext';
+import AlertInfo from '../components/AlertInfo/AlertInfo';
 import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { signUpHandler, updateUserFullName } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const theme = createTheme();
 
   const handleSubmit = async (e) => {
@@ -31,8 +35,13 @@ const SignUp = () => {
         !formRef.get('lastName') ||
         !formRef.get('email') ||
         !formRef.get('password')
-      )
+      ) {
+        setMessage('Please provide all data!');
+        setSeverity('error');
+        setOpen(true);
+
         return;
+      }
 
       setLoading(true);
 
@@ -40,6 +49,15 @@ const SignUp = () => {
         formRef.get('email'),
         formRef.get('password'),
       );
+
+      if (userCredential?.code === 400) {
+        setMessage(userCredential?.message || 'Wrong email or password!');
+        setSeverity('error');
+        setOpen(true);
+        setLoading(false);
+
+        return;
+      }
 
       const { user } = userCredential;
 
@@ -60,8 +78,10 @@ const SignUp = () => {
         formRef.get('lastName'),
       );
 
-      if (res?.data?.role === 'admin') navigate('/admin/dashboard');
-      else navigate('/');
+      setTimeout(() => {
+        if (res?.data?.role === 'admin') navigate('/admin/dashboard');
+        else navigate('/');
+      }, 250);
     } catch (err) {
       console.error(err);
     }
@@ -159,6 +179,12 @@ const SignUp = () => {
                     Already have an account? Sign in
                   </Link>
                 </Grid>
+                <AlertInfo
+                  open={open}
+                  handleOpen={setOpen}
+                  severity={severity}
+                  message={message}
+                />
               </Grid>
             </Box>
           </Box>
