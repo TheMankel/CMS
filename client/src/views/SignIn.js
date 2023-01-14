@@ -49,8 +49,8 @@ const SignIn = () => {
         formRef.get('password'),
       );
 
-      if (!userCredential) {
-        setMessage('Wrong email or password!');
+      if (userCredential?.code === 400) {
+        setMessage(userCredential?.message || 'Wrong email or password!');
         setSeverity('error');
         setOpen(true);
         setLoading(false);
