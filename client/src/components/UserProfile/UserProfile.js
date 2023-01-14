@@ -18,6 +18,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AboutSection from '../ProfileSections/AboutSection';
 import DeleteAccountSection from '../ProfileSections/DeleteAccountSection';
+import AlertInfo from '../../components/AlertInfo/AlertInfo';
 import { createRef, uploadImage, downloadImage } from '../../lib/storage';
 import { verifyImage } from '../../lib/file-type';
 import { useAuth } from '../../contexts/authContext';
@@ -28,6 +29,9 @@ const UserProfile = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [image, setImage] = useState(null);
   const [userName, setUserName] = useState('');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [severity, setSeverity] = useState(null);
   const userImagesRef = createRef(`userImages/${user?.uid}`);
   const navigate = useNavigate();
 
@@ -42,7 +46,13 @@ const UserProfile = () => {
       const status = await verifyImage(imageFile);
 
       console.log(status);
-      if (status !== 'Ok' || !imageFile) return;
+      if (status !== 'Ok' || !imageFile) {
+        setMessage('Please upload a photo with the proper format!');
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
 
       await uploadImage(userImagesRef, imageFile);
       const img = await downloadImage(userImagesRef);
@@ -61,6 +71,9 @@ const UserProfile = () => {
       uid: user.uid,
       photoURL: imageUrl,
     });
+    setMessage('Succesfully updated avatar image!');
+    setSeverity('success');
+    setOpen(true);
     console.log(user?.photoURL);
   };
 
@@ -174,6 +187,12 @@ const UserProfile = () => {
           </Box>
         </Grid>
       </Grid>
+      <AlertInfo
+        open={open}
+        handleOpen={setOpen}
+        severity={severity}
+        message={message}
+      />
     </Card>
   );
 };
