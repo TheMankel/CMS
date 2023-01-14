@@ -13,8 +13,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAuth } from '../contexts/authContext';
-import axios from 'axios';
 import AlertInfo from '../components/AlertInfo/AlertInfo';
+import axios from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -69,8 +69,10 @@ const SignIn = () => {
         withCredentials: true,
       });
 
-      if (res?.data?.role === 'admin') navigate('/admin/dashboard');
-      else navigate('/');
+      setTimeout(() => {
+        if (res?.data?.role === 'admin') navigate('/admin/dashboard');
+        else navigate('/');
+      }, 250);
     } catch (err) {
       console.error(err);
     }
