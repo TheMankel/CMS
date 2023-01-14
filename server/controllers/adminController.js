@@ -531,10 +531,28 @@ const deleteCategory = async (req, res, next) => {
   try {
     const { id } = req.body;
 
-    const categoryRef = categoriesCollectionRef.doc(id);
+    const posts = await postsCollectionRef.get();
+
+    const updatedPosts = posts.docs.map((post) => {
+      const postData = post.data();
+      if (postData.category === id) {
+        return { ...postData, category: 'none' };
+      }
+      return postData;
+    });
+    console.log(updatedPosts);
+
+    updatedPosts.forEach(async (post) => {
+      if (!post.title) return;
+      const postTitle = post.title?.toLowerCase().replaceAll(' ', '-');
+      await postsCollectionRef.doc(postTitle).set(post);
+    });
+    const categoryId = id.toLowerCase().replaceAll(' ', '-');
+
+    const categoryRef = categoriesCollectionRef.doc(categoryId);
 
     await categoryRef.delete();
-    return res.status(200).json('Team member deleted!');
+    return res.status(200).json('Category deleted!');
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
