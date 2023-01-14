@@ -165,9 +165,7 @@ const Categories = () => {
         return;
       }
 
-      const categoryId = id.toLowerCase().replaceAll(' ', '-');
-
-      const data = { id: categoryId };
+      const data = { id: id };
       const res = await axios.post(
         'http://localhost:8000/api/delete-category',
         data,
@@ -180,7 +178,7 @@ const Categories = () => {
 
         return;
       }
-
+      const categoryId = id.toLowerCase().replaceAll(' ', '-');
       const categoryImageRef = createRef(`categoryImages/${categoryId}`);
       deleteImage(categoryImageRef);
     } catch (err) {
