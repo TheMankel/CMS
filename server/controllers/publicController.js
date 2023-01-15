@@ -61,6 +61,17 @@ const updateSubscribe = async (req, res, next) => {
   try {
     const { email } = req.body;
 
+    const subscriberRef = await subscriptionCollectionRef
+      .where('email', '==', email)
+      .get();
+
+    console.log(!subscriberRef.empty);
+
+    if (!subscriberRef.empty)
+      return res.json({
+        error: 'You are already a subscriber!',
+      });
+
     const date = new Date();
 
     const data = {
