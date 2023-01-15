@@ -18,7 +18,6 @@ const {
   categories,
   categoriesPosts,
   socials,
-  checkSubscribe,
 } = require('../controllers/publicController');
 
 router.get('/blog', blog);
@@ -36,7 +35,6 @@ router.get('/privacy-policy', privacyPolicy);
 router.get('/categories', categories);
 router.get('/posts/categories/:categoryId', categoriesPosts);
 router.get('/socials', socials);
-router.get('/checkSubscribe', checkSubscribe);
 router.post('/subscribe', updateSubscribe);
 
 module.exports = router;

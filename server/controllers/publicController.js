@@ -77,23 +77,6 @@ const updateSubscribe = async (req, res, next) => {
   }
 };
 
-const checkSubscribe = async (req, res, next) => {
-  try {
-    const subRef = await subscriptionCollectionRef.get();
-    const data = [];
-
-    subRef.forEach((sub) => {
-      data.push(sub.data().email);
-    });
-    console.log(data);
-
-    return res.status(200).json(data);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
-  }
-};
-
 const slider = async (req, res, next) => {
   try {
     const sliderRef = await blogCollectionRef
@@ -375,7 +358,6 @@ module.exports = {
   about,
   contact,
   updateSubscribe,
-  checkSubscribe,
   slider,
   allPosts,
   recentPost,
