@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Button from '@mui/material/Button';
@@ -6,12 +6,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import AlertInfo from '../AlertInfo/AlertInfo';
+import { getData } from '../../lib/api';
 
 const Subscribe = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [severity, setSeverity] = useState(null);
   const [email, setEmail] = useState('');
+  const [subscriber, setSubscriber] = useState([]);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -32,6 +34,13 @@ const Subscribe = () => {
       return;
     }
 
+    if (subscriber.some((sub) => sub === email)) {
+      setMessage('Email already exists');
+      setSeverity('error');
+      setOpen(true);
+      return;
+    }
+
     const data = {
       email: email,
     };
@@ -47,7 +56,13 @@ const Subscribe = () => {
     setSeverity('success');
     setOpen(true);
     setEmail('');
+    console.log(subscriber);
+    getData('checkSubscribe', setSubscriber);
   };
+
+  useEffect(() => {
+    getData('checkSubscribe', setSubscriber);
+  }, []);
 
   return (
     <List>
