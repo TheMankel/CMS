@@ -37,9 +37,22 @@ const Subscribe = () => {
     };
 
     try {
-      await axios.post('http://localhost:8000/api/subscribe', data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        'http://localhost:8000/api/subscribe',
+        data,
+        {
+          withCredentials: true,
+        },
+      );
+
+      console.log(res);
+      if (res.data?.error) {
+        setMessage(res.data?.error);
+        setSeverity('error');
+        setOpen(true);
+
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
