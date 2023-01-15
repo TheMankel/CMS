@@ -63,13 +63,13 @@ const AboutSection = (props) => {
         updateUserFullName(data.firstName, data.lastName);
         handleUserName(data.firstName + ' ' + data.lastName);
         setUserName(data.firstName + ' ' + data.lastName);
-        setOpen(false);
-        setMessage('Details changed!');
-        setSeverity('success');
-        setOpenAlert(true);
       } catch (err) {
         console.log(err);
       }
+      setOpen(false);
+      setMessage('Details changed!');
+      setSeverity('success');
+      setOpenAlert(true);
     }
 
     if (type === 'email') {
@@ -93,13 +93,13 @@ const AboutSection = (props) => {
 
         if (reAuth) updateUserEmail(data.newEmail);
         setEmail(data.newEmail);
-        setOpen(false);
-        setMessage('Email changed!');
-        setSeverity('success');
-        setOpenAlert(true);
       } catch (err) {
         console.log(err);
       }
+      setOpen(false);
+      setMessage('Email changed!');
+      setSeverity('success');
+      setOpenAlert(true);
     }
 
     if (type === 'password') {
@@ -134,13 +134,13 @@ const AboutSection = (props) => {
         console.log(reAuth);
 
         if (reAuth) updateUserPassword(data.newPassword);
-        setOpen(false);
-        setMessage('Password changed!');
-        setSeverity('success');
-        setOpenAlert(true);
       } catch (err) {
         console.log(err);
       }
+      setOpen(false);
+      setMessage('Password changed!');
+      setSeverity('success');
+      setOpenAlert(true);
     }
   };
 
@@ -230,7 +230,6 @@ const AboutSection = (props) => {
       <Typography gutterBottom variant='h4' component='div' fontSize={24}>
         User info
       </Typography>
-
       <Box my={2}>
         <Typography gutterBottom variant='h5' component='div' fontSize={16}>
           Your details

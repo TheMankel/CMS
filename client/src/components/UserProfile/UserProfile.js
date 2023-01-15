@@ -61,20 +61,25 @@ const UserProfile = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleImageChange = async (imageUrl) => {
-    console.log(imageUrl);
-    await updateUserPhoto(imageUrl);
-    setImage(imageUrl);
-    await axios.post('http://localhost:8000/api/update-user-photo', {
-      uid: user.uid,
-      photoURL: imageUrl,
-    });
     setMessage('Succesfully updated avatar image!');
     setSeverity('success');
     setOpen(true);
-    console.log(user?.photoURL);
+  };
+
+  const handleImageChange = async (imageUrl) => {
+    try {
+      await updateUserPhoto(imageUrl);
+      setImage(imageUrl);
+      await axios.post('http://localhost:8000/api/update-user-photo', {
+        uid: user.uid,
+        photoURL: imageUrl,
+      });
+    } catch (err) {
+      console.log(err);
+      setMessage('Something went wrong. Try again later!');
+      setSeverity('error');
+      setOpen(true);
+    }
   };
 
   const handleListItemClick = (i) => {
