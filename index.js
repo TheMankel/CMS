@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless = require('serverless-http');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -32,3 +33,6 @@ app.use('/api', publicRoutes);
 app.listen(port, () =>
   console.log(`Server is running on: http://localhost:${port}`),
 );
+
+module.exports = app;
+module.exports.handler = serverless(app);
