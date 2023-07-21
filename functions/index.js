@@ -3,10 +3,10 @@ const serverless = require('serverless-http');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const authRoutes = require('./routes/authRoute');
-const contactRoutes = require('./routes/contactRoute');
-const adminRoutes = require('./routes/adminRoute');
-const publicRoutes = require('./routes/publicRoute');
+const authRoutes = require('../routes/authRoute');
+const contactRoutes = require('../routes/contactRoute');
+const adminRoutes = require('../routes/adminRoute');
+const publicRoutes = require('../routes/publicRoute');
 
 require('dotenv').config();
 
