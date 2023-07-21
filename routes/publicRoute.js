@@ -20,6 +20,9 @@ const {
   socials,
 } = require('../controllers/publicController');
 
+router.get('/', (req, res) => {
+  res.send('App is running..');
+});
 router.get('/blog', blog);
 router.get('/about', about);
 router.get('/contact', contact);
