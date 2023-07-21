@@ -25,10 +25,10 @@ app.use(
     credentials: true,
   }),
 );
-app.use('/api', authRoutes);
-app.use('/api', contactRoutes);
-app.use('/api', adminRoutes);
-app.use('/api', publicRoutes);
+app.use('/.netlify/functions/api', authRoutes);
+app.use('/.netlify/functions/api', contactRoutes);
+app.use('/.netlify/functions/api', adminRoutes);
+app.use('/.netlify/functions/api', publicRoutes);
 
 app.listen(port, () =>
   console.log(`Server is running on: http://localhost:${port}`),
