@@ -15,7 +15,6 @@ const firebase = admin.initializeApp({
     auth_provider_x509_cert_url: process.env.AUTH_PROVIDER_X509_CERT_URL,
     client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
   }),
-  // credential: admin.credential.cert(process.env.SERVICE_ACCOUNT_KEY),
   databaseURL: process.env.DATABASE,
   storageBucket: process.env.STORAGE_BUCKET,
 });
